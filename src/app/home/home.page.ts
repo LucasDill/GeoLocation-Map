@@ -29,7 +29,7 @@ export class HomePage {
           this.location.lat = position.coords.latitude;
           this.location.lng = position.coords.longitude;
       });
-      /*Map options added to test*/
+      /*Map options added to test goof*/
       this.mapOptions = {
           center: this.location,
           zoom: 21,
