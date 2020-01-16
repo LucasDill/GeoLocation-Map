@@ -1,4 +1,4 @@
-import {Component, ElementRef, NgZone, ViewChild} from '@angular/core';
+import {Component, ElementRef, NgZone, ViewChild, asNativeElements} from '@angular/core';
 import { IonicPage } from "ionic-angular";
 import { NavController } from "ionic-angular";
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
@@ -7,6 +7,7 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import {Geolocation} from '@ionic-native/geolocation/ngx';
+import { GoogleMapsEvent } from 'google';
 declare var google: any;
 
 
@@ -79,7 +80,7 @@ export class HomePage {
           this.location.lat = position.coords.latitude;
           this.location.lng = position.coords.longitude;
       });
-      //Map options added to test goof
+      //Map options added to test
       this.mapOptions = {
           center: this.location,
           zoom: 21,
@@ -93,8 +94,9 @@ export class HomePage {
     
           center: { lat: 48.424889, lng: -89.270721 }
         });
+        
         // if a pin is placed, display it on the map
-        //this.addMarker(this.map);
+        this.addMarker(this.map);
         // if a route is calcualted, display it on the map
         directionsDisplay.setMap(this.map);
     
@@ -140,6 +142,7 @@ getData() {
 
 
 addEndLocation(name) {
+  console.log(name);
   // for loop to load in locations from imaging capable hospials that are clicked on, we can push to the array to clear previously stored distances and times
   for (var i = 0; i < displayEnd.length; i++) {
       displayEnd[i].setMap(null);
@@ -195,6 +198,7 @@ addEndLocation(name) {
 
 
 addMarker(map: any) {
+  console.log("here");
   // variable to hold chosen imaging capable hospital location
   var end;
   // variables to reference when loading DirectionsService/Renderer
@@ -203,6 +207,7 @@ addMarker(map: any) {
 
   // places pin at location of click on map
   map.addListener("click", function(e) {
+    console.log("here");
     placeMarker(e.latLng, map);
     // calls function to clear displayed routes
     clearEnd();

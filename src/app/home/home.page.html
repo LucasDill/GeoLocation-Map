@@ -40,7 +40,7 @@
   <!-- A section of the page with the id map set to take up 50% of the height automaticaly taking all of the width and calling the onMapClick function passing the $event which is the lat and lng of where was clicked -->
     
   
-  <div #Map id="map" style="height: 50%;" (mapClick)="onMapClick($event.value)"></div>
+  <div #Map class="map" style="height: 50%;" (mapClick)="onMapClick($event)"></div>
 
   <!--the section of the code that deals with the markers in an ion item list -->
     <div id="markers">
@@ -156,21 +156,21 @@
     </div><!-- end of the div for icons -->
           <h3 no-padding> Routes to Imaging Capable Hospital</h3><!-- a header displaying before the div with routes to hospital -->
           <div><!-- start of the routes to div -->
-             <ion-virtual-scroll scrollY="true" style="height:145px;" >
+             
                <!-- a scroll pannel with the hopitals available a height here needs to be specified but may cause issues with mobile applications as we do not want to need people to scroll down  -->
-            <ion-list radio-group  (ionChange)="addEndLocation($event)">
+            <ion-radio-group  (ionChange)="addEndLocation($event.detail.value)">
              <!-- the ion list which is a radio group meaning only one can be selected and calling the function addEndLocation(passing the value which is the end point for the route) -->
               <ion-item><!-- each item is a label with a radio element for the button  -->
                 <ion-label  style="font-size: 1em;">TBRHSC<p id="TBrad"></p></ion-label>
                 <!-- the label for the button font size needs to be specified because of the css and the time and distance will be output to the <p> -->
-                <ion-radio slot="lat" value="Thunder Bay Regional Health Science Centre"></ion-radio>
+                <ion-radio slot="end" value="Thunder Bay Regional Health Science Centre"></ion-radio>
                 <!-- the ion radio amount with the value needing to be specified for the spelling for the end location needed to calculate and display the route -->
               <!-- the above comments are the same for all following locations  -->
               </ion-item>
   
               <ion-item>
                 <ion-label style="font-size: 1em;">Dryden<p id="Drad"></p></ion-label>
-                <ion-radio slot="lat" value="Dryden Regional Health Centre"></ion-radio>
+                <ion-radio slot="end" value="Dryden Regional Health Centre"></ion-radio>
               </ion-item>
   
               <ion-item>
@@ -185,11 +185,11 @@
   
               <ion-item>
                 <ion-label style="font-size: 1em;">Sioux Lookout<p id="Srad"></p></ion-label>
-                <ion-radio slot="lat" value="Sioux Lookout Meno Ya Win Health Centre"></ion-radio>
+                <ion-radio slot="end" value="Sioux Lookout Meno Ya Win Health Centre"></ion-radio>
               </ion-item>
               
-            </ion-list><!-- end of the list -->
-            </ion-virtual-scroll> <!-- end of the scroll -->
+            </ion-radio-group><!-- end of the list -->
+            
           </div>
      <br><!-- a vertical space -->
      
