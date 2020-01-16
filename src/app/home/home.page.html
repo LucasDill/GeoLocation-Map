@@ -40,13 +40,13 @@
   <!-- A section of the page with the id map set to take up 50% of the height automaticaly taking all of the width and calling the onMapClick function passing the $event which is the lat and lng of where was clicked -->
     
   
-  <div #Map id="map" style="height: 50%;" (mapClick)="onMapClick($event)"></div>
+  <div #Map id="map" style="height: 50%;" (mapClick)="onMapClick($event.value)"></div>
 
   <!--the section of the code that deals with the markers in an ion item list -->
     <div id="markers">
       <ion-item><!-- an ionic element that contains the dropdown with the selections for icons -->
         <ion-label style="font-size: 1em;">Add Markers</ion-label><!-- The label present in the menue -->
-        <ion-select multiple="true" interface="alert" (ionChange)="AddMapMarkers($event)">
+        <ion-select multiple="true" interface="alert" (ionChange)="AddMapMarkers($event.detail.value)">
           <!-- the ionic element that creates the dropdown menue with multiple allowed to be seleced and the alert interface others are available but not in this case whenever the values change and ok is pressed it will call the AddMapMarkers function passing the values of the selected markers -->
           <ion-select-option [value]="1">
             <ion-label>Hospital Markers</ion-label>
@@ -78,12 +78,12 @@
     </div>
   
     <div id="Legend"><!-- the part of the page containing the labels for the legend with the images of the icons -->
-      <ion-grid no-padding >
+      <ion-grid  >
         <!-- an ion grid which organizes the icons into a grid like pattern with no pading -->
-        <ion-row no-padding class="ion-justify-content-start">
+        <ion-row  class="ion-justify-content-start">
           <!-- a row if the grid with the items justified to the start rows will contain columns -->
   
-          <ion-col col-3 no-padding>
+          <ion-col col-3 g>
             <!-- a column in the row col-3 means it will take 1/4 as an ion-row is seperated into 12 columns this will be the same for all following columns -->
             <ion-item>
               <!-- an item made up of a thumbnail with an image with a specified height and width with the source being an image on the internet and the label being displayed next to it this will be the same for all items in the grid  -->
@@ -93,7 +93,7 @@
                 <ion-label >Regional Stroke Center</ion-label>
             </ion-item><!-- end of the item  -->
           </ion-col>
-          <ion-col col-3 no-padding>
+          <ion-col col-3 >
             <ion-item>
               <ion-thumbnail no-margin item-left>
                 <img src="https://f-scope.net/images/health-services-png-1.png" height='30' width="30">
