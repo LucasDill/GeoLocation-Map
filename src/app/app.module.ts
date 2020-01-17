@@ -1,16 +1,27 @@
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
-
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { Page2Page } from '../pages/page2/page2';
+import { Page3Page } from '../pages/page3/page3';
+import { Page4Page } from '../pages/page4/page4';
+import { Page3APage } from '../pages/page3a/page3a';
+import { Page3BPage } from '../pages/page3b/page3b';
+
+
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    Page2Page,
+    Page3Page,
+    Page4Page,
+    Page3APage,
+    Page3BPage
   ],
   imports: [
     BrowserModule,
@@ -19,7 +30,12 @@ import { HomePage } from '../pages/home/home';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    Page2Page,
+    Page3Page,
+    Page4Page,
+    Page3APage,
+    Page3BPage
   ],
   providers: [
     StatusBar,

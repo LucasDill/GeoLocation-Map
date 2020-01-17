@@ -1,23 +1,19 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Page2Page } from '../page2/page2';
 import { Page3Page } from '../page3/page3';
 import { Page4Page } from '../page4/page4';
 import { Page3APage } from '../page3a/page3a';
 import { Page3BPage } from '../page3b/page3b';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-page2',
+  templateUrl: 'page2.html'
 })
-export class HomePage {
+export class Page2Page {
 
   constructor(public navCtrl: NavController) {
   }
-  goToPage2(params){
-    if (!params) params = {};
-    this.navCtrl.push(Page2Page);
-  }goToPage3(params){
+  goToPage3(params){
     if (!params) params = {};
     this.navCtrl.push(Page3Page);
   }goToPage4(params){
