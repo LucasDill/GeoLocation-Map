@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Page3BPage } from '../page3b/page3b';
+import { MapPage } from '../map/map';
 
 @Component({
-  selector: 'page-page3a',
-  templateUrl: 'page3a.html'
+  selector: 'page-treatment',
+  templateUrl: 'treatment.html'
 })
-export class Page3APage {
+export class TreatmentPage {
 
   constructor(public navCtrl: NavController) {
   }
-  goToPage3B(params){
+  goToMap(params){
     if (!params) params = {};
-    this.navCtrl.push(Page3BPage);
+    this.navCtrl.push(MapPage);
   }
 }

@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 
 
-import { HomePage } from '../pages/home/home';
+import { PatientLocationPage } from '../pages/patient-location/patient-location';
 
 
 
@@ -14,7 +14,7 @@ import { HomePage } from '../pages/home/home';
 })
 export class MyApp {
 
-    rootPage:any = HomePage;
+    rootPage:any = PatientLocationPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

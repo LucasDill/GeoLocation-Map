@@ -2,12 +2,13 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { Page2Page } from '../pages/page2/page2';
-import { Page3Page } from '../pages/page3/page3';
-import { Page4Page } from '../pages/page4/page4';
-import { Page3APage } from '../pages/page3a/page3a';
-import { Page3BPage } from '../pages/page3b/page3b';
+import { PatientLocationPage } from '../pages/patient-location/patient-location';
+import { LastKnownWellPage } from '../pages/last-known-well/last-known-well';
+import { ImagingRequiredPage } from '../pages/imaging-required/imaging-required';
+import { TreatmentPage } from '../pages/treatment/treatment';
+import { TelestrokeSitePage } from '../pages/telestroke-site/telestroke-site';
+import { AdvancedImagingPage } from '../pages/advanced-imaging/advanced-imaging';
+import { MapPage } from '../pages/map/map';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -16,12 +17,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    Page2Page,
-    Page3Page,
-    Page4Page,
-    Page3APage,
-    Page3BPage
+    PatientLocationPage,
+    LastKnownWellPage,
+    ImagingRequiredPage,
+    TreatmentPage,
+    TelestrokeSitePage,
+    AdvancedImagingPage,
+    MapPage
   ],
   imports: [
     BrowserModule,
@@ -30,12 +32,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    Page2Page,
-    Page3Page,
-    Page4Page,
-    Page3APage,
-    Page3BPage
+    PatientLocationPage,
+    LastKnownWellPage,
+    ImagingRequiredPage,
+    TreatmentPage,
+    TelestrokeSitePage,
+    AdvancedImagingPage,
+    MapPage
   ],
   providers: [
     StatusBar,
