@@ -9,10 +9,22 @@
   <h3 id="lastKnownWell-heading5" style="color:#000000;font-weight:400;">
     What time patient was last known well?
   </h3>
-  <form id="lastKnownWell-form8">
-    <ion-item id="lastKnownWell-input4">
-      <ion-label></ion-label>
-      <ion-input type="text" placeholder="Number of hours"></ion-input>
+  <form id="lastKnownWell-form8" [formGroup]="timeForm"><!--The last known well in hour format-->
+    <ion-item id="lastKnownWellTime">
+      <ion-label>Last Known Well Hour Format</ion-label>
+      <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" required formControlName="time1"></ion-datetime>
+    </ion-item>
+    <ion-item id="LastKnownWellTime"><!--The last known well in numeric with hours and minutes seperate -->
+      <ion-label>Time of Last Known Well</ion-label>
+      <ion-input type="time" required formControlName="timeHTML"></ion-input>    
+    </ion-item>
+    <ion-item id="LastKnownWellMins">
+      <ion-label>Hours</ion-label>
+      <ion-input inputmode="numeric" required min="0" formControlName="Hours"></ion-input>    
+    </ion-item>
+    <ion-item id="LastKnownWellMins">
+      <ion-label>Minutes</ion-label>
+      <ion-input inputmode="numeric" required min="0" max="60" formControlName=></ion-input>    
     </ion-item>
   </form>
   <div class="spacer" style="height:100px;" id="lastKnownWell-spacer7"></div>
