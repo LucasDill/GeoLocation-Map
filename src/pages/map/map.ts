@@ -55,7 +55,7 @@ export class MapPage {
   // define variable to hold information from Firebase database
   public hospital: AngularFireList<any>;
   // makes Google Maps API visible
-    @ViewChild('Map',{static: false}) mapElement: ElementRef;
+    @ViewChild('Map') mapElement: ElementRef;
     map: any;
     mapOptions: any;
     location = {lat: null, lng: null};
