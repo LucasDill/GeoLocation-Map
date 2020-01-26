@@ -23,6 +23,7 @@ timeForm =new FormGroup({
 }
 SubmitTime(){
   console.warn(this.timeForm.value);
+  this.navCtrl.push(ImagingRequiredPage);
 }
   
 }
