@@ -1,7 +1,201 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Map
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<style>/* style for document elements mostly to reduce the size of the icons 
+  // this is all written in css and references items in the html*/
+  
+    /* sets the size of the text for labels*/ 
+  ion-label{
+    font-size: .7em;
+  }
+  /* sets the size of the icons with a relative position may need to change to fit different screen size in the future*/ 
+    .item ion-thumbnail {
+      position: relative;
+      min-height: 20px;
+      max-height: 20px;
+      min-width: 20px;
+      max-width: 20px;
+    }
+  
+    /* changes the position of the image after it has been resized so it is present in the middle of the block */
+    .item ion-thumbnail img {
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      height: 100%;
+      width: auto;
+      -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(0%, -50%);
+      transform: translate(-50%, -50%);
+    }
+  
+    /*end of the style */
+  </style>
+  <ion-header><!-- sets the header for the page with -->
+    
+      <ion-title>Geo Mapping for Stroke Patients</ion-title><!-- the title of the page -->
+   
+  </ion-header>
+  <ion-content>
+  <!-- A section of the page with the id map set to take up 50% of the height automaticaly taking all of the width and calling the onMapClick function passing the $event which is the lat and lng of where was clicked -->
+    
+  
+  <div #Map class="map" style="height: 50%;" (mapClick)="onMapClick($event)"></div>
+
+  <!--the section of the code that deals with the markers in an ion item list -->
+    <div id="markers">
+      <ion-item><!-- an ionic element that contains the dropdown with the selections for icons -->
+        <ion-label style="font-size: 1em;">Add Markers</ion-label><!-- The label present in the menue -->
+        <ion-select multiple="true" interface="alert" (ionChange)="AddMapMarkers($event)">
+          <!-- the ionic element that creates the dropdown menue with multiple allowed to be seleced and the alert interface others are available but not in this case whenever the values change and ok is pressed it will call the AddMapMarkers function passing the values of the selected markers -->
+          <ion-option [value]="1">
+            <ion-label>Hospital Markers</ion-label>
+          </ion-option>
+          <!-- each ion-option has a value and a label showing which markers will be added and their values which will be passed to the end this is the same for all following ion-select-options -->
+          <ion-option [value]="2" >
+            <ion-label>TeleStroke Markers</ion-label>
+            <ion-checkbox ></ion-checkbox>
+          </ion-option>
+          <ion-option [value]="3">
+            <ion-label>Health Service Markers</ion-label>
+          </ion-option>
+          <ion-option [value]="4">
+            <ion-label>Helipad Markers</ion-label>
+          </ion-option>
+          <ion-option [value]="5">
+            <ion-label>AirPort Markers</ion-label>
+            <ion-checkbox></ion-checkbox>
+          </ion-option>
+          <ion-option [value]="6">
+            <ion-label>Ambulance Base Markers</ion-label>
+          </ion-option>
+          <ion-option [value]="7">
+            <ion-label>ORNGE Base Markers</ion-label>
+          </ion-option>
+        </ion-select>
+      </ion-item>
+  
+    </div>
+  
+    <div id="Legend"><!-- the part of the page containing the labels for the legend with the images of the icons -->
+      <ion-grid  >
+        <!-- an ion grid which organizes the icons into a grid like pattern with no pading -->
+        <ion-row  class="ion-justify-content-start">
+          <!-- a row if the grid with the items justified to the start rows will contain columns -->
+  
+          <ion-col col-3 g>
+            <!-- a column in the row col-3 means it will take 1/4 as an ion-row is seperated into 12 columns this will be the same for all following columns -->
+            <ion-item>
+              <!-- an item made up of a thumbnail with an image with a specified height and width with the source being an image on the internet and the label being displayed next to it this will be the same for all items in the grid  -->
+              <ion-thumbnail no-margin item-left>
+                <img src="https://www.pinclipart.com/picdir/middle/150-1503142_greek-mythology-medusa-symbol-clipart.png" height='30' width="30">
+                  </ion-thumbnail>
+                <ion-label >Regional Stroke Center</ion-label>
+            </ion-item><!-- end of the item  -->
+          </ion-col>
+          <ion-col col-3 >
+            <ion-item>
+              <ion-thumbnail no-margin item-left>
+                <img src="https://f-scope.net/images/health-services-png-1.png" height='30' width="30">
+                  </ion-thumbnail>
+                <ion-label >Health Services</ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col col-3 no-padding>
+            <ion-item class="item-thumbnail-left item-text-wrap" item-left>
+              <ion-thumbnail no-margin item-left>
+                <img img-wrap src="https://287x912zvqyps9a1m2sjek0l-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/Hospital-Symbol.png">
+                  </ion-thumbnail>
+                <ion-label>Hospitals</ion-label>
+            </ion-item>
+          </ion-col >
+          <ion-col col-3 no-padding>
+            <ion-item>
+          <ion-thumbnail item-left>
+            <img src="https://cdn0.iconfinder.com/data/icons/medical-line-vol-2/56/helipad__landing__helicopter__emergency__fly-512.png" height='30' width="30">
+                  </ion-thumbnail>
+            <ion-label >Helepad</ion-label>
+        </ion-item>
+          </ion-col>
+        </ion-row><!-- and of the row to keep it to 4 columns in each row -->
+        <ion-row no-padding><!-- start of a new row of 4 columns -->
+          <ion-col col-3 no-padding>
+          <ion-item>
+            <ion-thumbnail no-margin item-left>
+              <img no-margin src="https://images.vexels.com/media/users/3/128926/isolated/preview/c60c97eba10a56280114b19063d04655-plane-airport-round-icon-by-vexels.png" height='30' width="30">
+                  </ion-thumbnail>
+              <ion-label >Airport</ion-label>
+          </ion-item>
+          </ion-col>
+        <ion-col col-3 no-padding>
+        <ion-item>
+                  <ion-thumbnail no-margin item-left>
+                <img src="https://www.freeiconspng.com/uploads/letter-t-icon-png-18.png" height="20" width="20">
+                  </ion-thumbnail>
+                <ion-label >Telestroke Sites</ion-label>
+            </ion-item>
+        </ion-col>
+  <ion-col col-3 no-padding>
+        <ion-item>
+          <ion-thumbnail item-left>
+            <img src="https://cdn.imgbin.com/11/7/2/imgbin-car-alarm-vehicle-computer-icons-truck-car-QhcxwW7Bm783X59tkTYw9HMYd.jpg" height='30' width="30">
+                  </ion-thumbnail>
+            <ion-label >Ambulance Base</ion-label>
+        </ion-item>
+  </ion-col>
+  <ion-col col-3 no-padding>
+        <ion-item>
+          <ion-thumbnail item-left>
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/Ornge_Logo.svg/1200px-Ornge_Logo.svg.png" height='30' width="30">
+                  </ion-thumbnail>
+            <ion-label >ORNGE Base</ion-label>
+        </ion-item>
+        </ion-col>
+        </ion-row>
+      </ion-grid><!-- end of the grid display -->
+    </div><!-- end of the div for icons -->
+          <h3 no-padding> Routes to Imaging Capable Hospital</h3><!-- a header displaying before the div with routes to hospital -->
+          <div><!-- start of the routes to div -->
+             
+               <!-- a scroll pannel with the hopitals available a height here needs to be specified but may cause issues with mobile applications as we do not want to need people to scroll down  -->
+            <ion-list radio-group  (ionChange)="addEndLocation($event)">
+             <!-- the ion list which is a radio group meaning only one can be selected and calling the function addEndLocation(passing the value which is the end point for the route) -->
+              <ion-item><!-- each item is a label with a radio element for the button  -->
+                <ion-label  style="font-size: 1em;">TBRHSC<p id="TBrad"></p></ion-label>
+                <!-- the label for the button font size needs to be specified because of the css and the time and distance will be output to the <p> -->
+                <ion-radio slot="end" value="Thunder Bay Regional Health Science Centre"></ion-radio>
+                <!-- the ion radio amount with the value needing to be specified for the spelling for the end location needed to calculate and display the route -->
+              <!-- the above comments are the same for all following locations  -->
+              </ion-item>
+  
+              <ion-item>
+                <ion-label style="font-size: 1em;">Dryden<p id="Drad"></p></ion-label>
+                <ion-radio slot="end" value="Dryden Regional Health Centre"></ion-radio>
+              </ion-item>
+  
+              <ion-item>
+                <ion-label style="font-size: 1em;">Fort Frances<p id="Frad"></p></ion-label>
+                <ion-radio slot="end" value="Riverside Health Care Facilities"></ion-radio>
+              </ion-item>
+  
+              <ion-item>
+                <ion-label style="font-size: 1em;">Kenora<p id="Krad"></p></ion-label>
+                <ion-radio slot="end" value="Lake of the Woods District Hospital"></ion-radio>
+              </ion-item>
+  
+              <ion-item>
+                <ion-label style="font-size: 1em;">Sioux Lookout<p id="Srad"></p></ion-label>
+                <ion-radio slot="end" value="Sioux Lookout Meno Ya Win Health Centre"></ion-radio>
+              </ion-item>
+              
+            </ion-list><!-- end of the list -->
+            
+          </div>
+     <br><!-- a vertical space -->
+     
+  
+    <p id="display"></p><!-- former paragraph of text used to display errors will get rid of once about.ts is changed-->
+  </ion-content><!-- the end of the content in the page -->
+  
+  
+  <!--<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2GRIwOatzPmiamkpv3znVK8hi9g4lGoU">
+    </script>-->
