@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ImagingRequiredPage } from '../imaging-required/imaging-required';
+import { FormGroup, FormBuilder, Validators } from "@angular/forms"
 
 @Component({
   selector: 'page-last-known-well',
@@ -14,4 +15,6 @@ export class LastKnownWellPage {
   if (!params) params = {};
     this.navCtrl.push(ImagingRequiredPage);
   }
+
+  
 }
