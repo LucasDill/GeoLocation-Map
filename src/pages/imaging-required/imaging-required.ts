@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController,NavParams } from 'ionic-angular';
 import { TreatmentPage } from '../treatment/treatment';
 import { MapPage } from '../map/map';
 import { TelestrokeSitePage } from '../telestroke-site/telestroke-site';
 import { AdvancedImagingPage } from '../advanced-imaging/advanced-imaging';
+import { LastKnownWellPage } from '../last-known-well/last-known-well';
 
 @Component({
   selector: 'page-imaging-required',
@@ -11,7 +12,11 @@ import { AdvancedImagingPage } from '../advanced-imaging/advanced-imaging';
 })
 export class ImagingRequiredPage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public navParams:NavParams) {
+  }
+  ionViewDidLoad()
+  {
+    console.log(this.navParams.get('time1'));
   }
   goToTreatment(params){
     if (!params) params = {};

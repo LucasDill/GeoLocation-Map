@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ImagingRequiredPage } from '../imaging-required/imaging-required';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms"
-import { formControlBinding } from '@angular/forms/src/directives/ng_model';
+
 
 @Component({
   selector: 'page-last-known-well',
   templateUrl: 'last-known-well.html'
 })
 export class LastKnownWellPage {
+  public timeLeft;
 timeForm =new FormGroup({
   time1: new FormControl('',Validators.required),
   timeHTML: new FormControl('',Validators.required),
@@ -22,8 +23,14 @@ timeForm =new FormGroup({
     this.navCtrl.push(ImagingRequiredPage);
 }
 SubmitTime(){
-  console.warn(this.timeForm.value);
-  this.navCtrl.push(ImagingRequiredPage);
+  let data={
+    time1:this.timeForm.value.time1,
+    timeHTML:this.timeForm.value.timeHTML,
+    Hours: this.timeForm.value.Hours,
+    Minutes: this.timeForm.value.Mins,
+  }
+  console.log(this.timeForm.value);
+  this.navCtrl.push(ImagingRequiredPage,data);
 }
   
 }
