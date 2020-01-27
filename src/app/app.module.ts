@@ -9,7 +9,7 @@ import { TreatmentPage } from '../pages/treatment/treatment';
 import { TelestrokeSitePage } from '../pages/telestroke-site/telestroke-site';
 import { AdvancedImagingPage } from '../pages/advanced-imaging/advanced-imaging';
 import { MapPage } from '../pages/map/map';
-
+import { ComponentsTimerComponent } from '../components/components-timer/components-timer';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -18,6 +18,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { from } from 'rxjs/observable/from';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     TreatmentPage,
     TelestrokeSitePage,
     AdvancedImagingPage,
-    MapPage
+    MapPage,
+    ComponentsTimerComponent
   ],
   imports: [
     BrowserModule,
