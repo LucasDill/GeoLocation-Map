@@ -13,6 +13,7 @@ import { LastKnownWellPage } from '../last-known-well/last-known-well';
 export class ImagingRequiredPage {
 
   constructor(public navCtrl: NavController, public navParams:NavParams) {
+    
   }
   ionViewDidLoad()
   {
@@ -31,4 +32,15 @@ export class ImagingRequiredPage {
     if (!params) params = {};
     this.navCtrl.push(AdvancedImagingPage);
   }
+   // Update the count down every 1 second
+    x = setInterval(function () {
+
+    // Get todays date and time
+    let now = new Date().getTime();
+    // Output the result in an element with id="demo"
+    document.getElementById("demo").innerHTML = ""+now;
+
+    // If the count down is over, write some text 
+  }, 1000);
+ 
 }
