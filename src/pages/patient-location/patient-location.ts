@@ -3,7 +3,6 @@ import { NavController } from 'ionic-angular';
 import { LastKnownWellPage } from '../last-known-well/last-known-well';
 
 import { GeolocationOptions, Geoposition } from '@ionic-native/geolocation/ngx';
-
 import { NgZone, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {FormControl} from "@angular/forms";
 import { MapsAPILoader } from '@agm/core';
@@ -12,7 +11,6 @@ import { MapsAPILoader } from '@agm/core';
   selector: 'page-patient-location',
   templateUrl: 'patient-location.html'
 })
-
 export class PatientLocationPage {
 
   public latitude: number;
