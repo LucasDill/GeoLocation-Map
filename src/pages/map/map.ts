@@ -61,19 +61,11 @@ export class MapPage {
     location = {lat: null, lng: null};
     markerOptions: any = {position: null, map: null, title: null};
     marker: any;
-    apiKey: any = 'AIzaSyC2GRIwOatzPmiamkpv3znVK8hi9g4lGoU'; /*Your API Key*/
+    
   constructor(public zone: NgZone, public geolocation: Geolocation, public navCtrl: NavController,
     public DataBase: AngularFireDatabase) {
     /*load google map script dynamically */
-      const script = document.createElement('script');
-      script.id = 'googleMap';
-      if (this.apiKey) {
-          script.src = 'https://maps.googleapis.com/maps/api/js?key=' + this.apiKey;
-      } else {
-          script.src = 'https://maps.googleapis.com/maps/api/js?key=';
-      }
-      document.head.appendChild(script);
-
+      
       setTimeout(() => {
         directionsService = new google.maps.DirectionsService();
         directionsDisplay = new google.maps.DirectionsRenderer();
