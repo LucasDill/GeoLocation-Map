@@ -18,7 +18,7 @@ export class PatientLocationPage {
   public searchControl: FormControl;
   public zoom: number;
 
-  @ViewChild("search")
+  @ViewChild("search", {static: false})
   public searchElementRef;
   
   
