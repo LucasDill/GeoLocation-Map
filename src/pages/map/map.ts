@@ -55,7 +55,7 @@ export class MapPage {
   // define variable to hold information from Firebase database
   public hospital: AngularFireList<any>;
   // makes Google Maps API visible
-    @ViewChild('Map', {static:false}) mapElement: ElementRef;
+    @ViewChild('Map') mapElement: ElementRef;
     map: any;
     mapOptions: any;
     location = {lat: null, lng: null};
@@ -646,14 +646,14 @@ AddHospitals() {
       // get hospital icon from website
       var icon = {
         url:
-          "https://287x912zvqyps9a1m2sjek0l-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/Hospital-Symbol.png",
+          "./assets/imgs/hospital.png",
         // define size to work with our UI
         scaledSize: new google.maps.Size(30, 30)
       };
       // get special icon for TBRHSC from website
       var icon2 = {
         url:
-          "https://www.pinclipart.com/picdir/middle/150-1503142_greek-mythology-medusa-symbol-clipart.png",
+          "./assets/imgs/TBRHSC.png",
         scaledSize: new google.maps.Size(30, 30)
       };
 
@@ -717,7 +717,7 @@ AddTele() {
       this.items = data;
 
       var icon = {
-        url: "https://www.freeiconspng.com/uploads/letter-t-icon-png-18.png",
+        url: "./assets/imgs/telestroke.png",
         scaledSize: new google.maps.Size(25, 25)
       };
 
@@ -753,7 +753,7 @@ AddHealthService() {
       this.items = data;
 
       var icon = {
-        url: "https://f-scope.net/images/health-services-png-1.png",
+        url: "./assets/imgs/healthservices.png",
         scaledSize: new google.maps.Size(25, 25)
       };
 
@@ -795,7 +795,7 @@ AddHele() {
 
       var icon = {
         url:
-          "https://cdn0.iconfinder.com/data/icons/medical-line-vol-2/56/helipad__landing__helicopter__emergency__fly-512.png",
+          "./assets/imgs/helipad.png",
         scaledSize: new google.maps.Size(25, 25)
       };
 
@@ -835,7 +835,7 @@ AddAirport() {
 
       var icon = {
         url:
-          "https://images.vexels.com/media/users/3/128926/isolated/preview/c60c97eba10a56280114b19063d04655-plane-airport-round-icon-by-vexels.png",
+          "./assets/imgs/airport.png",
         scaledSize: new google.maps.Size(25, 25)
       };
 
@@ -875,7 +875,7 @@ AddAmbBase() {
 
       var icon = {
         url:
-          "https://cdn.imgbin.com/11/7/2/imgbin-car-alarm-vehicle-computer-icons-truck-car-QhcxwW7Bm783X59tkTYw9HMYd.jpg",
+          "./assets/imgs/ambulance.png",
         scaledSize: new google.maps.Size(26, 20)
       };
 
@@ -913,7 +913,7 @@ AddORNGE() {
 
       var icon = {
         url:
-          "https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/Ornge_Logo.svg/1200px-Ornge_Logo.svg.png",
+          "./assets/imgs/ornge.png",
         scaledSize: new google.maps.Size(25, 25)
       };
 
