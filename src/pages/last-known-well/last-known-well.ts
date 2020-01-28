@@ -24,7 +24,7 @@ timeForm =new FormGroup({
 SubmitTime(params){
   console.warn(this.timeForm.value);
   if (!params) params = {};
-    this.navCtrl.push(ImagingRequiredPage);
+    this.navCtrl.push(ImagingRequiredPage,this.timeForm.value);
 }
   
 }

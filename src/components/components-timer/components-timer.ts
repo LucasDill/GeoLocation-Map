@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, EventEmitter } from '@angular/core';
 
 /**
  * Generated class for the ComponentsTimerComponent component.
@@ -11,12 +11,21 @@ import { Component } from '@angular/core';
   templateUrl: 'components-timer.html'
 })
 export class ComponentsTimerComponent {
+@Input('Time') TimePassed;
 
+time:any;
   text: string;
 
   constructor() {
-    console.log('Hello ComponentsTimerComponent Component');
+    this.time=this.TimePassed;
+    console.log(this.time);
     this.text = 'Hello World';
+    
+  }
+  ngAfterViewInit(){
+    this.time=this.TimePassed;
+    console.log("ngOnview")
+    console.log(this.time);
   }
 
 }
