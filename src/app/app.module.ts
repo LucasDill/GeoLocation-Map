@@ -19,6 +19,7 @@ import { AgmCoreModule } from '@agm/core';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { from } from 'rxjs/observable/from';
+import { DataServiceProvider } from '../providers/data-service/data-service';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { from } from 'rxjs/observable/from';
     StatusBar,
     SplashScreen,
     Geolocation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    DataServiceProvider
   ]
 })
 export class AppModule {}

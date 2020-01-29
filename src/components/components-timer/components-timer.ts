@@ -1,5 +1,5 @@
 import { Component, Input, EventEmitter } from '@angular/core';
-
+import { DataServiceProvider } from '../../providers/data-service/data-service';
 /**
  * Generated class for the ComponentsTimerComponent component.
  *
@@ -13,18 +13,12 @@ import { Component, Input, EventEmitter } from '@angular/core';
 export class ComponentsTimerComponent {
 @Input('Time') TimePassed;
 
-time:any;
+  time:any;
   text: string;
 
-  constructor() {
-    this.time=this.TimePassed;
-    console.log(this.time);
+  constructor(public Data: DataServiceProvider) {
     this.text = 'Hello World';
-    
-  }
-  ngAfterViewInit(){
-    this.time=this.TimePassed;
-    console.log("ngOnview")
+    this.time=this.Data.time;
     console.log(this.time);
   }
 
