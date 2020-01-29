@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { ImagingRequiredPage } from '../imaging-required/imaging-required';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms"
 import { formControlBinding } from '@angular/forms/src/directives/ng_model';
@@ -15,8 +15,14 @@ timeForm =new FormGroup({
   Hours: new FormControl('',Validators.required),
   Mins: new FormControl('',[Validators.required,Validators.pattern("^[0-9]*$"),Validators.min(0),Validators.max(60)]),
 });
-  constructor(public navCtrl: NavController, public formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, public formBuilder: FormBuilder, public navParams: NavParams) {
   }
+  ionViewDidLoad()
+  {
+    console.log(this.navParams.get('lat'));
+    console.log(this.navParams.get('long'));
+  }
+
   goToImagingRequired(params){
   if (!params) params = {};
     this.navCtrl.push(ImagingRequiredPage);

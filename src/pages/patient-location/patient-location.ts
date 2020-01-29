@@ -18,6 +18,9 @@ export class PatientLocationPage {
   public searchControl: FormControl;
   public zoom: number;
 
+  public selected_lat: number;
+  public selected_long: number;
+
   @ViewChild("search")
   public searchElementRef;
   
@@ -62,14 +65,14 @@ export class PatientLocationPage {
                 //set latitude, longitude and zoom
                 this.latitude = place.geometry.location.lat();
                 this.longitude = place.geometry.location.lng();
+                this.selected_lat = this.latitude;
+                this.selected_long = this.longitude;
                 this.zoom = 12;
             });
+            
         });
     });
 }
-
-
-
 
 private setCurrentPosition() {
   if ("geolocation" in navigator) {
@@ -87,7 +90,16 @@ private setCurrentPosition() {
 
 
   goToLastKnownWell(params){
+
+    let data={
+      lat: this.selected_lat,
+      long: this.selected_long
+    }
+
     if (!params) params = {};
-    this.navCtrl.push(LastKnownWellPage);
+    this.navCtrl.push(LastKnownWellPage, data);
   }
+
+  
+
 }

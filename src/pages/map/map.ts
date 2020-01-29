@@ -338,7 +338,7 @@ addMarker(map: any) {
           var dist = response.routes[0].legs[0].distance.text;
           var time = response.routes[0].legs[0].duration.text;
         } else {
-          window.alert("Directions request failed due to " + status);
+          //window.alert("Directions request failed due to " + status);
         }
         displayEnd.push(directionsDisplay);
                 google.maps.event.addListener(
@@ -384,7 +384,7 @@ addMarker(map: any) {
           var dist = response.routes[0].legs[0].distance.text;
           var time = response.routes[0].legs[0].duration.text;
         } else {
-          window.alert("Directions request failed due to " + status);
+          //window.alert("Directions request failed due to " + status);
         }
         displayEnd.push(directionsDisplay);
                 google.maps.event.addListener(
@@ -407,7 +407,7 @@ addMarker(map: any) {
           var dist = response.routes[0].legs[0].distance.text;
           var time = response.routes[0].legs[0].duration.text;
         } else {
-          window.alert("Directions request failed due to " + status);
+          //window.alert("Directions request failed due to " + status);
         }
         displayEnd.push(directionsDisplay);
                 google.maps.event.addListener(
@@ -470,7 +470,7 @@ addMarker(map: any) {
           document.getElementById("TBrad").innerHTML +=
             "<b>Time:</b>" + time + "        <b> Distance:</b>" + dist;
         } else {
-          window.alert("Directions request failed due to " + status);
+          //window.alert("Directions request failed due to " + status);
         }
       }
     );
@@ -497,7 +497,7 @@ addMarker(map: any) {
           document.getElementById("Drad").innerHTML +=
             "<b>Time:</b>" + time + "        <b> Distance:</b>" + dist;
         } else {
-          window.alert("Directions request failed due to " + status);
+          //window.alert("Directions request failed due to " + status);
         }
       }
     );
@@ -525,7 +525,7 @@ addMarker(map: any) {
             "<b>Time:</b>" + time + "        <b> Distance:</b>" + dist;
           console.log(routes);
         } else {
-          window.alert("Directions request failed due to " + status);
+          //window.alert("Directions request failed due to " + status);
         }
       }
     );
@@ -552,7 +552,7 @@ addMarker(map: any) {
           document.getElementById("Krad").innerHTML +=
             "<b>Time:</b>" + time + "        <b> Distance:</b>" + dist;
         } else {
-          window.alert("Directions request failed due to " + status);
+          //window.alert("Directions request failed due to " + status);
         }
       }
     );
