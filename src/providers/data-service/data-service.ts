@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class DataServiceProvider {
   time: any;
+  CurrentTime: any;
   constructor() {
     console.log('Hello DataServiceProvider Provider');
   }
