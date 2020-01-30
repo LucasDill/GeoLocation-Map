@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AnyTxtRecord } from 'dns';
 
 /*
   Generated class for the DataServiceProvider provider.
@@ -11,11 +12,26 @@ import { Injectable } from '@angular/core';
 export class DataServiceProvider {
   time: any;
   CurrentTime: any;
+  LastKnownWellTime: any;
+  intervalID:any;
   constructor() {
     console.log('Hello DataServiceProvider Provider');
   }
-  SetTime(param){
-    this.time=param;
+  
+
+  StartTime(param)
+  {
+    this.LastKnownWellTime=param;
+    this.CurrentTime= new Date().getHours();
+    console.log(this.CurrentTime)
+    console.log(typeof(param));
+    if(this.CurrentTime!=undefined)
+    {
+    this.intervalID= setInterval(()=>{
+        this.CurrentTime++;
+      },1000);
+    }
+    
   }
 
 }

@@ -11,9 +11,6 @@ import { DataServiceProvider } from '../../providers/data-service/data-service';
 export class LastKnownWellPage {
 timeForm =new FormGroup({
   time1: new FormControl('',Validators.required),
-  timeHTML: new FormControl('',Validators.required),
-  Hours: new FormControl('',Validators.required),
-  Mins: new FormControl('',[Validators.required,Validators.pattern("^[0-9]*$"),Validators.min(0),Validators.max(60)]),
 });
   constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider) {
   }
@@ -27,6 +24,13 @@ SubmitTime(params){
     this.navCtrl.push(ImagingRequiredPage,this.timeForm.value);
     this.Data.time=this.timeForm.value.time1;
     console.log(this.Data.time);
+    console.log(this.Data.LastKnownWellTime);
+    console.log(this.Data.intervalID);
+    if(this.Data.LastKnownWellTime!=this.timeForm.value.time1)//only stop if a new a new time is provided 
+    {
+      clearInterval(this.Data.intervalID);//stops the previous interval from running 
+      this.Data.StartTime(this.timeForm.value.time1);// send the new time 
+    }
 }
   
 }

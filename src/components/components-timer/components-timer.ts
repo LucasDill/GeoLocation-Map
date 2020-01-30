@@ -19,15 +19,9 @@ export class ComponentsTimerComponent {
   CurrentTime: any;
   constructor(public Data: DataServiceProvider) {
     this.text = 'Hello World';
-    this.time=this.Data.time;
-    console.log(this.time);
-    this.CurrentTime= new Date().getUTCHours();
-    this.Data.CurrentTime=this.CurrentTime;
-    console.log("Entered");
-    setInterval(()=>{
-      this.Data.CurrentTime++;
-      document.getElementById("timer").innerText=this.Data.CurrentTime;
-    },1000);
+    
+      //this.CurrentTime=this.Data.CurrentTime;
+    
   }
  
 
