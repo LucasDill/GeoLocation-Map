@@ -7,6 +7,7 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import {Geolocation} from '@ionic-native/geolocation/ngx';
+import { DataServiceProvider } from '../../providers/data-service/data-service';
 declare var google: any;
 
 
@@ -31,9 +32,6 @@ var gmarkers = [], gmarkers2 = [], gmarkers3 = [], gmarkers4 = [], gmarkers5 = [
 // variable array for pin that appears when the map is clicked, we can push to the array to clear it when a new location is clicked (this way we do not have multiple pins on the map)
 var clicked_marker = [];
 
-// variables to hold the locations of the 5 imaging capable hospitals
-var end1, end2, end3, end4, end5;
-
 // variable to hold the location of the clicked pin globally so that it can be accessed in all methods
 var start;
 
@@ -55,7 +53,7 @@ export class MapPage {
   // define variable to hold information from Firebase database
   public hospital: AngularFireList<any>;
   // makes Google Maps API visible
-    @ViewChild('Map') mapElement: ElementRef;
+    @ViewChild('Map', {static: false}) mapElement: ElementRef;
     map: any;
     mapOptions: any;
     location = {lat: null, lng: null};
@@ -63,7 +61,8 @@ export class MapPage {
     marker: any;
     
   constructor(public zone: NgZone, public geolocation: Geolocation, public navCtrl: NavController,
-    public DataBase: AngularFireDatabase) {
+    public DataBase: AngularFireDatabase,
+    public Data: DataServiceProvider) {
     /*load google map script dynamically */
       
       setTimeout(() => {
@@ -79,12 +78,6 @@ export class MapPage {
         this.addMarker(this.map);
         // if a route is calcualted, display it on the map
         directionsDisplay.setMap(this.map);
-    
-        end1 = new google.maps.LatLng(48.424818, -89.270847);
-        end2 = new google.maps.LatLng(49.770121, -92.838622);
-        end3 = new google.maps.LatLng(48.60634, -93.392308);
-        end4 = new google.maps.LatLng(49.768015, -94.499514);
-        end5 = new google.maps.LatLng(50.105711, -91.927465);
 
       }, 3000);
   
@@ -178,41 +171,50 @@ addEndLocation(name) {
 
 
 addMarker(map: any) {
-  console.log("here");
+
+// variables to hold the locations of the 5 imaging capable hospitals
+  var end1 = new google.maps.LatLng(48.424818, -89.270847);
+  var end2 = new google.maps.LatLng(49.770121, -92.838622);
+  var end3 = new google.maps.LatLng(48.60634, -93.392308);
+  var end4 = new google.maps.LatLng(49.768015, -94.499514);
+  var end5 = new google.maps.LatLng(50.105711, -91.927465);
+
   // variable to hold chosen imaging capable hospital location
   var end;
   // variables to reference when loading DirectionsService/Renderer
   var directionsService = new google.maps.DirectionsService();
   var directionsDisplay = new google.maps.DirectionsRenderer();
+var chosen_lat = this.Data.lat;
+var chosen_long = this.Data.lng;
+var myLatLng = {lat: this.Data.lat, lng: this.Data.lng};
+console.log(myLatLng);
+let clickedm = new google.maps.Marker({
+  position: myLatLng,
+  map: map,
+  draggable: false
+});
+// pushes marker to array (so that it can be cleared easily)
+clicked_marker.push(clickedm);
 
-  // places pin at location of click on map
-  map.addListener("click", function(e) {
-    console.log("here");
-    placeMarker(e.latLng, map);
-    // calls function to clear displayed routes
-    clearEnd();
-  });
+setRoutes(myLatLng, map);
 
-  function placeMarker(position, map) {
+  function setRoutes(position, map) {
     // for loop to clear map of markers when a new one is placed
-    for (var i = 0; i < clicked_marker.length; i++)
-      clicked_marker[i].setMap(null);
+    /*for (var i = 0; i < clicked_marker.length; i++)
+      clicked_marker[i].setMap(null);*/
 
-    // defines new marker with properties
-    let clickedm = new google.maps.Marker({
-      position: position,
-      map: map,
-      draggable: true
-    });
-    // pushes marker to array (so that it can be cleared easily)
-    clicked_marker.push(clickedm);
     // get coordinates of clicked marker to be printed when marker is clicked
     markerCoords(clickedm);
     // load coordinates of chosen location to global start variable
-    start = new google.maps.LatLng(
+    /*start = new google.maps.LatLng(
       clickedm.position.lat(),
       clickedm.position.lng()
+    );*/
+    start = new google.maps.LatLng(
+      chosen_lat,
+      chosen_long
     );
+    console.log("start" + start);
     // equate end to chosen_location
     end = chosen_location;
 

@@ -21,6 +21,11 @@ export class DataServiceProvider {
   HoursSince: any;
   MinutesSince:any;
   SecondsSince:any=0;
+
+  lat: any;
+  lng: any;
+
+
   constructor() {
   }
   

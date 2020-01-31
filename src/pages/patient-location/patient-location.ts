@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { LastKnownWellPage } from '../last-known-well/last-known-well';
-
+import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms"
 import { GeolocationOptions, Geoposition } from '@ionic-native/geolocation/ngx';
 import { NgZone, ElementRef, OnInit, ViewChild } from '@angular/core';
-import {FormControl} from "@angular/forms";
+import { DataServiceProvider } from '../../providers/data-service/data-service';
 import { MapsAPILoader } from '@agm/core';
 
 @Component({
@@ -13,32 +13,18 @@ import { MapsAPILoader } from '@agm/core';
 })
 export class PatientLocationPage {
 
-  public latitude: number;
-  public longitude: number;
-  public searchControl: FormControl;
-  public zoom: number;
-
-  @ViewChild("search")
+  @ViewChild("search", {static: false})
   public searchElementRef;
+
+  public lat: number;
+  public lng: number;
   
-  
-  constructor(public navCtrl: NavController, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {
+  constructor(public navCtrl: NavController, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, public formBuilder: FormBuilder,public Data: DataServiceProvider) {
       
-      this.zoom = 4;
-      this.latitude = 39.8282;
-      this.longitude = -98.5795;
-      this.searchControl = new FormControl();
       this.setCurrentPosition();
   }
 
   ionViewDidLoad() {
-    //set google maps defaults
-    this.zoom = 4;
-    this.latitude = 39.8282;
-    this.longitude = -98.5795;
-
-    //create search FormControl
-    this.searchControl = new FormControl();
 
     //set current position
     this.setCurrentPosition();
@@ -60,9 +46,8 @@ export class PatientLocationPage {
                 }
 
                 //set latitude, longitude and zoom
-                this.latitude = place.geometry.location.lat();
-                this.longitude = place.geometry.location.lng();
-                this.zoom = 12;
+                this.Data.lat = this.lat;
+                this.Data.lng = this.lng;
             });
         });
     });
@@ -74,20 +59,15 @@ export class PatientLocationPage {
 private setCurrentPosition() {
   if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-          this.latitude = position.coords.latitude;
-          this.longitude = position.coords.longitude;
-          this.zoom = 12;
+          this.lat = position.coords.latitude;
+          this.lng = position.coords.longitude;
       });
   }
 }
-
-
-
-
-
-
   goToLastKnownWell(params){
     if (!params) params = {};
     this.navCtrl.push(LastKnownWellPage);
   }
+
+
 }
