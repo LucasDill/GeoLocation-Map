@@ -46,8 +46,12 @@ export class PatientLocationPage {
                 }
 
                 //set latitude, longitude and zoom
+                this.lat = place.geometry.location.lat();
+                this.lng = place.geometry.location.lng();
                 this.Data.lat = this.lat;
                 this.Data.lng = this.lng;
+                console.log(this.lat);
+                console.log(this.lng);
             });
         });
     });
