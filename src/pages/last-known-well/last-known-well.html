@@ -1,22 +1,24 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="steelblue2">
     <ion-title>
       Last Known Well
     </ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page2">
+    <components-timer></components-timer>
   <h3 id="lastKnownWell-heading5" style="color:#000000;font-weight:400;">
     What time patient was last known well?
   </h3>
   <form [formGroup]="timeForm" (ngSubmit)="SubmitTime()"><!--The last known well in hour format-->
     <ion-item id="lastKnownWellTime">
-      <ion-label></ion-label>
+      <ion-label>Last Known Well Hour Format</ion-label>
       <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" required formControlName="time1"></ion-datetime>
     </ion-item>
+
   </form>
   <div class="spacer" style="height:100px;" id="lastKnownWell-spacer7"></div>
-  <button id="lastKnownWell-button2" ion-button color="positive" block on-click="SubmitTime()">
+  <button id="lastKnownWell-button2" ion-button color="steelblue1" block on-click="SubmitTime()">
     Next
   </button>
   <div class="spacer" style="height:100px;" id="lastKnownWell-spacer8"></div>
