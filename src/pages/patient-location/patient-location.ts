@@ -15,12 +15,12 @@ export class PatientLocationPage {
 
   @ViewChild("search", {static: false})
   public searchElementRef;
-
+  buttonDisabled: boolean;
   public lat: number;
   public lng: number;
   
   constructor(public navCtrl: NavController, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, public formBuilder: FormBuilder,public Data: DataServiceProvider) {
-      
+      this.buttonDisabled = true;
       this.setCurrentPosition();
   }
 
@@ -50,6 +50,10 @@ export class PatientLocationPage {
                 this.lng = place.geometry.location.lng();
                 this.Data.lat = this.lat;
                 this.Data.lng = this.lng;
+                if(this.lat != null)
+                {
+                  this.buttonDisabled = false;
+                }
             });
         });
     });

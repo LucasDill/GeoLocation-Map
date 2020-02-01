@@ -1,16 +1,25 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="steelblue2">
+    <ion-buttons start>
+       <button ion-button icon-only menuToggle>
+         <ion-icon name="menu"></ion-icon>
+       </button>
+      </ion-buttons>
     <ion-title>
       Patient Location
     </ion-title>
   </ion-navbar>
+
 </ion-header>
 <ion-content padding id="page1">
-  <form id="patientLocation-form3">
-        <ion-input placeholder="Enter Address" id="txtHome" type="text"></ion-input>
+    <components-timer></components-timer>
+  <form id="patientLocation-form3" >
+        <ion-input  placeholder="Enter Address" id="txtHome" type="text" required></ion-input>
   </form>
   <div class="spacer" style="height:100px;" id="patientLocation-spacer6"></div>
-  <button id="patientLocation-button1" ion-button color="positive" block on-click="goToLastKnownWell()">
+  <button [disabled]="buttonDisabled" type ="button" id="patientLocation-button1"  ion-button color="steelblue1"  fill="outline" block on-click="goToLastKnownWell()">
     Next
   </button>
 </ion-content>
+
+

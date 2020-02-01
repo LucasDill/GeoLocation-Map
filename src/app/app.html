@@ -1,1 +1,33 @@
+
+  <div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+    <div class="flb">
+      <div class="Aligner-item Aligner-item--top"></div>
+      <img src="assets/icon/SVG_Logo.svg.png">
+      <div class="Aligner-item Aligner-item--bottom"></div>
+    </div>
+  </div>
+
+<ion-menu [content]="mainContent">
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Menu
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content id="side-menu21">
+    <ion-list id="menu-list1">
+    <ion-item color="none" menuClose="" on-click="goToPatientLocation()" id="menu-list-item1">
+        Main Page
+        <ion-icon name="home" item-right></ion-icon>
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToHelp()" id="menu-list-item2">
+        Help
+        <ion-icon name="help-circle" item-right></ion-icon>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
 <ion-nav #mainContent [root]="rootPage"></ion-nav>

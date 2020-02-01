@@ -15,10 +15,10 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AgmCoreModule } from '@agm/core';
+import { HelpPage } from '../pages/help/help';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { from } from 'rxjs/observable/from';
 import { DataServiceProvider } from '../providers/data-service/data-service';
 
 @NgModule({
@@ -31,7 +31,8 @@ import { DataServiceProvider } from '../providers/data-service/data-service';
     TelestrokeSitePage,
     AdvancedImagingPage,
     MapPage,
-    ComponentsTimerComponent
+    ComponentsTimerComponent,
+    HelpPage
   ],
   imports: [
     BrowserModule,
@@ -48,7 +49,7 @@ import { DataServiceProvider } from '../providers/data-service/data-service';
      storageBucket: "degree-project-database.appspot.com",
      messagingSenderId: "527765428487",
      appId: "1:527765428487:web:57170a630f65e0bc8b4da2",
-     measurementId: "G-ML39B2PXC4" 
+     measurementId: "G-ML39B2PXC4"
      }),
      AngularFireDatabaseModule,
      AngularFireAuthModule
@@ -62,14 +63,15 @@ import { DataServiceProvider } from '../providers/data-service/data-service';
     TreatmentPage,
     TelestrokeSitePage,
     AdvancedImagingPage,
-    MapPage
+    MapPage,
+    HelpPage
   ],
   providers: [
+    DataServiceProvider,
     StatusBar,
     SplashScreen,
     Geolocation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    DataServiceProvider
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
 export class AppModule {}
