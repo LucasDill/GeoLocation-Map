@@ -20,7 +20,8 @@ export class DataServiceProvider {
   CurrentMinutes:number;
   HoursSince: any;
   MinutesSince:any;
-  SecondsSince:any=0;
+  SecondsSince:any;
+  colour: any="#90ee90";
 
   lat: any;
   lng: any;
@@ -42,7 +43,8 @@ export class DataServiceProvider {
     this.CurrentTime= new Date().getTime();//there may be an issue of time zones find the time in this area
     this.CurrentHours= new Date().getHours();
     this.CurrentMinutes= new Date().getMinutes();
-    console.log(this.CurrentHours,this.CurrentMinutes);
+    this.SecondsSince= new Date().getSeconds();
+
 
     if(this.GivenHours>this.CurrentHours)//calculate the time that has passed since the patient was well if it is greater than it is a new day and a special case is needed
     {
@@ -52,7 +54,8 @@ export class DataServiceProvider {
     {
       if(this.GivenMinutes>this.CurrentMinutes)
       {
-        this.HoursSince=this.CurrentHours+24;
+        this.HoursSince=24;
+        this.CurrentMinutes-=this.GivenMinutes
       }
       else{
         this.HoursSince=this.CurrentHours-this.GivenHours;
@@ -64,7 +67,7 @@ export class DataServiceProvider {
 
     if(this.CurrentMinutes<this.GivenMinutes)
     {
-      this.HoursSince++;
+      this.HoursSince;
       this.MinutesSince=Math.abs(this.CurrentMinutes-this.GivenMinutes);
     }
     else{
@@ -74,6 +77,19 @@ export class DataServiceProvider {
     console.log(this.HoursSince);
     console.log(this.MinutesSince);
     
+    if(this.HoursSince<6)
+    {
+      this.colour="green";
+    }
+    else if(this.HoursSince>=6&&this.HoursSince<24)
+    {
+      this.colour="yellow";
+    }
+    else if(this.HoursSince>=24)
+    {
+      this.colour="red";
+    }
+
     this.intervalID= setInterval(()=>{
         this.SecondsSince++;
         if(this.SecondsSince==60)//increment the count 
@@ -86,6 +102,7 @@ export class DataServiceProvider {
           this.MinutesSince=0;
           this.HoursSince++;
         }
+      
        
       },1000);
     
