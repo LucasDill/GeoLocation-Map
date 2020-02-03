@@ -67,8 +67,8 @@ export class DataServiceProvider {
 
     if(this.CurrentMinutes<this.GivenMinutes)
     {
-      this.HoursSince;
-      this.MinutesSince=Math.abs(this.CurrentMinutes-this.GivenMinutes);
+      this.HoursSince--;
+      this.MinutesSince=60-Math.abs(this.CurrentMinutes-this.GivenMinutes);
     }
     else{
       this.MinutesSince=this.CurrentMinutes-this.GivenMinutes;
