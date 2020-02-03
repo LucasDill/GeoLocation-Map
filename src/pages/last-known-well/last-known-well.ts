@@ -9,11 +9,14 @@ import { DataServiceProvider } from '../../providers/data-service/data-service';
   templateUrl: 'last-known-well.html'
 })
 export class LastKnownWellPage {
+ 
 timeForm =new FormGroup({
   time1: new FormControl('',Validators.required),
 });
   constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider) {
+   
   }
+  
   goToImagingRequired(params){
   if (!params) params = {};
     this.navCtrl.push(ImagingRequiredPage);
@@ -23,8 +26,6 @@ SubmitTime(params){
   if (!params) params = {};
     this.navCtrl.push(ImagingRequiredPage,this.timeForm.value);
     this.Data.time=this.timeForm.value.time1;
-    console.log(this.Data.time);
-    console.log(this.Data.LastKnownWellTime);
     console.log(this.Data.intervalID);
     if(this.Data.LastKnownWellTime!=this.timeForm.value.time1)//only stop if a new a new time is provided 
     {
