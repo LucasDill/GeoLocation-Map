@@ -13,7 +13,7 @@ var splash;
 })
 export class MyApp {
 
-    @ViewChild(Nav, {static: false}) navCtrl: Nav;
+    @ViewChild(Nav) navCtrl: Nav;
     rootPage:any = PatientLocationPage;
     splash = true;
 

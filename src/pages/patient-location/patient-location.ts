@@ -13,7 +13,7 @@ import { MapsAPILoader } from '@agm/core';
 })
 export class PatientLocationPage {
 
-  @ViewChild("search", {static: false})
+  @ViewChild("search")
   public searchElementRef;
   buttonDisabled: boolean;
   public lat: number;
