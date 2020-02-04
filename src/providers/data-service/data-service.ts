@@ -22,6 +22,7 @@ export class DataServiceProvider {
   MinutesSince:any;
   SecondsSince:any;
   colour: any="#90ee90";
+  TreatmentInfo: any;
 
   lat: any;
   lng: any;
@@ -55,7 +56,7 @@ export class DataServiceProvider {
       if(this.GivenMinutes>this.CurrentMinutes)
       {
         this.HoursSince=24;
-        this.CurrentMinutes-=this.GivenMinutes
+        this.CurrentMinutes-=this.GivenMinutes;
       }
       else{
         this.HoursSince=this.CurrentHours-this.GivenHours;
@@ -80,14 +81,17 @@ export class DataServiceProvider {
     if(this.HoursSince<6)
     {
       this.colour="green";
+      this.TreatmentInfo="<ul><li>EvT avilable for: <b>"+(6-this.HoursSince)+":"+(60-this.MinutesSince)+":"+(60-this.SecondsSince)+"</b></li><li>tPa Available</li></ul>";//need to add in the actual time needed and check the format for wording and what is available  
     }
     else if(this.HoursSince>=6&&this.HoursSince<24)
     {
       this.colour="yellow";
+      this.TreatmentInfo="<ul><li>tPa avilable</li></ul>";
     }
     else if(this.HoursSince>=24)
     {
       this.colour="red";
+      this.TreatmentInfo="<ul><li>Passed usual recovery time</li></ul>";
     }
 
     this.intervalID= setInterval(()=>{
@@ -102,7 +106,22 @@ export class DataServiceProvider {
           this.MinutesSince=0;
           this.HoursSince++;
         }
-      
+       
+    if(this.HoursSince<6)
+    {
+      this.colour="green";
+      this.TreatmentInfo="<ul><li>EvT avilable for: <b>"+(6-this.HoursSince)+":"+(60-this.MinutesSince)+":"+(60-this.SecondsSince)+"</b></li><li>tPa Available</li></ul>";//need to add in the actual time needed and check the format for wording and what is available 
+    }
+    else if(this.HoursSince>=6&&this.HoursSince<24)
+    {
+      this.colour="yellow";
+      this.TreatmentInfo="<ul><li>tPa avilable</li></ul>";
+    }
+    else if(this.HoursSince>=24)
+    {
+      this.colour="red";
+      this.TreatmentInfo="<ul><li>Passed usual recovery time</li></ul>";
+    }
        
       },1000);
     

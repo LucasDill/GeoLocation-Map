@@ -21,6 +21,7 @@ colour:any;
     this.text = 'Hello World';
     this.colour="green";
       //this.CurrentTime=this.Data.CurrentTime;
+     
     
   }
  
