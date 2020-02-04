@@ -122,9 +122,11 @@ export class DataServiceProvider {
     }
     else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<6)
     {
+      let EVTtime=6-this.SinceTimeForm;
+      let EVT=ConvertBack(EVTtime);
       
         this.colour="yellow";
-       this.TreatmentInfo="<ul><li>EVT avilable for: <b>"+pad((5-this.HoursSince),2)+":"+pad((59-this.MinutesSince),2)+":"+pad((60-this.SecondsSince),2)+"</li></ul>";
+       this.TreatmentInfo="<ul><li>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+"</li></ul>";
     }
     else if(this.SinceTimeForm>6)
     {
