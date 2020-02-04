@@ -51,33 +51,7 @@ export class DataServiceProvider {
     this.CurrentTimeForm=ConvertToTimeForm(this.CurrentHours,this.CurrentMinutes);
     console.log(this.CurrentTimeForm);
 
-    /*if(this.GivenHours>this.CurrentHours)//calculate the time that has passed since the patient was well if it is greater than it is a new day and a special case is needed
-    {
-      this.HoursSince=((24-this.GivenHours)+this.CurrentHours);
-    }
-    else if(this.GivenHours==this.CurrentHours)
-    {
-      if(this.GivenMinutes>this.CurrentMinutes)
-      {
-        this.HoursSince=24;
-        this.CurrentMinutes-=this.GivenMinutes;
-      }
-      else{
-        this.HoursSince=this.CurrentHours-this.GivenHours;
-      }
-    }
-    else{
-      this.HoursSince=this.CurrentHours-this.GivenHours;
-    }
-
-    if(this.CurrentMinutes<this.GivenMinutes)
-    {
-      this.HoursSince--;
-      this.MinutesSince=60-Math.abs(this.CurrentMinutes-this.GivenMinutes);
-    }
-    else{
-      this.MinutesSince=this.CurrentMinutes-this.GivenMinutes;
-    }*/ //old version with hours and everything 
+   
 
     if(this.GivenTimeForm>this.CurrentTimeForm)
     {
@@ -97,22 +71,30 @@ export class DataServiceProvider {
     console.log(x.min);
     let m=ConvertBack(this.SinceTimeForm);
     this.HoursSince=m.hour;
-    this.MinutesSince=m.min;
-    if(this.HoursSince<6)
-    {
-      this.colour="green";
-      this.TreatmentInfo="<ul><li>EVT avilable for: <b>"+(6-this.HoursSince)+":"+(60-this.MinutesSince)+":"+(60-this.SecondsSince)+"</b></li><li>tPA Available</li></ul>";//need to add in the actual time needed and check the format for wording and what is available  
-    }
-    else if(this.HoursSince>=6&&this.HoursSince<24)
-    {
-      this.colour="yellow";
-      this.TreatmentInfo="<ul><li>tPA avilable</li></ul>";
-    }
-    else if(this.HoursSince>=24)
-    {
-      this.colour="red";
-      this.TreatmentInfo="<ul><li>Passed usual recovery time</li></ul>";
-    }
+      this.MinutesSince=(m.min);
+    
+    
+      if(this.SinceTimeForm<=4.5)
+      {
+        let EVTtime=6-this.SinceTimeForm;
+        let EVT=ConvertBack(EVTtime);
+        let TPAtime=4.5-this.SinceTimeForm;
+        let TPA=ConvertBack(TPAtime);
+  
+          this.colour="green";
+          this.TreatmentInfo="<ul><li>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+"</b></li>"+"<li>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+"</b></li></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
+      }
+      else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<6)
+      {
+        
+          this.colour="yellow";
+         this.TreatmentInfo="<ul><li>EVT avilable for: <b>"+pad((5-this.HoursSince),2)+":"+pad((59-this.MinutesSince),2)+":"+pad((60-this.SecondsSince),2)+"</li></ul>";
+      }
+      else if(this.SinceTimeForm>6)
+      {
+        this.colour="red";
+        this.TreatmentInfo="<ul><li>Passed usual recovery time</li></ul>";
+      }
 
     this.intervalID= setInterval(()=>{
         this.SecondsSince++;
@@ -121,32 +103,30 @@ export class DataServiceProvider {
           this.SecondsSince=0;
           this.SinceTimeForm+=(1/60);
           let m=ConvertBack(this.SinceTimeForm);
+         
           this.HoursSince=m.hour;
           this.MinutesSince=m.min;
         }
         
         
        
-    if(this.HoursSince<4)
+    if(this.SinceTimeForm<=4.5)
     {
+      let EVTtime=6-this.SinceTimeForm;
+      let EVT=ConvertBack(EVTtime);
+      let TPAtime=4.5-this.SinceTimeForm;
+      let TPA=ConvertBack(TPAtime);
+
         this.colour="green";
-        this.TreatmentInfo="</b></li><li>tPA Available for: <b>"+ "</li></ul>"+"<ul><li>EVT avilable for: <b>"+pad((5-this.HoursSince),2)+":"+pad((59-this.MinutesSince),2)+":"+pad((60-this.SecondsSince),2);//need to add in the actual time needed and check the format for wording and what is available
+        this.TreatmentInfo="<ul><li>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+"</b></li>"+"<li>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+"</b></li></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
     }
-    else if(this.HoursSince>=4)
+    else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<6)
     {
-      if(this.HoursSince==4&&this.MinutesSince<30)
-      {
-        this.colour="green";
-        this.TreatmentInfo="<ul><li>EVT avilable for: <b>"+pad((5-this.HoursSince),2)+":"+pad((59-this.MinutesSince),2)+":"+pad((60-this.SecondsSince),2)+"</b></li><li>tPA Available</li></ul>";//need to add in the actual time needed and check the format for wording and what is available
-      }
-      else
-      {
-        this.colour="yellow";
-       this.TreatmentInfo="<ul><li>EVT avilable for: <b>"+pad((5-this.HoursSince),2)+":"+pad((59-this.MinutesSince),2)+":"+pad((60-this.SecondsSince),2);
-      }
       
+        this.colour="yellow";
+       this.TreatmentInfo="<ul><li>EVT avilable for: <b>"+pad((5-this.HoursSince),2)+":"+pad((59-this.MinutesSince),2)+":"+pad((60-this.SecondsSince),2)+"</li></ul>";
     }
-    else if(this.HoursSince>6)
+    else if(this.SinceTimeForm>6)
     {
       this.colour="red";
       this.TreatmentInfo="<ul><li>Passed usual recovery time</li></ul>";
@@ -178,6 +158,14 @@ function ConvertBack(TimeForm:number):any{
   Hour=Hour-Minute;
   Minute*=60;
   Minute=Math.round(Minute);
+  if(Minute==60)
+  {
+    Hour=Hour+1;
+    Minute=0;
+  }
+  
+
+
   return{
     hour:Hour,
     min:Minute,
