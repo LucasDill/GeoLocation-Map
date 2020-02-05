@@ -15,7 +15,7 @@ export class MyApp {
 
     @ViewChild(Nav) navCtrl: Nav;
     splash = true;
-    rootPage:any = PatientLocationPage;
+    rootPage:any;
 
   constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen) {
     platform.ready().then(() => {
@@ -35,6 +35,7 @@ export class MyApp {
   ionViewDidLoad(){
     setTimeout(()=> {
       this.splash = false;
+      this.rootPage = PatientLocationPage;
     }, 3000);
   }
 
