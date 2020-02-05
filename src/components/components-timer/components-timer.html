@@ -1,4 +1,13 @@
 <!-- Generated template for the ComponentsTimerComponent component -->
-<div>
-  Time passed: {{Data.HoursSince |number:'2.0'}}:{{Data.MinutesSince |number:'2.0'}}:{{Data.SecondsSince |number:'2.0'}}
+<div id="Timer" [style.background-color]="Data.colour" no-padding style="vertical-align: middle;">
+  <ion-grid style="vertical-align: middle;">
+    <ion-row>
+    <ion-col >
+     <p style="font-size: large;">Time passed:<b> {{Data.HoursSince |number:'2.0'}}:{{Data.MinutesSince |number:'2.0'}}</b></p>
+  </ion-col>
+    <ion-col align-self-center>
+      <span style="vertical-align: middle;" [innerHTML]="Data.TreatmentInfo"></span>
+    </ion-col>
+  </ion-row>
+  </ion-grid>
 </div>

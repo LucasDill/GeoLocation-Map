@@ -12,15 +12,16 @@ import { setInterval } from 'timers';
   templateUrl: 'components-timer.html'
 })
 export class ComponentsTimerComponent {
-
+colour:any;
 
   time:any;
   text: string;
   CurrentTime: any;
   constructor(public Data: DataServiceProvider) {
     this.text = 'Hello World';
-    
+    this.colour="green";
       //this.CurrentTime=this.Data.CurrentTime;
+     
     
   }
  

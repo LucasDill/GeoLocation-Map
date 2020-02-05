@@ -14,12 +14,13 @@
       <ion-label>Last Known Well Hour Format</ion-label>
       <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" required formControlName="time1"></ion-datetime>
     </ion-item>
-
+    <br><br><br><br><br><!--Break between inputs and the button to make it consistent-->
+    <button  id="lastKnownWell-button2" ion-button color="steelblue1" [disabled]="!timeForm.valid" type="submit" block >
+      Next
+    </button>
   </form>
   <div class="spacer" style="height:100px;" id="lastKnownWell-spacer7"></div>
-  <button id="lastKnownWell-button2" ion-button color="steelblue1" block on-click="SubmitTime()">
-    Next
-  </button>
+  
   <div class="spacer" style="height:100px;" id="lastKnownWell-spacer8"></div>
   <div id="lastKnownWell-markdown2" style="text-align:center;" class="show-list-numbers-and-dots">
     <p style="color:#000000;font-size:12px;">
