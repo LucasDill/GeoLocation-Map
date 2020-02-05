@@ -14,9 +14,11 @@
 
 </ion-header>
 <ion-content padding id="page1">
-
-
-  <ion-input type="text" [(ngModel)]="searchterm" (keydown)="search($event)" class="input" placeholder="Enter Address" id="txtHome" required></ion-input>
+  <button type ="button" id="patientLocation-button1"  ion-button color="steelblue1"  fill="outline" block on-click="goToLastKnownWell()" block on-click="setCurrentPosition()"> 
+  CHOOSE YOUR LOCATION
+  </button>
+<p style="text-align: center;">OR</p>
+  <ion-input type="text" [(ngModel)]="searchterm" (keydown)="search($event)" class="input" placeholder="Enter City" id="txtHome" required style = "border: solid black 3px;"></ion-input>
   <div *ngFor="let health_centres of Medical_Centers">
 
     <button type ="button" id="patientLocation-button1"  ion-button color="steelblue1"  fill="outline" block on-click="goToLastKnownWell()" block on-click="getLatLng(health_centres.name)">
@@ -34,6 +36,6 @@
   </div>
 
   <div class="spacer" style="height:100px;" id="patientLocation-spacer6"></div>
-
+  
 </ion-content>
 

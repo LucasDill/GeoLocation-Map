@@ -185,8 +185,17 @@ addMarker(map: any) {
   var directionsService = new google.maps.DirectionsService();
   var directionsDisplay = new google.maps.DirectionsRenderer();
 var chosen_lat = this.Data.lat;
-var chosen_long = this.Data.lng;
+var chosen_lng = this.Data.lng;
 var myLatLng = this.Data.location;
+
+if (myLatLng == null){
+  myLatLng = new google.maps.LatLng(
+    chosen_lat,
+    chosen_lng
+  );
+}
+
+
 console.log(myLatLng);
 let clickedm = new google.maps.Marker({
   position: myLatLng,

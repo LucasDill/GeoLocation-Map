@@ -14,23 +14,19 @@ var splash;
 export class MyApp {
 
     @ViewChild(Nav) navCtrl: Nav;
-    rootPage:any = PatientLocationPage;
     splash = true;
+    rootPage:any = PatientLocationPage;
 
   constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+      this.ionViewDidLoad();
       statusBar.styleDefault();
       splashScreen.hide();
-      this.ionViewDidLoad();
     });
   }
 
-  goToPatientLocation(params){
-    if (!params) params = {};
-    this.navCtrl.setRoot(PatientLocationPage);
-  }
   goToHelp(params){
     if (!params) params = {};
     this.navCtrl.setRoot(HelpPage);
@@ -42,4 +38,8 @@ export class MyApp {
     }, 3000);
   }
 
+  goToPatientLocation(params){
+    if (!params) params = {};
+    this.navCtrl.setRoot(PatientLocationPage);
+  }
 }

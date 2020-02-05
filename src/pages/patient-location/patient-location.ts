@@ -29,6 +29,7 @@ export class PatientLocationPage implements OnInit{
   public lat: number;
   public lng: number;
   items;
+  
   constructor(public navCtrl: NavController, private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone, public formBuilder: FormBuilder,public Data: DataServiceProvider,
     public DataBase: AngularFireDatabase,
@@ -87,8 +88,11 @@ this.getData();
 private setCurrentPosition() {
   if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-          this.lat = position.coords.latitude;
-          this.lng = position.coords.longitude;
+          this.Data.lat = position.coords.latitude;
+          this.Data.lng = position.coords.longitude;
+          console.log(position.coords.latitude);
+          console.log(position.coords.longitude);
+          
       });
   }
 }
@@ -153,6 +157,10 @@ getData() {
 
   firequery(start, end){
     return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByKey().startAt(start).endAt(end)).valueChanges()
+  }
+
+  firestorequery(start, end){
+
   }
 
   storedLocation;
