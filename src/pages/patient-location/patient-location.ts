@@ -46,11 +46,11 @@ export class PatientLocationPage implements OnInit{
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
         let nativeHomeInputBox = document.getElementById('txtHome').getElementsByTagName('input')[0];
-        let autocomplete = new google.maps.places.Autocomplete(nativeHomeInputBox, {
+        /*let autocomplete = new google.maps.places.Autocomplete(nativeHomeInputBox, {
             types: ["address"]
-        });
+        });*/
         //console.log(autocomplete);
-        autocomplete.addListener("place_changed", () => {
+        /*autocomplete.addListener("place_changed", () => {
             this.ngZone.run(() => {
                 //get the place result
                 let place: google.maps.places.PlaceResult = autocomplete.getPlace();
@@ -71,7 +71,7 @@ export class PatientLocationPage implements OnInit{
                 }
             });
             
-        });
+        });*/
         //console.log(autocomplete);
     });
 
