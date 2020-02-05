@@ -10,8 +10,30 @@
     </ion-title>
   </ion-navbar>
 
+
+
 </ion-header>
 <ion-content padding id="page1">
+
+
+  <input type="text" [(ngModel)]="searchterm" (keydown)="search($event)" placeholder="search locations..." class="input">
+  <div *ngFor="let health_centres of Medical_Centers">
+
+    <button block on-click="getLatLng(health_centres.name)">
+      {{health_centres.address}}
+      <p>
+        {{health_centres.name}}
+      </p>
+    </button>
+  </div>
+  <div *ngIf="Medical_Centers?.length < 1">
+    <hr>
+    <p>
+      No results
+    </p>
+  </div>
+
+
   <form id="patientLocation-form3" >
         <ion-input  placeholder="Enter Address" id="txtHome" type="text" required></ion-input>
   </form>
@@ -20,5 +42,4 @@
     Next
   </button>
 </ion-content>
-
 

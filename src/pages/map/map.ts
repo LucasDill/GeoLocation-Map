@@ -7,7 +7,7 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import {Geolocation} from '@ionic-native/geolocation/ngx';
-import { DataServiceProvider } from '../../providers/data-service/data-service';
+import { DataServiceProvider } from '../../providers/providers/data-service';
 declare var google: any;
 
 
@@ -186,7 +186,7 @@ addMarker(map: any) {
   var directionsDisplay = new google.maps.DirectionsRenderer();
 var chosen_lat = this.Data.lat;
 var chosen_long = this.Data.lng;
-var myLatLng = {lat: this.Data.lat, lng: this.Data.lng};
+var myLatLng = this.Data.location;
 console.log(myLatLng);
 let clickedm = new google.maps.Marker({
   position: myLatLng,
@@ -210,10 +210,7 @@ setRoutes(myLatLng, map);
       clickedm.position.lat(),
       clickedm.position.lng()
     );*/
-    start = new google.maps.LatLng(
-      chosen_lat,
-      chosen_long
-    );
+    start = myLatLng;
     console.log("start" + start);
     // equate end to chosen_location
     end = chosen_location;

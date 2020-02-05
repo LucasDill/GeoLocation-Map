@@ -19,7 +19,9 @@ import { HelpPage } from '../pages/help/help';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { DataServiceProvider } from '../providers/data-service/data-service';
+import { DataServiceProvider } from '../providers/providers/data-service';
+import { Autocomplete } from '../providers/providers/autocomplete';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,8 @@ import { DataServiceProvider } from '../providers/data-service/data-service';
     StatusBar,
     SplashScreen,
     Geolocation,
+    Autocomplete,
+    AngularFirestore,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

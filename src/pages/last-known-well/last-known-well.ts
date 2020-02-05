@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 import { ImagingRequiredPage } from '../imaging-required/imaging-required';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms"
 import { formControlBinding } from '@angular/forms/src/directives/ng_model';
-import { DataServiceProvider } from '../../providers/data-service/data-service';
+import { DataServiceProvider } from '../../providers/providers/data-service';
 @Component({
   selector: 'page-last-known-well',
   templateUrl: 'last-known-well.html'

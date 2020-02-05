@@ -1,5 +1,5 @@
 import { Component, Input, EventEmitter } from '@angular/core';
-import { DataServiceProvider } from '../../providers/data-service/data-service';
+import { DataServiceProvider } from '../../providers/providers/data-service';
 import { setInterval } from 'timers';
 /**
  * Generated class for the ComponentsTimerComponent component.
