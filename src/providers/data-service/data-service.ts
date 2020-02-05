@@ -57,9 +57,9 @@ export class DataServiceProvider {
     {
       this.SinceTimeForm=((24-this.GivenTimeForm)+this.CurrentTimeForm);
     }
-    else if (this.GivenTimeForm==this.CurrentTimeForm)
+    else if (this.GivenTimeForm==this.CurrentTimeForm)//if it is the same time set passed to zero used to be 24
     {
-      this.SinceTimeForm=24;
+      this.SinceTimeForm=0;
     }
     else
     {
@@ -133,7 +133,6 @@ export class DataServiceProvider {
       this.colour="red";
       this.TreatmentInfo="<ul><li>Passed usual recovery time</li></ul>";
     }
-       
       },1000);
     
     
