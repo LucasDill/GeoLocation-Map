@@ -31,6 +31,7 @@ export class DataServiceProvider {
   lng: any;
   location: any;
 
+
   constructor() {
   }
   
@@ -42,14 +43,12 @@ export class DataServiceProvider {
     this.GivenHours=parseInt(this.LastKnownWellTime.substr(0,index));
     this.GivenMinutes=parseInt(this.LastKnownWellTime.substr(index+1));
     this.GivenTimeForm=ConvertToTimeForm(this.GivenHours,this.GivenMinutes);
-  console.log(this.GivenTimeForm);
 
     this.CurrentTime= new Date().getTime();//there may be an issue of time zones find the time in this area
     this.CurrentHours= new Date().getHours();
     this.CurrentMinutes= new Date().getMinutes();
     this.SecondsSince= new Date().getSeconds();
     this.CurrentTimeForm=ConvertToTimeForm(this.CurrentHours,this.CurrentMinutes);
-    console.log(this.CurrentTimeForm);
 
    
 
@@ -65,10 +64,7 @@ export class DataServiceProvider {
     {
     this.SinceTimeForm=this.CurrentTimeForm-this.GivenTimeForm;
     }
-    console.log(this.SinceTimeForm);
     let x=ConvertBack(this.SinceTimeForm);
-    console.log(x.hour);
-    console.log(x.min);
     let m=ConvertBack(this.SinceTimeForm);
     this.HoursSince=m.hour;
       this.MinutesSince=(m.min);
@@ -86,9 +82,11 @@ export class DataServiceProvider {
       }
       else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<6)
       {
+        let EVTtime=6-this.SinceTimeForm;
+        let EVT=ConvertBack(EVTtime);
         
           this.colour="yellow";
-         this.TreatmentInfo="<ul><li>EVT avilable for: <b>"+pad((5-this.HoursSince),2)+":"+pad((59-this.MinutesSince),2)+":"+pad((60-this.SecondsSince),2)+"</li></ul>";
+         this.TreatmentInfo="<ul><li>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+"</li></ul>";
       }
       else if(this.SinceTimeForm>6)
       {
