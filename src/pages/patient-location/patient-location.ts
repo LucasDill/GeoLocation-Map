@@ -36,13 +36,13 @@ export class PatientLocationPage implements OnInit{
     private auto: Autocomplete,
     private afs: AngularFirestore) {
       this.buttonDisabled = true;
-      this.setCurrentPosition();
+      //this.setCurrentPosition();
   }
 
   ionViewDidLoad() {
 
     //set current position
-    this.setCurrentPosition();
+    //this.setCurrentPosition();
 
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
@@ -180,12 +180,12 @@ getData() {
               (<any>data[i]).lat,
               (<any>data[i]).lng
             );
+            this.Data.lat = (<any>data[i]).lat;
+            this.Data.lng = (<any>data[i]).lng;
           }
-            
-        
       }
-      console.log(this.cityLocation);
-      this.Data.location = this.cityLocation;
+      //console.log(this.cityLocation);
+      //this.Data.location = this.cityLocation;
     }
   );
 

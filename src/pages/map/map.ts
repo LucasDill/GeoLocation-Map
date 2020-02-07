@@ -8,6 +8,7 @@ import "firebase/auth";
 import "firebase/firestore";
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import { DataServiceProvider } from '../../providers/providers/data-service';
+import { clearScreenDown } from 'readline';
 declare var google: any;
 
 
@@ -49,6 +50,7 @@ var directionsDisplay;
   selector: 'page-map',
   templateUrl: 'map.html'
 })
+
 export class MapPage {
   // define variable to hold information from Firebase database
   public hospital: AngularFireList<any>;
@@ -113,6 +115,12 @@ getData() {
 
 
 
+ionViewWillLeave()
+{
+    // clears the end location for the displayed route when the page is closed
+    chosen_location = null;
+}
+
 
 addEndLocation(name) {
   console.log(name);
@@ -120,7 +128,6 @@ addEndLocation(name) {
   for (var i = 0; i < displayEnd.length; i++) {
       displayEnd[i].setMap(null);
     }
-    displayEnd.length = 0;
   this.DataBase.list("/Medical_Centers/")
     .valueChanges()
     .subscribe(
@@ -171,7 +178,6 @@ addEndLocation(name) {
 
 
 addMarker(map: any) {
-
 // variables to hold the locations of the 5 imaging capable hospitals
   var end1 = new google.maps.LatLng(48.424818, -89.270847);
   var end2 = new google.maps.LatLng(49.770121, -92.838622);
@@ -186,14 +192,12 @@ addMarker(map: any) {
   var directionsDisplay = new google.maps.DirectionsRenderer();
 var chosen_lat = this.Data.lat;
 var chosen_lng = this.Data.lng;
-var myLatLng = this.Data.location;
+//var myLatLng = this.Data.location;
 
-if (myLatLng == null){
-  myLatLng = new google.maps.LatLng(
+  var myLatLng = new google.maps.LatLng(
     chosen_lat,
     chosen_lng
   );
-}
 
 
 console.log(myLatLng);
@@ -288,7 +292,6 @@ setRoutes(myLatLng, map);
     for (var i = 0; i < displayEnd.length; i++) {
       displayEnd[i].setMap(null);
     }
-    displayEnd.length = 0;
   }
 
   function calculateAndDisplayRoute(start, end) {
