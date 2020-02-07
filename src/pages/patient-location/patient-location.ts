@@ -182,6 +182,23 @@ getData() {
             );
             this.Data.lat = (<any>data[i]).lat;
             this.Data.lng = (<any>data[i]).lng;
+              
+            if (
+              (<any>data[i]).bTelestroke == true
+            ) {
+              
+              // write code here to go to next applicable page
+              console.log("YOU ARE AT A TELSTROKE CENTRE");
+
+            }
+            else{
+              // write code here to go to next applicable page
+              console.log("YOU ARE NOT AT A TELESTROKE CENTRE");
+            }
+            
+
+
+
           }
       }
       //console.log(this.cityLocation);
