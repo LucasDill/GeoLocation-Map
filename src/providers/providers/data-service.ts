@@ -51,7 +51,7 @@ export class DataServiceProvider {
     //this.CurrentMinutes=this.CurrentMinutes-2;//minus one for seconds purposes
     this.CurrentTimeForm=ConvertToTimeForm(this.CurrentHours,this.CurrentMinutes);//plus one to make up for minus in time since calculation 
     let DisplayTime=this.CurrentTimeForm;
-    DisplayTime=DisplayTime-(1/60);
+    DisplayTime=DisplayTime+(1/60);
     let disp=ConvertBack(DisplayTime);
     this.CurrentHours=disp.hour;
     this.CurrentMinutes=disp.min;
@@ -69,7 +69,7 @@ export class DataServiceProvider {
     {
     this.SinceTimeForm=this.CurrentTimeForm-this.GivenTimeForm;
     }
-    let m=ConvertBack(this.SinceTimeForm-(1/60));
+    let m=ConvertBack(this.SinceTimeForm+(1/60));
     this.HoursSince=m.hour;
     this.MinutesSince=(m.min);
     
@@ -104,7 +104,7 @@ export class DataServiceProvider {
         {
           this.SecondsSince=0;
           this.SinceTimeForm+=(1/60);
-          let m=ConvertBack(this.SinceTimeForm-(1/60));
+          let m=ConvertBack(this.SinceTimeForm+(1/60));
          
           this.HoursSince=m.hour;
           this.MinutesSince=m.min;
@@ -159,6 +159,7 @@ function ConvertToTimeForm(hours:number,min:number):number{
 }
 
 function ConvertBack(TimeForm:number):any{
+  TimeForm=TimeForm-(1/60);
   let Hour=TimeForm/1;
   let Minute=TimeForm%1;
   Hour=Hour-Minute;
