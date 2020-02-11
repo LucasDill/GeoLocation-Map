@@ -39,6 +39,7 @@ export class DataServiceProvider {
   StartTime(param)//starts when a time is provided in last known well sets the time to be displayed at the top of pages after getting the current time 
   {
     this.LastKnownWellTime=param;
+    this.SecondsSince= new Date().getSeconds();
     var index =this.LastKnownWellTime.indexOf(":");// split the string into two parts to be used later
     this.GivenHours=parseInt(this.LastKnownWellTime.substr(0,index));
     this.GivenMinutes=parseInt(this.LastKnownWellTime.substr(index+1));
@@ -47,9 +48,13 @@ export class DataServiceProvider {
     this.CurrentTime= new Date().getTime();//there may be an issue of time zones find the time in this area
     this.CurrentHours= new Date().getHours();
     this.CurrentMinutes= new Date().getMinutes();
-    this.SecondsSince= new Date().getSeconds();
-    this.CurrentTimeForm=ConvertToTimeForm(this.CurrentHours,this.CurrentMinutes);
-
+    //this.CurrentMinutes=this.CurrentMinutes-2;//minus one for seconds purposes
+    this.CurrentTimeForm=ConvertToTimeForm(this.CurrentHours,this.CurrentMinutes);//plus one to make up for minus in time since calculation 
+    let DisplayTime=this.CurrentTimeForm;
+    DisplayTime=DisplayTime+(1/60);
+    let disp=ConvertBack(DisplayTime);
+    this.CurrentHours=disp.hour;
+    this.CurrentMinutes=disp.min;
    
 
     if(this.GivenTimeForm>this.CurrentTimeForm)
@@ -64,10 +69,9 @@ export class DataServiceProvider {
     {
     this.SinceTimeForm=this.CurrentTimeForm-this.GivenTimeForm;
     }
-    let x=ConvertBack(this.SinceTimeForm);
-    let m=ConvertBack(this.SinceTimeForm);
+    let m=ConvertBack(this.SinceTimeForm+(1/60));
     this.HoursSince=m.hour;
-      this.MinutesSince=(m.min);
+    this.MinutesSince=(m.min);
     
     
       if(this.SinceTimeForm<=4.5)
@@ -78,7 +82,7 @@ export class DataServiceProvider {
         let TPA=ConvertBack(TPAtime);
   
           this.colour="green";
-          this.TreatmentInfo="<ul><li>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+"</b></li>"+"<li>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+"</b></li></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
+          this.TreatmentInfo="<ul><li>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></li>"+"<li>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></li></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
       }
       else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<6)
       {
@@ -86,7 +90,7 @@ export class DataServiceProvider {
         let EVT=ConvertBack(EVTtime);
         
           this.colour="yellow";
-         this.TreatmentInfo="<ul><li>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+"</li></ul>";
+         this.TreatmentInfo="<ul><li>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+":"+pad((60-this.SecondsSince),2)+"</li></ul>";
       }
       else if(this.SinceTimeForm>6)
       {
@@ -100,37 +104,40 @@ export class DataServiceProvider {
         {
           this.SecondsSince=0;
           this.SinceTimeForm+=(1/60);
-          let m=ConvertBack(this.SinceTimeForm);
+          let m=ConvertBack(this.SinceTimeForm+(1/60));
          
           this.HoursSince=m.hour;
           this.MinutesSince=m.min;
+  
+      
+          
         }
         
         
        
-    if(this.SinceTimeForm<=4.5)
-    {
-      let EVTtime=6-this.SinceTimeForm;
-      let EVT=ConvertBack(EVTtime);
-      let TPAtime=4.5-this.SinceTimeForm;
-      let TPA=ConvertBack(TPAtime);
-
-        this.colour="green";
-        this.TreatmentInfo="<ul><li>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+"</b></li>"+"<li>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+"</b></li></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
-    }
-    else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<6)
-    {
-      let EVTtime=6-this.SinceTimeForm;
-      let EVT=ConvertBack(EVTtime);
-      
-        this.colour="yellow";
-       this.TreatmentInfo="<ul><li>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+"</li></ul>";
-    }
-    else if(this.SinceTimeForm>6)
-    {
-      this.colour="red";
-      this.TreatmentInfo="<ul><li>Passed usual recovery time</li></ul>";
-    }
+        if(this.SinceTimeForm<=4.5)
+        {
+          let EVTtime=6-this.SinceTimeForm;
+          let EVT=ConvertBack(EVTtime);
+          let TPAtime=4.5-this.SinceTimeForm;
+          let TPA=ConvertBack(TPAtime);
+    
+            this.colour="green";
+            this.TreatmentInfo="<ul><li>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></li>"+"<li>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></li></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
+        }
+        else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<6)
+        {
+          let EVTtime=6-this.SinceTimeForm;
+          let EVT=ConvertBack(EVTtime);
+          
+            this.colour="yellow";
+           this.TreatmentInfo="<ul><li>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+":"+pad((60-this.SecondsSince),2)+"</li></ul>";
+        }
+        else if(this.SinceTimeForm>6)
+        {
+          this.colour="red";
+          this.TreatmentInfo="<ul><li>Passed usual recovery time</li></ul>";
+        }
       },1000);
     
     
@@ -152,18 +159,17 @@ function ConvertToTimeForm(hours:number,min:number):number{
 }
 
 function ConvertBack(TimeForm:number):any{
+  TimeForm=TimeForm-(1/60);
   let Hour=TimeForm/1;
   let Minute=TimeForm%1;
   Hour=Hour-Minute;
   Minute*=60;
   Minute=Math.round(Minute);
-  if(Minute==60)
+  if(Minute==60)//stops minutes going to 60 
   {
     Hour=Hour+1;
     Minute=0;
   }
-  
-
 
   return{
     hour:Hour,
