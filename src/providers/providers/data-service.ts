@@ -164,7 +164,7 @@ function ConvertBack(TimeForm:number):any{
   Hour=Hour-Minute;
   Minute*=60;
   Minute=Math.round(Minute);
-  if(Minute==60)
+  if(Minute==60)//stops minutes going to 60 
   {
     Hour=Hour+1;
     Minute=0;
