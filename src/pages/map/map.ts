@@ -81,7 +81,7 @@ export class MapPage {
         // if a route is calcualted, display it on the map
         directionsDisplay.setMap(this.map);
 
-      }, 3000);
+      }, 0);
   
 
     // load Medical Centres into hospital variable to be accessed later with a more convenient name
