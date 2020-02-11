@@ -29,13 +29,18 @@ export class PatientLocationPage implements OnInit{
   public lat: number;
   public lng: number;
   items;
-  
+
+
+  db: any;
+  collection: string = 'Health Centers';
+
   constructor(public navCtrl: NavController, private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone, public formBuilder: FormBuilder,public Data: DataServiceProvider,
     public DataBase: AngularFireDatabase,
     private auto: Autocomplete,
     private afs: AngularFirestore) {
       this.buttonDisabled = true;
+      this.db = firebase.firestore();
       //this.setCurrentPosition();
   }
 
@@ -142,6 +147,11 @@ getData() {
       });
     });
 
+
+    /*Observable.combineLatest(this.startobs, this.endobs).subscribe((value) => {
+      this.firestorequery(value[0], value[1]);
+    });*/
+
     
               
   }
@@ -152,15 +162,42 @@ getData() {
       this.startAt.next(q)
       this.endAt.next(q+"\uf8ff")
       console.log(q);
-      console.log(this.startAt.next(q));
+      console.log("next"+this.startAt.next(q));
   }
 
   firequery(start, end){
-    return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByKey().startAt(start).endAt(end)).valueChanges()
+    return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByChild('city').startAt(start).endAt(end+'\uf8ff')).valueChanges()
+  
+  
   }
 
   firestorequery(start, end){
-
+    console.log("START" + start);
+    return new Promise((resolve, reject) => {
+      this.db.collection(this.collection)
+        .where('city', '==', start)
+        .get()
+        .then((querySnapshot) => {
+          let arr = [];
+          querySnapshot.forEach(function(doc) {
+            var obj = JSON.parse(JSON.stringify(doc.data()));
+            obj.id = doc.id;
+            //obj.eventId = doc.id;
+            arr.push(obj);
+          });
+    
+          if (arr.length > 0) {
+            resolve(arr);
+          } else {
+            console.log("No such document!");
+            resolve(null);
+          }
+        })
+        .catch((error: any) => {
+          reject(error);
+        });
+       });
+ 
   }
 
   storedLocation;
