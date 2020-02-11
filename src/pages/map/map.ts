@@ -307,35 +307,7 @@ setRoutes(myLatLng, map);
     }
     // set array to empty
     routes = [];
-    // selected location
-    directionsService.route(
-      {
-        origin: start,
-        destination: end,
-        travelMode: "DRIVING"
-      },
-      (response, status, request) => {
-        if (status === "OK") {
-          directionsDisplay.setOptions({
-            draggable: false,
-            map: map
-          });
-
-          directionsDisplay.setDirections(response);
-          var dist = response.routes[0].legs[0].distance.text;
-          var time = response.routes[0].legs[0].duration.text;
-        } else {
-          window.alert("Directions request failed due to " + status);
-        }
-        // push display route to array
-        displayEnd.push(directionsDisplay);
-                google.maps.event.addListener(
-                  directionsDisplay,
-                  "click",
-                  function() {}
-                );
-      }
-    );
+    
 
     // TBRHSC
     directionsService.route(
