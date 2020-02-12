@@ -74,7 +74,7 @@ export class DataServiceProvider {
     this.MinutesSince=(m.min);
     
     
-      if(this.SinceTimeForm<=4.5)
+      if(this.SinceTimeForm<4.5)
       {
         let EVTtime=6-this.SinceTimeForm;
         let EVT=ConvertBack(EVTtime);
@@ -92,7 +92,7 @@ export class DataServiceProvider {
           this.colour="yellow";
          this.TreatmentInfo="<ul><li>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+":"+pad((60-this.SecondsSince),2)+"</li></ul>";
       }
-      else if(this.SinceTimeForm>6)
+      else if(this.SinceTimeForm>=6)
       {
         this.colour="red";
         this.TreatmentInfo="<ul><li>Passed usual recovery time</li></ul>";
@@ -115,7 +115,7 @@ export class DataServiceProvider {
         
         
        
-        if(this.SinceTimeForm<=4.5)
+        if(this.SinceTimeForm<4.5)
         {
           let EVTtime=6-this.SinceTimeForm;
           let EVT=ConvertBack(EVTtime);
@@ -133,7 +133,7 @@ export class DataServiceProvider {
             this.colour="yellow";
            this.TreatmentInfo="<ul><li>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+":"+pad((60-this.SecondsSince),2)+"</li></ul>";
         }
-        else if(this.SinceTimeForm>6)
+        else if(this.SinceTimeForm>=6)
         {
           this.colour="red";
           this.TreatmentInfo="<ul><li>Passed usual recovery time</li></ul>";
