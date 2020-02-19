@@ -25,7 +25,7 @@ timeForm =new FormGroup({
 SubmitTime(params){
   console.warn(this.timeForm.value);
   if (!params) params = {};
-    this.navCtrl.push(ImagingRequiredPage,this.timeForm.value);
+    this.navCtrl.push(LvoPage);
     this.Data.time=this.timeForm.value.time1;
     console.log(this.Data.intervalID);
     if(this.Data.LastKnownWellTime!=this.timeForm.value.time1)//only stop if a new a new time is provided 

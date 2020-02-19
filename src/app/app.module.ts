@@ -4,6 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { PatientLocationPage } from '../pages/patient-location/patient-location';
 import { LastKnownWellPage } from '../pages/last-known-well/last-known-well';
+import { LvoPage } from '../pages/lvo/lvo';
 import { ImagingRequiredPage } from '../pages/imaging-required/imaging-required';
 import { TreatmentPage } from '../pages/treatment/treatment';
 import { TelestrokeSitePage } from '../pages/telestroke-site/telestroke-site';
@@ -34,7 +35,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
     AdvancedImagingPage,
     MapPage,
     ComponentsTimerComponent,
-    HelpPage
+    HelpPage,
+    LvoPage
   ],
   imports: [
     BrowserModule,
@@ -66,7 +68,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
     TelestrokeSitePage,
     AdvancedImagingPage,
     MapPage,
-    HelpPage
+    HelpPage,
+    LvoPage
   ],
   providers: [
     DataServiceProvider,

@@ -22,10 +22,11 @@ export class LvoPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad LvoPage');
   }
- /* GoToLAMS(){
+ /* goToLAMS(){
     this.navCtrl.push(TelestrokeSitePage);
   }*///untill the LAMS page has been made 
-  GoToLocation(){
+  goToLocation(params){
+    if (!params) params = {};
     this.navCtrl.push(PatientLocationPage);
   }
 
