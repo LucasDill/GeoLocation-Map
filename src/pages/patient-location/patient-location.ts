@@ -158,37 +158,28 @@ getData() {
   }
 
   search($event) {
-    console.log("searching");
       let q = $event.target.value
       this.startAt.next(q)
       this.endAt.next(q+"\uf8ff")
-      console.log(q);
-      console.log("next"+this.startAt.next(q));
   }
 
   firequery(start, end){
     if (start.length != 0 && start == start.toUpperCase())
     {
       this.next = 1;
-      console.log("1 " + start + "," + end);
-      console.log("yuck" + start.length);
       return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByChild('city').startAt(start).endAt(end+'\uf8ff')).valueChanges()
     }
     else if (start.length != 0 && this.next == 1)
     {
-      console.log("2 " + start + "," + end);
       return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByChild('city').startAt(start).endAt(end+'\uf8ff')).valueChanges()
     }
     else if (start.length == 0 && this.next == 1)
     {
-      console.log("start is blank");
       this.next = 0;
       return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByChild('cityForSearch').startAt(start).endAt(end+'\uf8ff')).valueChanges()
     }
     else
     {
-      //this.next = 0;
-      console.log("3 " + start + "," + end);
       return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByChild('cityForSearch').startAt(start).endAt(end+'\uf8ff')).valueChanges()
     }
   
