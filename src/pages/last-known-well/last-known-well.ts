@@ -4,6 +4,7 @@ import { ImagingRequiredPage } from '../imaging-required/imaging-required';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms"
 import { formControlBinding } from '@angular/forms/src/directives/ng_model';
 import { DataServiceProvider } from '../../providers/providers/data-service';
+import { LvoPage } from '../lvo/lvo';
 @Component({
   selector: 'page-last-known-well',
   templateUrl: 'last-known-well.html'
@@ -17,9 +18,9 @@ timeForm =new FormGroup({
    
   }
   
-  goToImagingRequired(params){
+  goToLVO(params){
   if (!params) params = {};
-    this.navCtrl.push(ImagingRequiredPage);
+    this.navCtrl.push(LvoPage);
 }
 SubmitTime(params){
   console.warn(this.timeForm.value);

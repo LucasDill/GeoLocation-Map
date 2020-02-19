@@ -4,7 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HelpPage } from '../pages/help/help';
-import { PatientLocationPage } from '../pages/patient-location/patient-location';
+import { LastKnownWellPage } from '../pages/last-known-well/last-known-well';
 var splash;
 
 
@@ -35,12 +35,12 @@ export class MyApp {
   ionViewDidLoad(){
     setTimeout(()=> {
       this.splash = false;
-      this.rootPage = PatientLocationPage;
+      this.rootPage = LastKnownWellPage;
     }, 3000);
   }
 
-  goToPatientLocation(params){
+  goToLastKnownWell(params){
     if (!params) params = {};
-    this.navCtrl.setRoot(PatientLocationPage);
+    this.navCtrl.setRoot(LastKnownWellPage);
   }
 }
