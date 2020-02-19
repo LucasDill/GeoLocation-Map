@@ -29,6 +29,7 @@ export class PatientLocationPage implements OnInit{
   public lat: number;
   public lng: number;
   items;
+  next: number;
 
 
   db: any;
@@ -166,7 +167,20 @@ getData() {
   }
 
   firequery(start, end){
-    return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByChild('city').startAt(start).endAt(end+'\uf8ff')).valueChanges()
+    if (start == start.toUpperCase())
+    {
+      this.next = 1;
+      return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByChild('city').startAt(start).endAt(end+'\uf8ff')).valueChanges()
+    }
+    else if (this.next == 1)
+    {
+      return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByChild('city').startAt(start).endAt(end+'\uf8ff')).valueChanges()
+    }
+    else
+    {
+      return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByChild('cityForSearch').startAt(start).endAt(end+'\uf8ff')).valueChanges()
+    }
+    
   
   
   }
