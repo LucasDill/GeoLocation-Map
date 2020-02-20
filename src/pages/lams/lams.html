@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar color="steelblue2">
+    <ion-title>
+      LAMS Score
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page8">
+  <components-timer></components-timer>
+  <h3 id="lastKnownWell-heading5" style="color:#000000;font-weight:400;">
+    What is the LAMS Score?
+  </h3>
+  <form [formGroup]="LamsForm" (ngSubmit)="SubmitLams()"><!--The last known well in hour format-->
+    <ion-item id="LAMS">
+      <ion-label>LAMS Score</ion-label>
+      <ion-input type="number" inputmode="numeric" required formControlName="Lamsscore"></ion-input>
+    </ion-item>
+    <br><br><br><br><br><!--Break between inputs and the button to make it consistent-->
+    <button  id="LamsBtn" ion-button color="steelblue1" [disabled]="!LamsForm.valid" type="submit" block >
+      Next
+    </button>
+  </form>
+  <div class="spacer" style="height:100px;" id="lastKnownWell-spacer7"></div>
+  
+  <div class="spacer" style="height:100px;" id="lastKnownWell-spacer8"></div>
+
+</ion-content>

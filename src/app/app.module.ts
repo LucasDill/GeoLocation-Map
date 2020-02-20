@@ -10,6 +10,7 @@ import { TreatmentPage } from '../pages/treatment/treatment';
 import { TelestrokeSitePage } from '../pages/telestroke-site/telestroke-site';
 import { AdvancedImagingPage } from '../pages/advanced-imaging/advanced-imaging';
 import { MapPage } from '../pages/map/map';
+import { LamsPage } from '../pages/lams/lams';
 import { ComponentsTimerComponent } from '../components/components-timer/components-timer';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import { AngularFireModule } from 'angularfire2';
@@ -36,7 +37,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
     MapPage,
     ComponentsTimerComponent,
     HelpPage,
-    LvoPage
+    LvoPage,
+    LamsPage
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
     AdvancedImagingPage,
     MapPage,
     HelpPage,
-    LvoPage
+    LvoPage,
+    LamsPage
   ],
   providers: [
     DataServiceProvider,

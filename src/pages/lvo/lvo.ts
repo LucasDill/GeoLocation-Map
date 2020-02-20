@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PatientLocationPage } from '../patient-location/patient-location';
 import { DataServiceProvider } from '../../providers/providers/data-service';
+import { LamsPage } from '../lams/lams';
 
 /**
  * Generated class for the LvoPage page.
@@ -23,10 +24,10 @@ export class LvoPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad LvoPage');
   }
- /* goToLAMS(){
-    this.navCtrl.push(TelestrokeSitePage);
+  goToLAMS(){
+    this.navCtrl.push(LamsPage);
     this.Data.LvoUsed=false;
-  }*///untill the LAMS page has been made 
+  } 
   goToLocation(params){
     if (!params) params = {};
     this.Data.LvoUsed=true;

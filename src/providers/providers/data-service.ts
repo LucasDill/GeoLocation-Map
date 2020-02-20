@@ -30,6 +30,7 @@ export class DataServiceProvider {
   lat: any;
   lng: any;
   location: any;
+  LAMS:any;
 
 
   constructor() {
