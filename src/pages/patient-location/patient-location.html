@@ -20,11 +20,12 @@
 <p style="text-align: center;">OR</p>
   <ion-input type="text" [(ngModel)]="searchterm" (keyup)="search($event)" autocapitalize="on" class="input" placeholder="Enter City" id="txtHome" required style = "border: solid black 3px;"></ion-input>
   <div *ngFor="let health_centres of Medical_Centers">
-
-    <button type ="button" id="patientLocation-button1"  ion-button color="steelblue1"  fill="outline" block on-click="goToLastKnownWell()" block on-click="getLatLng(health_centres.name)">
+<!--Tried the height to fix it probably does nothing and no screen size is that small-->
+    <button type ="button" height="fit-content" style="border: solid black 1px;" id="patientLocation-button1" text-wrap no-margin ion-button color="steelblue1"  fill="outline" block on-click="goToLastKnownWell()" block on-click="getLatLng(health_centres.name)">
       <!--{{health_centres.address}}-->
       <p>
-        {{health_centres.name}}, {{health_centres.city}}
+        {{health_centres.name}}:  {{health_centres.city}}
+        
       </p>
     </button>
   </div>
