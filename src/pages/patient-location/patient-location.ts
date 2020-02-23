@@ -15,6 +15,7 @@ import "firebase/firestore";
 import { Autocomplete } from '../../providers/providers/autocomplete';
 import { Subject } from 'rxjs/Subject'
 import { Observable } from 'rxjs/Rx';
+import { ImagingPage } from '../imaging/imaging';
 
 @Component({
   selector: 'page-patient-location',
@@ -124,7 +125,14 @@ getData() {
 
 
   goToLastKnownWell(params){
-    if (!params) params = {};
+    console.log(params);
+    if(this.Data.LvoUsed=true)
+    {
+      this.navCtrl.push(ImagingPage);
+    }
+    else{
+
+    }
     this.navCtrl.push(LastKnownWellPage);
   }
 
