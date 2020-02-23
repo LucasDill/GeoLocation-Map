@@ -11,6 +11,7 @@ import { TelestrokeSitePage } from '../pages/telestroke-site/telestroke-site';
 import { AdvancedImagingPage } from '../pages/advanced-imaging/advanced-imaging';
 import { MapPage } from '../pages/map/map';
 import { LamsPage } from '../pages/lams/lams';
+import { EvtOptionsPage } from '../pages/evt-options/evt-options';
 import { ComponentsTimerComponent } from '../components/components-timer/components-timer';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import { AngularFireModule } from 'angularfire2';
@@ -18,7 +19,8 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AgmCoreModule } from '@agm/core';
 import { HelpPage } from '../pages/help/help';
-
+import { ImagingPage } from '../pages/imaging/imaging';
+import { TPaQuestionPage } from '..//pages/t-pa-question/t-pa-question';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { DataServiceProvider } from '../providers/providers/data-service';
@@ -38,7 +40,10 @@ import { AngularFirestore } from 'angularfire2/firestore';
     ComponentsTimerComponent,
     HelpPage,
     LvoPage,
-    LamsPage
+    LamsPage,
+    ImagingPage,
+    TPaQuestionPage,
+    EvtOptionsPage
   ],
   imports: [
     BrowserModule,
@@ -72,7 +77,10 @@ import { AngularFirestore } from 'angularfire2/firestore';
     MapPage,
     HelpPage,
     LvoPage,
-    LamsPage
+    LamsPage,
+    ImagingPage,
+    TPaQuestionPage,
+    EvtOptionsPage
   ],
   providers: [
     DataServiceProvider,

@@ -16,12 +16,16 @@ import { Autocomplete } from '../../providers/providers/autocomplete';
 import { Subject } from 'rxjs/Subject'
 import { Observable } from 'rxjs/Rx';
 import { ImagingPage } from '../imaging/imaging';
+import { ImagingRequiredPage } from '../imaging-required/imaging-required';
+import { TPaQuestionPage } from '../t-pa-question/t-pa-question';
 
 @Component({
   selector: 'page-patient-location',
   templateUrl: 'patient-location.html'
 })
 export class PatientLocationPage implements OnInit{
+
+  Telestroke:any;
 
   public healthCentres: AngularFireList<any>;
   @ViewChild("search")
@@ -30,6 +34,8 @@ export class PatientLocationPage implements OnInit{
   public lat: number;
   public lng: number;
   items;
+  next: number;
+  
 
 
   db: any;
@@ -126,15 +132,25 @@ getData() {
 
   goToLastKnownWell(params){
     console.log(params);
-    if(this.Data.LvoUsed=true)
+    //if (!params) params = {};
+    if(this.Data.LvoUsed=false)
     {
       this.navCtrl.push(ImagingPage);
     }
-    else{
+    else if(params==false)
+      {
+        this.navCtrl.push(ImagingRequiredPage);
+      }
+    else if(params==true)
+      {
+        this.navCtrl.push(TPaQuestionPage);
+      }
+      else{
+        console.warn("Error Telestroke value not found");
+      }
+      }
+    
 
-    }
-    this.navCtrl.push(LastKnownWellPage);
-  }
 
 
   Medical_Centers;
@@ -165,16 +181,30 @@ getData() {
   }
 
   search($event) {
-    console.log("searching");
       let q = $event.target.value
       this.startAt.next(q)
       this.endAt.next(q+"\uf8ff")
-      console.log(q);
-      console.log("next"+this.startAt.next(q));
   }
 
   firequery(start, end){
-    return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByChild('city').startAt(start).endAt(end+'\uf8ff')).valueChanges()
+    if (start.length != 0 && start == start.toUpperCase())
+    {
+      this.next = 1;
+      return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByChild('city').startAt(start).endAt(end+'\uf8ff')).valueChanges()
+    }
+    else if (start.length != 0 && this.next == 1)
+    {
+      return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByChild('city').startAt(start).endAt(end+'\uf8ff')).valueChanges()
+    }
+    else if (start.length == 0 && this.next == 1)
+    {
+      this.next = 0;
+      return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByChild('cityForSearch').startAt(start).endAt(end+'\uf8ff')).valueChanges()
+    }
+    else
+    {
+      return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByChild('cityForSearch').startAt(start).endAt(end+'\uf8ff')).valueChanges()
+    }
   
   
   }
@@ -231,12 +261,14 @@ getData() {
             if (
               (<any>data[i]).bTelestroke == true
             ) {
+              this.Telestroke=true;
               // write code here to go to next applicable page
               console.log("YOU ARE AT A TELSTROKE CENTRE");
 
             }
             else{
               // write code here to go to next applicable page
+              this.Telestroke=false;
               console.log("YOU ARE NOT AT A TELESTROKE CENTRE");
               
             }

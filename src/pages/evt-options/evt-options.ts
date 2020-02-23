@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MapPage } from '../map/map';
-import { TreatmentPage } from '../treatment/treatment';
+
 /**
- * Generated class for the ImagingPage page.
+ * Generated class for the EvtOptionsPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -11,22 +11,19 @@ import { TreatmentPage } from '../treatment/treatment';
 
 @IonicPage()
 @Component({
-  selector: 'page-imaging',
-  templateUrl: 'imaging.html',
+  selector: 'page-evt-options',
+  templateUrl: 'evt-options.html',
 })
-export class ImagingPage {
+export class EvtOptionsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad EvtOptionsPage');
+  }
   goToMap(params){
     if (!params) params = {};
     this.navCtrl.push(MapPage);
   }
-  GoToMore(params){
-    if (!params) params={};
-    this.navCtrl.push(TreatmentPage);
-
-  }
-
 }

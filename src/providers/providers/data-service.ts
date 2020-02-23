@@ -31,7 +31,8 @@ export class DataServiceProvider {
   lng: any;
   location: any;
   LAMS:any;
-
+  NeedImaging:boolean;
+  hadtPA:boolean;
 
   constructor() {
   }
