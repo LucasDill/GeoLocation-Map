@@ -1,13 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController,NavParams } from 'ionic-angular';
-import { TreatmentPage } from '../treatment/treatment';
-import { MapPage } from '../map/map';
 import { ImagingPage } from '../imaging/imaging';
-import { TelestrokeSitePage } from '../telestroke-site/telestroke-site';
-import { AdvancedImagingPage } from '../advanced-imaging/advanced-imaging';
-import { LastKnownWellPage } from '../last-known-well/last-known-well';
 import { from } from 'rxjs';
 import { DataServiceProvider } from '../../providers/providers/data-service';
+import { TPaQuestionPage } from '../t-pa-question/t-pa-question';
 
 @Component({
   selector: 'page-imaging-required',
@@ -22,9 +18,9 @@ export class ImagingRequiredPage {
   {
     
   }
-  goToMap(params){
+  goToTpaQuestion(params){
     if (!params) params = {};
-    this.navCtrl.push(MapPage);
+    this.navCtrl.push(TPaQuestionPage);
     this.Data.NeedImaging=false;
   }
   goToImagingRoutes(params){

@@ -133,17 +133,14 @@ getData() {
   goToLastKnownWell(params){
     console.log(params);
     //if (!params) params = {};
-    if(this.Data.LvoUsed=false)
-    {
-      this.navCtrl.push(ImagingPage);
-    }
-    else if(params==false)
+  
+   if(params==false)
       {
-        this.navCtrl.push(ImagingRequiredPage);
+        this.navCtrl.push(ImagingPage);
       }
     else if(params==true)
       {
-        this.navCtrl.push(TPaQuestionPage);
+        this.navCtrl.push(ImagingRequiredPage);
       }
       else{
         console.warn("Error Telestroke value not found");

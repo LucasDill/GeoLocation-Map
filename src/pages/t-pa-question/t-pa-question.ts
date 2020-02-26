@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/providers/data-service';
-import { ImagingRequiredPage } from '../imaging-required/imaging-required';
 import { EvtOptionsPage } from '../evt-options/evt-options';
+import { TreatmentPage } from '../treatment/treatment';
 /**
  * Generated class for the TPaQuestionPage page.
  *
@@ -28,9 +28,9 @@ export class TPaQuestionPage {
     this.navCtrl.push(EvtOptionsPage);
     this.Data.NeedImaging=false;
   }
-  goToImagingRoutes(params){
+  goToTreatment(params){
     if (!params) params = {};
-    this.navCtrl.push(ImagingRequiredPage);
+    this.navCtrl.push(TreatmentPage);
     this.Data.hadtPA=false;
   }
 

@@ -4,13 +4,9 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { PatientLocationPage } from '../pages/patient-location/patient-location';
 import { LastKnownWellPage } from '../pages/last-known-well/last-known-well';
-import { LvoPage } from '../pages/lvo/lvo';
 import { ImagingRequiredPage } from '../pages/imaging-required/imaging-required';
 import { TreatmentPage } from '../pages/treatment/treatment';
-import { TelestrokeSitePage } from '../pages/telestroke-site/telestroke-site';
-import { AdvancedImagingPage } from '../pages/advanced-imaging/advanced-imaging';
 import { MapPage } from '../pages/map/map';
-import { LamsPage } from '../pages/lams/lams';
 import { EvtOptionsPage } from '../pages/evt-options/evt-options';
 import { ComponentsTimerComponent } from '../components/components-timer/components-timer';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
@@ -34,13 +30,9 @@ import { AngularFirestore } from 'angularfire2/firestore';
     LastKnownWellPage,
     ImagingRequiredPage,
     TreatmentPage,
-    TelestrokeSitePage,
-    AdvancedImagingPage,
     MapPage,
     ComponentsTimerComponent,
     HelpPage,
-    LvoPage,
-    LamsPage,
     ImagingPage,
     TPaQuestionPage,
     EvtOptionsPage
@@ -72,12 +64,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
     LastKnownWellPage,
     ImagingRequiredPage,
     TreatmentPage,
-    TelestrokeSitePage,
-    AdvancedImagingPage,
     MapPage,
     HelpPage,
-    LvoPage,
-    LamsPage,
     ImagingPage,
     TPaQuestionPage,
     EvtOptionsPage
