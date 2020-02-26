@@ -10,16 +10,20 @@
     </ion-title>
   </ion-navbar>
 
-
+  <components-timer></components-timer>
 
 </ion-header>
-<ion-content padding id="page1">
-  <components-timer></components-timer>
+<ion-content  padding id="page1">
+  
+  <div style="height:5%;"></div>
   <button type ="button" id="patientLocation-button1"  ion-button color="steelblue1"  fill="outline" block on-click="goToLastKnownWell()" block on-click="setCurrentPosition()"> 
   CHOOSE YOUR LOCATION
   </button>
-<p style="text-align: center;">OR</p>
-  <ion-input type="text" [(ngModel)]="searchterm" (keyup)="search($event)" autocapitalize="on" class="input" placeholder="Enter City" id="txtHome" required style = "border: solid black 3px;"></ion-input>
+  <div style="height:3%;"></div>
+<p style="text-align: center;font-size:large">OR</p>
+<div style="height:3%;"></div>
+  <ion-input type="text" [(ngModel)]="searchterm" (keyup)="search($event)" autocapitalize="on" class="input" placeholder="Search By City or Center" id="txtHome" required style = "border: solid black 3px;"></ion-input>
+  <div style="height:3%;"></div>
   <div *ngFor="let health_centres of Medical_Centers">
 <!--Tried the height to fix it probably does nothing and no screen size is that small-->
     <button type ="button"   id="patientLocation-button1" text-wrap  ion-button color="steelblue1"  fill="outline"  block on-click="getLatLng(health_centres.name)" block on-click="goToLastKnownWell(health_centres.bTelestroke)" >
@@ -37,7 +41,7 @@
     </p>
   </div>
 
-  <div class="spacer" style="height:100px;" id="patientLocation-spacer6"></div>
+ 
   
 </ion-content>
 

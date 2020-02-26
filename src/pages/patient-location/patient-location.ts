@@ -144,6 +144,7 @@ getData() {
       }
       else{
         console.warn("Error Telestroke value not found");
+        this.navCtrl.push(ImagingRequiredPage);
       }
       }
     

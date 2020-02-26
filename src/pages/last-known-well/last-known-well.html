@@ -5,17 +5,23 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content padding id="page2">
-<div [ngStyle]="{ 'height' : Height}">
-  <h3 id="lastKnownWell-heading5" style="color:#000000;font-weight:400;">
-    What time patient was last known well?
+<ion-content padding class="card" id="page2">
+ <!-- <ion-grid style="height :100%">
+<ion-row justify-content-center align-items-center style="height: 100%"> remove to center the text all in the middle-->
+<div style="height:10%;"></div>
+  <h3 id="lastKnownWell-heading5" style="color:#000000;font-weight:400;font-size: xx-large;">
+    What time was patient last known to be well?
   </h3>
+  <div style="height:10%;"></div>
   <form [formGroup]="timeForm" (ngSubmit)="SubmitTime()"><!--The last known well in hour format-->
     <ion-item id="lastKnownWellTime">
-      <ion-label>Last Known Well Hour Format</ion-label>
+      <ion-label>Time in EST</ion-label>
       <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" required formControlName="time1"></ion-datetime>
     </ion-item>
-    <br><br><br><br><br><!--Break between inputs and the button to make it consistent-->
+    <div class="spacer" style="height:100px;" id="lastKnownWell-spacer7"></div>
+    <!--Break between inputs and the button to make it consistent-->
+    <div class="spacer" style="height:10%;" id="lastKnownWell-spacer7"></div>
+    <br>
     <button  id="lastKnownWell-button2" ion-button color="steelblue1" [disabled]="!timeForm.valid" type="submit" block >
       Next
     </button>
@@ -28,6 +34,7 @@
       Contact the Acute Stroke Physician or RCCR or Critical Care (this will be based on the patient location and the process in place to support the location - see access to Acute Stroke Services MAP)
     </p>-->
   <!--</div>-->
-</div>
 
+<!--</ion-row>
+</ion-grid>-->
 </ion-content>

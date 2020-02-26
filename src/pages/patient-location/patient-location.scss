@@ -5,6 +5,10 @@ page-patient-location {
     opacity: .5;
     pointer-events: none;
 }
+.no-scroll .scroll-content{
+  overflow: hidden;
+}
+.input-cover { position: static; }
 
 agm-map {
           height: 500px;
@@ -12,7 +16,9 @@ agm-map {
 
         $toolbar-background: #3D9BDD;
 }
-
+.no-scroll .scroll-content{
+  overflow: hidden;
+}
 // http://ionicframework.com/docs/v2/theming/
 
 
