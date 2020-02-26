@@ -10,12 +10,14 @@ import { PatientLocationPage } from '../patient-location/patient-location';
   templateUrl: 'last-known-well.html'
 })
 export class LastKnownWellPage {
- 
+
+Height:any=40;
 timeForm =new FormGroup({
   time1: new FormControl('',Validators.required),
 });
   constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider) {
-   
+   //this.Height=(Data.height)/2;
+   console.log(this.Height)
   }
   
   goToLocation(params){

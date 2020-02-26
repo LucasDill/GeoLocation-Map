@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AnyTxtRecord } from 'dns';
-
+import {Platform} from 'ionic-angular'
 /*
   Generated class for the DataServiceProvider provider.
 
@@ -31,10 +31,21 @@ export class DataServiceProvider {
   location: any;
   NeedImaging:boolean;
   hadtPA:boolean;
-
-  constructor() {
+  height:any;
+  constructor(platform: Platform) {
+    platform.ready().then((readySource) => {
+      console.log('Width: ' + platform.width());
+      console.log('Height: ' + platform.height());
+      this.height=platform.height();
+    });
   }
-  
+  getSize(platform: Platform){
+    platform.ready().then((readySource) => {
+    console.log('Width: ' + platform.width());
+    console.log('Height: ' + platform.height());
+    this.height=platform.height();
+  });
+}
 
   StartTime(param)//starts when a time is provided in last known well sets the time to be displayed at the top of pages after getting the current time 
   {
