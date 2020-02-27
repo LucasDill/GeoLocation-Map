@@ -26,11 +26,11 @@ export class MyApp {
       splashScreen.hide();
     });
     
-      //this.config.set("scrollPadding", false);
-      //this.config.set("scrollAssist", false);
-      //this.config.set("autoFocusAssist", true);
+      this.config.set("scrollPadding", false);
+      this.config.set("scrollAssist", false);
+      this.config.set("autoFocusAssist", true);
   
-      //this.config.set("android", "scrollAssist", true );
+      this.config.set("android", "scrollAssist", true );
       this.config.set("android", "autoFocusAssist", "delay");
   
   }
