@@ -36,8 +36,6 @@ export class PatientLocationPage implements OnInit{
   items;
   next: number;
   
-
-
   db: any;
   collection: string = 'Health Centers';
 
@@ -163,18 +161,19 @@ getData() {
 
 
   ngOnInit() {
-    Observable.combineLatest(this.startobs, this.endobs).subscribe((value) => {
+    /*Observable.combineLatest(this.startobs, this.endobs).subscribe((value) => {
       this.firequery(value[0], value[1]).subscribe((Medical_Centers) => {
         this.Medical_Centers = Medical_Centers;
       });
-    });
-
-
-    /*Observable.combineLatest(this.startobs, this.endobs).subscribe((value) => {
-      this.firestorequery(value[0], value[1]);
     });*/
 
-    
+
+    Observable.combineLatest(this.startobs, this.endobs).subscribe((value) => {
+      this.firestorequery(value[0], value[1]).then((Medical_Centers) => {
+        this.Medical_Centers = Medical_Centers;
+    });
+  });
+
               
   }
 
@@ -185,12 +184,29 @@ getData() {
   }
 
   firequery(start, end){
-    if (start.length != 0 && start == start.toUpperCase())
-    {
-      this.next = 1;
-      return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByChild('city').startAt(start).endAt(end+'\uf8ff')).valueChanges()
+  let returnVal;
+    if(this.db.collection("/Health Centers/").orderBy("city").startAt(start) || this.db.collection("/Health Centers/").orderBy("name").startAt(start))
+     { 
+       this.next = 1;
+
+      this.db.collection("/Health Centers/").orderBy("city").startAt(start)
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            returnVal = doc.id, " => ", doc.data();
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+      //console.log(this.db.collection("/Health Centers/").where("city", "array-contains", start));
+      
+      return returnVal
     }
-    else if (start.length != 0 && this.next == 1)
+    if (start.length != 0 && this.next == 1)
     {
       return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByChild('city').startAt(start).endAt(end+'\uf8ff')).valueChanges()
     }
@@ -207,11 +223,34 @@ getData() {
   
   }
 
+  infoList = document.querySelector('#print-list');
+
+
+  renderList(doc){
+    let li = document.createElement('li');
+    let name = document.createElement('span');
+    let city = document.createElement('span');
+
+    li.setAttribute('data-id', doc.id);
+    name.textContent = doc.data().name;
+    city.textContent = doc.data().city;
+
+    li.appendChild(name);
+    li.appendChild(city);
+
+    this.infoList.appendChild(li);
+  }
+
+
   firestorequery(start, end){
     console.log("START" + start);
+
     return new Promise((resolve, reject) => {
-      this.db.collection(this.collection)
-        .where('city', '==', start)
+      this.db.collection("/Health Centers/")
+        //.where('city', '==', start
+        .orderBy("city")
+        .startAt(start)
+        .endAt(end+'\uf8ff')
         .get()
         .then((querySnapshot) => {
           let arr = [];
@@ -220,21 +259,59 @@ getData() {
             obj.id = doc.id;
             //obj.eventId = doc.id;
             arr.push(obj);
+            console.log(doc.data())
+            //this.renderList(doc);
           });
     
           if (arr.length > 0) {
             resolve(arr);
           } else {
             console.log("No such document!");
-            resolve(null);
+            
+            this.db.collection("/Health Centers/")
+          //.where('city', '==', start)
+          .orderBy("name")
+          .startAt(start)
+          .endAt(end+'\uf8ff')
+          .get()
+          .then((querySnapshot) => {
+            let arr = [];
+            querySnapshot.forEach(function(doc) {
+              var obj = JSON.parse(JSON.stringify(doc.data()));
+              obj.id = doc.id;
+              //obj.eventId = doc.id;
+              arr.push(obj);
+              console.log(doc.data())
+              //this.renderList(doc);
+            });
+      
+            if (arr.length > 0) {
+              resolve(arr);
+            } else {
+              console.log("No such document!");
+              resolve(null);
+            }
+          })
+          .catch((error: any) => {
+            reject(error);
+          });
           }
         })
         .catch((error: any) => {
           reject(error);
         });
-       });
- 
+      
+        
+
+
+
+
+         });
   }
+
+
+
+
 
   storedLocation;
   cityLocation;
