@@ -57,6 +57,9 @@ export class PatientLocationPage implements OnInit{
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
         let nativeHomeInputBox = document.getElementById('txtHome').getElementsByTagName('input')[0];
+        
+
+        // Google Maps autocomplete
         /*let autocomplete = new google.maps.places.Autocomplete(nativeHomeInputBox, {
             types: ["address"]
         });*/
@@ -155,56 +158,34 @@ getData() {
   start;
   end;
 
-  searchterm : string;
   startobs = this.startAt.asObservable();
   endobs = this.endAt.asObservable();
 
-
+  // subscribes to firestore to get realtime results of keys when pressed
   ngOnInit() {
-    /*Observable.combineLatest(this.startobs, this.endobs).subscribe((value) => {
-      this.firequery(value[0], value[1]).subscribe((Medical_Centers) => {
-        this.Medical_Centers = Medical_Centers;
-      });
-    });*/
-
-
     Observable.combineLatest(this.startobs, this.endobs).subscribe((value) => {
       this.firestorequery(value[0], value[1]).then((Medical_Centers) => {
         this.Medical_Centers = Medical_Centers;
     });
   });
-
-              
   }
 
+
+  // gets key pressed (see HTML) and pushes it into array of pressed keys
   search($event) {
       let q = $event.target.value
       this.startAt.next(q)
       this.endAt.next(q+"\uf8ff")
   }
 
-  firequery(start, end){
-  let returnVal;
-    if(this.db.collection("/Health Centers/").orderBy("city").startAt(start) || this.db.collection("/Health Centers/").orderBy("name").startAt(start))
-     { 
-       this.next = 1;
 
-      this.db.collection("/Health Centers/").orderBy("city").startAt(start)
-    .get()
-    .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-            returnVal = doc.id, " => ", doc.data();
-        });
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });
-      //console.log(this.db.collection("/Health Centers/").where("city", "array-contains", start));
-      
-      return returnVal
+  // realtime database search
+  /*firequery(start, end){
+ 
+    if (start.length != 0 && start == start.toUpperCase())
+    {
+      this.next = 1;
+      return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByChild('city').startAt(start).endAt(end+'\uf8ff')).valueChanges()
     }
     if (start.length != 0 && this.next == 1)
     {
@@ -219,60 +200,21 @@ getData() {
     {
       return this.DataBase.list('/Medical_Centers/', ref => ref.limitToFirst(3).orderByChild('cityForSearch').startAt(start).endAt(end+'\uf8ff')).valueChanges()
     }
-  
-  
-  }
+  }*/
 
-  infoList = document.querySelector('#print-list');
-
-
-  renderList(doc){
-    let li = document.createElement('li');
-    let name = document.createElement('span');
-    let city = document.createElement('span');
-
-    li.setAttribute('data-id', doc.id);
-    name.textContent = doc.data().name;
-    city.textContent = doc.data().city;
-
-    li.appendChild(name);
-    li.appendChild(city);
-
-    this.infoList.appendChild(li);
-  }
-
-
+  // firestore database search
   firestorequery(start, end){
-    console.log("START" + start);
-
-    return new Promise((resolve, reject) => {
-      this.db.collection("/Health Centers/")
-        //.where('city', '==', start
-        .orderBy("city")
-        .startAt(start)
-        .endAt(end+'\uf8ff')
-        .get()
-        .then((querySnapshot) => {
-          let arr = [];
-          querySnapshot.forEach(function(doc) {
-            var obj = JSON.parse(JSON.stringify(doc.data()));
-            obj.id = doc.id;
-            //obj.eventId = doc.id;
-            arr.push(obj);
-            console.log(doc.data())
-            //this.renderList(doc);
-          });
-    
-          if (arr.length > 0) {
-            resolve(arr);
-          } else {
-            console.log("No such document!");
-            
-            this.db.collection("/Health Centers/")
-          //.where('city', '==', start)
-          .orderBy("name")
+   
+    if (start.length != 0 && start == start.toUpperCase())
+    {
+      this.next = 1;
+      return new Promise((resolve, reject) => {
+        this.db.collection("/Health Centers/")
+          //.where('city', '==', start
+          .orderBy("city")
           .startAt(start)
           .endAt(end+'\uf8ff')
+          .limit(3)
           .get()
           .then((querySnapshot) => {
             let arr = [];
@@ -281,36 +223,231 @@ getData() {
               obj.id = doc.id;
               //obj.eventId = doc.id;
               arr.push(obj);
-              console.log(doc.data())
-              //this.renderList(doc);
+              //console.log(doc.data())
             });
       
             if (arr.length > 0) {
               resolve(arr);
             } else {
-              console.log("No such document!");
-              resolve(null);
+              console.log("No such location!");
+              
+              this.db.collection("/Health Centers/")
+            //.where('city', '==', start)
+            .orderBy("name")
+            .startAt(start)
+            .endAt(end+'\uf8ff')
+            .limit(3)
+            .get()
+            .then((querySnapshot) => {
+              let arr = [];
+              querySnapshot.forEach(function(doc) {
+                var obj = JSON.parse(JSON.stringify(doc.data()));
+                obj.id = doc.id;
+                //obj.eventId = doc.id;
+                arr.push(obj);
+                //console.log(doc.data())
+              });
+        
+              if (arr.length > 0) {
+                resolve(arr);
+              } else {
+                console.log("No such location!");
+                resolve(null);
+              }
+            })
+            .catch((error: any) => {
+              reject(error);
+            });
             }
           })
           .catch((error: any) => {
             reject(error);
           });
-          }
-        })
-        .catch((error: any) => {
-          reject(error);
-        });
+  
+           });
+    }
+    if (start.length != 0 && this.next == 1)
+    {
+      return new Promise((resolve, reject) => {
+        this.db.collection("/Health Centers/")
+          //.where('city', '==', start
+          .orderBy("city")
+          .startAt(start)
+          .endAt(end+'\uf8ff')
+          .limit(3)
+          .get()
+          .then((querySnapshot) => {
+            let arr = [];
+            querySnapshot.forEach(function(doc) {
+              var obj = JSON.parse(JSON.stringify(doc.data()));
+              obj.id = doc.id;
+              //obj.eventId = doc.id;
+              arr.push(obj);
+              //console.log(doc.data())
+            });
       
+            if (arr.length > 0) {
+              resolve(arr);
+            } else {
+              console.log("No such location!");
+              
+              this.db.collection("/Health Centers/")
+            //.where('city', '==', start)
+            .orderBy("name")
+            .startAt(start)
+            .endAt(end+'\uf8ff')
+            .limit(3)
+            .get()
+            .then((querySnapshot) => {
+              let arr = [];
+              querySnapshot.forEach(function(doc) {
+                var obj = JSON.parse(JSON.stringify(doc.data()));
+                obj.id = doc.id;
+                //obj.eventId = doc.id;
+                arr.push(obj);
+                //console.log(doc.data())
+              });
         
-
-
-
-
-         });
+              if (arr.length > 0) {
+                resolve(arr);
+              } else {
+                console.log("No such location!");
+                resolve(null);
+              }
+            })
+            .catch((error: any) => {
+              reject(error);
+            });
+            }
+          })
+          .catch((error: any) => {
+            reject(error);
+          });
+  
+           });
+    }
+    else if (start.length == 0 && this.next == 1)
+    {
+      this.next = 0;
+      return new Promise((resolve, reject) => {
+        this.db.collection("/Health Centers/")
+          //.where('city', '==', start
+          .orderBy("cityForSearch")
+          .startAt(start)
+          .endAt(end+'\uf8ff')
+          .limit(3)
+          .get()
+          .then((querySnapshot) => {
+            let arr = [];
+            querySnapshot.forEach(function(doc) {
+              var obj = JSON.parse(JSON.stringify(doc.data()));
+              obj.id = doc.id;
+              //obj.eventId = doc.id;
+              arr.push(obj);
+              //console.log(doc.data())
+            });
+      
+            if (arr.length > 0) {
+              resolve(arr);
+            } else {
+              console.log("No such location!");
+              
+              this.db.collection("/Health Centers/")
+            //.where('city', '==', start)
+            .orderBy("nameForSearch")
+            .startAt(start)
+            .endAt(end+'\uf8ff')
+            .limit(3)
+            .get()
+            .then((querySnapshot) => {
+              let arr = [];
+              querySnapshot.forEach(function(doc) {
+                var obj = JSON.parse(JSON.stringify(doc.data()));
+                obj.id = doc.id;
+                //obj.eventId = doc.id;
+                arr.push(obj);
+                //console.log(doc.data())
+              });
+        
+              if (arr.length > 0) {
+                resolve(arr);
+              } else {
+                console.log("No such location!");
+                resolve(null);
+              }
+            })
+            .catch((error: any) => {
+              reject(error);
+            });
+            }
+          })
+          .catch((error: any) => {
+            reject(error);
+          });
+  
+           });
+    }
+    else
+    {
+      return new Promise((resolve, reject) => {
+        this.db.collection("/Health Centers/")
+          //.where('city', '==', start
+          .orderBy("cityForSearch")
+          .startAt(start)
+          .endAt(end+'\uf8ff')
+          .limit(3)
+          .get()
+          .then((querySnapshot) => {
+            let arr = [];
+            querySnapshot.forEach(function(doc) {
+              var obj = JSON.parse(JSON.stringify(doc.data()));
+              obj.id = doc.id;
+              //obj.eventId = doc.id;
+              arr.push(obj);
+              //console.log(doc.data())
+            });
+      
+            if (arr.length > 0) {
+              resolve(arr);
+            } else {
+              console.log("No such location!");
+              
+              this.db.collection("/Health Centers/")
+            //.where('city', '==', start)
+            .orderBy("nameForSearch")
+            .startAt(start)
+            .endAt(end+'\uf8ff')
+            .limit(3)
+            .get()
+            .then((querySnapshot) => {
+              let arr = [];
+              querySnapshot.forEach(function(doc) {
+                var obj = JSON.parse(JSON.stringify(doc.data()));
+                obj.id = doc.id;
+                //obj.eventId = doc.id;
+                arr.push(obj);
+                //console.log(doc.data())
+              });
+        
+              if (arr.length > 0) {
+                resolve(arr);
+              } else {
+                console.log("No such location!");
+                resolve(null);
+              }
+            })
+            .catch((error: any) => {
+              reject(error);
+            });
+            }
+          })
+          .catch((error: any) => {
+            reject(error);
+          });
+  
+           });
+    }
   }
-
-
-
 
 
   storedLocation;
