@@ -24,7 +24,7 @@
   <div style="height:3vh;"></div>
 <p style="text-align: center;font-size: large">OR</p>
 <div style="height:3vh;"></div>
-  <ion-input type="text" [(ngModel)]="searchterm" (keyup)="search($event)" autocapitalize="on" class="input" style="font-size: large;" placeholder="Search By City or Center" id="txtHome" required style = "border: solid black 3px;"></ion-input>
+  <ion-input type="text" [(ngModel)]="searchterm" (keyup)="search($event)" autocapitalize="off" class="input" style="font-size: large;" placeholder="Search By City or Center" id="txtHome" required style = "border: solid black 3px;"></ion-input>
   <div style="height:5vh;"></div>
   <div *ngFor="let health_centres of Medical_Centers">
 <!--Tried the height to fix it probably does nothing and no screen size is that small-->
