@@ -101,8 +101,10 @@ this.getData();
 public weather;
 public city;
 public description;
+public wlat;
+public wlon;
 getWeather(){
-        this.weatherService.getWeatherFromApi(this.Data.city).subscribe( weather => {
+        this.weatherService.getWeatherFromApi(this.Data.lat, this.Data.lng).subscribe( weather => {
           this.weather = weather;
           this.description = this.weather.current.weather_descriptions;
           console.log(weather);
