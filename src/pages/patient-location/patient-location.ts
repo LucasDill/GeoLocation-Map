@@ -4,7 +4,7 @@ import { LastKnownWellPage } from '../last-known-well/last-known-well';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms"
 import { GeolocationOptions, Geoposition } from '@ionic-native/geolocation/ngx';
 import { NgZone, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { DataServiceProvider } from '../../providers/providers/data-service';
+import { DataServiceProvider } from '../../providers/data-service';
 import { MapsAPILoader } from '@agm/core';
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
 import { AngularFirestore } from "angularfire2/firestore"
@@ -12,12 +12,13 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore"; 
 
-import { Autocomplete } from '../../providers/providers/autocomplete';
 import { Subject } from 'rxjs/Subject'
 import { Observable } from 'rxjs/Rx';
 import { ImagingPage } from '../imaging/imaging';
 import { ImagingRequiredPage } from '../imaging-required/imaging-required';
 import { TPaQuestionPage } from '../t-pa-question/t-pa-question';
+
+import { WeatherService } from './weather';
 
 @Component({
   selector: 'page-patient-location',
@@ -42,8 +43,8 @@ export class PatientLocationPage implements OnInit{
   constructor(public navCtrl: NavController, private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone, public formBuilder: FormBuilder,public Data: DataServiceProvider,
     public DataBase: AngularFireDatabase,
-    private auto: Autocomplete,
-    private afs: AngularFirestore) {
+    private afs: AngularFirestore,
+    private weatherService: WeatherService) {
       this.buttonDisabled = true;
       this.db = firebase.firestore();
       //this.setCurrentPosition();
@@ -93,11 +94,34 @@ export class PatientLocationPage implements OnInit{
 this.getDataFromFirebase();
 this.getData();
 
+}
 
+
+public weatherForm = new FormGroup({
+  city: new FormControl('', Validators.required),
+});
+public weather;
+public city;
+public description;
+
+
+getWeather(){
+        this.weatherService.getWeatherFromApi(this.Data.city).subscribe( weather => {
+          this.weather = weather;
+          this.description = this.weather.current.weather_descriptions;
+          console.log(weather);
+          // gets description of weather
+          console.log(this.description);
+        });
+
+ 
 }
 
 
 
+
+
+// get current location
 private setCurrentPosition() {
   if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -469,6 +493,7 @@ getData() {
             );
             this.Data.lat = (<any>data[i]).lat;
             this.Data.lng = (<any>data[i]).lng;
+            this.Data.city = (<any>data[i]).city;
               
             if (
               (<any>data[i]).bTelestroke == true
@@ -490,6 +515,7 @@ getData() {
 
           }
       }
+      this.getWeather();
       //console.log(this.cityLocation);
       //this.Data.location = this.cityLocation;
     }

@@ -26,6 +26,7 @@ export class DataServiceProvider {
   SinceTimeForm:number;
   colour: any="#90ee90";
   TreatmentInfo: any;
+  city: any;
   lat: any;
   lng: any;
   location: any;

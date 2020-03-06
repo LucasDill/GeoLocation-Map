@@ -43,6 +43,18 @@
     </p>
   </div>
 
+  <div class="weather" *ngIf="weather">
+    <div>   
+       
+        <p class="big">{{weather.current.temp_c}}°</p>
+        <p><strong>{{weather.current.weather_descriptions}}</strong></p> 
+    </div>
+    <div>
+        
+        <p>{{weather.location.name}}, <span>{{weather.location.country}}</span> </p>
+        <p>{{weather.location.localtime}}</p>
+    </div>  
+</div>
  
   
 </ion-content>

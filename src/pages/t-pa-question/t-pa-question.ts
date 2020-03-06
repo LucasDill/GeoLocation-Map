@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { DataServiceProvider } from '../../providers/providers/data-service';
+import { DataServiceProvider } from '../../providers/data-service';
 import { EvtOptionsPage } from '../evt-options/evt-options';
 import { TreatmentPage } from '../treatment/treatment';
 /**

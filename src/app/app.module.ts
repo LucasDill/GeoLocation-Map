@@ -16,12 +16,13 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AgmCoreModule } from '@agm/core';
 import { HelpPage } from '../pages/help/help';
 import { ImagingPage } from '../pages/imaging/imaging';
-import { TPaQuestionPage } from '..//pages/t-pa-question/t-pa-question';
+import { TPaQuestionPage } from '../pages/t-pa-question/t-pa-question';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { DataServiceProvider } from '../providers/providers/data-service';
-import { Autocomplete } from '../providers/providers/autocomplete';
+import { DataServiceProvider } from '../providers/data-service';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { HttpClientModule} from "@angular/common/http";
+import { WeatherService } from '../pages/patient-location/weather';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
      measurementId: "G-ML39B2PXC4"
      }),
      AngularFireDatabaseModule,
-     AngularFireAuthModule
+     AngularFireAuthModule,
+     HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -75,8 +77,9 @@ import { AngularFirestore } from 'angularfire2/firestore';
     StatusBar,
     SplashScreen,
     Geolocation,
-    Autocomplete,
     AngularFirestore,
+    HttpClientModule,
+    WeatherService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

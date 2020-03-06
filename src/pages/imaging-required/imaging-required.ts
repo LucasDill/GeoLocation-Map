@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController,NavParams } from 'ionic-angular';
 import { ImagingPage } from '../imaging/imaging';
 import { from } from 'rxjs';
-import { DataServiceProvider } from '../../providers/providers/data-service';
+import { DataServiceProvider } from '../../providers/data-service';
 import { TPaQuestionPage } from '../t-pa-question/t-pa-question';
 
 @Component({

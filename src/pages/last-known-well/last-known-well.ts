@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms"
 import { formControlBinding } from '@angular/forms/src/directives/ng_model';
-import { DataServiceProvider } from '../../providers/providers/data-service';
+import { DataServiceProvider } from '../../providers/data-service';
 import { PatientLocationPage } from '../patient-location/patient-location';
 
 @Component({

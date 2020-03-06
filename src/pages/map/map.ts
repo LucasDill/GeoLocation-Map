@@ -7,7 +7,7 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import {Geolocation} from '@ionic-native/geolocation/ngx';
-import { DataServiceProvider } from '../../providers/providers/data-service';
+import { DataServiceProvider } from '../../providers/data-service';
 import { clearScreenDown } from 'readline';
 declare var google: any;
 
