@@ -100,16 +100,21 @@ this.getData();
 // call weather.ts to get weather of selected location (see getLatLng() function)
 public weather;
 public city;
+public id;
 public description;
+public icon;
 public wlat;
 public wlon;
 getWeather(){
         this.weatherService.getWeatherFromApi(this.Data.lat, this.Data.lng).subscribe( weather => {
           this.weather = weather;
+          this.id = this.weather.weather[0].id;
           this.description = this.weather.weather[0].description;
+          this.icon = this.weather.weather[0].icon;
           console.log(weather);
+          this.Data.weatherdata = [this.id, this.description, this.icon];
           // gets description of weather
-          console.log(this.description);
+          console.log(this.Data.weatherdata);
         });
 
  

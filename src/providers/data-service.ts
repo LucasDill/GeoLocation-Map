@@ -26,9 +26,12 @@ export class DataServiceProvider {
   SinceTimeForm:number;
   colour: any="#90ee90";
   TreatmentInfo: any;
+
   city: any;
   lat: any;
   lng: any;
+  weatherdata: { id: any, description: any, icon: any }[];
+  
   location: any;
   NeedImaging:boolean;
   hadtPA:boolean;
