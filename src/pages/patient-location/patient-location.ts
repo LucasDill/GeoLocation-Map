@@ -106,7 +106,7 @@ public wlon;
 getWeather(){
         this.weatherService.getWeatherFromApi(this.Data.lat, this.Data.lng).subscribe( weather => {
           this.weather = weather;
-          this.description = this.weather.current.weather_descriptions;
+          this.description = this.weather.weather[0].description;
           console.log(weather);
           // gets description of weather
           console.log(this.description);
