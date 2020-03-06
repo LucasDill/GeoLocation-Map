@@ -97,14 +97,10 @@ this.getData();
 }
 
 
-public weatherForm = new FormGroup({
-  city: new FormControl('', Validators.required),
-});
+// call weather.ts to get weather of selected location (see getLatLng() function)
 public weather;
 public city;
 public description;
-
-
 getWeather(){
         this.weatherService.getWeatherFromApi(this.Data.city).subscribe( weather => {
           this.weather = weather;
@@ -515,6 +511,7 @@ getData() {
 
           }
       }
+      // get weather from chosen city
       this.getWeather();
       //console.log(this.cityLocation);
       //this.Data.location = this.cityLocation;
