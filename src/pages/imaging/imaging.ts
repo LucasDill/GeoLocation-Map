@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MapPage } from '../map/map';
 import { TreatmentPage } from '../treatment/treatment';
+import { RoutingProvider } from '../../providers/routing';
 /**
  * Generated class for the ImagingPage page.
  *
@@ -16,12 +17,13 @@ import { TreatmentPage } from '../treatment/treatment';
 })
 export class ImagingPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public Routes: RoutingProvider) {
   }
 
   goToMap(params){
     if (!params) params = {};
     this.navCtrl.push(MapPage);
+this.Routes.nearestLocations("Landing Sites");
   }
   GoToMore(params){
     if (!params) params={};

@@ -23,6 +23,7 @@ import { DataServiceProvider } from '../providers/data-service';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { HttpClientModule} from "@angular/common/http";
 import { WeatherService } from '../pages/patient-location/weather';
+import { RoutingProvider } from '../providers/routing';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { WeatherService } from '../pages/patient-location/weather';
     AngularFirestore,
     HttpClientModule,
     WeatherService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    RoutingProvider
   ]
 })
 export class AppModule {}
