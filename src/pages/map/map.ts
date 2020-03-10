@@ -8,7 +8,7 @@ import "firebase/auth";
 import "firebase/firestore";
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import { DataServiceProvider } from '../../providers/data-service';
-import { clearScreenDown } from 'readline';
+import { getOrCreateTemplateRef } from '@angular/core/src/render3/di';
 declare var google: any;
 
 
@@ -61,12 +61,12 @@ export class MapPage {
     location = {lat: null, lng: null};
     markerOptions: any = {position: null, map: null, title: null};
     marker: any;
-    
+    db: any;
   constructor(public zone: NgZone, public geolocation: Geolocation, public navCtrl: NavController,
     public DataBase: AngularFireDatabase,
     public Data: DataServiceProvider) {
     /*load google map script dynamically */
-      
+      this.db = firebase.firestore();
       setTimeout(() => {
         directionsService = new google.maps.DirectionsService();
         directionsDisplay = new google.maps.DirectionsRenderer();
@@ -618,14 +618,17 @@ AddMapMarkers(e) {
   }
 }
 
+
 AddHospitals() {
+  var items;
+  var map = this.map;
   // add hospital markers
   // database initialization
-  console.log("here");
-  this.DataBase.list("/Medical_Centers/")
-    .valueChanges()
-    .subscribe(data => {
-      this.items = data;
+  this.db.collection("/Health Centers/")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach(function(doc) {
+      
       // get hospital icon from website
       var icon = {
         url:
@@ -640,141 +643,176 @@ AddHospitals() {
         scaledSize: new google.maps.Size(30, 30)
       };
 
-      // for loop to iterate through database
-      for (var i = 0; i < data.length; i++) {
         // selects data values with have certain attributes
         // in this case, if the location is a hospital (bHospital == true) and if the location is not a regional stroke centre (bRegionalStrokeCentre == false) then it is selected
         // see the Firebase database for corresponding data values and attributes
         if (
-          (<any>data[i]).bHospital == true &&
-          (<any>data[i]).bRegionalStrokeCentre == false
+          doc.data().bHospital == true &&
+          doc.data().bRegionalStrokeCentre == false
         ) {
           // marker is displayed with properties
           let marker1 = new google.maps.Marker({
-            map: this.map,
+            map: map,
             animation: google.maps.Animation.DROP,
-            position: { lat: (<any>data[i]).lat, lng: (<any>data[i]).lng },
+            position: { lat: doc.data().lat, lng: doc.data().lng },
             icon: icon
           });
           // add information for window when location is clicked on
           let content =
             "<b>Name:</b> " +
-            (<any>data[i]).name +
+            doc.data().name +
             "<br>" +
             "<b>Address:</b> " +
-            (<any>data[i]).address;
-
-          this.addInfoWindow(marker1, content);
+            doc.data().address;
+            
+              let infoWindow = new google.maps.InfoWindow({
+                content: content
+              });
+            
+              google.maps.event.addListener(marker1, "click", () => {
+                infoWindow.open(map, marker1);
+              });
+            
           // push information to array so that it can be cleared easily
           gmarkers.push(marker1);
         } 
         // special case for TBRHSC
-        else if ((<any>data[i]).bRegionalStrokeCentre == true) {
+        else if (doc.data().bRegionalStrokeCentre == true) {
           let markerTB = new google.maps.Marker({
-            map: this.map,
+            map: map,
             animation: google.maps.Animation.DROP,
-            position: { lat: (<any>data[i]).lat, lng: (<any>data[i]).lng },
+            position: { lat: doc.data().lat, lng: doc.data().lng },
             icon: icon2
           });
 
           let content =
             "<b>Name:</b> " +
-            (<any>data[i]).name +
+            doc.data().name +
             "<br>" +
             "<b>Address:</b> " +
-            (<any>data[i]).address;
+            doc.data().address;
 
-          this.addInfoWindow(markerTB, content);
+              let infoWindow = new google.maps.InfoWindow({
+                content: content
+              });
+            
+              google.maps.event.addListener(markerTB, "click", () => {
+                infoWindow.open(map, markerTB);
+              });
+            
 
           gmarkers.push(markerTB);
         }
-      }
+     
     });
+    this.items = items;
+    
+  });
+  
 }
 
 AddTele() {
+  var items;
+  var map = this.map;
   //add telestroke location markers
-  this.DataBase.list("/Medical_Centers/")
-    .valueChanges()
-    .subscribe(data => {
-      this.items = data;
+  this.db.collection("/Health Centers/")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach(function(doc) {
 
       var icon = {
         url: "./assets/imgs/telestroke.png",
         scaledSize: new google.maps.Size(25, 25)
       };
 
-      for (var i = 0; i < data.length; i++) {
-        if ((<any>data[i]).bTelestroke == true) {
+        if (doc.data().bTelestroke == true) {
           let marker2 = new google.maps.Marker({
-            map: this.map,
+            map: map,
             animation: google.maps.Animation.DROP,
-            position: { lat: (<any>data[i]).lat, lng: (<any>data[i]).lng },
+            position: { lat: doc.data().lat, lng: doc.data().lng },
             icon: icon
           });
 
           let content =
             "<b>Name:</b> " +
-            (<any>data[i]).name +
+            doc.data().name +
             "<br>" +
             "<b>Address:</b> " +
-            (<any>data[i]).address;
+            doc.data().address;
 
-          this.addInfoWindow(marker2, content);
+            let infoWindow = new google.maps.InfoWindow({
+              content: content
+            });
+          
+            google.maps.event.addListener(marker2, "click", () => {
+              infoWindow.open(map, marker2);
+            });
 
           gmarkers2.push(marker2);
         }
-      }
+      
     });
+    this.items = items;
+  });
 }
 
 AddHealthService() {
+  var items;
+  var map = this.map;
   //add health service markers
-  this.DataBase.list("/Medical_Centers/")
-    .valueChanges()
-    .subscribe(data => {
-      this.items = data;
+  this.db.collection("/Health Centers/")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach(function(doc) {
 
       var icon = {
         url: "./assets/imgs/healthservices.png",
         scaledSize: new google.maps.Size(25, 25)
       };
 
-      for (var i = 0; i < data.length; i++) {
         if (
-          (<any>data[i]).bHealthServices == true &&
-          (<any>data[i]).bTelestroke == false &&
-          (<any>data[i]).bHospital == false
+          doc.data().bHealthServices == true &&
+          doc.data().bTelestroke == false &&
+          doc.data().bHospital == false
         ) {
           let marker3 = new google.maps.Marker({
-            map: this.map,
+            map: map,
             animation: google.maps.Animation.DROP,
-            position: { lat: (<any>data[i]).lat, lng: (<any>data[i]).lng },
+            position: { lat: doc.data().lat, lng: doc.data().lng },
             icon: icon
           });
 
           let content =
             "<b>Name:</b> " +
-            (<any>data[i]).name +
+            doc.data().name +
             "<br>" +
             "<b>Address:</b> " +
-            (<any>data[i]).address;
+            doc.data().address;
 
-          this.addInfoWindow(marker3, content);
+            let infoWindow = new google.maps.InfoWindow({
+              content: content
+            });
+          
+            google.maps.event.addListener(marker3, "click", () => {
+              infoWindow.open(map, marker3);
+            });
 
           gmarkers3.push(marker3);
         }
-      }
+      
     });
+    this.items = items;
+  });
 }
 
 AddHele() {
+  var items;
+  var map = this.map;
   //add helepad markers
-
-  this.DataBase.list("/Landing Sites/")
-    .valueChanges()
-    .subscribe(data => {
-      this.items = data;
+  this.db.collection("/Landing Sites/")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach(function(doc) {
 
       var icon = {
         url:
@@ -782,39 +820,48 @@ AddHele() {
         scaledSize: new google.maps.Size(25, 25)
       };
 
-      for (var i = 0; i < data.length; i++) {
-        if ((<any>data[i]).type == "Helipad") {
+        if (doc.data().type == "Helipad") {
           let marker4 = new google.maps.Marker({
-            map: this.map,
+            map: map,
             animation: google.maps.Animation.DROP,
-            position: { lat: (<any>data[i]).lat, lng: (<any>data[i]).lng },
+            position: { lat: doc.data().lat, lng: doc.data().lng },
             icon: icon
           });
 
           let content =
             "<b>Site Name:</b> " +
-            (<any>data[i]).siteName +
+            doc.data().siteName +
             "<br>" +
             "<b>Address:</b> " +
-            (<any>data[i]).Address +
+            doc.data().Address +
             "<br>" +
             "<b>Identifier:</b> " +
-            (<any>data[i]).ident;
+            doc.data().ident;
 
-          this.addInfoWindow(marker4, content);
+            let infoWindow = new google.maps.InfoWindow({
+              content: content
+            });
+          
+            google.maps.event.addListener(marker4, "click", () => {
+              infoWindow.open(map, marker4);
+            });
 
           gmarkers4.push(marker4);
         }
-      }
+      
     });
+    this.items = items;
+  });
 }
 
 AddAirport() {
-  // add airport markers
-  this.DataBase.list("/Landing Sites/")
-    .valueChanges()
-    .subscribe(data => {
-      this.items = data;
+  var items;
+  var map = this.map;
+  //add airport markers
+  this.db.collection("/Landing Sites/")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach(function(doc) {
 
       var icon = {
         url:
@@ -822,39 +869,48 @@ AddAirport() {
         scaledSize: new google.maps.Size(25, 25)
       };
 
-      for (var i = 0; i < data.length; i++) {
-        if ((<any>data[i]).type == "Airport") {
+        if (doc.data().type == "Airport") {
           let marker5 = new google.maps.Marker({
-            map: this.map,
+            map: map,
             animation: google.maps.Animation.DROP,
-            position: { lat: (<any>data[i]).lat, lng: (<any>data[i]).lng },
+            position: { lat: doc.data().lat, lng: doc.data().lng },
             icon: icon
           });
 
           let content =
             "<b>Site Name:</b> " +
-            (<any>data[i]).siteName +
+            doc.data().siteName +
             "<br>" +
             "<b>Address:</b> " +
-            (<any>data[i]).Address +
+            doc.data().Address +
             "<br>" +
             "<b>Identifier:</b> " +
-            (<any>data[i]).ident;
+            doc.data().ident;
 
-          this.addInfoWindow(marker5, content);
+            let infoWindow = new google.maps.InfoWindow({
+              content: content
+            });
+          
+            google.maps.event.addListener(marker5, "click", () => {
+              infoWindow.open(map, marker5);
+            });
 
           gmarkers5.push(marker5);
         }
-      }
+      
     });
+    this.items = items;
+  });
 }
 
 AddAmbBase() {
+  var items;
+  var map = this.map;
   //add ambulance base markers
-  this.DataBase.list("/Ambulance Sites/")
-    .valueChanges()
-    .subscribe(data => {
-      this.items = data;
+  this.db.collection("/Ambulance Sites/")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach(function(doc) {
 
       var icon = {
         url:
@@ -862,37 +918,46 @@ AddAmbBase() {
         scaledSize: new google.maps.Size(26, 20)
       };
 
-      for (var i = 0; i < data.length; i++) {
         let marker6 = new google.maps.Marker({
-          map: this.map,
+          map: map,
           animation: google.maps.Animation.DROP,
-          position: { lat: (<any>data[i]).lat, lng: (<any>data[i]).lng },
+          position: { lat: doc.data().lat, lng: doc.data().lng },
           icon: icon
         });
 
         let content =
           "<b>Site Name:</b> " +
-          (<any>data[i]).SiteName +
+          doc.data().SiteName +
           "<br>" +
           "<b>Address:</b> " +
-          (<any>data[i]).Address +
+          doc.data().Address +
           "<br>" +
           "<b>City:</b> " +
-          (<any>data[i]).city;
+          doc.data().city;
 
-        this.addInfoWindow(marker6, content);
+          let infoWindow = new google.maps.InfoWindow({
+            content: content
+          });
+        
+          google.maps.event.addListener(marker6, "click", () => {
+            infoWindow.open(map, marker6);
+          });
 
         gmarkers6.push(marker6);
-      }
+      
     });
+    this.items = items;
+  });
 }
 
 AddORNGE() {
+  var items;
+  var map = this.map;
   //add ORNGE location markers
-  this.DataBase.list("/ORNGE Sites/")
-    .valueChanges()
-    .subscribe(data => {
-      this.items = data;
+  this.db.collection("/ORNGE Bases/")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach(function(doc) {
 
       var icon = {
         url:
@@ -900,27 +965,34 @@ AddORNGE() {
         scaledSize: new google.maps.Size(25, 25)
       };
 
-      for (var i = 0; i < data.length; i++) {
         let marker7 = new google.maps.Marker({
-          map: this.map,
+          map: map,
           animation: google.maps.Animation.DROP,
-          position: { lat: (<any>data[i]).lat, lng: (<any>data[i]).lng },
+          position: { lat: doc.data().lat, lng: doc.data().lng },
           icon: icon
         });
 
         let content =
           "<b>Site Name:</b> " +
-          (<any>data[i]).base_name +
+          doc.data().base_name +
           "<br>" +
           "<b>Address:</b> " +
-          (<any>data[i]).Address +
+          doc.data().Address +
           "<br>";
 
-        this.addInfoWindow(marker7, content);
+          let infoWindow = new google.maps.InfoWindow({
+            content: content
+          });
+        
+          google.maps.event.addListener(marker7, "click", () => {
+            infoWindow.open(map, marker7);
+          });
 
         gmarkers7.push(marker7);
-      }
+      
     });
+    this.items = items;
+  });
 }
 
 

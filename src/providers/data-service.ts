@@ -30,7 +30,15 @@ export class DataServiceProvider {
   city: any;
   lat: any;
   lng: any;
-  weatherdata: { id: any, description: any, icon: any }[];
+  origin_area: any;
+  origin_weatherdata: { id: any, description: any, icon: any }[];
+  origin_multiplier_area: any;
+  origin_multiplier_weather: any;
+
+  destination_area: any;
+  destination_weatherdata: { id: any, description: any, icon: any }[];
+  destination_multiplier_area: any;
+  destination_multiplier_weather: any;
   
   location: any;
   NeedImaging:boolean;

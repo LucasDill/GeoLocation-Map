@@ -112,9 +112,9 @@ getWeather(){
           this.description = this.weather.weather[0].description;
           this.icon = this.weather.weather[0].icon;
           console.log(weather);
-          this.Data.weatherdata = [this.id, this.description, this.icon];
+          this.Data.origin_weatherdata = [this.id, this.description, this.icon];
           // gets description of weather
-          console.log(this.Data.weatherdata);
+          console.log(this.Data.origin_weatherdata);
         });
 
  
@@ -477,55 +477,58 @@ getData() {
   }
 
 
-  storedLocation;
   cityLocation;
+
   getLatLng(name){
-    
-    this.DataBase.list("/Medical_Centers/")
-    .valueChanges()
-    .subscribe(
-      data => {
-        this.storedLocation = data;
-        // for loop to iterate through data array which retrieves latitude and longitude of chosen imaging capable hospital location (see first if statement)
-        for (var i = 0; i < data.length; i++) {
-          if ((<any>data[i]).name == name) 
+  var cityLocation;
+  var lat, lng, city, area, Telestroke;
+    return new Promise((resolve, reject) => {
+    this.db.collection("/Health Centers/")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach(function(doc) {
+        if (doc.id == name) 
           {
-            this.cityLocation = new google.maps.LatLng(
-              (<any>data[i]).lat,
-              (<any>data[i]).lng
+            cityLocation = new google.maps.LatLng(
+              doc.data().lat,
+              doc.data().lng
             );
-            this.Data.lat = (<any>data[i]).lat;
-            this.Data.lng = (<any>data[i]).lng;
-            this.Data.city = (<any>data[i]).city;
-              
+            lat = doc.data().lat;
+            lng = doc.data().lng;
+            city = doc.data().city;
+            area = doc.data().area;
             if (
-              (<any>data[i]).bTelestroke == true
+              doc.data().bTelestroke == true
             ) {
-              this.Telestroke=true;
+              Telestroke=true;
               // write code here to go to next applicable page
               console.log("YOU ARE AT A TELSTROKE CENTRE");
 
             }
             else{
               // write code here to go to next applicable page
-              this.Telestroke=false;
+              Telestroke=false;
               console.log("YOU ARE NOT AT A TELESTROKE CENTRE");
               
             }
-            
-
-
-
-          }
+           
       }
+      });
+      // set variables to public versions of the variables
+      // could not do this directly inside of query
+      this.cityLocation = cityLocation;
+      this.Data.lat = lat;
+      this.Data.lng = lng;
+      this.Data.city = city;
+      this.Data.origin_area = area;
+      this.Telestroke = Telestroke;
       // get weather from chosen city
       this.getWeather();
-      //console.log(this.cityLocation);
-      //this.Data.location = this.cityLocation;
-    }
-  );
-
-
+    })
+     .catch((error: any) => {
+            reject(error);
+          });
+  });
 
   }
 
