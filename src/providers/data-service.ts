@@ -31,12 +31,15 @@ export class DataServiceProvider {
   lat: any;
   lng: any;
   origin_area: any;
-  origin_weatherdata: { id: any, description: any, icon: any }[];
+  origin_weatherdata: { id: any, description: any, icon: any, tempreal: any, tempfeel: any }[];
+  origin_tempreal: any;
+  origin_tempfeel: any;
   origin_multiplier_area: any;
   origin_multiplier_weather: any;
+  origin_icon: any;
 
   destination_area: any;
-  destination_weatherdata: { id: any, description: any, icon: any }[];
+  destination_weatherdata: { id: any, description: any, icon: any, tempreal: any, tempfeel: any }[];
   destination_multiplier_area: any;
   destination_multiplier_weather: any;
   

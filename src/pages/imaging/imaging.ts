@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MapPage } from '../map/map';
 import { TreatmentPage } from '../treatment/treatment';
+import { DataServiceProvider } from '../../providers/data-service';
+
+
 /**
  * Generated class for the ImagingPage page.
  *
@@ -16,7 +19,8 @@ import { TreatmentPage } from '../treatment/treatment';
 })
 export class ImagingPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+    public Data: DataServiceProvider) {
   }
 
   goToMap(params){
@@ -28,5 +32,5 @@ export class ImagingPage {
     this.navCtrl.push(TreatmentPage);
 
   }
-
+  
 }
