@@ -26,7 +26,7 @@ export class ImagingPage {
   goToMap(params){
     if (!params) params = {};
     this.navCtrl.push(MapPage);
-//this.Routes.nearestLocations("Landing Sites");
+this.Routes.nearestLocations("Landing Sites");
 this.Routes.getMultiplier();
 this.Routes.getMultiplierArea();
   }

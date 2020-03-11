@@ -30,25 +30,18 @@ Database: any;
   nearestLocations(param){
     console.log(this.Data.lng);
     console.log(this.Data.lat);
-    var ref=this.Database.collection("/Landing Sites/")
-    ref.orderBy("lat")
-    .startAt(this.Data.lat+0.5)
-    .endAt(this.Data.lat-0.5)
+  this.Database.collection("/Landing Sites/")
+    //ref.orderBy("lat")
+    //.startAt(this.Data.lat+0.5)
+    //.endAt(this.Data.lat-0.5)
     .get()
     .then((querySnapshot) => {
-      console.log(querySnapshot);
-      if (querySnapshot.empty) {
-        console.log('no documents found');
-      } 
-      let arr = [];
       querySnapshot.forEach(function(doc) {
         var obj = JSON.parse(JSON.stringify(doc.data()));
-      obj.id = doc.id;
-      obj.eventId = doc.id;
-      arr.push(obj);
-      console.log(doc.data());
+        obj.id = doc.id;
+        obj.eventId = doc.id;
+        console.log(doc.data());
       });
-    console.log(arr);
 
   });
 console.log(this.OriginLat,this.OriginLng);
