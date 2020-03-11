@@ -531,6 +531,7 @@ getData() {
       this.Telestroke = Telestroke;
       // get weather from chosen city
       this.getWeather();
+      
     })
      .catch((error: any) => {
             reject(error);

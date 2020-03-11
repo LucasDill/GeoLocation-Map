@@ -71,6 +71,40 @@ console.log(this.OriginLat,this.OriginLng);
   });
 
 }
+
+
+
+multiplier: any;
+multiplier_area: any;
+// multipliers for weather and area
+getMultiplier(){
+  return new Promise((resolve, reject) => {
+  this.Database.collection("/Multipliers/").doc(JSON.stringify(this.Data.origin_weatherdata[0]))
+  .get()
+  .then((querySnapshot) => {
+      this.multiplier = querySnapshot.data().multi;
+      console.log(querySnapshot.data().multi);
+  });
+
+});
+
+}
+
+getMultiplierArea(){
+return new Promise((resolve, reject) => {
+  this.Database.collection("/Multipliers Area/").doc(this.Data.origin_area)
+  .get()
+  .then((querySnapshot) => {
+      this.multiplier_area = querySnapshot.data().multi;
+      console.log(querySnapshot.data().multi);
+  });
+
+});
+}
+
+
+
+
 }
 function getImaging(){
 

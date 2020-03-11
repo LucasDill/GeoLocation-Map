@@ -11,7 +11,7 @@
 
 <ion-content padding id="page4">
   <h4 style="background-color:powderblue;">
-  <p id="weather">Weather in {{this.Data.city}}: {{this.Data.origin_tempreal}} <img src= {{this.Data.origin_icon}}></p>
+  <p id="weather">Weather in {{this.Data.city}}: {{this.Data.origin_tempreal |number:'.0'}} \u00B0 C<img src= {{this.Data.origin_icon}}></p>
   </h4>
   <h4 id="treatment-heading6" style="color:#000000;font-size: x-large;">
     Imaging
