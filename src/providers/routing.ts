@@ -28,10 +28,12 @@ Database: any;
   }
 
   nearestLocations(param){
+    console.log(this.Data.lng);
+    console.log(this.Data.lat);
     var ref=this.Database.collection("/Landing Sites/")
     ref.orderBy("lat")
-    .startAt(Math.abs(this.OriginLat)+0.5)
-    .endAt(Math.abs(this.OriginLat)-0.5)
+    .startAt(this.Data.lat+0.5)
+    .endAt(this.Data.lat-0.5)
     .get()
     .then((querySnapshot) => {
       console.log(querySnapshot);
