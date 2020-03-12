@@ -103,6 +103,8 @@ public city;
 public id;
 public description;
 public icon;
+public tempreal;
+public tempfeel;
 public wlat;
 public wlon;
 getWeather(){
@@ -111,10 +113,15 @@ getWeather(){
           this.id = this.weather.weather[0].id;
           this.description = this.weather.weather[0].description;
           this.icon = this.weather.weather[0].icon;
+          this.tempreal = this.weather.main.temp - 273.15;
+          this.tempfeel = this.weather.main.temp - 273.15;
           console.log(weather);
-          this.Data.origin_weatherdata = [this.id, this.description, this.icon];
+          this.Data.origin_weatherdata = [this.id, this.description, this.icon, this.tempreal, this.tempfeel];
           // gets description of weather
           console.log(this.Data.origin_weatherdata);
+          this.Data.origin_icon = "http://openweathermap.org/img/wn/" + this.Data.origin_weatherdata[2] + "@2x.png";
+          this.Data.origin_tempreal = this.tempreal;
+          this.Data.origin_tempfeel = this.tempfeel;
         });
 
  
@@ -524,6 +531,7 @@ getData() {
       this.Telestroke = Telestroke;
       // get weather from chosen city
       this.getWeather();
+      
     })
      .catch((error: any) => {
             reject(error);
