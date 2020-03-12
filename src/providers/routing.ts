@@ -30,13 +30,21 @@ Database: any;
   nearestLocations(param){
     console.log(this.Data.lng);
     console.log(this.Data.lat);
+    var books = this.Database.collection('/Landing Sites/', {
+      query: {
+          orderByChild: 'title',
+          equalTo: 'My book #1',
+      }
+  });
+
+
     var ref=this.Database.collection("/Landing Sites/")
     ref.orderBy("lat")
     .startAt(this.Data.lat+0.5)
     .endAt(this.Data.lat-0.5)
     .get()
     .then((querySnapshot) => {
-      console.log(querySnapshot);
+      console.log(querySnapshot.data());
       if (querySnapshot.empty) {
         console.log('no documents found');
       } 
