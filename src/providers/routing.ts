@@ -9,7 +9,11 @@ import "firebase/auth";
 import "firebase/firestore"; 
 import { Subject } from 'rxjs/Subject'
 import { Observable } from 'rxjs/Rx';
+
+//declare var google;
+//var service = new google.maps.DistanceMatrixService();
 /*
+
   Generated class for the RoutingProvider provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
@@ -97,17 +101,61 @@ return new Promise((resolve, reject) => {
 });
 }
 
+getImaging(){
+  var distance = require('google-distance-matrix');
+  var origins = ['San Francisco CA'];
+var destinations = ['New York NY', '41.8337329,-87.7321554'];
+ 
+distance.matrix(origins, destinations, function (err, distances) {
+    if (!err)
+    {
+      console.log(distances);
+    }
+    else{
+      console.log(err);
+    }
+        
+})
+
+}
 
 
 
 }
-function getImaging(){
-
-}
-
+ 
 function gettPA(){
 
 }
 function getEVT(){
   
 }
+//code from stackblitz to get the direction service working well 
+//https://stackblitz.com/edit/google-maps1?file=app%2Fdistance-matrix.service.ts
+
+/*import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs/Rx';
+
+import { ViewChild } from '@angular/core';
+import { } from '@types/googlemaps';
+
+@Injectable()
+export class DistanceMatrixService {
+
+    googleResults:any;
+    
+    googleUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="
+    origins:String="";
+    destinationKey="&destinations=";
+    destinations:String="";
+    googleKey = "&key=AIzaSyCJG2oV6yBeP2pwVMEL1EftSiZo7YsZNDU";
+  
+  constructor(public http: HttpClient) { }
+
+  ngOnInit():void {}
+
+  getGoogleData(){
+    return this.http.get(this.googleUrl + this.origins + this.destinationKey + this.destinations + this.googleKey);
+  };
+}*/
