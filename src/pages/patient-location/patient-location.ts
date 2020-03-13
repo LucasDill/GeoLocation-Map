@@ -119,7 +119,7 @@ getWeather(){
           this.Data.origin_weatherdata = [this.id, this.description, this.icon, this.tempreal, this.tempfeel];
           // gets description of weather
           console.log(this.Data.origin_weatherdata);
-          this.Data.origin_icon = "http://openweathermap.org/img/wn/" + this.Data.origin_weatherdata[2] + "@2x.png";
+          this.Data.origin_icon = "./assets/weather/" + this.Data.origin_weatherdata[2] + ".png";
           this.Data.origin_tempreal = this.tempreal;
           this.Data.origin_tempfeel = this.tempfeel;
         });
