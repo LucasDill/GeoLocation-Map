@@ -25,6 +25,8 @@ OriginLng:any=this.Data.lng;// probably need to change was not working
 googleResults:any;
 
 ImgRoutes: any;
+tPARoutes: any;
+EVTRoutes: any;
 
 Database: any;
   constructor(public http: HttpClient,public Data: DataServiceProvider,public DataBase: AngularFireDatabase,
@@ -152,6 +154,8 @@ service.getDistanceMatrix(
       Routes[m].Timeval=response.rows[0].elements[m].duration.value;
       Routes[m].DistChar=response.rows[0].elements[m].distance.text;
       Routes[m].Dist=response.rows[0].elements[m].distance.value;
+      console.log(this.multiplier);//need to talk with matt about this value 
+      Routes[m].TimeWithMult=Routes[m].Timeval*this.multiplier;
     }
     for (let route of Routes) {
       if (route.Dist == 0) {
@@ -164,6 +168,7 @@ service.getDistanceMatrix(
    console.log(response);
    console.log("Status: "+status);
    Routes.sort((a,b)=>a.Timeval-b.Timeval);
+  // Routes=addMult(Routes);
   }
 })
 .catch(function(error) {
@@ -186,13 +191,22 @@ console.log(this.ImgRoutes);
 
 }
 
+gettPA(){
+  
 
-
+}
 }
  
-function gettPA(){
 
-}
 function getEVT(){
   
+}
+function convertTime(obj: any)
+{
+for(var l=0;l<obj.length;l++)
+{
+  obj.TimeWithMult=obj.Timeval*this.Routes.multiplier;
+console.log(obj.TimeWithMult);
+}
+return obj;
 }

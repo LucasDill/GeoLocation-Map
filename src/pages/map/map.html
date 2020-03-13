@@ -44,10 +44,9 @@
   <!-- A section of the page with the id map set to take up 50% of the height automaticaly taking all of the width and calling the onMapClick function passing the $event which is the lat and lng of where was clicked -->
     
   
-  <div #Map class="map" style="height: 50%;" (mapClick)="onMapClick($event)"></div>
-
+  
   <!--the section of the code that deals with the markers in an ion item list -->
-    <div id="markers">
+    <div id="markers" height="10vh;">
       <ion-item><!-- an ionic element that contains the dropdown with the selections for icons -->
         <ion-label style="font-size: 1em;">Add Markers</ion-label><!-- The label present in the menue -->
         <ion-select multiple="true" interface="alert" (ionChange)="AddMapMarkers($event)">
@@ -80,6 +79,11 @@
       </ion-item>
   
     </div>
+
+    <div #Map class="map" style="height: 75vh" (mapClick)="onMapClick($event)"></div>
+<div style="height: 5vh;">
+  <button id="contact" ion-button color="steelblue1" block on-click="GoToContact()">Contact Information</button>
+</div>
   
     <!--<div id="Legend">
       <ion-grid  ><!- - the part of the page containing the labels for the legend with the images of the icons - ->
@@ -158,47 +162,7 @@
         </ion-row>
       </ion-grid><!- - end of the grid display - ->
     </div>--><!-- end of the div for icons -->
-          <h3 no-padding> Routes to Imaging Capable Hospital</h3><!-- a header displaying before the div with routes to hospital -->
-          <div><!-- start of the routes to div -->
-             
-               <!-- a scroll pannel with the hopitals available a height here needs to be specified but may cause issues with mobile applications as we do not want to need people to scroll down  -->
-            <ion-list radio-group  (ionChange)="addEndLocation($event)">
-             <!-- the ion list which is a radio group meaning only one can be selected and calling the function addEndLocation(passing the value which is the end point for the route) -->
-              <ion-item><!-- each item is a label with a radio element for the button  -->
-                <ion-label  style="font-size: 1em;">TBRHSC<p id="TBrad"></p></ion-label>
-                <!-- the label for the button font size needs to be specified because of the css and the time and distance will be output to the <p> -->
-                <ion-radio slot="end" value="Thunder Bay Regional Health Science Centre"></ion-radio>
-                <!-- the ion radio amount with the value needing to be specified for the spelling for the end location needed to calculate and display the route -->
-              <!-- the above comments are the same for all following locations  -->
-              </ion-item>
-  
-              <ion-item>
-                <ion-label style="font-size: 1em;">Dryden<p id="Drad"></p></ion-label>
-                <ion-radio slot="end" value="Dryden Regional Health Centre"></ion-radio>
-              </ion-item>
-  
-              <ion-item>
-                <ion-label style="font-size: 1em;">Fort Frances<p id="Frad"></p></ion-label>
-                <ion-radio slot="end" value="Riverside Health Care Facilities"></ion-radio>
-              </ion-item>
-  
-              <ion-item>
-                <ion-label style="font-size: 1em;">Kenora<p id="Krad"></p></ion-label>
-                <ion-radio slot="end" value="Lake of the Woods District Hospital"></ion-radio>
-              </ion-item>
-  
-              <ion-item>
-                <ion-label style="font-size: 1em;">Sioux Lookout<p id="Srad"></p></ion-label>
-                <ion-radio slot="end" value="Sioux Lookout Meno Ya Win Health Centre"></ion-radio>
-              </ion-item>
-              
-            </ion-list><!-- end of the list -->
-            
-          </div>
-     <br><!-- a vertical space -->
-     
-  
-    <p id="display"></p><!-- former paragraph of text used to display errors will get rid of once about.ts is changed-->
+         
   </ion-content><!-- the end of the content in the page -->
   
   

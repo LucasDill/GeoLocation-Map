@@ -103,6 +103,37 @@ getDataFromFirebase() {
     });
 }
 
+ionViewWillEnter(){
+  directionsService.route(
+    {
+      origin: new google.maps.LatLng(this.Data.lat,this.Data.lng),
+      destination: new google.maps.LatLng(this.Data.Destination.lat,this.Data.Destination.lng),
+      travelMode: "DRIVING"
+    },
+    // retrieve Maps API response, if it is able to find a route
+    (response, status, request) => {
+      if (status === "OK") {
+        // display the route on the defined map
+        directionsDisplay.setOptions({
+          draggable: false,
+          map: this.map
+        });
+        // load the route to calculate its distance and time
+        directionsDisplay.setDirections(response);
+      } else {
+        // print error message if route cannot be found
+        window.alert("Directions request failed due to " + status);
+      }
+      // push route into displayEnd array to be cleared on click of new marker
+      displayEnd.push(directionsDisplay);
+      google.maps.event.addListener(
+        directionsDisplay,
+        "click",
+        function() {}
+      );
+    }
+  );
+}
 // load data from Firebase into local variable
 getData() {
   firebase
@@ -230,10 +261,10 @@ setRoutes(myLatLng, map);
 
     if (end == null) {
       // if end location has not yet been chosen, calculate possible routes without displaying a route
-      calculateAllRoutes(start);
+      //calculateAllRoutes(start);
     } else {
       // if end location has been chosen, calculate and display that specific route
-      calculateAndDisplayRoute(start, end);
+     // calculateAndDisplayRoute(start, end);
     }
   }
 
@@ -276,10 +307,10 @@ setRoutes(myLatLng, map);
       end = chosen_location;
       if (end == null) {
         // if end location has not yet been chosen, calculate possible routes without displaying a route
-      calculateAllRoutes(start);
+     // calculateAllRoutes(start);
     } else {
       // if end location has been chosen, calculate and display that specific route
-        calculateAndDisplayRoute(start, end);
+       // calculateAndDisplayRoute(start, end);
       }
     });
     // marker drag functionality
@@ -294,7 +325,7 @@ setRoutes(myLatLng, map);
     }
   }
 
-  function calculateAndDisplayRoute(start, end) {
+  /*function calculateAndDisplayRoute(start, end) {
     // clear previously displayed route
     clearEnd();
     // create array of routes which holds information of each route
@@ -425,7 +456,7 @@ setRoutes(myLatLng, map);
     );
   }
 
-  function calculateAllRoutes(start) {
+ /* function calculateAllRoutes(start) {
     clearEnd();
     routes.length = 0;
     routes = [];
@@ -567,7 +598,7 @@ setRoutes(myLatLng, map);
       }
     );
     console.log(routes.length);
-  }
+  }*/
 }
 
 // add information window to show data from database for markers which are in the legend when they are clicked on 
