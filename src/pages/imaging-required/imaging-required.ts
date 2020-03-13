@@ -4,6 +4,7 @@ import { ImagingPage } from '../imaging/imaging';
 import { from } from 'rxjs';
 import { DataServiceProvider } from '../../providers/data-service';
 import { TPaQuestionPage } from '../t-pa-question/t-pa-question';
+import { RoutingProvider } from '../../providers/routing';
 
 @Component({
   selector: 'page-imaging-required',
@@ -11,7 +12,7 @@ import { TPaQuestionPage } from '../t-pa-question/t-pa-question';
 })
 export class ImagingRequiredPage {
 
-  constructor(public navCtrl: NavController, public navParams:NavParams,public Data: DataServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams:NavParams,public Data: DataServiceProvider,public Routes:RoutingProvider) {
     
   }
   ionViewDidLoad()
@@ -25,6 +26,7 @@ export class ImagingRequiredPage {
   }
   goToImagingRoutes(params){
     if (!params) params = {};
+    this.Routes.getImaging();
     this.navCtrl.push(ImagingPage);
     this.Data.NeedImaging=true;
   }

@@ -9,37 +9,35 @@
 
 <script src="imaging.ts"></script>
 
-<ion-content padding id="page4">
-  <h4 style="background-color:powderblue;font-size: small;">
- Weather in {{this.Data.city}}: {{this.Data.origin_tempreal |number:'.0'}} \u00B0C<img src= {{this.Data.origin_icon}}>
+<ion-content  id="page4">
+  <div style="height: 25vh;">
+  <h4 style="background-color:powderblue;">
+  <p id="weather">Weather in {{this.Data.city}}: {{this.Data.origin_tempreal |number:'.0'}} \u00B0C<img src= {{this.Data.origin_icon}}></p>
   </h4>
+
   <h4 id="treatment-heading6" style="color:#000000;font-size: x-large;">
-    Imaging
+ 
+   Routes to Imaging Capable Hospital
   </h4>
-  <form id="treatment-form9">
-    <ion-item id="treatment-textarea2">
-      <ion-label>
-        Option 1...
-      </ion-label>
-      <ion-textarea placeholder=""></ion-textarea>
-    </ion-item>
-    <ion-item id="treatment-textarea3">
-      <ion-label>
-        Option 2...
-      </ion-label>
-      <ion-textarea placeholder=""></ion-textarea>
-    </ion-item>
-    <ion-item id="treatment-textarea4">
-      <ion-label>
-        Option 3...
-      </ion-label>
-      <ion-textarea placeholder=""></ion-textarea>
-    </ion-item>
-  </form>
-    <div class="spacer" style="width:300px;height:21px;" id="treatment-spacer12"></div>
-    <button id="treatment-button9" ion-button color="steelblue1" block on-click="goToMap()">
-      Next
-    </button>
-    <p style="text-align: center;font-size: large;">OR</p>
+</div>
+  <ion-scroll scrollY="true" style="height: 40vh;">
+<ion-list justify-content-center align-items-center>
+  <ion-item *ngFor="let card of cards">
+    <ion-card tappable (click)="goToRoute(card)" text-wrap >
+      <ion-card-content>
+        <ion-card-title>
+        {{card.name}}
+        </ion-card-title>
+        <p>
+          Distance: {{card.DistChar}} &nbsp;&nbsp;&nbsp;&nbsp; Time: {{card.Timechar}}
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </ion-item>
+</ion-list>
+</ion-scroll>
+<div style="height: 7vh;">
+<p style="text-align: center;font-size: large;">OR</p>
     <button id="moreTreatments" ion-button color="steelblue1" block on-click="GoToMore()">View Treatment Options</button>
+  </div>
 </ion-content>

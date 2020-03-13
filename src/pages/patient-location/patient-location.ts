@@ -19,6 +19,7 @@ import { ImagingRequiredPage } from '../imaging-required/imaging-required';
 import { TPaQuestionPage } from '../t-pa-question/t-pa-question';
 
 import { WeatherService } from './weather';
+import { RoutingProvider } from '../../providers/routing';
 
 @Component({
   selector: 'page-patient-location',
@@ -44,7 +45,7 @@ export class PatientLocationPage implements OnInit{
     private ngZone: NgZone, public formBuilder: FormBuilder,public Data: DataServiceProvider,
     public DataBase: AngularFireDatabase,
     private afs: AngularFirestore,
-    private weatherService: WeatherService) {
+    private weatherService: WeatherService,public Routes: RoutingProvider) {
       this.buttonDisabled = true;
       this.db = firebase.firestore();
       //this.setCurrentPosition();
@@ -165,12 +166,15 @@ getData() {
 
 
 
-  goToLastKnownWell(params){
-    console.log(params);
+  goToLastKnownWell(params,params1,params2){
+    console.log(params,params1,params2);
     //if (!params) params = {};
+    this.Data.lat=params1;
+    this.Data.lng=params2;
   
    if(params==false)
       {
+        this.Routes.getImaging();
         this.navCtrl.push(ImagingPage);
       }
     else if(params==true)

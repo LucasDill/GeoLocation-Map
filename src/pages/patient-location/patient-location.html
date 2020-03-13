@@ -28,7 +28,7 @@
   <div style="height:5vh;"></div>
   <div *ngFor="let health_centres of Medical_Centers">
 <!--Tried the height to fix it probably does nothing and no screen size is that small-->
-    <button type ="button" padding  id="patientLocation-button1" text-wrap style="font-size: auto;" ion-button color="steelblue1"  fill="outline"  block on-click="getLatLng(health_centres.name)" block on-click="goToLastKnownWell(health_centres.bTelestroke)" >
+    <button type ="button" padding  id="patientLocation-button1" text-wrap style="font-size: auto;" ion-button color="steelblue1"  fill="outline"  block on-click="getLatLng(health_centres.name)" block on-click="goToLastKnownWell(health_centres.bTelestroke,health_centres.lat,health_centres.lng)" >
       <!--{{health_centres.address}}-->
       <p>
         {{health_centres.name}}:  {{health_centres.city}}
