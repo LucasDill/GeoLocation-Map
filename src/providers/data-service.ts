@@ -111,7 +111,7 @@ Destination:any;
         let TPA=ConvertBack(TPAtime);
   
           this.colour="green";
-          this.TreatmentInfo="<ul><li>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></li>"+"<li>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></li></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
+          this.TreatmentInfo="<ul>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b><br>"+"EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
       }
       else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<6)
       {
@@ -119,12 +119,12 @@ Destination:any;
         let EVT=ConvertBack(EVTtime);
         
           this.colour="yellow";
-         this.TreatmentInfo="<ul><li>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+":"+pad((60-this.SecondsSince),2)+"</li></ul>";
+         this.TreatmentInfo="<br><ul>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+":"+pad((60-this.SecondsSince),2)+"</ul>";
       }
       else if(this.SinceTimeForm>=6)
       {
         this.colour="red";
-        this.TreatmentInfo="<ul><li>Passed usual recovery time</li></ul>";
+        this.TreatmentInfo="<ul>Passed usual recovery time</ul>";
       }
 
     this.intervalID= setInterval(()=>{
@@ -152,7 +152,7 @@ Destination:any;
           let TPA=ConvertBack(TPAtime);
     
             this.colour="green";
-            this.TreatmentInfo="<ul><li>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></li>"+"<li>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></li></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
+            this.TreatmentInfo="<ul>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b><br>"+"EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
         }
         else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<6)
         {
@@ -160,12 +160,12 @@ Destination:any;
           let EVT=ConvertBack(EVTtime);
           
             this.colour="yellow";
-           this.TreatmentInfo="<ul><li>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+":"+pad((60-this.SecondsSince),2)+"</li></ul>";
+           this.TreatmentInfo="<br><ul>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+":"+pad((60-this.SecondsSince),2)+"</ul>";
         }
         else if(this.SinceTimeForm>=6)
         {
           this.colour="red";
-          this.TreatmentInfo="<ul><li>Passed usual recovery time</li></ul>";
+          this.TreatmentInfo="<ul>Passed usual recovery time</ul>";
         }
       },1000);
     

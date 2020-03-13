@@ -9,9 +9,11 @@
 
 <script src="imaging.ts"></script>
 
-<ion-content  id="page4">
+<ion-content no-bounce  id="page4">
 <div id="page">
-  <p id="weather" style="background-color:powderblue;">Weather in {{this.Data.city}}: {{this.Data.origin_tempreal |number:'.0'}} \u00B0C<img src= {{this.Data.origin_icon}}></p>
+
+  <p id="weather" style="background-color:powderblue;">Weather in {{this.Data.city}}: {{this.Data.origin_tempreal |number:'.0'}} \u00B0C
+    <img src= {{this.Data.origin_icon}}></p>
   <h4 id="treatment-heading6" style="color:#000000;font-size: x-large;">
  
    Routes to Imaging Capable Hospital
@@ -33,9 +35,9 @@
   </ion-item>
 </ion-list>
 </ion-scroll>
-<div style="height: 7vh;">
-<p style="text-align: center;font-size: large;">OR</p>
-    <button id="moreTreatments" ion-button color="steelblue1" block on-click="GoToMore()">View Treatment Options</button>
-  </div>
+<div class="treatment-button">
+  <p style="text-align: center;font-size: large;">OR</p>
+      <button id="moreTreatments" ion-button color="steelblue1" block on-click="GoToMore()">View Treatment Options</button>
+   </div>
 </div>
 </ion-content>
