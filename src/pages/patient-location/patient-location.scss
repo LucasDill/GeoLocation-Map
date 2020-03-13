@@ -24,6 +24,26 @@ agm-map {
 .no-scroll .scroll-content{
   overflow: hidden;
 }
+
+* {
+  margin: 0 ;
+  padding:0;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box{
+  width: 100px;
+  height:100px;
+  background-color: #ccc;
+}
+
 // http://ionicframework.com/docs/v2/theming/
 
 

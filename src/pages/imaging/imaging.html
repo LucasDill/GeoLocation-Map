@@ -10,16 +10,13 @@
 <script src="imaging.ts"></script>
 
 <ion-content  id="page4">
-  <div style="height: 25vh;">
-  <h4 style="background-color:powderblue;">
-  <p id="weather">Weather in {{this.Data.city}}: {{this.Data.origin_tempreal |number:'.0'}} \u00B0C<img src= {{this.Data.origin_icon}}></p>
-  </h4>
-
+<div id="page">
+  <p id="weather" style="background-color:powderblue;">Weather in {{this.Data.city}}: {{this.Data.origin_tempreal |number:'.0'}} \u00B0C<img src= {{this.Data.origin_icon}}></p>
   <h4 id="treatment-heading6" style="color:#000000;font-size: x-large;">
  
    Routes to Imaging Capable Hospital
   </h4>
-</div>
+
   <ion-scroll scrollY="true" style="height: 40vh;">
 <ion-list justify-content-center align-items-center>
   <ion-item *ngFor="let card of cards">
@@ -40,4 +37,5 @@
 <p style="text-align: center;font-size: large;">OR</p>
     <button id="moreTreatments" ion-button color="steelblue1" block on-click="GoToMore()">View Treatment Options</button>
   </div>
+</div>
 </ion-content>
