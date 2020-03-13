@@ -47,6 +47,9 @@ export class DataServiceProvider {
   NeedImaging:boolean;
   hadtPA:boolean;
   height:any;
+
+Destination:any;
+
   constructor(platform: Platform) {
     platform.ready().then((readySource) => {
       console.log('Width: ' + platform.width());

@@ -9,9 +9,8 @@ import "firebase/auth";
 import "firebase/firestore"; 
 import { Subject } from 'rxjs/Subject'
 import { Observable } from 'rxjs/Rx';
+import { isNgTemplate } from '@angular/compiler';
 
-//declare var google;
-//var service = new google.maps.DistanceMatrixService();
 /*
 
   Generated class for the RoutingProvider provider.
@@ -23,13 +22,16 @@ import { Observable } from 'rxjs/Rx';
 export class RoutingProvider {
 OriginLat: any=this.Data.lat;
 OriginLng:any=this.Data.lng;// probably need to change was not working 
-startAt=new Subject();
+googleResults:any;
+
+ImgRoutes: any;
 
 Database: any;
   constructor(public http: HttpClient,public Data: DataServiceProvider,public DataBase: AngularFireDatabase,
     private afs: AngularFirestore) {
       this.Database = firebase.firestore();
   }
+  
 
   nearestLocations(param){
     console.log(this.Data.lng);
@@ -102,20 +104,85 @@ return new Promise((resolve, reject) => {
 }
 
 getImaging(){
-  var distance = require('google-distance-matrix');
-  var origins = ['San Francisco CA'];
-var destinations = ['New York NY', '41.8337329,-87.7321554'];
- 
-distance.matrix(origins, destinations, function (err, distances) {
-    if (!err)
+   var Routes=[];
+  var service= new google.maps.DistanceMatrixService();
+  var origin=new google.maps.LatLng(this.Data.lat,this.Data.lng);
+
+var query=this.Database.collection("/Health Centers/").where("bTelestroke","==",true)
+.get()
+.then(function(querySnapshot) {
+  querySnapshot.forEach(function(doc) {
+      // doc.data() is never undefined for query doc snapshots
+      //console.log(doc.id, " => ", doc.data().name);
+      var distobj={
+        name:doc.data().name,
+        address:doc.data().address,
+        city:doc.data().city,
+        lat:doc.data().lat,
+        lng:doc.data().lng,
+        TimeWithMult: 0,
+        Timechar: "",
+        Timeval: 0,
+        DistChar: "",
+        Dist: 0
+      }
+     // console.log(distobj);
+      Routes.push(distobj);
+  });
+  console.log(Routes.length);
+var destinations=[];
+for(var i=0;i<Routes.length;i++)
+{
+let coords= new google.maps.LatLng(Routes[i].lat,Routes[i].lng);
+destinations[i]=coords;
+}
+console.log(destinations);
+console.log(origin);
+
+service.getDistanceMatrix(
+  {
+    origins: [origin],
+    destinations: destinations,
+    travelMode: google.maps.TravelMode.DRIVING,
+  },callback);
+  function callback(response,status){
+    for(var m=0;m<Routes.length;m++)
     {
-      console.log(distances);
+      Routes[m].Timechar=response.rows[0].elements[m].duration.text;
+      Routes[m].Timeval=response.rows[0].elements[m].duration.value;
+      Routes[m].DistChar=response.rows[0].elements[m].distance.text;
+      Routes[m].Dist=response.rows[0].elements[m].distance.value;
     }
-    else{
-      console.log(err);
+    for (let route of Routes) {
+      if (route.Dist == 0) {
+          Routes.splice(Routes.indexOf(route), 1);
+          break;
+      }      
     }
-        
+    
+    console.log(response.rows[0].elements[0]);
+   console.log(response);
+   console.log("Status: "+status);
+   Routes.sort((a,b)=>a.Timeval-b.Timeval);
+  }
 })
+.catch(function(error) {
+  console.log("Error getting documents: ", error);
+});
+this.ImgRoutes=Routes;
+console.log(this.ImgRoutes);
+
+ /*
+   }*/
+
+  
+
+  /*var origin = new google.maps.LatLng(55.930385,-3.118425);
+  var destination = new google.maps.LatLng(41.8337329,-87.7321554);
+
+  var matrix=this.http.get(this.googleUrl + origin + this.destinationKey + destination + this.googleKey);
+  console.log(matrix.toArray());*/
+
 
 }
 
@@ -129,33 +196,3 @@ function gettPA(){
 function getEVT(){
   
 }
-//code from stackblitz to get the direction service working well 
-//https://stackblitz.com/edit/google-maps1?file=app%2Fdistance-matrix.service.ts
-
-/*import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs/Rx';
-
-import { ViewChild } from '@angular/core';
-import { } from '@types/googlemaps';
-
-@Injectable()
-export class DistanceMatrixService {
-
-    googleResults:any;
-    
-    googleUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="
-    origins:String="";
-    destinationKey="&destinations=";
-    destinations:String="";
-    googleKey = "&key=AIzaSyCJG2oV6yBeP2pwVMEL1EftSiZo7YsZNDU";
-  
-  constructor(public http: HttpClient) { }
-
-  ngOnInit():void {}
-
-  getGoogleData(){
-    return this.http.get(this.googleUrl + this.origins + this.destinationKey + this.destinations + this.googleKey);
-  };
-}*/

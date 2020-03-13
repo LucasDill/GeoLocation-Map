@@ -17,17 +17,19 @@ import { RoutingProvider } from '../../providers/routing';
   templateUrl: 'imaging.html',
 })
 export class ImagingPage {
-
+cards: any=this.Routes.ImgRoutes;
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public Data: DataServiceProvider,
     public Routes: RoutingProvider) {
   }
 
-  goToMap(params){
+  goToRoute(params){
     if (!params) params = {};
+    console.log(params);
+    this.Data.Destination=params;
     this.navCtrl.push(MapPage);
-this.Routes.nearestLocations("Landing Sites");
-this.Routes.getImaging();
+//this.Routes.nearestLocations("Landing Sites");
+
 this.Routes.getMultiplier();
 this.Routes.getMultiplierArea();
   }
