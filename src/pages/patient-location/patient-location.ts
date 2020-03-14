@@ -175,6 +175,9 @@ getData() {
    if(params==false)
       {
         this.Routes.getImaging();
+        this.Routes.getOriginWeatherMultiplier();
+        this.Routes.getOriginAreaMultiplier();
+        this.Routes.totalOriginMultiplier();
         this.navCtrl.push(ImagingPage);
       }
     else if(params==true)

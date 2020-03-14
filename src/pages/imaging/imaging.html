@@ -12,29 +12,30 @@
 <ion-content no-bounce  id="page4">
 <div id="page">
 
-  <p id="weather" style="background-color:powderblue;">Weather in {{this.Data.city}}: {{this.Data.origin_tempreal |number:'.0'}} \u00B0C
-    <img src= {{this.Data.origin_icon}}></p>
+  <p id="weather" style="background-color:powderblue;">Weather in {{this.Data.city}}: <b>{{this.Data.origin_tempreal |number:'.0'}} \u00B0C</b>
+    <img src= {{this.Data.origin_icon}} style="vertical-align: middle;"></p>
   <h4 id="treatment-heading6" style="color:#000000;font-size: x-large;">
  
    Routes to Imaging Capable Hospital
   </h4>
-
+  <div class="card-scroll">
   <ion-scroll scrollY="true" style="height: 40vh;">
 <ion-list justify-content-center align-items-center>
   <ion-item *ngFor="let card of cards">
     <ion-card tappable (click)="goToRoute(card)" text-wrap >
       <ion-card-content>
         <ion-card-title>
-        {{card.name}}
+        {{card.name}} <h1> <img src= "./assets/imgs/ambulance.png" style="float:right"></h1>
         </ion-card-title>
-        <p>
-          Distance: {{card.DistChar}} &nbsp;&nbsp;&nbsp;&nbsp; Time: {{card.Timechar}}
-        </p>
+        <p id="cardinfo">
+          Distance: {{card.DistChar}} &nbsp;&nbsp;&nbsp;&nbsp; Time: {{card.Timechar}} 
       </ion-card-content>
     </ion-card>
   </ion-item>
 </ion-list>
 </ion-scroll>
+</div>
+
 <div class="treatment-button">
   <p style="text-align: center;font-size: large;">OR</p>
       <button id="moreTreatments" ion-button color="steelblue1" block on-click="GoToMore()">View Treatment Options</button>

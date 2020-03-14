@@ -40,8 +40,6 @@ cards: any=this.Routes.ImgRoutes;
     this.navCtrl.push(MapPage);
 //this.Routes.nearestLocations("Landing Sites");
 
-this.Routes.getMultiplier();
-this.Routes.getMultiplierArea();
   }
   GoToMore(params){
     if (!params) params={};

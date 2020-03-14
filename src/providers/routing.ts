@@ -10,6 +10,7 @@ import "firebase/firestore";
 import { Subject } from 'rxjs/Subject'
 import { Observable } from 'rxjs/Rx';
 import { isNgTemplate } from '@angular/compiler';
+import { WeatherService } from '../pages/patient-location/weather';
 
 /*
 
@@ -77,36 +78,35 @@ console.log(this.OriginLat,this.OriginLng);
 
 
 
-multiplier: any;
-multiplier_area: any;
+origin_weather_multiplier: number;
+origin_area_multiplier: number;
+origin_total_multiplier: number;
 // multipliers for weather and area
-getMultiplier(){
-  return new Promise((resolve, reject) => {
+getOriginWeatherMultiplier(){
+
   this.Database.collection("/Multipliers/").doc(JSON.stringify(this.Data.origin_weatherdata[0]))
   .get()
   .then((querySnapshot) => {
-      this.multiplier = querySnapshot.data().multi;
-      console.log(querySnapshot.data().multi);
+      this.origin_weather_multiplier = querySnapshot.data().multi;
   });
-
-});
 
 }
 
-getMultiplierArea(){
-return new Promise((resolve, reject) => {
+getOriginAreaMultiplier(){
+
   this.Database.collection("/Multipliers Area/").doc(this.Data.origin_area)
   .get()
   .then((querySnapshot) => {
-      this.multiplier_area = querySnapshot.data().multi;
-      console.log(querySnapshot.data().multi);
+      this.origin_area_multiplier = querySnapshot.data().multi;
   });
+}
 
-});
+totalOriginMultiplier(){
+  this.origin_total_multiplier = (this.origin_weather_multiplier + this.origin_area_multiplier)/2;
 }
 
 getImaging(){
-   var Routes=[];
+  var Routes=[];
   var service= new google.maps.DistanceMatrixService();
   var origin=new google.maps.LatLng(this.Data.lat,this.Data.lng);
 
@@ -154,8 +154,8 @@ service.getDistanceMatrix(
       Routes[m].Timeval=response.rows[0].elements[m].duration.value;
       Routes[m].DistChar=response.rows[0].elements[m].distance.text;
       Routes[m].Dist=response.rows[0].elements[m].distance.value;
-      console.log(this.multiplier);//need to talk with matt about this value 
-      Routes[m].TimeWithMult=Routes[m].Timeval*this.multiplier;
+      console.log(this.origin_total_multiplier);//need to talk with matt about this value 
+      Routes[m].TimeWithMult=Routes[m].Timeval*this.origin_total_multiplier;
     }
     for (let route of Routes) {
       if (route.Dist == 0) {
