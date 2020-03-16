@@ -171,13 +171,16 @@ getData() {
     //if (!params) params = {};
     this.Data.lat=params1;
     this.Data.lng=params2;
-  
+    this.Routes.getOriginWeatherMultiplier();
+    this.Routes.getOriginAreaMultiplier();
+    this.Routes.totalOriginMultiplier();
+    
+   
    if(params==false)
       {
+        
         this.Routes.getImaging();
-        this.Routes.getOriginWeatherMultiplier();
-        this.Routes.getOriginAreaMultiplier();
-        this.Routes.totalOriginMultiplier();
+        
         this.navCtrl.push(ImagingPage);
       }
     else if(params==true)

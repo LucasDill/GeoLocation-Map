@@ -18,8 +18,9 @@
  
    Routes to Imaging Capable Hospital
   </h4>
-  <div class="card-scroll">
-  <ion-scroll scrollY="true" style="height: 40vh;">
+  <spinner *ngIf="Spinner"></spinner>
+  <div class="card-scroll" *ngIf="show">
+  <ion-scroll scrollY="true" style="height: 55vh;">
 <ion-list justify-content-center align-items-center>
   <ion-item *ngFor="let card of cards">
     <ion-card tappable (click)="goToRoute(card)" text-wrap >
@@ -35,6 +36,7 @@
 </ion-list>
 </ion-scroll>
 </div>
+
 
 <div class="treatment-button">
   <p style="text-align: center;font-size: large;">OR</p>

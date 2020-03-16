@@ -80,37 +80,48 @@ console.log(this.OriginLat,this.OriginLng);
 
 origin_weather_multiplier: number;
 origin_area_multiplier: number;
-origin_total_multiplier: number;
+origin_total_multiplier: any;
 // multipliers for weather and area
-getOriginWeatherMultiplier(){
+async getOriginWeatherMultiplier(){
 
-  this.Database.collection("/Multipliers/").doc(JSON.stringify(this.Data.origin_weatherdata[0]))
+  const multi= await this.Database.collection("/Multipliers/").doc(JSON.stringify(this.Data.origin_weatherdata[0]))
   .get()
   .then((querySnapshot) => {
       this.origin_weather_multiplier = querySnapshot.data().multi;
+      console.log(this.origin_weather_multiplier);
+      return querySnapshot.data().multi;
   });
-
+console.log(multi);
 }
 
-getOriginAreaMultiplier(){
+async getOriginAreaMultiplier(){
 
-  this.Database.collection("/Multipliers Area/").doc(this.Data.origin_area)
+  const area= await this.Database.collection("/Multipliers Area/").doc(this.Data.origin_area)
   .get()
   .then((querySnapshot) => {
       this.origin_area_multiplier = querySnapshot.data().multi;
+      console.log(this.origin_area_multiplier);
+      return querySnapshot.data.multi;
   });
+  console.log(area);
 }
 
-totalOriginMultiplier(){
+async totalOriginMultiplier(): Promise<number>{
+  const weather=await this.getOriginWeatherMultiplier();
+  const Area=await this.getOriginAreaMultiplier();
+  console.log("in the end function origin weather="+this.origin_weather_multiplier+"    Area Multiplier= "+this.origin_area_multiplier);
   this.origin_total_multiplier = (this.origin_weather_multiplier + this.origin_area_multiplier)/2;
+  return(this.origin_total_multiplier);
+  console.log(this.origin_total_multiplier);
 }
 
-getImaging(){
+async getImaging(){
   var Routes=[];
+  var mult=await this.totalOriginMultiplier();
   var service= new google.maps.DistanceMatrixService();
   var origin=new google.maps.LatLng(this.Data.lat,this.Data.lng);
 
-var query=this.Database.collection("/Health Centers/").where("bTelestroke","==",true)
+var query= await this.Database.collection("/Health Centers/").where("bTelestroke","==",true)
 .get()
 .then(function(querySnapshot) {
   querySnapshot.forEach(function(doc) {
@@ -123,6 +134,7 @@ var query=this.Database.collection("/Health Centers/").where("bTelestroke","==",
         lat:doc.data().lat,
         lng:doc.data().lng,
         TimeWithMult: 0,
+        TimeWithMultChar: "",
         Timechar: "",
         Timeval: 0,
         DistChar: "",
@@ -131,15 +143,15 @@ var query=this.Database.collection("/Health Centers/").where("bTelestroke","==",
      // console.log(distobj);
       Routes.push(distobj);
   });
-  console.log(Routes.length);
+ // console.log(Routes.length);
 var destinations=[];
 for(var i=0;i<Routes.length;i++)
 {
 let coords= new google.maps.LatLng(Routes[i].lat,Routes[i].lng);
 destinations[i]=coords;
 }
-console.log(destinations);
-console.log(origin);
+//console.log(destinations);
+//console.log(origin);
 
 service.getDistanceMatrix(
   {
@@ -154,9 +166,10 @@ service.getDistanceMatrix(
       Routes[m].Timeval=response.rows[0].elements[m].duration.value;
       Routes[m].DistChar=response.rows[0].elements[m].distance.text;
       Routes[m].Dist=response.rows[0].elements[m].distance.value;
-      console.log(this.origin_total_multiplier);//need to talk with matt about this value 
-      Routes[m].TimeWithMult=Routes[m].Timeval*this.origin_total_multiplier;
+      console.log("Here in Loop"+mult);//need to talk with matt about this value 
+      Routes[m].TimeWithMult=Routes[m].Timeval*mult;
     }
+    Routes=convertTime(Routes);
     for (let route of Routes) {
       if (route.Dist == 0) {
           Routes.splice(Routes.indexOf(route), 1);
@@ -164,31 +177,21 @@ service.getDistanceMatrix(
       }      
     }
     
-    console.log(response.rows[0].elements[0]);
-   console.log(response);
-   console.log("Status: "+status);
-   Routes.sort((a,b)=>a.Timeval-b.Timeval);
+   // console.log(response.rows[0].elements[0]);
+   //console.log(response);
+   //console.log("Status: "+status);
+   Routes.sort((a,b)=>a.TimeWithMult-b.TimeWithMult);
   // Routes=addMult(Routes);
+  
   }
+  return Routes;
 })
 .catch(function(error) {
   console.log("Error getting documents: ", error);
 });
-this.ImgRoutes=Routes;
-console.log(this.ImgRoutes);
-
- /*
-   }*/
-
-  
-
-  /*var origin = new google.maps.LatLng(55.930385,-3.118425);
-  var destination = new google.maps.LatLng(41.8337329,-87.7321554);
-
-  var matrix=this.http.get(this.googleUrl + origin + this.destinationKey + destination + this.googleKey);
-  console.log(matrix.toArray());*/
-
-
+this.ImgRoutes= query;
+console.log(query);
+return query;
 }
 
 gettPA(){
@@ -205,8 +208,20 @@ function convertTime(obj: any)
 {
 for(var l=0;l<obj.length;l++)
 {
-  obj.TimeWithMult=obj.Timeval*this.Routes.multiplier;
-console.log(obj.TimeWithMult);
+  var newtimeChar=obj[l].TimeWithMult;
+  newtimeChar=newtimeChar/3600;
+  let start=Math.abs(newtimeChar);
+  start=Math.floor(start);
+  let end=Math.abs(newtimeChar)-start;
+  end=Math.ceil(end*60);
+  if(end==60)
+  {
+    end=0;
+    start++;
+  }
+  newtimeChar=start.toString()+" hours "+end.toString()+" mins";
+  obj[l].TimeWithMultChar=newtimeChar;
+
 }
 return obj;
 }
