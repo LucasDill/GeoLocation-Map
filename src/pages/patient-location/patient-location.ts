@@ -109,7 +109,7 @@ public tempfeel;
 public wlat;
 public wlon;
 getWeather(){
-        this.weatherService.getWeatherFromApi(this.Data.lat, this.Data.lng).subscribe( weather => {
+    this.weatherService.getWeatherFromApi(this.Data.lat, this.Data.lng).subscribe( weather => {  
           this.weather = weather;
           this.id = this.weather.weather[0].id;
           this.description = this.weather.weather[0].description;
@@ -120,12 +120,12 @@ getWeather(){
           this.Data.origin_weatherdata = [this.id, this.description, this.icon, this.tempreal, this.tempfeel];
           // gets description of weather
           console.log(this.Data.origin_weatherdata);
+          this.Data.origin_id = this.id;
           this.Data.origin_icon = "./assets/weather/" + this.Data.origin_weatherdata[2] + ".png";
           this.Data.origin_tempreal = this.tempreal;
           this.Data.origin_tempfeel = this.tempfeel;
         });
 
- 
 }
 
 
@@ -171,16 +171,16 @@ getData() {
     //if (!params) params = {};
     this.Data.lat=params1;
     this.Data.lng=params2;
-    this.Routes.getOriginWeatherMultiplier();
-    this.Routes.getOriginAreaMultiplier();
-    this.Routes.totalOriginMultiplier();
+    this.getWeather();
+    //this.Routes.getOriginWeatherMultiplier();
+    //this.Routes.getOriginAreaMultiplier();
+    //this.Routes.totalOriginMultiplier();
     
    
    if(params==false)
       {
         
         this.Routes.getImaging();
-        
         this.navCtrl.push(ImagingPage);
       }
     else if(params==true)
