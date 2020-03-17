@@ -148,7 +148,7 @@ var query= await this.Database.collection("/Health Centers/").where("bTelestroke
         Timeval: 0,
         DistChar: "",
         Dist: 0,
-        weather_code: 0
+        weather_code: ""
       }
      // console.log(distobj);
       Routes.push(distobj);
@@ -193,11 +193,11 @@ service.getDistanceMatrix(
         Routes[m].Timeval=response.rows[0].elements[m].duration.value;
         Routes[m].DistChar=response.rows[0].elements[m].distance.text;
         Routes[m].Dist=response.rows[0].elements[m].distance.value;
-        Routes[m].TimeWithMult=Routes[m].Timeval*final_multiplier;
-        console.log(Routes[m])
         await initiateMultipliers(Routes[m].weather_code, Routes[m].area).then(data => {
           final_multiplier = data;
         });
+        Routes[m].TimeWithMult=Routes[m].Timeval*final_multiplier;
+        console.log(Routes[m])
         console.log(mult)
         console.log(m)
         console.log(final_multiplier)
