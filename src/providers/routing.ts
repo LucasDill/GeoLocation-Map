@@ -159,6 +159,7 @@ service.getDistanceMatrix(
     for(var m=0;m<Routes.length;m++)
     {
       Routes[m].Timechar=response.rows[0].elements[m].duration.text;
+      Routes[m].TimeWithMultChar=response.rows[0].elements[m].duration.text;
       Routes[m].Timeval=response.rows[0].elements[m].duration.value;
       Routes[m].DistChar=response.rows[0].elements[m].distance.text;
       Routes[m].Dist=response.rows[0].elements[m].distance.value;
@@ -177,6 +178,8 @@ service.getDistanceMatrix(
    //console.log(response);
    //console.log("Status: "+status);
    Routes.sort((a,b)=>a.TimeWithMult-b.TimeWithMult);
+   console.log(Routes.sort((a,b)=>a.TimeWithMult-b.TimeWithMult))
+   console.log(Routes.sort((a,b)=>a.Timeval-b.Timeval))
   // Routes=addMult(Routes);
   
   }
