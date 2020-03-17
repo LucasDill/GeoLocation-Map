@@ -19,12 +19,40 @@ import { RoutingProvider } from '../../providers/routing';
   templateUrl: 'imaging.html',
 })
 export class ImagingPage {
-cards: any=this.Routes.ImgRoutes;
+cards: any;
+Spinner: Boolean=true;
+show: Boolean=false;
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public Data: DataServiceProvider,
     public Routes: RoutingProvider) {
+      console.log(this.Routes.ImgRoutes);
   }
+ async ionViewWillLoad(){
+ 
+  this.cards= await this.Routes.getImaging();
+  console.log(this.cards);
+  setInterval(()=>{
+    this.Spinner=false;
 
+    this.show=true;
+  },500);
+
+  
+}
+
+ /*SpinnerThing()
+{
+  if (this.cards. == true) {
+    // Here is your next action
+}
+}
+
+setTimeout(checkVariable, 1000);
+  this.Spinner=false;
+  this.show=true;
+  
+  
+}*/
   @ViewChild('treatment-heading6') myInput: ElementRef;
   @ViewChild('weather') myInput2: ElementRef;
 
@@ -40,8 +68,6 @@ cards: any=this.Routes.ImgRoutes;
     this.navCtrl.push(MapPage);
 //this.Routes.nearestLocations("Landing Sites");
 
-this.Routes.getMultiplier();
-this.Routes.getMultiplierArea();
   }
   GoToMore(params){
     if (!params) params={};

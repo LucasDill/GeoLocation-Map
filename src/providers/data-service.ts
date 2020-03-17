@@ -36,6 +36,7 @@ export class DataServiceProvider {
   origin_tempfeel: any;
   origin_multiplier_area: any;
   origin_multiplier_weather: any;
+  origin_id: any;
   origin_icon: any;
 
   destination_area: any;
