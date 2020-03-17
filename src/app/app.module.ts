@@ -9,6 +9,7 @@ import { TreatmentPage } from '../pages/treatment/treatment';
 import { MapPage } from '../pages/map/map';
 import { EvtOptionsPage } from '../pages/evt-options/evt-options';
 import { ComponentsTimerComponent } from '../components/components-timer/components-timer';
+import { SpinnerComponent } from '../components/spinner/spinner';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -34,6 +35,7 @@ import { RoutingProvider } from '../providers/routing';
     TreatmentPage,
     MapPage,
     ComponentsTimerComponent,
+    SpinnerComponent,
     HelpPage,
     ImagingPage,
     TPaQuestionPage,
