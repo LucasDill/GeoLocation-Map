@@ -84,7 +84,7 @@ origin_total_multiplier: any;
 // multipliers for weather and area
 async getOriginWeatherMultiplier(){
 
-var multiplier=await this.Database.collection("/Multipliers/").doc(this.Data.origin_id)
+var multiplier=await this.Database.collection("/Multipliers/").doc(JSON.stringify(this.Data.origin_id))
   .get()
   .then((querySnapshot) => {
       this.origin_weather_multiplier = querySnapshot.data().multi;
