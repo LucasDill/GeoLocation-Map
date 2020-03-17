@@ -31,7 +31,8 @@ EVTRoutes: any;
 
 Database: any;
   constructor(public http: HttpClient,public Data: DataServiceProvider,public DataBase: AngularFireDatabase,
-    private afs: AngularFirestore) {
+    private afs: AngularFirestore,
+    private weatherService: WeatherService,) {
       this.Database = firebase.firestore();
   }
 
@@ -115,7 +116,16 @@ async getImaging(){
   var mult=await this.totalOriginMultiplier();
   var Routes=[];
   var service= new google.maps.DistanceMatrixService();
+
   var origin=new google.maps.LatLng(this.Data.lat,this.Data.lng);
+  var Database = this.Database;
+  var weatherService = this.weatherService;
+  var Data = this.Data;
+  var w;
+
+  var destination_weather_multiplier;
+  var destination_area_multiplier;
+  var destination_total_multiplier;
 
 var query= await this.Database.collection("/Health Centers/").where("bTelestroke","==",true)
 .get()
@@ -129,6 +139,7 @@ var query= await this.Database.collection("/Health Centers/").where("bTelestroke
         city:doc.data().city,
         lat:doc.data().lat,
         lng:doc.data().lng,
+        area:doc.data().area,
         TimeWithMult: 0,
         TimeWithMultChar: "",
         Timechar: "",
@@ -145,6 +156,7 @@ for(var i=0;i<Routes.length;i++)
 {
 let coords= new google.maps.LatLng(Routes[i].lat,Routes[i].lng);
 destinations[i]=coords;
+
 }
 //console.log(destinations);
 //console.log(origin);
@@ -156,16 +168,48 @@ service.getDistanceMatrix(
     travelMode: google.maps.TravelMode.DRIVING,
   },callback);
   function callback(response,status){
+    var total;
     for(var m=0;m<Routes.length;m++)
     {
-      Routes[m].Timechar=response.rows[0].elements[m].duration.text;
-      Routes[m].TimeWithMultChar=response.rows[0].elements[m].duration.text;
-      Routes[m].Timeval=response.rows[0].elements[m].duration.value;
-      Routes[m].DistChar=response.rows[0].elements[m].distance.text;
-      Routes[m].Dist=response.rows[0].elements[m].distance.value;
-      console.log("Here in Loop"+mult);//need to talk with matt about this value 
-      Routes[m].TimeWithMult=Routes[m].Timeval*mult;
+      let area = Routes[m].area;
+      console.log("DESTINATION : " + destinations[m]);
+        weatherService.getWeatherFromApi(Routes[m].lat, Routes[m].lng).subscribe( weather => {  
+          w = weather;
+          let id = w.weather[0].id;
+          let description = w.weather[0].description;
+          let icon = w.weather[0].icon;
+          let tempreal = w.main.temp - 273.15;
+          let tempfeel = w.main.temp - 273.15;
+          let destination_weatherdata = [id, description, icon, tempreal, tempfeel];
+          // gets description of weather
+          console.log(destination_weatherdata);
+      
+          Database.collection("/Multipliers/").doc(JSON.stringify(id))
+          .get()
+          .then((querySnapshot) => {
+              destination_weather_multiplier = querySnapshot.data().multi;
+
+              Database.collection("/Multipliers Area/").doc(area)
+              .get()
+              .then((querySnapshot) => {
+                  destination_area_multiplier = querySnapshot.data().multi;
+
+                  destination_total_multiplier = (destination_weather_multiplier + destination_area_multiplier)/2;
+                  total = destination_total_multiplier;
+                });
+          });
+          
+        });
+        Routes[m].Timechar=response.rows[0].elements[m].duration.text;
+        Routes[m].TimeWithMultChar=response.rows[0].elements[m].duration.text;
+        Routes[m].Timeval=response.rows[0].elements[m].duration.value;
+        Routes[m].DistChar=response.rows[0].elements[m].distance.text;
+        Routes[m].Dist=response.rows[0].elements[m].distance.value;
+        console.log("Here in Loop"+mult);//need to talk with matt about this value 
+        Routes[m].TimeWithMult=Routes[m].Timeval*mult;
+
     }
+
     Routes=convertTime(Routes);
     for (let route of Routes) {
       if (route.Dist == 0) {
