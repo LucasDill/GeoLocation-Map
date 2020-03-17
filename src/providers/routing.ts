@@ -82,9 +82,9 @@ origin_weather_multiplier: number;
 origin_area_multiplier: number;
 origin_total_multiplier: any;
 // multipliers for weather and area
-getOriginWeatherMultiplier(){
+async getOriginWeatherMultiplier(){
 
-this.Database.collection("/Multipliers/").doc(JSON.stringify(this.Data.origin_id))
+var multiplier=await this.Database.collection("/Multipliers/").doc(this.Data.origin_id)
   .get()
   .then((querySnapshot) => {
       this.origin_weather_multiplier = querySnapshot.data().multi;
@@ -94,19 +94,23 @@ this.Database.collection("/Multipliers/").doc(JSON.stringify(this.Data.origin_id
 
 }
 
-getOriginAreaMultiplier(){
+async getOriginAreaMultiplier(){
 
-this.Database.collection("/Multipliers Area/").doc(this.Data.origin_area)
+var origin= await this.Database.collection("/Multipliers Area/").doc(this.Data.origin_area)
   .get()
   .then((querySnapshot) => {
       this.origin_area_multiplier = querySnapshot.data().multi;
       console.log(this.origin_area_multiplier);
-      return querySnapshot.data.multi;
+      return querySnapshot.data().multi;
   });
 
 }
 
-totalOriginMultiplier(){
+async totalOriginMultiplier(){
+  var area=await this.getOriginAreaMultiplier();
+  var Mult= await this.getOriginWeatherMultiplier();
+  console.log(area);
+  console.log(Mult);
   this.origin_total_multiplier = (this.origin_weather_multiplier + this.origin_area_multiplier)/2;
   return(this.origin_total_multiplier);
 
