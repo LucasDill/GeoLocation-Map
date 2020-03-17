@@ -50,6 +50,10 @@ export class DataServiceProvider {
   destination_id: any;
   destination_icon: any;
   
+  area_temp: any;
+  id_temp: any;
+  destination_multiplier: number;
+
   location: any;
   NeedImaging:boolean;
   hadtPA:boolean;
