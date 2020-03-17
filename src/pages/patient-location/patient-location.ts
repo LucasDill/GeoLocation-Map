@@ -108,8 +108,8 @@ public tempreal;
 public tempfeel;
 public wlat;
 public wlon;
-getWeather(){
-    this.weatherService.getWeatherFromApi(this.Data.lat, this.Data.lng).subscribe( weather => {  
+async getWeather(){
+    await this.weatherService.getWeatherFromApi(this.Data.lat, this.Data.lng).subscribe( weather => {  
           this.weather = weather;
           this.id = this.weather.weather[0].id;
           this.description = this.weather.weather[0].description;
@@ -127,9 +127,6 @@ getWeather(){
         });
 
 }
-
-
-
 
 
 // get current location
@@ -166,32 +163,17 @@ getData() {
 
 
 
-  goToLastKnownWell(params,params1,params2){
+ goToLastKnownWell(params,params1,params2){
     console.log(params,params1,params2);
     //if (!params) params = {};
     this.Data.lat=params1;
     this.Data.lng=params2;
-    this.getWeather();
+    //await this.getWeather();
     //this.Routes.getOriginWeatherMultiplier();
     //this.Routes.getOriginAreaMultiplier();
     //this.Routes.totalOriginMultiplier();
-    
    
-   if(params==false)
-      {
-        
-        this.Routes.getImaging();
-        this.navCtrl.push(ImagingPage);
-      }
-    else if(params==true)
-      {
-        this.navCtrl.push(ImagingRequiredPage);
-      }
-      else{
-        console.warn("Error Telestroke value not found");
-        this.navCtrl.push(ImagingRequiredPage);
-      }
-      }
+  }
     
 
 
@@ -541,6 +523,12 @@ getData() {
       this.Telestroke = Telestroke;
       // get weather from chosen city
       this.getWeather();
+      if (Telestroke == true) {
+        this.navCtrl.push(ImagingPage);
+      }
+      else{
+        this.navCtrl.push(ImagingRequiredPage);
+      }
       
     })
      .catch((error: any) => {

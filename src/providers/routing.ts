@@ -34,7 +34,6 @@ Database: any;
     private afs: AngularFirestore) {
       this.Database = firebase.firestore();
   }
-  
 
   nearestLocations(param){
     console.log(this.Data.lng);
@@ -83,42 +82,38 @@ origin_area_multiplier: number;
 origin_total_multiplier: any;
 // multipliers for weather and area
 async getOriginWeatherMultiplier(){
-
-var multiplier=await this.Database.collection("/Multipliers/").doc(JSON.stringify(this.Data.origin_id))
+await this.Database.collection("/Multipliers/").doc(JSON.stringify(this.Data.origin_id))
   .get()
   .then((querySnapshot) => {
       this.origin_weather_multiplier = querySnapshot.data().multi;
-      console.log(this.origin_weather_multiplier);
-      return querySnapshot.data().multi;
+      return this.origin_weather_multiplier;
   });
 
 }
 
 async getOriginAreaMultiplier(){
-
-var origin= await this.Database.collection("/Multipliers Area/").doc(this.Data.origin_area)
+await this.Database.collection("/Multipliers Area/").doc(this.Data.origin_area)
   .get()
   .then((querySnapshot) => {
       this.origin_area_multiplier = querySnapshot.data().multi;
-      console.log(this.origin_area_multiplier);
-      return querySnapshot.data().multi;
+      return this.origin_area_multiplier;
   });
 
 }
 
 async totalOriginMultiplier(){
-  var area=await this.getOriginAreaMultiplier();
-  var Mult= await this.getOriginWeatherMultiplier();
-  console.log(area);
-  console.log(Mult);
+  await this.getOriginAreaMultiplier();
+  await this.getOriginWeatherMultiplier();
   this.origin_total_multiplier = (this.origin_weather_multiplier + this.origin_area_multiplier)/2;
-  return(this.origin_total_multiplier);
+  return this.origin_total_multiplier;
 
 }
 
 async getImaging(){
-  var Routes=[];
+  await this.getOriginAreaMultiplier();
+  await this.getOriginWeatherMultiplier();
   var mult=await this.totalOriginMultiplier();
+  var Routes=[];
   var service= new google.maps.DistanceMatrixService();
   var origin=new google.maps.LatLng(this.Data.lat,this.Data.lng);
 
