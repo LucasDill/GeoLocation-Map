@@ -524,10 +524,10 @@ getData() {
       // get weather from chosen city
       this.getWeather();
       if (Telestroke == true) {
-        this.navCtrl.push(ImagingPage);
+        this.navCtrl.push(ImagingRequiredPage);
       }
       else{
-        this.navCtrl.push(ImagingRequiredPage);
+        this.navCtrl.push(ImagingPage);
       }
       
     })
