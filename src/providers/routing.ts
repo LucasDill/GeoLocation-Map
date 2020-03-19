@@ -12,6 +12,8 @@ import { Observable } from 'rxjs/Rx';
 import { isNgTemplate, identifierModuleUrl } from '@angular/compiler';
 import { WeatherService } from '../pages/patient-location/weather';
 import { getValueFromFormat } from 'ionic-angular/umd/util/datetime-util';
+import { p } from '@angular/core/src/render3';
+import { repeat } from 'rxjs-compat/operator/repeat';
 
 /*
 
@@ -37,44 +39,38 @@ Database: any;
       this.Database = firebase.firestore();
   }
 
-  nearestLocations(param){
-    console.log(this.Data.lng);
-    console.log(this.Data.lat);
-
-  this.Database.collection("/Landing Sites/")
-    //ref.orderBy("lat")
-    //.startAt(this.Data.lat+0.5)
-    //.endAt(this.Data.lat-0.5)
-    .get()
-    .then((querySnapshot) => {
-
-      querySnapshot.forEach(function(doc) {
-        var obj = JSON.parse(JSON.stringify(doc.data()));
-        obj.id = doc.id;
-        obj.eventId = doc.id;
-        console.log(doc.data());
-      });
-
-  });
-console.log(this.OriginLat,this.OriginLng);
-  this.Database.collection("/Health Centers/")
-  //.where('city', '==', start
-  .orderBy("lat")
-  .startAt(Math.abs(this.OriginLat+0.5))
-  .endAt(Math.abs(this.OriginLat-0.5))
-  .limit(20)
-  .get()
-  .then((querySnapshot) => {
-    let arr = [];
-    querySnapshot.forEach(function(doc) {
-      var obj = JSON.parse(JSON.stringify(doc.data()));
-      obj.id = doc.id;
-      obj.eventId = doc.id;
-      arr.push(obj);
-      console.log(doc.data());
+   async nearestLocations(){
+    var lng=this.Data.lng;
+    var lat=this.Data.lat;
+   
+    var heli =[];
+    var plane=[];
+    var area=0.5;
+   
+      
+     var distances= this.Database.collection("/Landing Sites/")
+      //ref.orderBy("lat")
+      //.startAt(this.Data.lat+0.5)
+      //.endAt(this.Data.lat-0.5)
+      .get()
+      .then((querySnapshot) => {
+        var total=[]
+        querySnapshot.forEach(function(doc) {
+          
+         
+            var obj = JSON.parse(JSON.stringify(doc.data()));
+            total.push(obj);
+          
+        });
+        
+        return total;
+        
     });
-  });
-
+    var all= await distances;
+    console.log(all);
+    
+console.log(heli);
+console.log(plane);
 }
 
 
@@ -142,6 +138,7 @@ var query= await this.Database.collection("/Health Centers/").where("bTelestroke
         lat:doc.data().lat,
         lng:doc.data().lng,
         area:doc.data().area,
+        Method:"Driving",
         TimeWithMult: 0,
         TimeWithMultChar: "",
         Timechar: "",
@@ -177,7 +174,7 @@ destinations[i]=coords;
 //console.log(destinations);
 //console.log(origin);
 
-service.getDistanceMatrix(
+ service.getDistanceMatrix(
   {
     origins: [origin],
     destinations: destinations,
@@ -259,6 +256,7 @@ service.getDistanceMatrix(
     Routes.sort((a,b)=>a.TimeWithMult-b.TimeWithMult);
     console.log(Routes.sort((a,b)=>a.TimeWithMult-b.TimeWithMult))
     console.log(Routes.sort((a,b)=>a.Timeval-b.Timeval))
+    
   }
   return Routes;
 })

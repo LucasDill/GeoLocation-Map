@@ -36,7 +36,7 @@ show: Boolean=false;
 
     this.show=true;
   },500);
-
+  this.Routes.nearestLocations();
   
 }
 
