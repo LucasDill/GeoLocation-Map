@@ -73,7 +73,7 @@ export class MapPage {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
           zoom: 8,
     
-          center: { lat: 48.424889, lng: -89.270721 }
+          center: { lat: this.Data.lat, lng: this.Data.lng }
         });
         
         // if a pin is placed, display it on the map
