@@ -58,6 +58,7 @@ export class DataServiceProvider {
   NeedImaging:boolean;
   hadtPA:boolean;
   height:any;
+  width: any;
 
 Destination:any;
 
@@ -66,6 +67,7 @@ Destination:any;
       console.log('Width: ' + platform.width());
       console.log('Height: ' + platform.height());
       this.height=platform.height();
+      this.width=platform.width();
     });
   }
   getSize(platform: Platform){

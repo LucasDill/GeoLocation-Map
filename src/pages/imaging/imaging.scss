@@ -49,9 +49,14 @@ body {
   width: 100%;
 }
 
-div.card-scroll {
+.card-scroll {
+  //position: absolute;
+  min-height: 0;
+}
+
+.modal-parent {
   position: relative;
-  bottom: 0;
+  height: 50vh;
 }
 
 h1 {
@@ -59,5 +64,8 @@ h1 {
   float: right;
 }
 
+h2 {
+  height: 15px;
+}
 
 }
