@@ -10,7 +10,6 @@
 <script src="imaging.ts"></script>
 
 <ion-content no-bounce  id="page4">
-<div id="page">
 
   <p id="weather" style="background-color:powderblue;">Weather in {{this.Data.city}}: <b>{{this.Data.origin_tempreal |number:'.0'}} \u00B0C</b>
     <img src= {{this.Data.origin_icon}} style="vertical-align: middle;"></p>
@@ -20,7 +19,8 @@
   </h4>
   <spinner *ngIf="Spinner"></spinner>
   <div class="card-scroll" *ngIf="show">
-  <ion-scroll scrollY="true" style="height: 55vh;">
+
+  <ion-scroll scrollY="true" style="height: 40vh;">
 <ion-list justify-content-center align-items-center>
   <ion-item *ngFor="let card of cards">
     <ion-card tappable (click)="goToRoute(card)" text-wrap >
@@ -37,10 +37,9 @@
 </ion-scroll>
 </div>
 
-
 <div class="treatment-button">
-  <p style="text-align: center;font-size: large;">OR</p>
+  <h2 id="or" style="text-align: center;font-size: large;">OR</h2>
       <button id="moreTreatments" ion-button color="steelblue1" block on-click="GoToMore()">View Treatment Options</button>
    </div>
-</div>
+
 </ion-content>
