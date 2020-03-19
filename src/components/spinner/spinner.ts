@@ -15,7 +15,7 @@ export class SpinnerComponent {
   text: string;
 
   constructor() {
-    console.log('Hello SpinnerComponent Component');
+  //  console.log('Hello SpinnerComponent Component');
     this.text = 'Hello World';
   }
 

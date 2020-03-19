@@ -164,7 +164,7 @@ getData() {
 
 
  goToLastKnownWell(params,params1,params2){
-    console.log(params,params1,params2);
+   // console.log(params,params1,params2);
     //if (!params) params = {};
     this.Data.lat=params1;
     this.Data.lng=params2;
@@ -507,7 +507,7 @@ getData() {
             else{
               // write code here to go to next applicable page
               Telestroke=false;
-              console.log("YOU ARE NOT AT A TELESTROKE CENTRE");
+            //  console.log("YOU ARE NOT AT A TELESTROKE CENTRE");
               
             }
            

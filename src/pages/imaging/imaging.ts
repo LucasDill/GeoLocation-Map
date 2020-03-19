@@ -25,11 +25,26 @@ show: Boolean=false;
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public Data: DataServiceProvider,
     public Routes: RoutingProvider) {
-      console.log(this.Routes.ImgRoutes);
+   //   console.log(this.Routes.ImgRoutes);
   }
  async ionViewWillLoad(){
- 
-  this.cards= await this.Routes.getImaging();
+ var imgroutes;
+   await this.Routes.getImaging().then(data =>{
+    this.cards=data;
+    imgroutes=data;
+  });
+  console.log(imgroutes);
+  var flightloc;
+  await this.Routes.nearestLocations().then(flights =>{
+    flightloc=flights;
+  });
+  console.log(flightloc);
+  var totalCard;
+   await this.Routes.getDistForFLight(imgroutes,flightloc).then(distances =>{
+totalCard=distances;
+this.Spinner=false;
+  });
+  console.log(totalCard);
   console.log(this.cards);
   setInterval(()=>{
     this.Spinner=false;
