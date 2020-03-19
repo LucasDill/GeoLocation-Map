@@ -327,7 +327,8 @@ for(var m=0;m<dest.length;m++)
   var flightopt={
     origin: loc[i],
     desti:dest[m],
-    distance: getDistance(loc[i].lat,loc[i].lng,dest[m].lat,dest[m].lng)
+    distance: getDistance(loc[i].lat,loc[i].lng,dest[m].lat,dest[m].lng),
+    DistanceString: convertDist(getDistance(loc[i].lat,loc[i].lng,dest[m].lat,dest[m].lng))
   }
   distances[i][m]=flightopt;
 }
@@ -341,6 +342,13 @@ console.log(distances);
 function getEVT(){
   
 }
+function convertDist(dist)
+{
+  var distString=(Math.ceil(dist)).toString()+" km";
+  return distString;
+}
+
+
 async function convertTime(obj: any)
 {
 for(var l=0;l<obj.length;l++)
