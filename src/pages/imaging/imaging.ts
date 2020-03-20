@@ -35,12 +35,10 @@ show: Boolean=false;
   });
   console.log(imgroutes);
   var flightloc;
-  await this.Routes.nearestLocations().then(flights =>{
-    flightloc=flights;
-  });
+  await this.Routes.nearestLocations();
   console.log(flightloc);
   var totalCard;
-   await this.Routes.getDistForFLight(imgroutes,flightloc).then(distances =>{
+   await this.Routes.getFlights(imgroutes).then(distances =>{
 totalCard=distances;
 this.Spinner=false;
   });

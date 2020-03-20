@@ -33,6 +33,8 @@ tPARoutes: any;
 EVTRoutes: any;
 closestFlightOpt: any=[];
 Database: any;
+LandingSites:any;
+
   constructor(public http: HttpClient,public Data: DataServiceProvider,public DataBase: AngularFireDatabase,
     private afs: AngularFirestore,
     private weatherService: WeatherService) {
@@ -42,12 +44,6 @@ Database: any;
     async nearestLocations(){
     var lng=this.Data.lng;
     var lat=this.Data.lat;
-   
-    var heli =[];
-    var plane=[];
-    var area=0.5;
-   
-      
      var distances= this.Database.collection("/Landing Sites/")
       //ref.orderBy("lat")
       //.startAt(this.Data.lat+0.5)
@@ -62,52 +58,60 @@ Database: any;
             total.push(obj);
           
         });
-        
+        this.LandingSites=total;
         return total;
         
     });
-    var all= await distances;
-    console.log(all.length);
-    var repeat=1;
-    var radius=0.5;
-    var closestFlightOpt;
-    while(repeat==1)
+    return distances;
+  }
+   async getCloseLoc(lat, lng)
     {
-      for(var i=0;i<all.length;i++)
+      var all= this.LandingSites;
+     // console.log(all.length);
+      var heli=[];
+      var plane=[];
+      var repeat=1;
+      var radius=0.5;
+      var closestFlightOpt=[];
+      while(repeat==1)
       {
-        if(Math.abs(Math.abs(all[i].lat)-Math.abs(this.Data.lat))<radius&&Math.abs(Math.abs(all[i].lng)-Math.abs(this.Data.lng))<radius)
+        for(var i=0;i<all.length;i++)
         {
-          console.log("found");
-          if(all[i].type=="Airport")
+          if(Math.abs(Math.abs(all[i].lat)-Math.abs(lat))<radius&&Math.abs(Math.abs(all[i].lng)-Math.abs(lng))<radius)
           {
-            plane.push(all[i]);
-          }
-          else if(all[i].type=="Helipad")
-          {
-            heli.push(all[i]);
+            //console.log("found");
+            if(all[i].type=="Airport")
+            {
+              plane.push(all[i]);
+            }
+            else if(all[i].type=="Helipad")
+            {
+              heli.push(all[i]);
+            }
           }
         }
+        if(heli.length==0||plane.length==0)
+        {
+          radius=radius+0.2;
+         // console.log("Need to repeat");
+        }
+        else
+        {
+         // console.log("Found an Airport and Helipad");
+          repeat=0;
+        }
       }
-      if(heli.length==0||plane.length==0)
-      {
-        radius=radius+0.2;
-        console.log("Need to repeat");
-      }
-      else
-      {
-        console.log("Found an Airport and Helipad");
-        repeat=0;
-      }
+      heli.sort((a,b)=>(Math.abs(Math.abs(a.lat)-Math.abs(lat))+Math.abs(Math.abs(a.lng)-Math.abs(lng)))-(Math.abs(Math.abs(b.lat)-Math.abs(lat))+Math.abs(Math.abs(b.lng)-Math.abs(lng))));
+      plane.sort((a,b)=>(Math.abs(Math.abs(a.lat)-Math.abs(lat))+Math.abs(Math.abs(a.lng)-Math.abs(lng)))-(Math.abs(Math.abs(b.lat)-Math.abs(lat))+Math.abs(Math.abs(b.lng)-Math.abs(lng))));
+      //console.log(plane);
+      //console.log(heli);
+      closestFlightOpt[0]=heli[0];
+      closestFlightOpt[1]=plane[0];
+     // console.log(closestFlightOpt);
+      return closestFlightOpt;
     }
-    heli.sort((a,b)=>(Math.abs(Math.abs(a.lat)-Math.abs(this.Data.lat))+Math.abs(Math.abs(a.lng)-Math.abs(this.Data.lng)))-(Math.abs(Math.abs(b.lat)-Math.abs(this.Data.lat))+Math.abs(Math.abs(b.lng)-Math.abs(this.Data.lng))));
-    plane.sort((a,b)=>(Math.abs(Math.abs(a.lat)-Math.abs(this.Data.lat))+Math.abs(Math.abs(a.lng)-Math.abs(this.Data.lng)))-(Math.abs(Math.abs(b.lat)-Math.abs(this.Data.lat))+Math.abs(Math.abs(b.lng)-Math.abs(this.Data.lng))));
-    //console.log(plane);
-    //console.log(heli);
-    this.closestFlightOpt[0]=heli[0];
-    this.closestFlightOpt[1]=plane[0];
-    console.log(this.closestFlightOpt);
-    return this.closestFlightOpt;
-}
+    
+
 
 
 
@@ -310,9 +314,24 @@ gettPA(){
   
 
 }
-async getDistForFLight(dest,loc)
+async getFlights(endpoints)
 {
- 
+  console.log(this.Data.lat);
+  console.log(this.Data.lng);
+ var loc = await this.getCloseLoc(this.Data.lat,this.Data.lng);
+var dest= new Array(endpoints.length);
+console.log(endpoints.length);
+for(var o=0;o<endpoints.length;o++)
+{
+  var closesites={
+    CloseHospital: endpoints[o].name,
+    Sites: await this.getCloseLoc(endpoints[o].lat,endpoints[o].lng)
+  }
+  dest[o]=(closesites);
+}
+console.log(loc);
+console.log(dest);
+
 var distances= new Array(loc.length);
 for(var j=0;j<loc.length;j++)
 {
@@ -320,15 +339,18 @@ for(var j=0;j<loc.length;j++)
 }
 console.log(dest);
 console.log(loc);
+
 for(var i=0;i<loc.length;i++)
 {
 for(var m=0;m<dest.length;m++)
 { 
   var flightopt={
     origin: loc[i],
-    desti:dest[m],
-    distance: getDistance(loc[i].lat,loc[i].lng,dest[m].lat,dest[m].lng),
-    DistanceString: convertDist(getDistance(loc[i].lat,loc[i].lng,dest[m].lat,dest[m].lng))
+    desti:dest[m].Sites[i],
+    distance: getDistance(loc[i].lat,loc[i].lng,dest[m].Sites[i].lat,dest[m].Sites[i].lng),
+    DistanceString: convertDist(getDistance(loc[i].lat,loc[i].lng,dest[m].Sites[i].lat,dest[m].Sites[i].lng)),
+    type: dest[m].Sites[i].type
+
   }
   distances[i][m]=flightopt;
 }
