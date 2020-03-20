@@ -348,8 +348,10 @@ for(var m=0;m<dest.length;m++)
     origin: loc[i],
     desti:dest[m].Sites[i],
     distance: getDistance(loc[i].lat,loc[i].lng,dest[m].Sites[i].lat,dest[m].Sites[i].lng),
-    DistanceString: convertDist(getDistance(loc[i].lat,loc[i].lng,dest[m].Sites[i].lat,dest[m].Sites[i].lng)),
-    type: dest[m].Sites[i].type
+    DistChar: convertDist(getDistance(loc[i].lat,loc[i].lng,dest[m].Sites[i].lat,dest[m].Sites[i].lng)),
+    type: dest[m].Sites[i].type,
+    name: dest[m].Sites[i].siteName
+    
 
   }
   distances[i][m]=flightopt;
