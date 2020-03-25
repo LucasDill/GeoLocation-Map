@@ -151,23 +151,21 @@ async totalOriginMultiplier(){
 async getImaging(){
   await this.getOriginAreaMultiplier();
   await this.getOriginWeatherMultiplier();
-  var mult=await this.totalOriginMultiplier();
+  
   var Routes=[];
-  var service= new google.maps.DistanceMatrixService();
+  
 var serv;
-  var origin=new google.maps.LatLng(this.Data.lat,this.Data.lng);
-  var Database = this.Database;
+  
+  
   var weatherService = this.weatherService;
   var Data = this.Data;
   var w;
 
-  var destination_weather_multiplier;
-  var destination_area_multiplier;
-  var destination_total_multiplier;
+  
 
-var query= await this.Database.collection("/Health Centers/").where("bTelestroke","==",true)
+var ret= await this.Database.collection("/Health Centers/").where("bTelestroke","==",true)
 .get()
-.then(function(querySnapshot) {
+.then(async function(querySnapshot) {
   querySnapshot.forEach(function(doc) {
       // doc.data() is never undefined for query doc snapshots
       //console.log(doc.id, " => ", doc.data().name);
@@ -204,111 +202,122 @@ var query= await this.Database.collection("/Health Centers/").where("bTelestroke
   });
   
  // console.log(Routes.length);
+
+
+
+//console.log(destinations);
+//console.log(origin);
+
+    
+   // console.log(response.rows[0].elements[0]);
+   //console.log(response);
+   //console.log("Status: "+status);
+   
+  // Routes=addMult(Routes);
+  return Routes;
+});
 var destinations=[];
 for(var i=0;i<Routes.length;i++)
 {
 let coords= new google.maps.LatLng(Routes[i].lat,Routes[i].lng);
 destinations[i]=coords;
-
 }
-//console.log(destinations);
-//console.log(origin);
+console.log(ret);
+ret=await this.distMat(destinations,ret);
+console.log(ret);
+return ret;
+}
 
- service.getDistanceMatrix(
-  {
-    origins: [origin],
-    destinations: destinations,
-    travelMode: google.maps.TravelMode.DRIVING,
-  },callback);
-  var final_multiplier;
-  async function callback(response,status){
-    for(var m=0;m<Routes.length;m++)
-    {
-        
-        Routes[m].Timechar=response.rows[0].elements[m].duration.text;
-        Routes[m].TimeWithMultChar=response.rows[0].elements[m].duration.text;
-        Routes[m].Timeval=response.rows[0].elements[m].duration.value;
-        Routes[m].DistChar=response.rows[0].elements[m].distance.text;
-        Routes[m].Dist=response.rows[0].elements[m].distance.value;
-        await initiateMultipliers(Routes[m].weather_code, Routes[m].area).then(data => {
-          final_multiplier = data;
-        });
-        Routes[m].TimeWithMult=Routes[m].Timeval*final_multiplier;
-       // console.log(Routes[m])
-        //console.log(mult)
-       // console.log(m)
-       // console.log(final_multiplier)
+async  distMat(destinations,Routes){
+  var mult=await this.totalOriginMultiplier();
+  var Database = this.Database;
+  var destination_weather_multiplier;
+  var destination_area_multiplier;
+  var destination_total_multiplier;
+  var origin=new google.maps.LatLng(this.Data.lat,this.Data.lng);
+  var service= new google.maps.DistanceMatrixService();
+   service.getDistanceMatrix(
+   {
+     origins: [origin],
+     destinations: destinations,
+     travelMode: google.maps.TravelMode.DRIVING,
+   },callback);
+   var final_multiplier;
+   async function callback(response,status){
+     for(var m=0;m<Routes.length;m++)
+     {
+         
+         Routes[m].Timechar=response.rows[0].elements[m].duration.text;
+         Routes[m].TimeWithMultChar=response.rows[0].elements[m].duration.text;
+         Routes[m].Timeval=response.rows[0].elements[m].duration.value;
+         Routes[m].DistChar=response.rows[0].elements[m].distance.text;
+         Routes[m].Dist=response.rows[0].elements[m].distance.value;
+         await initiateMultipliers(Routes[m].weather_code, Routes[m].area).then(data => {
+           final_multiplier = data;
+         });
+         Routes[m].TimeWithMult=Routes[m].Timeval*final_multiplier;
+        // console.log(Routes[m])
+         //console.log(mult)
+        // console.log(m)
+        // console.log(final_multiplier)
+     }
+ 
+     var weather_multiplier;
+     var area_multiplier;
+     var destination_total;
+     var final;
+     async function initiateMultipliers(id, area){
+       await getDestinationWeatherMultiplier(id).then(data => {
+         weather_multiplier = data;
+       })
+       await getDestinationAreaMultiplier(area).then(data => {
+         area_multiplier = data;
+       })
+ 
+       destination_total = (weather_multiplier + area_multiplier) / 2;
+       final = (mult + destination_total) / 2;
+       return final;
+     }
+ 
+     async function getDestinationWeatherMultiplier(id){
+      let val = await Database.collection("/Multipliers/").doc(JSON.stringify(id))
+         .get()
+         .then((querySnapshot) => {
+             destination_weather_multiplier = querySnapshot.data().multi;
+             return destination_weather_multiplier;
+           });
+           return val;
+     }
+ 
+     async function getDestinationAreaMultiplier(area){
+       let val = await Database.collection("/Multipliers Area/").doc(area)
+           .get()
+           .then((querySnapshot) => {
+               destination_area_multiplier = querySnapshot.data().multi;
+               return destination_area_multiplier;
+             });
+             return val;
+     }
+ 
+     Routes = await convertTime(Routes);
+     for (let route of Routes) {
+       if (route.Dist == 0) {
+           Routes.splice(Routes.indexOf(route), 1);
+           break;
+       }   
+       await sortRoutes();
+     }
+     async function sortRoutes(){
+      Routes.sort((a,b)=>a.TimeWithMult-b.TimeWithMult);
+    //  console.log(Routes.sort((a,b)=>a.TimeWithMult-b.TimeWithMult))
+     // console.log(Routes.sort((a,b)=>a.Timeval-b.Timeval))
+      return Routes;
     }
-
-    var weather_multiplier;
-    var area_multiplier;
-    var destination_total;
-    var final;
-    async function initiateMultipliers(id, area){
-      await getDestinationWeatherMultiplier(id).then(data => {
-        weather_multiplier = data;
-      })
-      await getDestinationAreaMultiplier(area).then(data => {
-        area_multiplier = data;
-      })
-
-      destination_total = (weather_multiplier + area_multiplier) / 2;
-      final = (mult + destination_total) / 2;
-      return final;
-    }
-
-    async function getDestinationWeatherMultiplier(id){
-     let val = await Database.collection("/Multipliers/").doc(JSON.stringify(id))
-        .get()
-        .then((querySnapshot) => {
-            destination_weather_multiplier = querySnapshot.data().multi;
-            return destination_weather_multiplier;
-          });
-          return val;
-    }
-
-    async function getDestinationAreaMultiplier(area){
-      let val = await Database.collection("/Multipliers Area/").doc(area)
-          .get()
-          .then((querySnapshot) => {
-              destination_area_multiplier = querySnapshot.data().multi;
-              return destination_area_multiplier;
-            });
-            return val;
-    }
-
-    Routes = await convertTime(Routes);
-    for (let route of Routes) {
-      if (route.Dist == 0) {
-          Routes.splice(Routes.indexOf(route), 1);
-          break;
-      }      
     }
     
-   // console.log(response.rows[0].elements[0]);
-   //console.log(response);
-   //console.log("Status: "+status);
-   await sortRoutes();
-  // Routes=addMult(Routes);
-  
-  }
-  async function sortRoutes(){
-    Routes.sort((a,b)=>a.TimeWithMult-b.TimeWithMult);
-  //  console.log(Routes.sort((a,b)=>a.TimeWithMult-b.TimeWithMult))
-   // console.log(Routes.sort((a,b)=>a.Timeval-b.Timeval))
     return Routes;
   }
-  
-  return Routes;
-})
-.catch(function(error) {
-  console.log("Error getting documents: ", error);
-});
-this.ImgRoutes= query;
-console.log(query)
-//console.log(query);
-return query;
-}
+
 
  SetColour(param){
   console.log(param[0].city);

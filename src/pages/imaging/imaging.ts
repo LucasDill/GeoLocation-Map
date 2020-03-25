@@ -28,7 +28,8 @@ show: Boolean=false;
    //   console.log(this.Routes.ImgRoutes);
   }
  async ionViewWillLoad(){
- await this.pageSetup();
+ var dat=await this.pageSetup();
+ this.cards=dat;
 }
 
 async pageSetup()
@@ -38,7 +39,7 @@ async pageSetup()
    
    imgroutes=data;
  });
- const imgroute=await this.Routes.getImaging();
+
 
  console.log(imgroutes);
  await this.Routes.nearestLocations();
@@ -50,7 +51,7 @@ this.Spinner=false;
  console.log(totalCard);
  this.Routes.nearestLocations();
  console.log(imgroutes);
- this.cards=imgroutes;
+ 
  this.Spinner=false;
  this.show=true;
  imgroutes= this.Routes.SetColour(imgroutes);
