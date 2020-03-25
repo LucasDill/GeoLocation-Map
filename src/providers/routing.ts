@@ -308,6 +308,12 @@ async  distMat(destinations,Routes){
        await sortRoutes();
      }
      async function sortRoutes(){
+      for (let route of Routes) {
+        if (route.Dist ==0) {
+            Routes.splice(Routes.indexOf(route), 1);
+            break;
+        }   
+      }
       Routes.sort((a,b)=>a.TimeWithMult-b.TimeWithMult);
     //  console.log(Routes.sort((a,b)=>a.TimeWithMult-b.TimeWithMult))
      // console.log(Routes.sort((a,b)=>a.Timeval-b.Timeval))
