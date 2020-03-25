@@ -36,10 +36,15 @@ async pageSetup()
 {
   var imgroutes;
   await this.Routes.getImaging().then(data =>{
-   
    imgroutes=data;
  });
- await this.Routes.getImaging();await this.Routes.getImaging();await this.Routes.getImaging();await this.Routes.getImaging();
+ //await this.Routes.getImaging();await this.Routes.getImaging();await this.Routes.getImaging();await this.Routes.getImaging();await this.Routes.getImaging();
+// await this.Routes.getImaging();
+// await this.Routes.getImaging();
+ //await this.Routes.getImaging();
+ //await this.Routes.getImaging();
+ //await this.Routes.getImaging();
+ //await this.Routes.getImaging();
  console.log(imgroutes);
  await this.Routes.nearestLocations();
  var totalCard;
@@ -50,7 +55,7 @@ this.Spinner=false;
  console.log(totalCard);
  this.Routes.nearestLocations();
  console.log(imgroutes);
-await this.Routes.getImaging();
+//await this.Routes.getImaging();
  this.Spinner=false;
  this.show=true;
  imgroutes= this.Routes.SetColour(imgroutes);

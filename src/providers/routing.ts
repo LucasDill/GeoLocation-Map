@@ -14,6 +14,7 @@ import { WeatherService } from '../pages/patient-location/weather';
 import { getValueFromFormat } from 'ionic-angular/umd/util/datetime-util';
 import { p } from '@angular/core/src/render3';
 import { repeat } from 'rxjs-compat/operator/repeat';
+import { resolve } from 'dns';
 
 /*
 
@@ -228,7 +229,7 @@ console.log(ret);
 return ret;
 }
 
-async  distMat(destinations,Routes){
+async distMat(destinations,Routes){
   var mult=await this.totalOriginMultiplier();
   var Database = this.Database;
   var destination_weather_multiplier;
@@ -236,14 +237,18 @@ async  distMat(destinations,Routes){
   var destination_total_multiplier;
   var origin=new google.maps.LatLng(this.Data.lat,this.Data.lng);
   var service= new google.maps.DistanceMatrixService();
-   service.getDistanceMatrix(
+  const {response,status}=await new Promise(resolve => 
+    service.getDistanceMatrix(
    {
      origins: [origin],
      destinations: destinations,
      travelMode: google.maps.TravelMode.DRIVING,
-   },callback);
+   },(response, status) => resolve({response,status}))
+  );
+  const resp=await handleMapResponse(response,status);
    var final_multiplier;
-   async function callback(response,status){
+    async function handleMapResponse(response,status){
+
      for(var m=0;m<Routes.length;m++)
      {
          
@@ -319,14 +324,15 @@ async  distMat(destinations,Routes){
      // console.log(Routes.sort((a,b)=>a.Timeval-b.Timeval))
       return Routes;
     }
-    }
-    
     return Routes;
+    }
+    console.log(resp)
+    return resp;
   }
 
 
- SetColour(param){
-  console.log(param[0].city);
+ async SetColour(param){
+   
   console.log(this.Data.SinceTimeForm);
   for(var i=0; i<param.length;i++)
   {
