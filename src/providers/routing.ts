@@ -301,7 +301,7 @@ async  distMat(destinations,Routes){
  
      Routes = await convertTime(Routes);
      for (let route of Routes) {
-       if (route.Dist == 0) {
+       if (route.Dist ==0) {
            Routes.splice(Routes.indexOf(route), 1);
            break;
        }   
