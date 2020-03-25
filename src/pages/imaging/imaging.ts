@@ -38,13 +38,6 @@ async pageSetup()
   await this.Routes.getImaging().then(data =>{
    imgroutes=data;
  });
- //await this.Routes.getImaging();await this.Routes.getImaging();await this.Routes.getImaging();await this.Routes.getImaging();await this.Routes.getImaging();
-// await this.Routes.getImaging();
-// await this.Routes.getImaging();
- //await this.Routes.getImaging();
- //await this.Routes.getImaging();
- //await this.Routes.getImaging();
- //await this.Routes.getImaging();
  console.log(imgroutes);
  await this.Routes.nearestLocations();
  var totalCard;
