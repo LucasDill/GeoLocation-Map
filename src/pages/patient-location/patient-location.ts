@@ -481,6 +481,7 @@ getData() {
   getLatLng(name){
   var cityLocation;
   var lat, lng, city, area, Telestroke;
+  var OriginObject;
     return new Promise((resolve, reject) => {
     this.db.collection("/Health Centers/")
     .get()
@@ -496,6 +497,7 @@ getData() {
             lng = doc.data().lng;
             city = doc.data().city;
             area = doc.data().area;
+            OriginObject=doc.data();
             if (
               doc.data().bTelestroke == true
             ) {
@@ -515,6 +517,7 @@ getData() {
       });
       // set variables to public versions of the variables
       // could not do this directly inside of query
+      this.Data.StartLoc=OriginObject;
       this.cityLocation = cityLocation;
       this.Data.lat = lat;
       this.Data.lng = lng;

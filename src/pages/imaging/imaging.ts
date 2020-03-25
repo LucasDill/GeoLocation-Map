@@ -28,44 +28,37 @@ show: Boolean=false;
    //   console.log(this.Routes.ImgRoutes);
   }
  async ionViewWillLoad(){
- var imgroutes;
-   await this.Routes.getImaging().then(data =>{
-    this.cards=data;
-    imgroutes=data;
-  });
-  console.log(imgroutes);
-  var flightloc;
-  await this.Routes.nearestLocations();
-  console.log(flightloc);
-  var totalCard;
-   await this.Routes.getFlights(imgroutes).then(distances =>{
+ await this.pageSetup();
+}
+
+async pageSetup()
+{
+  var imgroutes;
+  await this.Routes.getImaging().then(data =>{
+   
+   imgroutes=data;
+ });
+ const imgroute=await this.Routes.getImaging();
+
+ console.log(imgroutes);
+ await this.Routes.nearestLocations();
+ var totalCard;
+  await this.Routes.getFlights(imgroutes).then(distances =>{
 totalCard=distances;
 this.Spinner=false;
-  });
-  console.log(totalCard);
-  console.log(this.cards);
-  setInterval(()=>{
-    this.Spinner=false;
-
-    this.show=true;
-  },500);
-  this.Routes.nearestLocations();
-  
+ });
+ console.log(totalCard);
+ this.Routes.nearestLocations();
+ console.log(imgroutes);
+ this.cards=imgroutes;
+ this.Spinner=false;
+ this.show=true;
+ imgroutes= this.Routes.SetColour(imgroutes);
+ console.log(imgroutes);
+ 
+ return imgroutes;
 }
 
- /*SpinnerThing()
-{
-  if (this.cards. == true) {
-    // Here is your next action
-}
-}
-
-setTimeout(checkVariable, 1000);
-  this.Spinner=false;
-  this.show=true;
-  
-  
-}*/
   @ViewChild('treatment-heading6') myInput: ElementRef;
   @ViewChild('weather') myInput2: ElementRef;
 

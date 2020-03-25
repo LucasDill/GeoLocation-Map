@@ -27,6 +27,8 @@ export class DataServiceProvider {
   colour: any="#90ee90";
   TreatmentInfo: any;
 
+  StartLoc:any;
+
   city: any;
   lat: any;
   lng: any;

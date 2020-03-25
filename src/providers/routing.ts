@@ -310,10 +310,32 @@ console.log(query)
 return query;
 }
 
-gettPA(){
-  
+ SetColour(param){
+  console.log(param[0].city);
+  console.log(this.Data.SinceTimeForm);
+  for(var i=0; i<param.length;i++)
+  {
+    var RouteTime=param[i].TimeWithMult/3600;
+    var timePassed=this.Data.SinceTimeForm;
+    console.log(RouteTime);
+    console.log(timePassed);
+    if((RouteTime+timePassed)<4.5)
+    {
+      param[i].colour="#90EE90";
+    }
+    else if((RouteTime+timePassed)>=4.5&&(RouteTime+timePassed)<6)
+    {
+      param[i].colour="#FFFF99";
+    }
+    else if((RouteTime+timePassed)>=6)
+    {
+      param[i].colour="#F7CFCE";
+    }
+    
+  }
+   return param;
+  }
 
-}
 async getFlights(endpoints)
 {
   console.log(this.Data.lat);
