@@ -149,6 +149,47 @@ async totalOriginMultiplier(){
 
 }
 
+heli: any;
+plane: any;
+flight_weather_origin: any;
+flight_weather_destination: any;
+
+async getFlightSpeeds(){
+  await this.Database.collection("/Air_Speed/").doc("heli")
+  .get()
+  .then((querySnapshot) => {
+      this.heli = querySnapshot.data().speed;
+      return this.heli;
+  });
+
+  await this.Database.collection("/Air_Speed/").doc("plane")
+  .get()
+  .then((querySnapshot) => {
+      this.plane = querySnapshot.data().speed;
+      return this.plane;
+  });
+
+  await this.Database.collection("/Multipliers/").doc(JSON.stringify(this.Data.origin_id))
+  .get()
+  .then((querySnapshot) => {
+      this.flight_weather_origin = querySnapshot.data().multi_air;
+      return this.flight_weather_origin;
+  });
+
+
+
+  let speed_vals = {
+    heli_speed: this.heli,
+    plane_speed: this.plane,
+    origin_weather: this.flight_weather_origin
+  }
+  return {speed_vals}
+}
+
+
+
+
+
 async getImaging(){
   await this.getOriginAreaMultiplier();
   await this.getOriginWeatherMultiplier();
@@ -229,12 +270,44 @@ console.log(ret);
 return ret;
 }
 
+destination_flight_weather_array;
+
 async distMat(destinations,Routes){
   var mult=await this.totalOriginMultiplier();
   var Database = this.Database;
   var destination_weather_multiplier;
   var destination_area_multiplier;
   var destination_total_multiplier;
+
+  var flight_dest_weather;
+  var getflight = [];
+
+  for(var m=0;m<Routes.length;m++)
+  {
+
+      await flightWeatherDestination(Routes[m].weather_code).then(data => {
+         flight_destination_weather = data;
+      });
+      getflight.push(flight_destination_weather);
+
+  }
+       // get multiplier for weather of flight destination
+
+       async function flightWeatherDestination(id){
+        let val = await Database.collection("/Multipliers/").doc(JSON.stringify(id))
+        .get()
+        .then((querySnapshot) => {
+            flight_dest_weather = querySnapshot.data().multi_air;
+            return flight_dest_weather;
+          });
+          return val;
+       }
+       console.log(getflight)
+       this.destination_flight_weather_array = getflight;
+
+
+
+
   var origin=new google.maps.LatLng(this.Data.lat,this.Data.lng);
   var service= new google.maps.DistanceMatrixService();
   const {response,status}=await new Promise(resolve => 
@@ -247,6 +320,7 @@ async distMat(destinations,Routes){
   );
   const resp=await handleMapResponse(response,status);
    var final_multiplier;
+   var flight_destination_weather;
     async function handleMapResponse(response,status){
 
      for(var m=0;m<Routes.length;m++)
@@ -266,7 +340,9 @@ async distMat(destinations,Routes){
         // console.log(m)
         // console.log(final_multiplier)
      }
- 
+
+     // get multiplier for weather and area of land ambulance destination
+
      var weather_multiplier;
      var area_multiplier;
      var destination_total;
@@ -383,6 +459,17 @@ for(var j=0;j<loc.length;j++)
 console.log(dest);
 console.log(loc);
 
+
+var flight_time;
+await this.getFlightSpeeds().then(data => {
+  flight_time = data;
+});
+console.log(flight_time)
+
+var heli_speed: number = flight_time.speed_vals.heli_speed;
+var plane_speed: number = flight_time.speed_vals.plane_speed;
+var flight_o_weather: number = flight_time.speed_vals.origin_weather;
+
 for(var i=0;i<loc.length;i++)
 {
 for(var m=0;m<dest.length;m++)
@@ -393,10 +480,25 @@ for(var m=0;m<dest.length;m++)
     distance: getDistance(loc[i].lat,loc[i].lng,dest[m].Sites[i].lat,dest[m].Sites[i].lng),
     DistChar: convertDist(getDistance(loc[i].lat,loc[i].lng,dest[m].Sites[i].lat,dest[m].Sites[i].lng)),
     type: dest[m].Sites[i].type,
-    name: dest[m].Sites[i].siteName
+    name: dest[m].Sites[i].siteName,
+    TimeWithMult: 0,
+    TimeWithMultChar: ""
     
-
   }
+  if (flightopt.type = "Helipad"){
+    flightopt.TimeWithMult = (flightopt.distance / heli_speed) * flight_o_weather * this.destination_flight_weather_array[m];
+  }
+  else if (flightopt.type = "Airport"){
+    flightopt.TimeWithMult = (flightopt.distance / plane_speed) * flight_o_weather * this.destination_flight_weather_array[m];
+  }
+  else {
+    console.log("Something went wrong.");
+  }
+  console.log(flightopt)
+ 
+  flightopt.TimeWithMultChar = convertTimePlanes(flightopt.TimeWithMult);
+   
+
   distances[i][m]=flightopt;
 }
 }
@@ -404,7 +506,6 @@ console.log(distances);
   return distances;
 }
 }
- 
 
 function getEVT(){
   
@@ -431,11 +532,47 @@ for(var l=0;l<obj.length;l++)
     end=0;
     start++;
   }
-  newtimeChar=start.toString()+" hours "+end.toString()+" mins";
+ if (start != 0 && end != 0){
+    newtimeChar=start.toString()+" hours "+end.toString()+" mins";
+  }
+  else if (end == 0){
+    newtimeChar=start.toString()+" hours";
+  }
+  else{
+    newtimeChar=end.toString()+" mins";
+  }
   obj[l].TimeWithMultChar=newtimeChar;
 
 }
 return obj;
+}
+
+function convertTimePlanes(obj: any)
+{
+
+  var newtimeChar=obj;
+  let start=Math.abs(newtimeChar);
+  start=Math.floor(start);
+  let end=Math.abs(newtimeChar)-start;
+  end=Math.ceil(end*60);
+  if(end==60)
+  {
+    end=0;
+    start++;
+  }
+
+  if (start != 0 && end != 0){
+    newtimeChar=start.toString()+" hours "+end.toString()+" mins";
+  }
+  else if (end == 0){
+    newtimeChar=start.toString()+" hours";
+  }
+  else{
+    newtimeChar=end.toString()+" mins";
+  }
+
+
+return newtimeChar;
 }
 
 
