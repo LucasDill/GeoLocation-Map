@@ -105,12 +105,16 @@ getDataFromFirebase() {
 
 ionViewDidLoad(){
 console.log(this.Data.Destination, this.Data.Destination)
+directionsService = new google.maps.DirectionsService();
+directionsDisplay = new google.maps.DirectionsRenderer();
   if (this.Data.Destination == undefined && this.Data.Destination == undefined)
   {
     // do no routing
   }
   else
   {
+    console.log(this.Data.lat, this.Data.lng)
+    console.log(this.Data.Destination.lat, this.Data.Destination.lng)
   directionsService.route(
     {
       origin: new google.maps.LatLng(this.Data.lat,this.Data.lng),
