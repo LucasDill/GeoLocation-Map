@@ -103,7 +103,14 @@ getDataFromFirebase() {
     });
 }
 
-ionViewWillEnter(){
+ionViewDidLoad(){
+console.log(this.Data.Destination, this.Data.Destination)
+  if (this.Data.Destination == undefined && this.Data.Destination == undefined)
+  {
+    // do no routing
+  }
+  else
+  {
   directionsService.route(
     {
       origin: new google.maps.LatLng(this.Data.lat,this.Data.lng),
@@ -133,6 +140,10 @@ ionViewWillEnter(){
       );
     }
   );
+  }
+
+
+
 }
 // load data from Firebase into local variable
 getData() {
