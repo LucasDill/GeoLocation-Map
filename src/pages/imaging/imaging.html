@@ -23,10 +23,28 @@
   <ion-scroll scrollY="true" style="height: 40vh;">
 <ion-list justify-content-center align-items-center>
   <ion-item *ngFor="let card of cards">
-    <ion-card tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour">
+    <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour">
       <ion-card-content>
         <ion-card-title>
         {{card.name}} <h1> <img src= "./assets/imgs/ambulance.png" style="float:right"></h1>
+        </ion-card-title>
+      <p id="cardinfo" >
+          Distance: {{card.DistChar}} &nbsp;&nbsp;&nbsp;&nbsp; Time: {{card.TimeWithMultChar}} 
+      </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="card.Helipad" tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour">
+      <ion-card-content>
+        <ion-card-title>
+        {{card.name}} <h1> <img src= "./assets/imgs/Helicopter.png" style="float:right"></h1>
+        </ion-card-title>
+      <p id="cardinfo" >
+          Distance: {{card.DistChar}} &nbsp;&nbsp;&nbsp;&nbsp; Time: {{card.TimeWithMultChar}} 
+      </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="card.Airport" tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour">
+      <ion-card-content>
+        <ion-card-title>
+        {{card.name}} <h1> <img src= "./assets/imgs/Airplane.png" style="float:right"></h1>
         </ion-card-title>
       <p id="cardinfo" >
           Distance: {{card.DistChar}} &nbsp;&nbsp;&nbsp;&nbsp; Time: {{card.TimeWithMultChar}} 

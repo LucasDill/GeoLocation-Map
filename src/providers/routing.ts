@@ -83,6 +83,7 @@ LandingSites:any;
             //console.log("found");
             if(all[i].type=="Airport")
             {
+              console.log("Plane You NUMPTY!");
               plane.push(all[i]);
             }
             else if(all[i].type=="Helipad")
@@ -108,7 +109,7 @@ LandingSites:any;
       //console.log(heli);
       closestFlightOpt[0]=heli[0];
       closestFlightOpt[1]=plane[0];
-     // console.log(closestFlightOpt);
+      console.log(closestFlightOpt);
       return closestFlightOpt;
     }
     
@@ -186,7 +187,17 @@ async getFlightSpeeds(){
   return {speed_vals}
 }
 
-
+addRoutes(drive, air)
+{
+  for(var i=0;i<air.length;i++)
+  {
+    for(var r=0;r<air[i].length;r++)
+    {
+      drive.push(air[i][r]);
+    }
+  }
+  return drive;
+}
 
 
 
@@ -218,7 +229,7 @@ var ret= await this.Database.collection("/Health Centers/").where("bTelestroke",
         lat:doc.data().lat,
         lng:doc.data().lng,
         area:doc.data().area,
-        Method:"Driving",
+        Driving:true,
         TimeWithMult: 0,
         TimeWithMultChar: "",
         Timechar: "",
@@ -406,6 +417,12 @@ async distMat(destinations,Routes){
     return resp;
   }
 
+  masterSort(ArraytoSort)
+  {
+    ArraytoSort.sort((a,b)=>a.TimeWithMult-b.TimeWithMult);
+    return ArraytoSort;
+  }
+
 
  async SetColour(param){
    
@@ -446,6 +463,7 @@ for(var o=0;o<endpoints.length;o++)
     CloseHospital: endpoints[o].name,
     Sites: await this.getCloseLoc(endpoints[o].lat,endpoints[o].lng)
   }
+  console.log(closesites);
   dest[o]=(closesites);
 }
 console.log(loc);
@@ -479,16 +497,19 @@ for(var m=0;m<dest.length;m++)
     desti:dest[m].Sites[i],
     distance: getDistance(loc[i].lat,loc[i].lng,dest[m].Sites[i].lat,dest[m].Sites[i].lng),
     DistChar: convertDist(getDistance(loc[i].lat,loc[i].lng,dest[m].Sites[i].lat,dest[m].Sites[i].lng)),
-    type: dest[m].Sites[i].type,
-    name: dest[m].Sites[i].siteName,
+    name: dest[m].CloseHospital,
+    Helipad: false,
+    Airport: false,
     TimeWithMult: 0,
     TimeWithMultChar: ""
     
   }
-  if (flightopt.type = "Helipad"){
+  if (dest[m].Sites[i].type == "Helipad"){
+    flightopt.Helipad=true;
     flightopt.TimeWithMult = (flightopt.distance / heli_speed) * flight_o_weather * this.destination_flight_weather_array[m];
   }
-  else if (flightopt.type = "Airport"){
+  else if (dest[m].Sites[i].type == "Airport"){
+    flightopt.Airport=true;
     flightopt.TimeWithMult = (flightopt.distance / plane_speed) * flight_o_weather * this.destination_flight_weather_array[m];
   }
   else {

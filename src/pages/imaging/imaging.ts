@@ -32,6 +32,8 @@ show: Boolean=false;
  this.cards=dat;
 }
 
+
+
 async pageSetup()
 {
   var imgroutes;
@@ -46,8 +48,9 @@ totalCard=distances;
 this.Spinner=false;
  });
  console.log(totalCard);
- this.Routes.nearestLocations();
+ imgroutes=this.Routes.addRoutes(imgroutes,totalCard);//add the elements of the flights to the end 
  console.log(imgroutes);
+ imgroutes=this.Routes.masterSort(imgroutes);
 //await this.Routes.getImaging();
  this.Spinner=false;
  this.show=true;
