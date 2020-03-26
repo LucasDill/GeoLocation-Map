@@ -107,9 +107,11 @@ ionViewDidLoad(){
 console.log(this.Data.Destination, this.Data.Destination)
 directionsService = new google.maps.DirectionsService();
 directionsDisplay = new google.maps.DirectionsRenderer();
+if(this.Data.ComplexRoute==false)
+{
   if (this.Data.Destination == undefined && this.Data.Destination == undefined)
   {
-    // do no routing
+    console.error("No Data Provided");
   }
   else
   {
@@ -145,6 +147,19 @@ directionsDisplay = new google.maps.DirectionsRenderer();
     }
   );
   }
+}
+else if(this.Data.ComplexRoute==true)
+{
+if(this.Data.Destination==undefined)
+{
+  console.error("No Data has been passed In");
+}
+else{
+  console.log(this.Data.Destination);
+}
+}
+
+ 
 
 
 

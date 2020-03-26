@@ -63,6 +63,7 @@ export class DataServiceProvider {
   width: any;
 
 Destination:any;
+ComplexRoute:Boolean;
 
   constructor(platform: Platform) {
     platform.ready().then((readySource) => {

@@ -71,10 +71,19 @@ this.Spinner=false;
   goToRoute(params){
     if (!params) params = {};
     console.log(params);
+    this.Data.ComplexRoute=false;
     this.Data.Destination=params;
     this.navCtrl.push(MapPage);
 //this.Routes.nearestLocations("Landing Sites");
 
+  }
+  ComplexRoute(cardDat)
+  {
+    if(!cardDat) cardDat={};
+    console.log(cardDat);
+    this.Data.ComplexRoute=true;
+    this.Data.Destination=cardDat;
+    this.navCtrl.push(MapPage);
   }
   GoToMore(params){
     if (!params) params={};

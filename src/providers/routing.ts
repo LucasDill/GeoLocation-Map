@@ -393,7 +393,7 @@ async distMat(destinations,Routes){
  
      Routes = await convertTime(Routes);
      for (let route of Routes) {
-       if (route.Dist ==0) {
+       if (route.Dist <5) {
            Routes.splice(Routes.indexOf(route), 1);
            break;
        }   
@@ -401,7 +401,7 @@ async distMat(destinations,Routes){
      }
      async function sortRoutes(){
       for (let route of Routes) {
-        if (route.Dist ==0) {
+        if (route.Dist <5) {
             Routes.splice(Routes.indexOf(route), 1);
             break;
         }   
@@ -461,6 +461,7 @@ for(var o=0;o<endpoints.length;o++)
 {
   var closesites={
     CloseHospital: endpoints[o].name,
+    CloseCity:endpoints[o].city,
     Sites: await this.getCloseLoc(endpoints[o].lat,endpoints[o].lng)
   }
   console.log(closesites);
@@ -498,6 +499,8 @@ for(var m=0;m<dest.length;m++)
     distance: getDistance(loc[i].lat,loc[i].lng,dest[m].Sites[i].lat,dest[m].Sites[i].lng),
     DistChar: convertDist(getDistance(loc[i].lat,loc[i].lng,dest[m].Sites[i].lat,dest[m].Sites[i].lng)),
     name: dest[m].CloseHospital,
+    city: dest[m].CloseCity,
+    closestSite: endpoints[m],
     Helipad: false,
     Airport: false,
     TimeWithMult: 0,
