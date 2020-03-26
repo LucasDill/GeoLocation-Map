@@ -1,3 +1,72 @@
 page-treatment {
+    ion-content ion-card{
+        background: lightblue;
+        width: 100%;
+      }
+      .fixed[scrollx=true], div[scrolly=true] {
+        position: relative;
+        overflow: hidden;
+      
+        ::-webkit-scrollbar {
+          display: none;
+        }
+      }
+      
+      .fixed[scrollx=true] {
+        overflow-x: auto;
+      }
+      
+      .fixed[scrolly=true] {
+        overflow-y: auto;
+      }
+    
+      div.page {
+        height: calc(100vh - 202px);
+     }
+    
+     * {
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .box{
+      width: 100px;
+      height:100px;
+      background-color: #ccc;
+    }
+    
+    .treatment-button {
+      position: absolute;
+      bottom:   0;
+      width: 100%;
+    }
+    
+    .card-scroll {
+      //position: absolute;
+      min-height: 0;
+    }
+    
+    .modal-parent {
+      position: relative;
+      height: 50vh;
+    }
+    
+    h1 {
+      width: 10%;
+      float: right;
+    }
+    
+    h2 {
+      height: 15px;
+    }
+    
+    }
 
-}
