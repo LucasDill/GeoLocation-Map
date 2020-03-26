@@ -4,7 +4,6 @@ import { TPaQuestionPage } from './t-pa-question';
 
 @NgModule({
   declarations: [
-    TPaQuestionPage,
   ],
   imports: [
     IonicPageModule.forChild(TPaQuestionPage),
