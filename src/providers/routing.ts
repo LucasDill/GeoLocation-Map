@@ -254,19 +254,6 @@ var ret= await this.Database.collection("/Health Centers/").where(param,"==",tru
       }); 
   });
   
- // console.log(Routes.length);
-
-
-
-//console.log(destinations);
-//console.log(origin);
-
-    
-   // console.log(response.rows[0].elements[0]);
-   //console.log(response);
-   //console.log("Status: "+status);
-   
-  // Routes=addMult(Routes);
   return Routes;
 });
 var destinations=[];
