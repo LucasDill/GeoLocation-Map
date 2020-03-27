@@ -36,21 +36,21 @@ async tPASetup()
   await this.Routes.getRoutes("bTelestroke").then(data =>{
    imgroutes=data;
  });
- console.log(imgroutes);
+ 
  await this.Routes.nearestLocations();
  var totalCard;
   await this.Routes.getFlights(imgroutes).then(distances =>{
 totalCard=distances;
  });
- console.log(totalCard);
+ 
  imgroutes=this.Routes.addRoutes(imgroutes,totalCard);//add the elements of the flights to the end 
- console.log(imgroutes);
+ 
  imgroutes=this.Routes.masterSort(imgroutes);
-//await this.Routes.getImaging();
+
  this.tpaSpinner=false;
  this.tpashow=true;
  imgroutes= this.Routes.SetColour(imgroutes);
- console.log(imgroutes);
+ 
  
  return imgroutes;
 }
