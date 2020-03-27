@@ -22,9 +22,9 @@ evtshow: Boolean=false;
    //   console.log(this.Routes.ImgRoutes);
   }
  async ionViewWillLoad(){
- var dat=await this.tPASetup();
+ var dat=await this.tPASetup();//For the tPA capable hsopitals 
  this.cards=dat;
- var evt=await this.EVTsetup();
+ var evt=await this.EVTsetup();//for the EVT capable hospitals
  this.EvtCards=evt;
 }
 
