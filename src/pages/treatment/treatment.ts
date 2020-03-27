@@ -55,7 +55,7 @@ totalCard=distances;
  return imgroutes;
 }
 
-async EVTsetup(){
+async EVTsetup(){//EVT at the moment is just Thunder Bay which is the only bRegionalStrokeCenter
   var evtRoutes;
   await this.Routes.getRoutes("bRegionalStrokeCentre").then(data =>{
     evtRoutes=data;
