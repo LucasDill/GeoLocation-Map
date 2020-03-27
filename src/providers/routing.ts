@@ -65,7 +65,7 @@ LandingSites:any;
     });
     return distances;
   }
-   async getCloseLoc(lat, lng)
+   async getCloseLoc(lat, lng)// gets all close locations to the site for the best airport and helipad options 
     {
       var all= this.LandingSites;
      // console.log(all.length);
