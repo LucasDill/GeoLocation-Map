@@ -421,7 +421,7 @@ async distMat(destinations,Routes){
   console.log(this.Data.SinceTimeForm);
   for(var i=0; i<param.length;i++)
   {
-    var RouteTime=param[i].TimeWithMult/3600;
+    var RouteTime=param[i].CompTime;
     var timePassed=this.Data.SinceTimeForm;
     console.log(RouteTime);
     console.log(timePassed);
