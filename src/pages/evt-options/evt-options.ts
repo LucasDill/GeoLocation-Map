@@ -21,6 +21,8 @@ export class EvtOptionsPage {
   cards: any;
   evtSpinner: Boolean=true;
   evtshow: Boolean=false;
+  evtEmpty:Boolean=false;
+  message:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public Data: DataServiceProvider,
     public Routes: RoutingProvider) {
@@ -28,8 +30,16 @@ export class EvtOptionsPage {
   }
   async ionViewWillLoad(){
     var evt=await this.EVTsetup();//for the EVT capable hospitals
+    console.log(evt);
+    if(evt.length==0)
+    {
+      this.evtEmpty=true;
+      this.message="You appear to already be at an EVT Capable Hospital \nPlease Consult Hospital Regulations for further instructions";
+    }
+    else{
+      this.cards=evt;
+    }
     
-    this.cards=evt;
    }
 
    async EVTsetup(){//EVT at the moment is just Thunder Bay which is the only bRegionalStrokeCenter
