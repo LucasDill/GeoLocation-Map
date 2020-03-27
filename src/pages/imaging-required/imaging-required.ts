@@ -26,7 +26,7 @@ export class ImagingRequiredPage {
   }
   goToImagingRoutes(params){
     if (!params) params = {};
-    this.Routes.getImaging();
+    
     this.navCtrl.push(ImagingPage);
     this.Data.NeedImaging=true;
   }

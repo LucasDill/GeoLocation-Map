@@ -10,30 +10,43 @@
 <ion-content padding id="page4">
   
   <h4 id="treatment-heading6" style="color:#000000;font-size: x-large;">
-    EVT
+    Routes To EVT Capable Hospitals
   </h4>
-  <form id="treatment-form9">
-    <ion-item id="treatment-textarea2">
-      <ion-label>
-        Option 1...
-      </ion-label>
-      <ion-textarea placeholder=""></ion-textarea>
-    </ion-item>
-    <ion-item id="treatment-textarea3">
-      <ion-label>
-        Option 2...
-      </ion-label>
-      <ion-textarea placeholder=""></ion-textarea>
-    </ion-item>
-    <ion-item id="treatment-textarea4">
-      <ion-label>
-        Option 3...
-      </ion-label>
-      <ion-textarea placeholder=""></ion-textarea>
-    </ion-item>
-  </form>
-    <div class="spacer" style="width:300px;height:21px;" id="treatment-spacer12"></div>
-    <button id="treatment-button9" ion-button color="steelblue1" block on-click="goToMap()">
-      Next
-    </button>
+  <spinner *ngIf="evtSpinner"></spinner>
+  <div class="card-scroll" *ngIf="evtshow">
+  <ion-scroll scrollY="true" style="height: 80vh;">
+    <ion-list justify-content-center align-items-center>
+      <ion-item *ngFor="let card of cards">
+        <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour">
+          <ion-card-content>
+            <ion-card-title>
+            {{card.name}} <h1> <img src= "./assets/imgs/ambulance.png" style="float:right"></h1>
+            </ion-card-title>
+          <p id="cardinfo" >
+              Distance: {{card.DistChar}} &nbsp;&nbsp;&nbsp;&nbsp; Time: {{card.TimeWithMultChar}} 
+          </ion-card-content>
+        </ion-card>
+        <ion-card *ngIf="card.Helipad" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour">
+          <ion-card-content>
+            <ion-card-title>
+            {{card.name}} <h1> <img src= "./assets/imgs/Helicopter.png" style="float:right"></h1>
+            </ion-card-title>
+          <p id="cardinfo" >
+              Distance: {{card.DistChar}} &nbsp;&nbsp;&nbsp;&nbsp; Time: {{card.TimeWithMultChar}} 
+          </ion-card-content>
+        </ion-card>
+        <ion-card *ngIf="card.Airport" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour">
+          <ion-card-content>
+            <ion-card-title>
+            {{card.name}} <h1> <img src= "./assets/imgs/Airplane.png" style="float:right"></h1>
+            </ion-card-title>
+          <p id="cardinfo" >
+              Distance: {{card.DistChar}} &nbsp;&nbsp;&nbsp;&nbsp; Time: {{card.TimeWithMultChar}} 
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-list>
+    </ion-scroll>
+    </div>
+
 </ion-content>
