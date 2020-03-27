@@ -9,6 +9,7 @@ import "firebase/firestore";
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import { DataServiceProvider } from '../../providers/data-service';
 import { getOrCreateTemplateRef } from '@angular/core/src/render3/di';
+import { FitBoundsAccessor } from '@agm/core';
 declare var google: any;
 
 
@@ -44,6 +45,9 @@ var displayEnd = [];
 
 var directionsService;
 var directionsDisplay;
+var directionsDisplay1;
+var myPolyline;
+var bounds1;
 
 // loads the page
 @Component({
@@ -67,21 +71,37 @@ export class MapPage {
     public Data: DataServiceProvider) {
     /*load google map script dynamically */
       this.db = firebase.firestore();
+      console.log(bounds1);
       setTimeout(() => {
         directionsService = new google.maps.DirectionsService();
         directionsDisplay = new google.maps.DirectionsRenderer();
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
-          zoom: 8,
-    
-          center: { lat: this.Data.lat, lng: this.Data.lng }
+            preserveViewport: true,
+            zoom: 8
         });
-        
         // if a pin is placed, display it on the map
         this.addMarker(this.map);
         // if a route is calcualted, display it on the map
         directionsDisplay.setMap(this.map);
 
+        myPolyline.setMap(this.map);// set a line on the map 
+
+        if (bounds1.getNorthEast().equals(bounds1.getSouthWest())) {
+          var extendPoint = new google.maps.LatLng(bounds1.getNorthEast().lat() + 0.01, bounds1.getNorthEast().lng() + 0.01);
+          bounds1.extend(extendPoint);
+        }
+        var points = myPolyline.getPath().getArray();
+          for (var n = 0; n < points.length; n++){
+              bounds1.extend(points[n]);
+              console.log(points[n])
+          }
+  
+        //this.map.fitBounds([this.Data.StartClinic, this.Data.FirstSite, this.Data.SecondSite, this.Data.EndHospital]);
+        this.map.fitBounds(bounds1);
+
+
       }, 0);
+
   
 
     // load Medical Centres into hospital variable to be accessed later with a more convenient name
@@ -104,12 +124,16 @@ getDataFromFirebase() {
 }
 
 ionViewDidLoad(){
+  myPolyline=new google.maps.Polyline();
 console.log(this.Data.Destination, this.Data.Destination)
 directionsService = new google.maps.DirectionsService();
 directionsDisplay = new google.maps.DirectionsRenderer();
+directionsDisplay1 =new google.maps.DirectionsRenderer();
+if(this.Data.ComplexRoute==false)
+{
   if (this.Data.Destination == undefined && this.Data.Destination == undefined)
   {
-    // do no routing
+    console.error("No Data Provided");
   }
   else
   {
@@ -127,7 +151,9 @@ directionsDisplay = new google.maps.DirectionsRenderer();
         // display the route on the defined map
         directionsDisplay.setOptions({
           draggable: false,
-          map: this.map
+          map: this.map,
+          preserveViewport: true,
+          zoom: 8
         });
         // load the route to calculate its distance and time
         directionsDisplay.setDirections(response);
@@ -145,6 +171,119 @@ directionsDisplay = new google.maps.DirectionsRenderer();
     }
   );
   }
+}
+else if(this.Data.ComplexRoute==true)
+{
+if(this.Data.Destination==undefined)
+{
+  console.error("No Data has been passed In");
+}
+else{
+  console.log(this.Data.Destination);
+  bounds1 = new google.maps.LatLngBounds();
+  var StartClinc= new google.maps.LatLng(this.Data.lat,this.Data.lng);
+  bounds1.extend(StartClinc);
+  var FirstSite= new google.maps.LatLng(this.Data.Destination.origin.lat,this.Data.Destination.origin.lng);
+  bounds1.extend(FirstSite);
+  var firstlat=this.Data.Destination.origin.lat;
+  var firstlng=this.Data.Destination.origin.lng;
+  var secondlat=this.Data.Destination.desti.lat;
+  var secondlng=this.Data.Destination.desti.lng;
+  var SecondSite= new google.maps.LatLng(this.Data.Destination.desti.lat,this.Data.Destination.desti.lng);
+  bounds1.extend(SecondSite);
+  var EndHospital= new google.maps.LatLng(this.Data.Destination.closestSite.lat,this.Data.Destination.closestSite.lng);
+  bounds1.extend(EndHospital);
+
+  this.Data.StartClinic = [this.Data.lat,this.Data.lng];
+  this.Data.FirstSite = [this.Data.Destination.origin.lat,this.Data.Destination.origin.lng];
+  this.Data.SecondSite = [this.Data.Destination.desti.lat,this.Data.Destination.desti.lng];
+  this.Data.EndHospital = [this.Data.Destination.closestSite.lat,this.Data.Destination.closestSite.lng];
+  console.log(this.Data.StartClinic)
+ 
+  directionsService.route(
+    {
+      origin: StartClinc,
+      destination: FirstSite,
+      travelMode: "DRIVING"
+    },
+    // retrieve Maps API response, if it is able to find a route
+    (response, status, request) => {
+      if (status === "OK") {
+        // display the route on the defined map
+        directionsDisplay.setOptions({
+          draggable: false,
+          map: this.map,
+          preserveViewport: true,
+          zoom: 8
+        });
+        // load the route to calculate its distance and time
+        directionsDisplay.setDirections(response);
+      } else {
+        // print error message if route cannot be found
+        window.alert("Directions request failed due to " + status);
+      }
+      // push route into displayEnd array to be cleared on click of new marker
+      displayEnd.push(directionsDisplay);
+      google.maps.event.addListener(
+        directionsDisplay,
+        "click",
+        function() {}
+      );
+    }
+  );
+
+  var path2=[
+    {lat: firstlat, lng: firstlng},
+    {lat: secondlat, lng: secondlng}
+  ];
+    myPolyline= new google.maps.Polyline({
+    path: path2,
+    geodesic: true,
+    strokeColor: 'green',
+    strokeOpacity: 1.0,
+    strokeWeight: 3,
+    map: this.map
+ });
+ //myPolyline.setMap(this.map);
+  directionsService.route(
+    {
+      origin: SecondSite,
+      destination: EndHospital,
+      travelMode: "DRIVING"
+    },
+    // retrieve Maps API response, if it is able to find a route
+    (response, status, request) => {
+      if (status === "OK") {
+        // display the route on the defined map
+        directionsDisplay1.setOptions({
+          draggable: false,
+          map: this.map,
+          preserveViewport: true,
+          zoom: 8
+        });
+        // load the route to calculate its distance and time
+        directionsDisplay1.setDirections(response);
+      } else {
+        // print error message if route cannot be found
+        window.alert("Directions request failed due to " + status);
+      }
+      // push route into displayEnd array to be cleared on click of new marker
+      displayEnd.push(directionsDisplay1);
+      google.maps.event.addListener(
+        directionsDisplay,
+        "click",
+        function() {}
+      );
+    }
+    
+  );
+}
+
+
+console.log(bounds1);
+}
+
+ 
 
 
 
@@ -199,7 +338,9 @@ addEndLocation(name) {
                   // display the route on the defined map
                   directionsDisplay.setOptions({
                     draggable: false,
-                    map: this.map
+                    map: this.map,
+                    preserveViewport: true,
+                    zoom: 8
                   });
                   // load the route to calculate its distance and time
                   directionsDisplay.setDirections(response);

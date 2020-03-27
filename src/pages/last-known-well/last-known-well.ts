@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms"
-import { formControlBinding } from '@angular/forms/src/directives/ng_model';
+import * as moment from 'moment';
 import { DataServiceProvider } from '../../providers/data-service';
 import { PatientLocationPage } from '../patient-location/patient-location';
 
@@ -12,12 +12,14 @@ import { PatientLocationPage } from '../patient-location/patient-location';
 export class LastKnownWellPage {
 
 Height:any=40;
+myDate=moment().format("HH:mm");
 timeForm =new FormGroup({
   time1: new FormControl('',Validators.required),
 });
   constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider) {
    //this.Height=(Data.height)/2;
    console.log(this.Height)
+   console.log(this.myDate);
   }
   
   goToLocation(params){

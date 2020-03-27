@@ -65,7 +65,7 @@ LandingSites:any;
     });
     return distances;
   }
-   async getCloseLoc(lat, lng)
+   async getCloseLoc(lat, lng)// gets all close locations to the site for the best airport and helipad options 
     {
       var all= this.LandingSites;
      // console.log(all.length);
@@ -201,7 +201,7 @@ addRoutes(drive, air)
 
 
 
-async getImaging(){
+async getRoutes(param){//Get the routes based off the parameter specified to search by 
   await this.getOriginAreaMultiplier();
   await this.getOriginWeatherMultiplier();
   
@@ -216,7 +216,7 @@ var serv;
 
   
 
-var ret= await this.Database.collection("/Health Centers/").where("bTelestroke","==",true)
+var ret= await this.Database.collection("/Health Centers/").where(param,"==",true)
 .get()
 .then(async function(querySnapshot) {
   querySnapshot.forEach(function(doc) {
@@ -254,19 +254,6 @@ var ret= await this.Database.collection("/Health Centers/").where("bTelestroke",
       }); 
   });
   
- // console.log(Routes.length);
-
-
-
-//console.log(destinations);
-//console.log(origin);
-
-    
-   // console.log(response.rows[0].elements[0]);
-   //console.log(response);
-   //console.log("Status: "+status);
-   
-  // Routes=addMult(Routes);
   return Routes;
 });
 var destinations=[];
@@ -393,7 +380,7 @@ async distMat(destinations,Routes){
  
      Routes = await convertTime(Routes);
      for (let route of Routes) {
-       if (route.Dist ==0) {
+       if (route.Dist <5) {
            Routes.splice(Routes.indexOf(route), 1);
            break;
        }   
@@ -401,7 +388,7 @@ async distMat(destinations,Routes){
      }
      async function sortRoutes(){
       for (let route of Routes) {
-        if (route.Dist ==0) {
+        if (route.Dist <5) {
             Routes.splice(Routes.indexOf(route), 1);
             break;
         }   
@@ -461,6 +448,7 @@ for(var o=0;o<endpoints.length;o++)
 {
   var closesites={
     CloseHospital: endpoints[o].name,
+    CloseCity:endpoints[o].city,
     Sites: await this.getCloseLoc(endpoints[o].lat,endpoints[o].lng)
   }
   console.log(closesites);
@@ -498,6 +486,8 @@ for(var m=0;m<dest.length;m++)
     distance: getDistance(loc[i].lat,loc[i].lng,dest[m].Sites[i].lat,dest[m].Sites[i].lng),
     DistChar: convertDist(getDistance(loc[i].lat,loc[i].lng,dest[m].Sites[i].lat,dest[m].Sites[i].lng)),
     name: dest[m].CloseHospital,
+    city: dest[m].CloseCity,
+    closestSite: endpoints[m],
     Helipad: false,
     Airport: false,
     TimeWithMult: 0,
