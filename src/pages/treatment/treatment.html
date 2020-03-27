@@ -13,7 +13,7 @@
   <p id="weather" style="background-color:powderblue;">Weather in {{this.Data.city}}: <b>{{this.Data.origin_tempreal |number:'.0'}} \u00B0C</b>
     <img src= {{this.Data.origin_icon}} style="vertical-align: middle;"></p>
   <h4 id="treatment-heading6" style="color:#000000;font-size: x-large;">
-    tPA
+    Routes To tPA Capable Hospital
   </h4>
   <spinner *ngIf="tpaSpinner"></spinner>
   <div class="card-scroll" *ngIf="tpashow">
@@ -53,9 +53,9 @@
   </ion-list>
   </ion-scroll>
   </div>
-
+<br><br>
   <h4 id="treatment-heading7" style="color:#000000;font-size: x-large;">
-    EVT 
+    Routes To EVT Capable Hospital 
   </h4>
   <spinner *ngIf="evtSpinner"></spinner>
   <div class="card-scroll" *ngIf="evtshow">
