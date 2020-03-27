@@ -37,7 +37,7 @@ show: Boolean=false;
 async pageSetup()
 {
   var imgroutes;
-  await this.Routes.getImaging().then(data =>{
+  await this.Routes.getRoutes("bTelestroke").then(data =>{
    imgroutes=data;
  });
  console.log(imgroutes);

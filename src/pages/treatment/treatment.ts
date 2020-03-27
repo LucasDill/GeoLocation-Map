@@ -11,24 +11,29 @@ import { RoutingProvider } from '../../providers/routing';
 })
 export class TreatmentPage {
 cards: any;
-Spinner: Boolean=true;
-show: Boolean=false;
+EvtCards: any;
+tpaSpinner: Boolean=true;
+tpashow: Boolean=false;
+evtSpinner: Boolean=true;
+evtshow: Boolean=false;
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public Data: DataServiceProvider,
     public Routes: RoutingProvider) {
    //   console.log(this.Routes.ImgRoutes);
   }
  async ionViewWillLoad(){
- var dat=await this.pageSetup();
+ var dat=await this.tPASetup();
  this.cards=dat;
+ var evt=await this.EVTsetup();
+ this.EvtCards=evt;
 }
 
 
 
-async pageSetup()
+async tPASetup()
 {
   var imgroutes;
-  await this.Routes.getImaging().then(data =>{
+  await this.Routes.getRoutes("bTelestroke").then(data =>{
    imgroutes=data;
  });
  console.log(imgroutes);
@@ -36,20 +41,38 @@ async pageSetup()
  var totalCard;
   await this.Routes.getFlights(imgroutes).then(distances =>{
 totalCard=distances;
-this.Spinner=false;
  });
  console.log(totalCard);
  imgroutes=this.Routes.addRoutes(imgroutes,totalCard);//add the elements of the flights to the end 
  console.log(imgroutes);
  imgroutes=this.Routes.masterSort(imgroutes);
 //await this.Routes.getImaging();
- this.Spinner=false;
- this.show=true;
+ this.tpaSpinner=false;
+ this.tpashow=true;
  imgroutes= this.Routes.SetColour(imgroutes);
  console.log(imgroutes);
  
  return imgroutes;
 }
+
+async EVTsetup(){
+  var evtRoutes;
+  await this.Routes.getRoutes("bRegionalStrokeCentre").then(data =>{
+    evtRoutes=data;
+  });
+  //await this.Routes.nearestLocations(); only needed if it is the first to go
+  var flightcards;
+  await this.Routes.getFlights(evtRoutes).then(distances =>{
+    flightcards=distances;
+     });
+     evtRoutes=this.Routes.addRoutes(evtRoutes,flightcards);//add the elements of the flights to the end 
+     evtRoutes=this.Routes.masterSort(evtRoutes);
+     evtRoutes=this.Routes.SetColour(evtRoutes);
+     this.evtSpinner=false;
+     this.evtshow=true;
+     return evtRoutes;
+}
+
   @ViewChild('treatment-heading6') myInput: ElementRef;
   @ViewChild('weather') myInput2: ElementRef;
 

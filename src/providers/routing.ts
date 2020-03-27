@@ -201,7 +201,7 @@ addRoutes(drive, air)
 
 
 
-async getImaging(){
+async getRoutes(param){
   await this.getOriginAreaMultiplier();
   await this.getOriginWeatherMultiplier();
   
@@ -216,7 +216,7 @@ var serv;
 
   
 
-var ret= await this.Database.collection("/Health Centers/").where("bTelestroke","==",true)
+var ret= await this.Database.collection("/Health Centers/").where(param,"==",true)
 .get()
 .then(async function(querySnapshot) {
   querySnapshot.forEach(function(doc) {
