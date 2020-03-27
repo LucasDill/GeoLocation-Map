@@ -220,7 +220,29 @@ else{
         directionsDisplay.setDirections(response);
       } else {
         // print error message if route cannot be found
-        window.alert("Directions request failed due to " + status);
+
+
+
+        /////////////////////// create airport polyline mapping here
+
+
+        /*var cant_drive_to_airport=[
+          StartClinc,
+          FirstSite
+        ];
+          myPolyline= new google.maps.Polyline({
+          path: cant_drive_to_airport,
+          geodesic: true,
+          strokeColor: 'green',
+          strokeOpacity: 1.0,
+          strokeWeight: 3,
+          map: this.map
+       });
+       myPolyline.setMap(this.map);*/
+
+
+        
+        //window.alert("Directions request failed due to " + status);
       }
       // push route into displayEnd array to be cleared on click of new marker
       displayEnd.push(directionsDisplay);

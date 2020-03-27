@@ -15,6 +15,7 @@ import { getValueFromFormat } from 'ionic-angular/umd/util/datetime-util';
 import { p } from '@angular/core/src/render3';
 import { repeat } from 'rxjs-compat/operator/repeat';
 import { resolve } from 'dns';
+import { resolveReflectiveProviders } from '@angular/core/src/di/reflective_provider';
 
 /*
 
@@ -200,6 +201,19 @@ addRoutes(drive, air)
       
     }
   }
+  console.log(drive);
+  console.log(drive.length)
+  var i = 0;
+  while(i == 0){
+    if (drive[i].Dist == 0) {
+      drive.splice(i, 1);
+    }
+    else{
+      break;
+    }
+  }
+ 
+  console.log(drive);
   return drive;
 }
 
@@ -272,12 +286,6 @@ console.log(ret);
 console.log(destinations);
 ret=await this.distMat(destinations,ret);
 console.log(ret);
-for (let route of ret) {///////////////////////////////////////////////////////////////MITY CHANGES ARE HERE
-  if (route.Dist ==0) {
-      ret.splice(ret.indexOf(route), 1);
-  }
-  }   
-console.log(ret);
 return ret;
 }
 
@@ -337,7 +345,7 @@ async distMat(destinations,Routes){
     
      for(var m=0;m<Routes.length;m++)
      {
-      if(response.rows[0].elements[m].status!="ZERO_RESULTS")////////////////////////////////////////////////////MITY CHANGES HERE
+      if(response.rows[0].elements[m].status != "ZERO_RESULTS")////////////////////////////////////////////////////MITY CHANGES HERE
       {
         Routes[m].Timechar=response.rows[0].elements[m].duration.text;
         Routes[m].TimeWithMultChar=response.rows[0].elements[m].duration.text;
