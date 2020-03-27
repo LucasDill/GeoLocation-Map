@@ -201,7 +201,7 @@ addRoutes(drive, air)
 
 
 
-async getRoutes(param){
+async getRoutes(param){//Get the routes based off the parameter specified to search by 
   await this.getOriginAreaMultiplier();
   await this.getOriginWeatherMultiplier();
   
