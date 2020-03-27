@@ -266,8 +266,17 @@ for(var i=0;i<Routes.length;i++)
 let coords= new google.maps.LatLng(Routes[i].lat,Routes[i].lng);
 destinations[i]=coords;
 }
+var m=ret;//////////////////////////////////////////////////////////////////////////MITY CHANGES ARE HERE 
+console.log(m);
 console.log(ret);
+console.log(destinations);
 ret=await this.distMat(destinations,ret);
+console.log(ret);
+for (let route of ret) {///////////////////////////////////////////////////////////////MITY CHANGES ARE HERE
+  if (route.Dist ==0) {
+      ret.splice(ret.indexOf(route), 1);
+  }
+  }   
 console.log(ret);
 return ret;
 }
@@ -275,6 +284,7 @@ return ret;
 destination_flight_weather_array;
 
 async distMat(destinations,Routes){
+  
   var mult=await this.totalOriginMultiplier();
   var Database = this.Database;
   var destination_weather_multiplier;
@@ -324,25 +334,28 @@ async distMat(destinations,Routes){
    var final_multiplier;
    var flight_destination_weather;
     async function handleMapResponse(response,status){
-
+    
      for(var m=0;m<Routes.length;m++)
      {
+      if(response.rows[0].elements[m].status!="ZERO_RESULTS")////////////////////////////////////////////////////MITY CHANGES HERE
+      {
+        Routes[m].Timechar=response.rows[0].elements[m].duration.text;
+        Routes[m].TimeWithMultChar=response.rows[0].elements[m].duration.text;
+        Routes[m].Timeval=response.rows[0].elements[m].duration.value;
+        Routes[m].DistChar=response.rows[0].elements[m].distance.text;
+        Routes[m].Dist=response.rows[0].elements[m].distance.value;
+        await initiateMultipliers(Routes[m].weather_code, Routes[m].area).then(data => {
+          final_multiplier = data;
+        });
+        Routes[m].TimeWithMult=Routes[m].Timeval*final_multiplier;
+        Routes[m].CompTime=Routes[m].TimeWithMult/3600;////////////////////////////////////////////////////
+       // console.log(Routes[m])
+        //console.log(mult)
+       // console.log(m)
+       // console.log(final_multiplier)
+    }
+      }
          
-         Routes[m].Timechar=response.rows[0].elements[m].duration.text;
-         Routes[m].TimeWithMultChar=response.rows[0].elements[m].duration.text;
-         Routes[m].Timeval=response.rows[0].elements[m].duration.value;
-         Routes[m].DistChar=response.rows[0].elements[m].distance.text;
-         Routes[m].Dist=response.rows[0].elements[m].distance.value;
-         await initiateMultipliers(Routes[m].weather_code, Routes[m].area).then(data => {
-           final_multiplier = data;
-         });
-         Routes[m].TimeWithMult=Routes[m].Timeval*final_multiplier;
-         Routes[m].CompTime=Routes[m].TimeWithMult/3600;////////////////////////////////////////////////////
-        // console.log(Routes[m])
-         //console.log(mult)
-        // console.log(m)
-        // console.log(final_multiplier)
-     }
 
      // get multiplier for weather and area of land ambulance destination
 
@@ -384,27 +397,16 @@ async distMat(destinations,Routes){
      }
  
      Routes = await convertTime(Routes);
-     for (let route of Routes) {
-       if (route.Dist <5) {
-           Routes.splice(Routes.indexOf(route), 1);
-           break;
-       }   
        await sortRoutes();
-     }
      async function sortRoutes(){
-      for (let route of Routes) {
-        if (route.Dist <5) {
-            Routes.splice(Routes.indexOf(route), 1);
-            break;
-        }   
-      }
       Routes.sort((a,b)=>a.TimeWithMult-b.TimeWithMult);
     //  console.log(Routes.sort((a,b)=>a.TimeWithMult-b.TimeWithMult))
      // console.log(Routes.sort((a,b)=>a.Timeval-b.Timeval))
       return Routes;
     }
     return Routes;
-    }
+  }
+    
     console.log(resp)
     return resp;
   }

@@ -16,6 +16,8 @@ tpaSpinner: Boolean=true;
 tpashow: Boolean=false;
 evtSpinner: Boolean=true;
 evtshow: Boolean=false;
+evtEmpty:Boolean=false;
+message:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public Data: DataServiceProvider,
     public Routes: RoutingProvider) {
@@ -25,7 +27,15 @@ evtshow: Boolean=false;
  var dat=await this.tPASetup();//For the tPA capable hsopitals 
  this.cards=dat;
  var evt=await this.EVTsetup();//for the EVT capable hospitals
- this.EvtCards=evt;
+ if(evt.length==0)
+    {
+      this.evtEmpty=true;
+      this.message="You appear to already be at an EVT Capable Hospital \nPlease Consult Hospital Regulations for further instructions";
+    }
+    else{
+      this.EvtCards=evt;
+    }
+ 
 }
 
 

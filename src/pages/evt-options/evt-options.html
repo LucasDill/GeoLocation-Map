@@ -15,7 +15,7 @@
   <spinner *ngIf="evtSpinner"></spinner>
   <div class="card-scroll" *ngIf="evtshow">
   <ion-scroll scrollY="true" style="height: 80vh;">
-    <div *ngIf="evtEmpty"><br><br><br><p style="text-size: x-large;">{{message}}</p></div>
+    <div *ngIf="evtEmpty"><br><br><br><p style="font-size: large;">{{message}}</p></div>
     <ion-list justify-content-center align-items-center>
       <ion-item *ngFor="let card of cards">
         <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour">
