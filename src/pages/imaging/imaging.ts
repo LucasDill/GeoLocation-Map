@@ -56,7 +56,7 @@ this.Spinner=false;
  this.show=true;
  imgroutes= this.Routes.SetColour(imgroutes);
  console.log(imgroutes);
- 
+
  return imgroutes;
 }
 

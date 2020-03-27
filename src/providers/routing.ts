@@ -193,7 +193,11 @@ addRoutes(drive, air)
   {
     for(var r=0;r<air[i].length;r++)
     {
-      drive.push(air[i][r]);
+      if(air[i][r].Dist!=0)
+      {
+        drive.push(air[i][r]);
+      }
+      
     }
   }
   return drive;
@@ -333,6 +337,7 @@ async distMat(destinations,Routes){
            final_multiplier = data;
          });
          Routes[m].TimeWithMult=Routes[m].Timeval*final_multiplier;
+         Routes[m].CompTime=Routes[m].TimeWithMult/3600;////////////////////////////////////////////////////
         // console.log(Routes[m])
          //console.log(mult)
         // console.log(m)
@@ -406,7 +411,7 @@ async distMat(destinations,Routes){
 
   masterSort(ArraytoSort)
   {
-    ArraytoSort.sort((a,b)=>a.TimeWithMult-b.TimeWithMult);
+    ArraytoSort.sort((a,b)=>a.CompTime-b.CompTime);//////////////////////////////////////////////////////////
     return ArraytoSort;
   }
 
@@ -483,7 +488,7 @@ for(var m=0;m<dest.length;m++)
   var flightopt={
     origin: loc[i],
     desti:dest[m].Sites[i],
-    distance: getDistance(loc[i].lat,loc[i].lng,dest[m].Sites[i].lat,dest[m].Sites[i].lng),
+    Dist: getDistance(loc[i].lat,loc[i].lng,dest[m].Sites[i].lat,dest[m].Sites[i].lng),
     DistChar: convertDist(getDistance(loc[i].lat,loc[i].lng,dest[m].Sites[i].lat,dest[m].Sites[i].lng)),
     name: dest[m].CloseHospital,
     city: dest[m].CloseCity,
@@ -491,16 +496,19 @@ for(var m=0;m<dest.length;m++)
     Helipad: false,
     Airport: false,
     TimeWithMult: 0,
-    TimeWithMultChar: ""
+    TimeWithMultChar: "",
+    CompTime:0/////////////////////////////////////////////////////////////////////////////////////////////////////
     
   }
   if (dest[m].Sites[i].type == "Helipad"){
     flightopt.Helipad=true;
-    flightopt.TimeWithMult = (flightopt.distance / heli_speed) * flight_o_weather * this.destination_flight_weather_array[m];
+    flightopt.TimeWithMult = (flightopt.Dist / heli_speed) * flight_o_weather * this.destination_flight_weather_array[m];
+    flightopt.CompTime=flightopt.TimeWithMult;/////////////////////////////////////////////////////////////////////////////////
   }
   else if (dest[m].Sites[i].type == "Airport"){
     flightopt.Airport=true;
-    flightopt.TimeWithMult = (flightopt.distance / plane_speed) * flight_o_weather * this.destination_flight_weather_array[m];
+    flightopt.TimeWithMult = (flightopt.Dist / plane_speed) * flight_o_weather * this.destination_flight_weather_array[m];
+    flightopt.CompTime=flightopt.TimeWithMult;/////////////////////////////////////////////////////////////////////////////////
   }
   else {
     console.log("Something went wrong.");
@@ -511,9 +519,12 @@ for(var m=0;m<dest.length;m++)
    
 
   distances[i][m]=flightopt;
+
+
 }
 }
 console.log(distances);
+  
   return distances;
 }
 }

@@ -23,6 +23,7 @@
   <ion-scroll scrollY="true" style="height: 40vh;">
 <ion-list justify-content-center align-items-center>
   <ion-item *ngFor="let card of cards">
+    <p *ngIf="card.Dist"></p>
     <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour">
       <ion-card-content>
         <ion-card-title>

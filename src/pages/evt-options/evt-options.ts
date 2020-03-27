@@ -28,6 +28,7 @@ export class EvtOptionsPage {
   }
   async ionViewWillLoad(){
     var evt=await this.EVTsetup();//for the EVT capable hospitals
+    
     this.cards=evt;
    }
 
