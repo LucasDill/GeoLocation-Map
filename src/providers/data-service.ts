@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AnyTxtRecord } from 'dns';
 import {Platform} from 'ionic-angular'
+
 /*
   Generated class for the DataServiceProvider provider.
 
@@ -64,6 +65,13 @@ export class DataServiceProvider {
 
 Destination:any;
 ComplexRoute:Boolean;
+
+StartClinic: any;
+FirstSite: any;
+SecondSite: any;
+EndHospital: any;
+
+
 
   constructor(platform: Platform) {
     platform.ready().then((readySource) => {

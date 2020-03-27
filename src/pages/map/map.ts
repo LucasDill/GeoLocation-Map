@@ -76,25 +76,32 @@ export class MapPage {
         directionsService = new google.maps.DirectionsService();
         directionsDisplay = new google.maps.DirectionsRenderer();
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
-          zoom: 8,
-    
-          center: { lat: this.Data.lat, lng: this.Data.lng },
-          bounds:bounds1
-
+            preserveViewport: true,
+            zoom: 8
         });
-       
         // if a pin is placed, display it on the map
         this.addMarker(this.map);
         // if a route is calcualted, display it on the map
         directionsDisplay.setMap(this.map);
+
+        myPolyline.setMap(this.map);// set a line on the map 
+
         if (bounds1.getNorthEast().equals(bounds1.getSouthWest())) {
           var extendPoint = new google.maps.LatLng(bounds1.getNorthEast().lat() + 0.01, bounds1.getNorthEast().lng() + 0.01);
           bounds1.extend(extendPoint);
         }
+        var points = myPolyline.getPath().getArray();
+          for (var n = 0; n < points.length; n++){
+              bounds1.extend(points[n]);
+              console.log(points[n])
+          }
+  
+        //this.map.fitBounds([this.Data.StartClinic, this.Data.FirstSite, this.Data.SecondSite, this.Data.EndHospital]);
         this.map.fitBounds(bounds1);
-        this.map.panToBounds(bounds1);
-        myPolyline.setMap(this.map);// set a line on the map 
+
+
       }, 0);
+
   
 
     // load Medical Centres into hospital variable to be accessed later with a more convenient name
@@ -144,7 +151,9 @@ if(this.Data.ComplexRoute==false)
         // display the route on the defined map
         directionsDisplay.setOptions({
           draggable: false,
-          map: this.map
+          map: this.map,
+          preserveViewport: true,
+          zoom: 8
         });
         // load the route to calculate its distance and time
         directionsDisplay.setDirections(response);
@@ -184,6 +193,12 @@ else{
   bounds1.extend(SecondSite);
   var EndHospital= new google.maps.LatLng(this.Data.Destination.closestSite.lat,this.Data.Destination.closestSite.lng);
   bounds1.extend(EndHospital);
+
+  this.Data.StartClinic = [this.Data.lat,this.Data.lng];
+  this.Data.FirstSite = [this.Data.Destination.origin.lat,this.Data.Destination.origin.lng];
+  this.Data.SecondSite = [this.Data.Destination.desti.lat,this.Data.Destination.desti.lng];
+  this.Data.EndHospital = [this.Data.Destination.closestSite.lat,this.Data.Destination.closestSite.lng];
+  console.log(this.Data.StartClinic)
  
   directionsService.route(
     {
@@ -197,7 +212,9 @@ else{
         // display the route on the defined map
         directionsDisplay.setOptions({
           draggable: false,
-          map: this.map
+          map: this.map,
+          preserveViewport: true,
+          zoom: 8
         });
         // load the route to calculate its distance and time
         directionsDisplay.setDirections(response);
@@ -240,7 +257,9 @@ else{
         // display the route on the defined map
         directionsDisplay1.setOptions({
           draggable: false,
-          map: this.map
+          map: this.map,
+          preserveViewport: true,
+          zoom: 8
         });
         // load the route to calculate its distance and time
         directionsDisplay1.setDirections(response);
@@ -256,9 +275,10 @@ else{
         function() {}
       );
     }
+    
   );
-
 }
+
 
 console.log(bounds1);
 }
@@ -318,7 +338,9 @@ addEndLocation(name) {
                   // display the route on the defined map
                   directionsDisplay.setOptions({
                     draggable: false,
-                    map: this.map
+                    map: this.map,
+                    preserveViewport: true,
+                    zoom: 8
                   });
                   // load the route to calculate its distance and time
                   directionsDisplay.setDirections(response);
