@@ -16,8 +16,14 @@
     Routes To tPA Capable Hospitals
   </h4>
   <spinner *ngIf="tpaSpinner"></spinner>
+
   <div class="card-scroll" *ngIf="tpashow">
-  
+    <div *ngIf="results">
+      <br><br>
+      <p style="font-size: large;">{{display}}</p>
+      
+    </div>
+
 
     <ion-scroll scrollY="true" style="height: 20vh;">
   <ion-list justify-content-center align-items-center>

@@ -18,6 +18,8 @@ evtSpinner: Boolean=true;
 evtshow: Boolean=false;
 evtEmpty:Boolean=false;
 message:any;
+results: Boolean=false;
+display: String="There are no routes available from your location please call local health services for more information";
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public Data: DataServiceProvider,
     public Routes: RoutingProvider) {
@@ -25,12 +27,20 @@ message:any;
   }
  async ionViewWillLoad(){
  var dat=await this.tPASetup();//For the tPA capable hsopitals 
- this.cards=dat;
+ if(dat.length==0)
+ {
+this.results=true;
+ }
+ else{
+  this.cards=dat;
+ }
+ 
+
  var evt=await this.EVTsetup();//for the EVT capable hospitals
  if(evt.length==0)
     {
       this.evtEmpty=true;
-      this.message="You appear to already be at an EVT Capable Hospital \nPlease Consult Hospital Regulations for further instructions";
+      this.message="There are no routes available from your location please call local health services for more information";
     }
     else{
       this.EvtCards=evt;

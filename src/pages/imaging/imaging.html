@@ -19,8 +19,13 @@
   </h4>
   <spinner *ngIf="Spinner"></spinner>
   <div class="card-scroll" *ngIf="show">
-
-  <ion-scroll scrollY="true" style="height: 40vh;">
+    
+<div *ngIf="results">
+  <br><br>
+  <p style="font-size: large;">{{display}}</p>
+  
+</div>
+    <ion-scroll scrollY="true" style="height: 40vh;">
 <ion-list justify-content-center align-items-center>
   <ion-item *ngFor="let card of cards">
     <p *ngIf="card.Dist"></p>

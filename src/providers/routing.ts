@@ -17,6 +17,7 @@ import { repeat } from 'rxjs-compat/operator/repeat';
 import { resolve } from 'dns';
 import { resolveReflectiveProviders } from '@angular/core/src/di/reflective_provider';
 
+
 /*
 
   Generated class for the RoutingProvider provider.
@@ -36,6 +37,8 @@ EVTRoutes: any;
 closestFlightOpt: any=[];
 Database: any;
 LandingSites:any;
+
+loc:any;
 
   constructor(public http: HttpClient,public Data: DataServiceProvider,public DataBase: AngularFireDatabase,
     private afs: AngularFirestore,
@@ -84,7 +87,7 @@ LandingSites:any;
             //console.log("found");
             if(all[i].type=="Airport")
             {
-              console.log("Plane You NUMPTY!");
+             // console.log("Plane You NUMPTY!");
               plane.push(all[i]);
             }
             else if(all[i].type=="Helipad")
@@ -110,7 +113,7 @@ LandingSites:any;
       //console.log(heli);
       closestFlightOpt[0]=heli[0];
       closestFlightOpt[1]=plane[0];
-      console.log(closestFlightOpt);
+      //onsole.log(closestFlightOpt);
       return closestFlightOpt;
     }
     
@@ -190,31 +193,39 @@ async getFlightSpeeds(){
 
 addRoutes(drive, air)
 {
+ 
   for(var i=0;i<air.length;i++)
   {
-    for(var r=0;r<air[i].length;r++)
-    {
-      if(air[i][r].Dist!=0)
+   
+      if(air[i].Dist!=0&&air[i].name!=this.Data.StartLoc.name)
       {
-        drive.push(air[i][r]);
+        drive.push(air[i]);
       }
       
-    }
+      
+    
   }
-  console.log(drive);
-  console.log(drive.length)
+  
   var i = 0;
   while(i == 0){
-    if (drive[i].Dist == 0) {
+    if(drive[i]!=undefined){
+
+      if(drive[i].Dist==0)
+    {
       drive.splice(i, 1);
-    }
+  }
+  else{
+    break;
+  }
+}
     else{
       break;
     }
   }
- 
-  console.log(drive);
-  return drive;
+  
+
+return drive;
+  //console.log(drive);
 }
 
 
@@ -281,11 +292,11 @@ let coords= new google.maps.LatLng(Routes[i].lat,Routes[i].lng);
 destinations[i]=coords;
 }
 var m=ret;//////////////////////////////////////////////////////////////////////////MITY CHANGES ARE HERE 
-console.log(m);
-console.log(ret);
-console.log(destinations);
+//console.log(m);
+//console.log(ret);
+//console.log(destinations);
 ret=await this.distMat(destinations,ret);
-console.log(ret);
+//console.log(ret);
 return ret;
 }
 
@@ -322,7 +333,7 @@ async distMat(destinations,Routes){
           });
           return val;
        }
-       console.log(getflight)
+      // console.log(getflight)
        this.destination_flight_weather_array = getflight;
 
 
@@ -415,7 +426,7 @@ async distMat(destinations,Routes){
     return Routes;
   }
     
-    console.log(resp)
+    //console.log(resp)
     return resp;
   }
 
@@ -428,13 +439,13 @@ async distMat(destinations,Routes){
 
  async SetColour(param){
    
-  console.log(this.Data.SinceTimeForm);
+ // console.log(this.Data.SinceTimeForm);
   for(var i=0; i<param.length;i++)
   {
     var RouteTime=param[i].CompTime;
     var timePassed=this.Data.SinceTimeForm;
-    console.log(RouteTime);
-    console.log(timePassed);
+   // console.log(RouteTime);
+   // console.log(timePassed);
     if((RouteTime+timePassed)<4.5)
     {
       param[i].colour="#90EE90";
@@ -454,11 +465,12 @@ async distMat(destinations,Routes){
 
 async getFlights(endpoints)
 {
-  console.log(this.Data.lat);
-  console.log(this.Data.lng);
+ // console.log(this.Data.lat);
+ // console.log(this.Data.lng);
  var loc = await this.getCloseLoc(this.Data.lat,this.Data.lng);
+ this.loc=loc;
 var dest= new Array(endpoints.length);
-console.log(endpoints.length);
+//console.log(endpoints.length);
 for(var o=0;o<endpoints.length;o++)
 {
   var closesites={
@@ -466,81 +478,153 @@ for(var o=0;o<endpoints.length;o++)
     CloseCity:endpoints[o].city,
     Sites: await this.getCloseLoc(endpoints[o].lat,endpoints[o].lng)
   }
-  console.log(closesites);
+  //console.log(closesites);
   dest[o]=(closesites);
 }
-console.log(loc);
-console.log(dest);
+//console.log(loc);
+//console.log(dest);
 
 var distances= new Array(loc.length);
 for(var j=0;j<loc.length;j++)
 {
   distances[j]=new Array(dest.length);
 }
-console.log(dest);
+//console.log(dest);
 console.log(loc);
 
 
+var origins=[];
+var destinations=[];
+var RouteToHeli=true;
+var RouteToPlane=true;
+origins.push(new google.maps.LatLng(this.Data.lat,this.Data.lng));
+for(var r=0;r<this.loc.length;r++)
+{
+destinations.push(new google.maps.LatLng(this.loc[r].lat,this.loc[r].lng));
+}
+
+var service= new google.maps.DistanceMatrixService();
+const {response,status}=await new Promise(resolve => 
+  service.getDistanceMatrix(
+ {
+   origins: origins,
+   destinations: destinations,
+   travelMode: google.maps.TravelMode.DRIVING,
+ },(response, status) => resolve({response,status}))
+);
+const resp=await handleMapResponse(response,status);
+ 
+  async function handleMapResponse(response,status){
+  return response;
+   
+  }
+console.log(resp);
+  console.log(response.rows[0].elements[0].status)
+  var HeliDriveTime=0;
+  var PlaneDriveTime=0;
+  var HeliDriveDistance=0;
+  var PlaneDriveDistance=0;
+  if(response.rows[0].elements[0].status="OK"&&response.rows[0].elements[0].duration!=undefined)
+  {
+        HeliDriveTime=response.rows[0].elements[0].duration.value/3600;
+        HeliDriveDistance=response.rows[0].elements[0].distance.value/1000;
+  }
+  else if(response.rows[0].elements[0].status="ZERO_RESULTS"||response.rows[0].elements[0].duration==undefined)
+  {
+    RouteToHeli=false;
+  }
+  if(response.rows[0].elements[1].status="OK"&&response.rows[0].elements[1].duration!=undefined)
+  {
+        PlaneDriveTime=response.rows[0].elements[1].duration.value/3600;
+        PlaneDriveDistance=response.rows[0].elements[1].distance.value/1000;
+  }
+  else if(response.rows[0].elements[1].status="ZERO_RESULTS"||response.rows[0].elements[1].duration==undefined)
+  {
+    RouteToPlane=false;
+  }  
+  
 var flight_time;
 await this.getFlightSpeeds().then(data => {
   flight_time = data;
 });
-console.log(flight_time)
+//console.log(flight_time)
 
 var heli_speed: number = flight_time.speed_vals.heli_speed;
 var plane_speed: number = flight_time.speed_vals.plane_speed;
 var flight_o_weather: number = flight_time.speed_vals.origin_weather;
+var distances=[];
+if(RouteToHeli==true)
+{
+  for(var m=0;m<dest.length;m++)
+{ 
+var heliDist= getDistance(loc[0].lat,loc[0].lng,dest[m].Sites[0].lat,dest[m].Sites[0].lng)+HeliDriveDistance;
+var time=(heliDist / heli_speed) * flight_o_weather * this.destination_flight_weather_array[m]+HeliDriveTime
+  var heliopt={
+    origin: loc[0],
+    desti:dest[m].Sites[0],
+    Dist:heliDist,
+    DistChar: convertDist(heliDist),
+    name: dest[m].CloseHospital,
+    city: dest[m].CloseCity,
+    closestSite: endpoints[m],
+    Helipad: true,
+    Airport: false,
+    TimeWithMult: time,
+    TimeWithMultChar: convertTimePlanes(time),
+    CompTime: time/////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+  }
+ distances.push(heliopt);
+  }
+}
 
-for(var i=0;i<loc.length;i++)
+
+if(RouteToPlane==true)
 {
 for(var m=0;m<dest.length;m++)
-{ 
+{ var distplane= getDistance(loc[1].lat,loc[1].lng,dest[m].Sites[1].lat,dest[m].Sites[1].lng)+PlaneDriveDistance;
+  var timeplane=(distplane / heli_speed) * flight_o_weather * this.destination_flight_weather_array[m]+PlaneDriveTime;
+
   var flightopt={
-    origin: loc[i],
-    desti:dest[m].Sites[i],
-    Dist: getDistance(loc[i].lat,loc[i].lng,dest[m].Sites[i].lat,dest[m].Sites[i].lng),
-    DistChar: convertDist(getDistance(loc[i].lat,loc[i].lng,dest[m].Sites[i].lat,dest[m].Sites[i].lng)),
+    origin: loc[1],
+    desti:dest[m].Sites[1],
+    Dist: distplane,
+    DistChar: convertDist(distplane),
     name: dest[m].CloseHospital,
     city: dest[m].CloseCity,
     closestSite: endpoints[m],
     Helipad: false,
-    Airport: false,
-    TimeWithMult: 0,
-    TimeWithMultChar: "",
-    CompTime:0/////////////////////////////////////////////////////////////////////////////////////////////////////
+    Airport: true,
+    TimeWithMult: timeplane,
+    TimeWithMultChar: convertTimePlanes(timeplane),
+    CompTime: timeplane/////////////////////////////////////////////////////////////////////////////////////////////////////
     
   }
-  if (dest[m].Sites[i].type == "Helipad"){
-    flightopt.Helipad=true;
-    flightopt.TimeWithMult = (flightopt.Dist / heli_speed) * flight_o_weather * this.destination_flight_weather_array[m];
-    flightopt.CompTime=flightopt.TimeWithMult;/////////////////////////////////////////////////////////////////////////////////
-  }
-  else if (dest[m].Sites[i].type == "Airport"){
-    flightopt.Airport=true;
-    flightopt.TimeWithMult = (flightopt.Dist / plane_speed) * flight_o_weather * this.destination_flight_weather_array[m];
-    flightopt.CompTime=flightopt.TimeWithMult;/////////////////////////////////////////////////////////////////////////////////
-  }
-  else {
-    console.log("Something went wrong.");
-  }
-  console.log(flightopt)
- 
-  flightopt.TimeWithMultChar = convertTimePlanes(flightopt.TimeWithMult);
-   
-
-  distances[i][m]=flightopt;
-
-
+  distances.push(flightopt);
 }
+ // origins.push(new google.maps.LatLng(dest[m].Sites[i].lat,dest[m].Sites[i].lng));
+  
 }
 console.log(distances);
-  
+ 
+
   return distances;
 }
-}
 
-function getEVT(){
-  
+
+
+}
+function removeHeli(distances){
+  var i = 0;
+  while(i == 0){
+    if (distances[i].Helipad == true) {
+      distances.splice(i, 1);
+    }
+    else{
+      break;
+    }
+  }
+  return distances;
 }
 function convertDist(dist)
 {

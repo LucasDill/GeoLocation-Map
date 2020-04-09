@@ -22,6 +22,8 @@ export class ImagingPage {
 cards: any;
 Spinner: Boolean=true;
 show: Boolean=false;
+results: Boolean=false;
+display: String="There are no routes available from your location please call local health services for more information";
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public Data: DataServiceProvider,
     public Routes: RoutingProvider) {
@@ -29,7 +31,13 @@ show: Boolean=false;
   }
  async ionViewWillLoad(){
  var dat=await this.pageSetup();
- this.cards=dat;
+ console.log(dat);
+ if(dat.length==0)
+ {
+this.results=true;
+ }
+ else{this.cards=dat;}
+ 
 }
 
 
@@ -47,11 +55,12 @@ async pageSetup()
 totalCard=distances;
 this.Spinner=false;
  });
+ 
  console.log(totalCard);
+ //await this.Routes.DriveToLanding(totalCard);
  imgroutes=this.Routes.addRoutes(imgroutes,totalCard);//add the elements of the flights to the end 
  console.log(imgroutes);
  imgroutes=this.Routes.masterSort(imgroutes);
-//await this.Routes.getImaging();
  this.Spinner=false;
  this.show=true;
  imgroutes= this.Routes.SetColour(imgroutes);
