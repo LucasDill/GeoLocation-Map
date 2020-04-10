@@ -83,24 +83,30 @@ export class MapPage {
         this.addMarker(this.map);
         // if a route is calcualted, display it on the map
         directionsDisplay.setMap(this.map);
-
-        myPolyline.setMap(this.map);// set a line on the map 
-
-        if (bounds1.getNorthEast().equals(bounds1.getSouthWest())) {
-          var extendPoint = new google.maps.LatLng(bounds1.getNorthEast().lat() + 0.01, bounds1.getNorthEast().lng() + 0.01);
-          bounds1.extend(extendPoint);
-        }
-        var points = myPolyline.getPath().getArray();
-          for (var n = 0; n < points.length; n++){
-              bounds1.extend(points[n]);
-              console.log(points[n])
-          }
-  
-        //this.map.fitBounds([this.Data.StartClinic, this.Data.FirstSite, this.Data.SecondSite, this.Data.EndHospital]);
-        this.map.fitBounds(bounds1);
+if(myPolyline!=undefined)
+{
+  myPolyline.setMap(this.map);// set a line on the map 
+}
+        
 
 
-      }, 0);
+  if (bounds1.getNorthEast().equals(bounds1.getSouthWest())) {
+    var extendPoint = new google.maps.LatLng(bounds1.getNorthEast().lat() + 0.01, bounds1.getNorthEast().lng() + 0.01);
+    bounds1.extend(extendPoint);
+  }
+  var points = myPolyline.getPath().getArray();
+    for (var n = 0; n < points.length; n++){
+        bounds1.extend(points[n]);
+        console.log(points[n])
+    }
+
+  //this.map.fitBounds([this.Data.StartClinic, this.Data.FirstSite, this.Data.SecondSite, this.Data.EndHospital]);
+  this.map.fitBounds(bounds1);
+
+       
+
+
+      }, 2);
 
   
 
@@ -131,6 +137,7 @@ directionsDisplay = new google.maps.DirectionsRenderer();
 directionsDisplay1 =new google.maps.DirectionsRenderer();
 if(this.Data.ComplexRoute==false)
 {
+  console.log("Was False");
   if (this.Data.Destination == undefined && this.Data.Destination == undefined)
   {
     console.error("No Data Provided");
@@ -139,16 +146,22 @@ if(this.Data.ComplexRoute==false)
   {
     console.log(this.Data.lat, this.Data.lng)
     console.log(this.Data.Destination.lat, this.Data.Destination.lng)
+    var originLatLng=new google.maps.LatLng(this.Data.lat,this.Data.lng);
+    var destLatLng= new google.maps.LatLng(this.Data.Destination.lat,this.Data.Destination.lng);
+    bounds1 = new google.maps.LatLngBounds();
+    bounds1.extend(originLatLng);
+    bounds1.extend(destLatLng);
   directionsService.route(
     {
-      origin: new google.maps.LatLng(this.Data.lat,this.Data.lng),
-      destination: new google.maps.LatLng(this.Data.Destination.lat,this.Data.Destination.lng),
+      origin: originLatLng,
+      destination: destLatLng,
       travelMode: "DRIVING"
     },
     // retrieve Maps API response, if it is able to find a route
     (response, status, request) => {
       if (status === "OK") {
         // display the route on the defined map
+        console.log("status was ok")
         directionsDisplay.setOptions({
           draggable: false,
           map: this.map,
