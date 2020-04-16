@@ -11,14 +11,14 @@ import { PatientLocationPage } from '../patient-location/patient-location';
 })
 export class LastKnownWellPage {
 
-Height:any=40;
+
 myDate=moment().format("HH:mm");
 timeForm =new FormGroup({
   time1: new FormControl('',Validators.required),
 });
   constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider) {
    //this.Height=(Data.height)/2;
-   console.log(this.Height)
+  
    console.log(this.myDate);
   }
   
