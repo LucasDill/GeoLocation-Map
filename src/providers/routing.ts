@@ -31,6 +31,8 @@ OriginLat: any=this.Data.lat;
 OriginLng:any=this.Data.lng;// probably need to change was not working 
 googleResults:any;
 
+IceRoadDriveSpeed:any=50;
+
 ImgRoutes: any;
 tPARoutes: any;
 EVTRoutes: any;
@@ -531,6 +533,9 @@ console.log(resp);
   }
   else if(response.rows[0].elements[0].status="ZERO_RESULTS"||response.rows[0].elements[0].duration==undefined)
   {
+   
+    HeliDriveDistance=getDistance(this.Data.lat,this.Data.lng,this.loc[0].lat,this.loc[0].lng);
+    HeliDriveTime=HeliDriveDistance/this.IceRoadDriveSpeed;
     RouteToHeli=false;
   }
   if(response.rows[0].elements[1].status="OK"&&response.rows[0].elements[1].duration!=undefined)
@@ -540,6 +545,10 @@ console.log(resp);
   }
   else if(response.rows[0].elements[1].status="ZERO_RESULTS"||response.rows[0].elements[1].duration==undefined)
   {
+    PlaneDriveDistance=getDistance(this.Data.lat,this.Data.lng,this.loc[1].lat,this.loc[1].lng);
+    console.log(getDistance(this.Data.lat,this.Data.lng,this.loc[1].lat,this.loc[1].lng));
+    PlaneDriveTime=PlaneDriveDistance/this.IceRoadDriveSpeed;
+    console.log(PlaneDriveTime);
     RouteToPlane=false;
   }  
   
@@ -553,8 +562,8 @@ var heli_speed: number = flight_time.speed_vals.heli_speed;
 var plane_speed: number = flight_time.speed_vals.plane_speed;
 var flight_o_weather: number = flight_time.speed_vals.origin_weather;
 var distances=[];
-if(RouteToHeli==true)
-{
+//if(RouteToHeli==true)
+//{
   for(var m=0;m<dest.length;m++)
 { 
 var heliDist= getDistance(loc[0].lat,loc[0].lng,dest[m].Sites[0].lat,dest[m].Sites[0].lng)+HeliDriveDistance;
@@ -576,11 +585,11 @@ var time=(heliDist / heli_speed) * flight_o_weather * this.destination_flight_we
   }
  distances.push(heliopt);
   }
-}
+//}
 
 
-if(RouteToPlane==true)
-{
+//if(RouteToPlane==true)
+//{
 for(var m=0;m<dest.length;m++)
 { var distplane= getDistance(loc[1].lat,loc[1].lng,dest[m].Sites[1].lat,dest[m].Sites[1].lng)+PlaneDriveDistance;
   var timeplane=(distplane / heli_speed) * flight_o_weather * this.destination_flight_weather_array[m]+PlaneDriveTime;
@@ -604,7 +613,7 @@ for(var m=0;m<dest.length;m++)
 }
  // origins.push(new google.maps.LatLng(dest[m].Sites[i].lat,dest[m].Sites[i].lng));
   
-}
+//
 console.log(distances);
  
 
