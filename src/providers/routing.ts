@@ -18,6 +18,7 @@ import { resolve } from 'dns';
 import { resolveReflectiveProviders } from '@angular/core/src/di/reflective_provider';
 
 
+
 /*
 
   Generated class for the RoutingProvider provider.
@@ -128,13 +129,29 @@ origin_area_multiplier: number;
 origin_total_multiplier: any;
 
 // multipliers for weather and area
-async getOriginWeatherMultiplier(){
-await this.Database.collection("/Multipliers/").doc(JSON.stringify(this.Data.origin_id))
+ async getOriginWeatherMultiplier(){
+
+  //console.log(this.Data.origin_id);
+  
+  //console.log(this.Data.origin_id)
+if(this.Data==undefined||this.Data.origin_id==undefined)
+{
+  console.log("Need to wait")
+  setTimeout(this.getOriginWeatherMultiplier,25);
+}
+else
+{
+  
+  var area= await this.Database.collection("/Multipliers/").doc(JSON.stringify(this.Data.origin_id))////////////add something here to make sure it waits for the origin id 
   .get()
   .then((querySnapshot) => {
       this.origin_weather_multiplier = querySnapshot.data().multi;
       return this.origin_weather_multiplier;
   });
+  return area;
+}
+ 
+
 
 }
 
@@ -332,7 +349,10 @@ async distMat(destinations,Routes){
         .then((querySnapshot) => {
             flight_dest_weather = querySnapshot.data().multi_air;
             return flight_dest_weather;
-          });
+          })
+          .catch(error=>{
+            console.log(error);
+          })
           return val;
        }
       // console.log(getflight)
@@ -492,14 +512,14 @@ for(var j=0;j<loc.length;j++)
   distances[j]=new Array(dest.length);
 }
 //console.log(dest);
-console.log(loc);
+//console.log(loc);//used to look at the locations of the close helipad and airport 
 
 
 var origins=[];
 var destinations=[];
 var RouteToHeli=true;
 var RouteToPlane=true;
-console.log(this.Data.StartLoc);
+//console.log(this.Data.StartLoc);//used to look at the origin location used for the routing
 
 origins.push(new google.maps.LatLng(this.Data.lat,this.Data.lng));
 for(var r=0;r<this.loc.length;r++)
@@ -522,8 +542,7 @@ const resp=await handleMapResponse(response,status);
   return response;
    
   }
-console.log(resp);
-  console.log(response.rows[0].elements[0].status)
+//console.log(resp);//used to look at the responses from the API Query 
   var HeliDriveTime=0;
   var PlaneDriveTime=0;
   var HeliDriveDistance=0;
@@ -619,7 +638,7 @@ for(var m=0;m<dest.length;m++)
  // origins.push(new google.maps.LatLng(dest[m].Sites[i].lat,dest[m].Sites[i].lng));
   
 
-console.log(distances);
+//console.log(distances);
  
 
   return distances;
