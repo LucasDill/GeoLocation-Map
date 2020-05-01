@@ -116,10 +116,10 @@ async getWeather(){
           this.icon = this.weather.weather[0].icon;
           this.tempreal = this.weather.main.temp - 273.15;
           this.tempfeel = this.weather.main.temp - 273.15;
-          console.log(weather);
+          //console.log(weather);
           this.Data.origin_weatherdata = [this.id, this.description, this.icon, this.tempreal, this.tempfeel];
           // gets description of weather
-          console.log(this.Data.origin_weatherdata);
+         // console.log(this.Data.origin_weatherdata);
           this.Data.origin_id = this.id;
           this.Data.origin_icon = "./assets/weather/" + this.Data.origin_weatherdata[2] + ".png";
           this.Data.origin_tempreal = this.tempreal;
@@ -487,7 +487,7 @@ getData() {
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach(function(doc) {
-        if (doc.id == name) 
+        if (doc.data().name == name) 
           {
             cityLocation = new google.maps.LatLng(
               doc.data().lat,

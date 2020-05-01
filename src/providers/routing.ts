@@ -499,6 +499,8 @@ var origins=[];
 var destinations=[];
 var RouteToHeli=true;
 var RouteToPlane=true;
+console.log(this.Data.StartLoc);
+
 origins.push(new google.maps.LatLng(this.Data.lat,this.Data.lng));
 for(var r=0;r<this.loc.length;r++)
 {
@@ -531,26 +533,28 @@ console.log(resp);
         HeliDriveTime=response.rows[0].elements[0].duration.value/3600;
         HeliDriveDistance=response.rows[0].elements[0].distance.value/1000;
   }
-  else if(response.rows[0].elements[0].status="ZERO_RESULTS"||response.rows[0].elements[0].duration==undefined)
-  {
-   
-    HeliDriveDistance=getDistance(this.Data.lat,this.Data.lng,this.loc[0].lat,this.loc[0].lng);
-    HeliDriveTime=HeliDriveDistance/this.IceRoadDriveSpeed;
+  else{
     RouteToHeli=false;
   }
   if(response.rows[0].elements[1].status="OK"&&response.rows[0].elements[1].duration!=undefined)
   {
+
         PlaneDriveTime=response.rows[0].elements[1].duration.value/3600;
         PlaneDriveDistance=response.rows[0].elements[1].distance.value/1000;
   }
-  else if(response.rows[0].elements[1].status="ZERO_RESULTS"||response.rows[0].elements[1].duration==undefined)
+  else if(this.Data.StartLoc.name=="Sena Memorial Nursing Station"||this.Data.StartLoc.name=="Wunnumin Lake Nursing Station")
   {
+   //console.log(resp);
+    //console.log("There where no Air routes");
     PlaneDriveDistance=getDistance(this.Data.lat,this.Data.lng,this.loc[1].lat,this.loc[1].lng);
     console.log(getDistance(this.Data.lat,this.Data.lng,this.loc[1].lat,this.loc[1].lng));
-    PlaneDriveTime=PlaneDriveDistance/this.IceRoadDriveSpeed;
+    PlaneDriveTime=600/3600;
     console.log(PlaneDriveTime);
-    RouteToPlane=false;
+    RouteToPlane=true;
   }  
+  else{
+    RouteToPlane=false;
+  }
   
 var flight_time;
 await this.getFlightSpeeds().then(data => {
@@ -562,8 +566,8 @@ var heli_speed: number = flight_time.speed_vals.heli_speed;
 var plane_speed: number = flight_time.speed_vals.plane_speed;
 var flight_o_weather: number = flight_time.speed_vals.origin_weather;
 var distances=[];
-//if(RouteToHeli==true)
-//{
+if(RouteToHeli==true)
+{
   for(var m=0;m<dest.length;m++)
 { 
 var heliDist= getDistance(loc[0].lat,loc[0].lng,dest[m].Sites[0].lat,dest[m].Sites[0].lng)+HeliDriveDistance;
@@ -585,11 +589,11 @@ var time=(heliDist / heli_speed) * flight_o_weather * this.destination_flight_we
   }
  distances.push(heliopt);
   }
-//}
+}
 
 
-//if(RouteToPlane==true)
-//{
+if(RouteToPlane==true)
+{
 for(var m=0;m<dest.length;m++)
 { var distplane= getDistance(loc[1].lat,loc[1].lng,dest[m].Sites[1].lat,dest[m].Sites[1].lng)+PlaneDriveDistance;
   var timeplane=(distplane / heli_speed) * flight_o_weather * this.destination_flight_weather_array[m]+PlaneDriveTime;
@@ -611,9 +615,10 @@ for(var m=0;m<dest.length;m++)
   }
   distances.push(flightopt);
 }
+}
  // origins.push(new google.maps.LatLng(dest[m].Sites[i].lat,dest[m].Sites[i].lng));
   
-//
+
 console.log(distances);
  
 
@@ -623,18 +628,7 @@ console.log(distances);
 
 
 }
-function removeHeli(distances){
-  var i = 0;
-  while(i == 0){
-    if (distances[i].Helipad == true) {
-      distances.splice(i, 1);
-    }
-    else{
-      break;
-    }
-  }
-  return distances;
-}
+
 function convertDist(dist)
 {
   var distString=(Math.ceil(dist)).toString()+" km";

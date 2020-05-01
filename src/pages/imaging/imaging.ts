@@ -31,7 +31,7 @@ display: String="There are no routes available from your location please call lo
   }
  async ionViewWillLoad(){
  var dat=await this.pageSetup();
- console.log(dat);
+
  if(dat.length==0)
  {
 this.results=true;
@@ -48,7 +48,7 @@ async pageSetup()
   await this.Routes.getRoutes("bTelestroke").then(data =>{
    imgroutes=data;
  });
- console.log(imgroutes);
+ 
  await this.Routes.nearestLocations();
  var totalCard;
   await this.Routes.getFlights(imgroutes).then(distances =>{
@@ -56,15 +56,15 @@ totalCard=distances;
 this.Spinner=false;
  });
  
- console.log(totalCard);
+
  //await this.Routes.DriveToLanding(totalCard);
  imgroutes=this.Routes.addRoutes(imgroutes,totalCard);//add the elements of the flights to the end 
- console.log(imgroutes);
+ 
  imgroutes=this.Routes.masterSort(imgroutes);
  this.Spinner=false;
  this.show=true;
  imgroutes= this.Routes.SetColour(imgroutes);
- console.log(imgroutes);
+ //console.log(imgroutes);
 
  return imgroutes;
 }
