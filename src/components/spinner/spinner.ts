@@ -10,13 +10,12 @@ import { Component } from '@angular/core';
   selector: 'spinner',
   templateUrl: 'spinner.html'
 })
-export class SpinnerComponent {
+export class SpinnerComponent {//Most of this componenet is in the scss page it was found online and used in our project 
 
-  text: string;
+  
 
   constructor() {
-  //  console.log('Hello SpinnerComponent Component');
-    this.text = 'Hello World';
+  
   }
 
 }
