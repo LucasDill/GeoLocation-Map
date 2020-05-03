@@ -1,6 +1,5 @@
-import { Component, Input, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { DataServiceProvider } from '../../providers/data-service';
-import { setInterval } from 'timers';
 /**
  * Generated class for the ComponentsTimerComponent component.
  *
@@ -12,18 +11,8 @@ import { setInterval } from 'timers';
   templateUrl: 'components-timer.html'
 })
 export class ComponentsTimerComponent {
-colour:any;
 
-  time:any;
-  text: string;
-  CurrentTime: any;
-  constructor(public Data: DataServiceProvider) {
-    this.text = 'Hello World';
-    this.colour="green";
-      //this.CurrentTime=this.Data.CurrentTime;
-     
-    
+  constructor(public Data: DataServiceProvider) {//Because this keept reseting every time it went to a new page all of the information is handled by the data provider which does not change throught the app 
+       //The only thing that this TS does is make sure the html can access the Data provider and load the appropriate libraries 
   }
-
-
 }

@@ -1,12 +1,12 @@
 components-timer {
     
-div{
+div{//Sets the basic style for the div
     background-color:"Data.colour";
     border: solid black 1px;
     vertical-align: middle;
     word-break: break-word;
 }
-ion-col{
+ion-col{//sets the colour of the lines between the two columns may need changing if it is not visible enough
     border: solid white 1px;
 }
 
