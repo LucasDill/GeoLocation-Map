@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController,NavParams } from 'ionic-angular';
 import { ImagingPage } from '../imaging/imaging';
-import { from } from 'rxjs';
 import { DataServiceProvider } from '../../providers/data-service';
 import { TPaQuestionPage } from '../t-pa-question/t-pa-question';
 import { RoutingProvider } from '../../providers/routing';
@@ -15,20 +14,14 @@ export class ImagingRequiredPage {
   constructor(public navCtrl: NavController, public navParams:NavParams,public Data: DataServiceProvider,public Routes:RoutingProvider) {
     
   }
-  ionViewDidLoad()
-  {
-    
-  }
-  goToTpaQuestion(params){
-    if (!params) params = {};
+
+  goToTpaQuestion(){//If the user clicks no they will be brought to the tpa question page 
     this.navCtrl.push(TPaQuestionPage);
-    this.Data.NeedImaging=false;
+    this.Data.NeedImaging=false;// set the NeedImaging Option to false but I do not think this is currently in use 
   }
-  goToImagingRoutes(params){
-    if (!params) params = {};
-    
+  goToImagingRoutes(){//If the user selects yes then they will be brought to the imaging routes page 
     this.navCtrl.push(ImagingPage);
-    this.Data.NeedImaging=true;
+    this.Data.NeedImaging=true;//The needImaging will be set to true but I still do not think this is being used by anything yet 
   }
    
  
