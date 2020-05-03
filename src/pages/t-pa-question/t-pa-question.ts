@@ -19,17 +19,12 @@ export class TPaQuestionPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public Data: DataServiceProvider) {
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TPaQuestionPage');
-  }
-  goToEVTOptions(params){
-    if (!params) params = {};
+//This is a simple question page for navigating the application 
+  goToEVTOptions(){//if the user selects yes they will be brought to the EvtOptions page and the hadTpa Data will be set to true although I do not think it is being used at the moment 
     this.navCtrl.push(EvtOptionsPage);
-    this.Data.NeedImaging=false;
+    this.Data.hadtPA=true;
   }
-  goToTreatment(params){
-    if (!params) params = {};
+  goToTreatment(){//If the user Selects no They will be brought to the treatment page and hadtPA will be set to false although I do not think it is used at the moment 
     this.navCtrl.push(TreatmentPage);
     this.Data.hadtPA=false;
   }
