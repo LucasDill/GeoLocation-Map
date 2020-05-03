@@ -4,39 +4,42 @@
       EVT Routes
     </ion-title>
   </ion-navbar>
-  <components-timer ></components-timer>
+  <components-timer ></components-timer><!--The timer showing how much time has passed and should be present on all pages after the Last Known Well Page-->
 </ion-header>
 
-<ion-content no-bounce id="page4">
-  
+<ion-content no-bounce id="evt-options">
+
+  <p id="weather" style="background-color:powderblue;">Weather in {{this.Data.city}}: <b>{{this.Data.origin_tempreal |number:'.0'}} \u00B0C</b>
+    <img src= {{this.Data.origin_icon}} style="vertical-align: middle;"></p> <!--This Section shows the weather in the origin city which may affect the decision of how the patient will be transported-->
+
   <h4 id="treatment-heading6" style="color:#000000;font-size: x-large;">
     Routes To EVT Capable Hospitals
   </h4>
-  <spinner *ngIf="evtSpinner"></spinner>
-  <div class="card-scroll" *ngIf="evtshow">
-  <ion-scroll scrollY="true" style="height: 80vh;">
-    <div *ngIf="evtEmpty"><br><br><br><p style="font-size: large;">{{message}}</p></div>
+  <spinner *ngIf="evtSpinner"></spinner><!--This is the spinner component that runs until results are available-->
+  <div class="card-scroll" *ngIf="evtshow"><!--This creates the scroll div with all of the cards and is visable after evtshow is set to true-->
+  <ion-scroll scrollY="true" style="height: 80vh;"><!--This is the actual compnent for the scroll with the vh probably needing to change and horizontal scroll not enabled -->
+    <div *ngIf="evtEmpty"><br><br><br><p style="font-size: large;">{{message}}</p></div><!--If there are no results returned display the error message  -->
     <ion-list justify-content-center align-items-center>
-      <ion-item *ngFor="let card of cards">
-        <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour">
+      <ion-item *ngFor="let card of cards"><!--The ngFor will iterate through all elements in cards and give each one the name card -->
+        <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour"><!--If it is a driving card have the ambulance picture and use the goToRoute function passing the information of the card -->
           <ion-card-content>
             <ion-card-title>
-            {{card.name}} <h1> <img src= "./assets/imgs/ambulance.png" style="float:right"></h1>
+            {{card.name}} <h1> <img src= "./assets/imgs/ambulance.png" style="float:right"></h1><!--Show the card with the image of the ambulance -->
             </ion-card-title>
           <p id="cardinfo" >
-              Distance: {{card.DistChar}} &nbsp;&nbsp;&nbsp;&nbsp; Time: {{card.TimeWithMultChar}} 
+              Distance: {{card.DistChar}} &nbsp;&nbsp;&nbsp;&nbsp; Time: {{card.TimeWithMultChar}} <!--Display the distance and time for that route-->
           </ion-card-content>
         </ion-card>
-        <ion-card *ngIf="card.Helipad" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour">
+        <ion-card *ngIf="card.Helipad" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"><!--If the card is a helicopter route show it with the image of the helicopter and use the ComplexRoute function to diplay the route-->
           <ion-card-content>
             <ion-card-title>
             {{card.name}} <h1> <img src= "./assets/imgs/Helicopter.png" style="float:right"></h1>
             </ion-card-title>
           <p id="cardinfo" >
-              Distance: {{card.DistChar}} &nbsp;&nbsp;&nbsp;&nbsp; Time: {{card.TimeWithMultChar}} 
+              Distance: {{card.DistChar}} &nbsp;&nbsp;&nbsp;&nbsp; Time: {{card.TimeWithMultChar}} <!--these are special ionic data types that allow you to see the data from the cards -->
           </ion-card-content>
         </ion-card>
-        <ion-card *ngIf="card.Airport" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour">
+        <ion-card *ngIf="card.Airport" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"><!--If the card is a Airport Type show the image of the airplane and use the complexRoute function to show the routes-->
           <ion-card-content>
             <ion-card-title>
             {{card.name}} <h1> <img src= "./assets/imgs/Airplane.png" style="float:right"></h1>
@@ -47,7 +50,7 @@
         </ion-card>
       </ion-item>
     </ion-list>
-    </ion-scroll>
+    </ion-scroll><!--Close all of the divs exactly the same way it is done in HTML-->
     </div>
 
 </ion-content>
