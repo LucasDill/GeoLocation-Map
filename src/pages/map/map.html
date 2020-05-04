@@ -1,34 +1,4 @@
-<style>/* style for document elements mostly to reduce the size of the icons 
-  // this is all written in css and references items in the html*/
-  
-    /* sets the size of the text for labels*/ 
-  ion-label{
-    font-size: .7em;
-  }
-  /* sets the size of the icons with a relative position may need to change to fit different screen size in the future*/ 
-    .item ion-thumbnail {
-      position: relative;
-      min-height: 20px;
-      max-height: 20px;
-      min-width: 20px;
-      max-width: 20px;
-    }
-  
-    /* changes the position of the image after it has been resized so it is present in the middle of the block */
-    .item ion-thumbnail img {
-      display: block;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      height: 100%;
-      width: auto;
-      -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(0%, -50%);
-      transform: translate(-50%, -50%);
-    }
-  
-    /*end of the style */
-  </style>
+
   <ion-header><!-- sets the header for the page with -->
     
       <ion-navbar color="steelblue2">
@@ -80,92 +50,9 @@
   
     </div>
 
-    <div #Map class="map" style="height: 80vh" (mapClick)="onMapClick($event)"></div>
-<!--<div style="height: 5vh;">
-  <button class="contact" ion-button color="steelblue1" block on-click="GoToContact()">Contact Information</button>
-</div>-->
-  
-    <!--<div id="Legend">
-      <ion-grid  ><!- - the part of the page containing the labels for the legend with the images of the icons - ->
-        <!- - an ion grid which organizes the icons into a grid like pattern with no pading - ->
-        <ion-row  class="ion-justify-content-start">
-          <!- - a row if the grid with the items justified to the start rows will contain columns - ->
-  
-          <ion-col col-3 g>
-            <!- - a column in the row col-3 means it will take 1/4 as an ion-row is seperated into 12 columns this will be the same for all following columns - ->
-            <ion-item>
-              <!- - an item made up of a thumbnail with an image with a specified height and width with the source being an image on the internet and the label being displayed next to it this will be the same for all items in the grid  - ->
-              <ion-thumbnail no-margin item-left>
-                <img src="./assets/imgs/TBRHSC.png" height='30' width="30">
-                  </ion-thumbnail>
-                <ion-label >Regional Stroke Center</ion-label>
-            </ion-item><!- - end of the item  - ->
-          </ion-col>
-          <ion-col col-3 >
-            <ion-item>
-              <ion-thumbnail no-margin item-left>
-                <img src="./assets/imgs/healthservices.png" height='30' width="30">
-                  </ion-thumbnail>
-                <ion-label >Health Services</ion-label>
-            </ion-item>
-          </ion-col>
-          <ion-col col-3 no-padding>
-            <ion-item class="item-thumbnail-left item-text-wrap" item-left>
-              <ion-thumbnail no-margin item-left>
-                <img img-wrap src="./assets/imgs/hospital.png">
-                  </ion-thumbnail>
-                <ion-label>Hospitals</ion-label>
-            </ion-item>
-          </ion-col >
-          <ion-col col-3 no-padding>
-            <ion-item>
-          <ion-thumbnail item-left>
-            <img src="./assets/imgs/helipad.png" height='30' width="30">
-                  </ion-thumbnail>
-            <ion-label >Helepad</ion-label>
-        </ion-item>
-          </ion-col>
-        </ion-row><!- - and of the row to keep it to 4 columns in each row - ->
-        <ion-row no-padding><!- - start of a new row of 4 columns - ->
-          <ion-col col-3 no-padding>
-          <ion-item>
-            <ion-thumbnail no-margin item-left>
-              <img no-margin src="./assets/imgs/airport.png" height='30' width="30">
-                  </ion-thumbnail>
-              <ion-label >Airport</ion-label>
-          </ion-item>
-          </ion-col>
-        <ion-col col-3 no-padding>
-        <ion-item>
-                  <ion-thumbnail no-margin item-left>
-                <img src="./assets/imgs/telestroke.png" height="20" width="20">
-                  </ion-thumbnail>
-                <ion-label >Telestroke Sites</ion-label>
-            </ion-item>
-        </ion-col>
-  <ion-col col-3 no-padding>
-        <ion-item>
-          <ion-thumbnail item-left>
-            <img src="./assets/imgs/ambulance.png" height='30' width="30">
-                  </ion-thumbnail>
-            <ion-label >Ambulance Base</ion-label>
-        </ion-item>
-  </ion-col>
-  <ion-col col-3 no-padding>
-        <ion-item>
-          <ion-thumbnail item-left>
-            <img src="./assets/imgs/ornge.png" height='30' width="30">
-                  </ion-thumbnail>
-            <ion-label >ORNGE Base</ion-label>
-        </ion-item>
-        </ion-col>
-        </ion-row>
-      </ion-grid><!- - end of the grid display - ->
-    </div>--><!-- end of the div for icons -->
+    <div #Map class="map" style="height: 80vh" ></div>
+
          
-  </ion-content><!-- the end of the content in the page -->
+  </ion-content>
   
   
-  <!--<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2GRIwOatzPmiamkpv3znVK8hi9g4lGoU">
-    </script>-->
