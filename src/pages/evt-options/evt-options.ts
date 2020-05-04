@@ -60,9 +60,6 @@ export class EvtOptionsPage {
        return evtRoutes;//return the final list of cards to be displayed on the page 
   }
   
-  @ViewChild('treatment-heading6') myInput: ElementRef;
-  @ViewChild('weather') myInput2: ElementRef;
-
 
   goToRoute(params){//If the user clicks on a route that includes driving 
     this.Data.ComplexRoute=false;//set the complex route to false 
