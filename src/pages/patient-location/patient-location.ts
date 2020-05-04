@@ -61,6 +61,7 @@ public tempreal;
 public tempfeel;
 
 async getWeather(){
+  //getWeatherFromApi is found in the weather.ts file 
     await this.weatherService.getWeatherFromApi(this.Data.lat, this.Data.lng).subscribe( weather => {  // async function returning the weather information for the area specified after the location has been found
           this.weather = weather;
           this.id = this.weather.weather[0].id;//the weather id is used to find the multiplier for the time multiplier 

@@ -3,46 +3,49 @@ import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { MapPage } from '../map/map';
 import { DataServiceProvider } from '../../providers/data-service';
 import { RoutingProvider } from '../../providers/routing';
+/*   
+This page shows two results one with tpa and one with evt and as such has doubles for a lot of things 
 
+*/
 
 @Component({
   selector: 'page-treatment',
   templateUrl: 'treatment.html'
 })
 export class TreatmentPage {
-cards: any;
-EvtCards: any;
-tpaSpinner: Boolean=true;
-tpashow: Boolean=false;
-evtSpinner: Boolean=true;
-evtshow: Boolean=false;
-evtEmpty:Boolean=false;
-message:any;
-results: Boolean=false;
-display: String="There are no routes available from your location please call local health services for more information";
+cards: any;//set the variable for the cards for the tPA routes which at the moment is the same as imaging 
+EvtCards: any;//set the varible for the evt routes which at the moment is just to TBRHSC
+tpaSpinner: Boolean=true;//the spinner for the tpa section 
+tpashow: Boolean=false;//the show for the tpa section 
+evtSpinner: Boolean=true;//spinner for the evt section 
+evtshow: Boolean=false;//show for the evt section 
+evtEmpty:Boolean=false;// if there are no results for evt
+message:any;//the message to be displayed 
+results: Boolean=false;// if there are no results 
+display: String="There are no routes available from your location please call local health services for more information";// the message to be displayed if there is some sort of error
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public Data: DataServiceProvider,
-    public Routes: RoutingProvider) {
-   //   console.log(this.Routes.ImgRoutes);
+    public Routes: RoutingProvider) {//give access to the data and routing providers 
+  
   }
  async ionViewWillLoad(){
  var dat=await this.tPASetup();//For the tPA capable hsopitals 
- if(dat.length==0)
+ if(dat.length==0)//if there are no results returned 
  {
 this.results=true;
  }
- else{
+ else{// if there are ressults set the card data to be the information returned 
   this.cards=dat;
  }
  
 
  var evt=await this.EVTsetup();//for the EVT capable hospitals
- if(evt.length==0)
+ if(evt.length==0)//if there are no results
     {
       this.evtEmpty=true;
-      this.message="There are no routes available from your location please call local health services for more information";
+      this.message="There are no routes available from your location please call local health services for more information";// the message to be displayed with no results
     }
-    else{
+    else{// if there are results set the cards with that data 
       this.EvtCards=evt;
     }
  
@@ -50,80 +53,61 @@ this.results=true;
 
 
 
-async tPASetup()
+async tPASetup()// get the results for the places that are bTelestroke which at the moment is the same for imaging
 {
-  var imgroutes;
-  await this.Routes.getRoutes("bTelestroke").then(data =>{
-   imgroutes=data;
+  var DrivingRoutes;
+  await this.Routes.getRoutes("bTelestroke").then(data =>{//Get all of the driving routes to health centers which are telestroke sites 
+   DrivingRoutes=data;
  });
  
- await this.Routes.nearestLocations();
- var totalCard;
-  await this.Routes.getFlights(imgroutes).then(distances =>{
-totalCard=distances;
+ await this.Routes.nearestLocations();//Get the nearest locations of airports and helepads to the destinations 
+ var FlightRoutes;
+  await this.Routes.getFlights(DrivingRoutes).then(distances =>{//Get the flight information along with the amount of time it takes to drive to the sites  
+FlightRoutes=distances;
  });
  
- imgroutes=this.Routes.addRoutes(imgroutes,totalCard);//add the elements of the flights to the end 
+ var tPAroutes=this.Routes.addRoutes(DrivingRoutes,FlightRoutes);//add the two lists of routes for driving and flying together 
  
- imgroutes=this.Routes.masterSort(imgroutes);
+ tPAroutes=this.Routes.masterSort(tPAroutes);//sort the combined list so the shortest times are first 
 
- this.tpaSpinner=false;
- this.tpashow=true;
- imgroutes= this.Routes.SetColour(imgroutes);
+
+ tPAroutes= this.Routes.SetColour(tPAroutes);//set the colour of the cards based on when they will get to their destination 
  
- 
- return imgroutes;
+ this.tpaSpinner=false;//stop the spinner from spinning 
+ this.tpashow=true;//enable the results to be shown
+ return tPAroutes;//return the information to be displayed 
 }
 
 async EVTsetup(){//EVT at the moment is just Thunder Bay which is the only bRegionalStrokeCenter
-  var evtRoutes;
-  await this.Routes.getRoutes("bRegionalStrokeCentre").then(data =>{
-    evtRoutes=data;
+  var evtDriveRoutes;
+  await this.Routes.getRoutes("bRegionalStrokeCentre").then(data =>{//get the driving routes to health centers that are regionalStrokeCenters so far this is just TBRHSC
+    evtDriveRoutes=data;
   });
   //await this.Routes.nearestLocations(); only needed if it is the first to go
-  var flightcards;
-  await this.Routes.getFlights(evtRoutes).then(distances =>{
-    flightcards=distances;
+  var evtFlightRoutes;
+  await this.Routes.getFlights(evtDriveRoutes).then(distances =>{//Get the flight information for the air travel time between the closest helipad and airports to the destination 
+    evtFlightRoutes=distances;
      });
-     evtRoutes=this.Routes.addRoutes(evtRoutes,flightcards);//add the elements of the flights to the end 
-     evtRoutes=this.Routes.masterSort(evtRoutes);
-     evtRoutes=this.Routes.SetColour(evtRoutes);
-     this.evtSpinner=false;
+     var evtRoutes=this.Routes.addRoutes(evtDriveRoutes,evtFlightRoutes);//Combine the lists of flight and driving routes 
+     evtRoutes=this.Routes.masterSort(evtRoutes);//sort the routes to have the shortest time first 
+     evtRoutes=this.Routes.SetColour(evtRoutes);//set the colour of the cards based on when the patient will arive 
+     this.evtSpinner=false;//stop the spinner and allow the div to be shown
      this.evtshow=true;
-     return evtRoutes;
+     return evtRoutes;// return the information 
 }
 
-  @ViewChild('treatment-heading6') myInput: ElementRef;
-  @ViewChild('weather') myInput2: ElementRef;
-
-  resize() {
-      this.myInput.nativeElement.style.height = this.myInput.nativeElement.scrollHeight + 'px';
-      this.myInput2.nativeElement.style.height = this.myInput2.nativeElement.scrollHeight + 'px';
+  goToRoute(DriveDest){//if it is a simple driving route 
+    this.Data.ComplexRoute=false;//set complexroute to be false 
+    this.Data.Destination=DriveDest;//pass the destination in for the route display
+    this.navCtrl.push(MapPage);//go to the map page to show the results 
   }
 
-  goToRoute(params){
-    if (!params) params = {};
-    console.log(params);
-    this.Data.ComplexRoute=false;
-    this.Data.Destination=params;
-    this.navCtrl.push(MapPage);
-//this.Routes.nearestLocations("Landing Sites");
-
-  }
-  ComplexRoute(cardDat)
+  ComplexRoute(FlightDat)// if this is a complex route with driving and flying 
   {
-    if(!cardDat) cardDat={};
-    console.log(cardDat);
-    this.Data.ComplexRoute=true;
-    this.Data.Destination=cardDat;
-    this.navCtrl.push(MapPage);
+    this.Data.ComplexRoute=true;//set the complexroute to true 
+    this.Data.Destination=FlightDat;//pass in the destination information 
+    this.navCtrl.push(MapPage);// go to the map page to show the results 
   }
-  GoToMore(params){
-    if (!params) params={};
-    this.navCtrl.push(TreatmentPage);
-
-  }
-  
   
 }
 
