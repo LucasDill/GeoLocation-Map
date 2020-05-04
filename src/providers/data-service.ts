@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+//This is a provider it is regularly accessed by other pages and used to store and syncronize data 
+//This particular provider is used to store a lot of information that other pages need to access and it is also used for the timer to count down the seconds 
 import { Injectable } from '@angular/core';
-import { AnyTxtRecord } from 'dns';
 import {Platform} from 'ionic-angular'
 
 /*
@@ -11,6 +11,7 @@ import {Platform} from 'ionic-angular'
 */
 @Injectable()
 export class DataServiceProvider {
+// this data is mostly used by the timer function and not really by the rest of the application 
   time: any;
   CurrentTime: any;
   LastKnownWellTime: any;
@@ -28,6 +29,7 @@ export class DataServiceProvider {
   colour: any="#90ee90";
   TreatmentInfo: any;
 
+  //this data is used to store information on the weather and where the different locations are 
   StartLoc:any;
 
   city: any;
@@ -66,14 +68,8 @@ export class DataServiceProvider {
 Destination:any;
 ComplexRoute:Boolean;
 
-StartClinic: any;
-FirstSite: any;
-SecondSite: any;
-EndHospital: any;
 
-
-
-  constructor(platform: Platform) {
+  constructor(platform: Platform) {//the constructor finds the height and width of the current platform which may be used later on to get a better idea of how large to make each of the pages 
     platform.ready().then((readySource) => {
       console.log('Width: ' + platform.width());
       console.log('Height: ' + platform.height());
@@ -81,13 +77,7 @@ EndHospital: any;
       this.width=platform.width();
     });
   }
-  getSize(platform: Platform){
-    platform.ready().then((readySource) => {
-    console.log('Width: ' + platform.width());
-    console.log('Height: ' + platform.height());
-    this.height=platform.height();
-  });
-}
+
 
   StartTime(param)//starts when a time is provided in last known well sets the time to be displayed at the top of pages after getting the current time 
   {
@@ -110,7 +100,7 @@ EndHospital: any;
     this.CurrentMinutes=disp.min;
    
 
-    if(this.GivenTimeForm>this.CurrentTimeForm)
+    if(this.GivenTimeForm>this.CurrentTimeForm)// if the time given is greater than the current time it will add 24 hours as it assumes that the incident happened the previous day 
     {
       this.SinceTimeForm=((24-this.GivenTimeForm)+this.CurrentTimeForm);
     }
@@ -127,7 +117,7 @@ EndHospital: any;
     this.MinutesSince=(m.min);
     
     
-      if(this.SinceTimeForm<4.5)
+      if(this.SinceTimeForm<4.5)// this sets the information for the first time so it is not blank until a second passes 
       {
         let EVTtime=6-this.SinceTimeForm;
         let EVT=ConvertBack(EVTtime);
@@ -151,7 +141,7 @@ EndHospital: any;
         this.TreatmentInfo="<ul>Passed usual recovery time</ul>";
       }
 
-    this.intervalID= setInterval(()=>{
+    this.intervalID= setInterval(()=>{//set an interval to perform a calculation every second and update the values 
         this.SecondsSince++;
         if(this.SecondsSince==60)//increment the count 
         {
@@ -199,19 +189,19 @@ EndHospital: any;
   
 
 }
-function pad(num:number, size:number): string {
+function pad(num:number, size:number): string {//turns the number into a string and adds a zero to keep it consistant 
   let s = num+"";
   while (s.length < size) s = "0" + s;
   return s;
 }
 
-function ConvertToTimeForm(hours:number,min:number):number{
+function ConvertToTimeForm(hours:number,min:number):number{//converts the hours and minutes into a form that makes more sense as a whole number
   let m=hours;
   m=m+(min/60);
   return m;
 }
 
-function ConvertBack(TimeForm:number):any{
+function ConvertBack(TimeForm:number):any{//convert the number back from the whole number into hours and minutes for a better display 
   TimeForm=TimeForm-(1/60);
   let Hour=TimeForm/1;
   let Minute=TimeForm%1;
