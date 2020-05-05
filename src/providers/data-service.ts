@@ -133,7 +133,7 @@ ComplexRoute:Boolean;
         let EVT=ConvertBack(EVTtime);
         
           this.colour="yellow";
-         this.TreatmentInfo="<br><ul>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+":"+pad((60-this.SecondsSince),2)+"</ul>";
+         this.TreatmentInfo="<br><ul>EVT avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+":"+pad((60-this.SecondsSince),2)+"</ul>";//pad is a function we made to add zeros to the numbers if they are less than 10
       }
       else if(this.SinceTimeForm>=6)
       {
@@ -181,7 +181,7 @@ ComplexRoute:Boolean;
           this.colour="red";
           this.TreatmentInfo="<ul>Passed usual recovery time</ul>";
         }
-      },1000);
+      },1000);//this is one second as it is all measured in miliseconds 
     
     
   }
