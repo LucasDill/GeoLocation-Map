@@ -18,7 +18,6 @@ LandingSites:any;
 loc:any;
 
   constructor(public http: HttpClient,public Data: DataServiceProvider,public DataBase: AngularFireDatabase,
-    private afs: AngularFirestore,
     private weatherService: WeatherService) {
       this.Database = firebase.firestore();
   }
@@ -493,7 +492,6 @@ await this.getFlightSpeeds().then(data => {// use the get flight speed function
 
 
 var heli_speed: number = flight_time.speed_vals.heli_speed;
-var plane_speed: number = flight_time.speed_vals.plane_speed;
 var flight_o_weather: number = flight_time.speed_vals.origin_weather;
 var AirTravel=[];
 if(RouteToHeli==true)// if there is a route to helipad sites 
