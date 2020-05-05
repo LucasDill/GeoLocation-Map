@@ -1,3 +1,4 @@
+// these are all of the libraries that are being used by the application 
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -27,7 +28,7 @@ import { WeatherService } from '../pages/patient-location/weather';
 import { RoutingProvider } from '../providers/routing';
 
 @NgModule({
-  declarations: [
+  declarations: [// this is where we declare all of our pages and components if you use the auto generate this may be added but you may also need to do it manually 
     MyApp,
     PatientLocationPage,
     LastKnownWellPage,
@@ -41,14 +42,14 @@ import { RoutingProvider } from '../providers/routing';
     TPaQuestionPage,
     EvtOptionsPage
   ],
-  imports: [
+  imports: [// these are special imports used by the app and where we declare the api key and firestore information 
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyC2GRIwOatzPmiamkpv3znVK8hi9g4lGoU',
+      apiKey: 'AIzaSyC2GRIwOatzPmiamkpv3znVK8hi9g4lGoU',// this is the api key that deals with all of the google info, once this is passed off you may need to change it because the hospital might want there own 
       libraries: ['geometry','places']
     }),
-     AngularFireModule.initializeApp({
+     AngularFireModule.initializeApp({// this is the standard firebase connection stuff if you have delt with it before it should be familar. we have a shared email this is under
      apiKey: "AIzaSyB6NmY0iFundTq06rk3mpc5Wk7LwbWdUw0",
      authDomain: "degree-project-database.firebaseapp.com",
      databaseURL: "https://degree-project-database.firebaseio.com",
@@ -75,7 +76,7 @@ import { RoutingProvider } from '../providers/routing';
     TPaQuestionPage,
     EvtOptionsPage
   ],
-  providers: [
+  providers: [// the providers used the only ones we made where the DataServiceProvider and the RoutingProvider I think the others are standardized
     DataServiceProvider,
     StatusBar,
     SplashScreen,

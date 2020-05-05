@@ -1,11 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, Nav, NavController, Config } from 'ionic-angular';
+import { Platform, Nav, Config } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HelpPage } from '../pages/help/help';
 import { LastKnownWellPage } from '../pages/last-known-well/last-known-well';
-var splash;
+
 
 
 @Component({
@@ -35,20 +35,12 @@ export class MyApp {
   
   }
 
-  goToHelp(params){
-    if (!params) params = {};
-    this.navCtrl.setRoot(HelpPage);
-  }
 
-  ionViewDidLoad(){
+  ionViewDidLoad(){// once the view loads set the root page after three seconds so the animation can play and variables can be set up 
     setTimeout(()=> {
       this.splash = false;
-      this.rootPage = LastKnownWellPage;
+      this.rootPage = LastKnownWellPage;// set the root page to start the app off with to be the Last known well page 
     }, 3000);
   }
 
-  goToLastKnownWell(params){
-    if (!params) params = {};
-    this.navCtrl.setRoot(LastKnownWellPage);
-  }
 }

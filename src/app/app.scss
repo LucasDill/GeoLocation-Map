@@ -24,7 +24,7 @@
     width:100%;
     background-color: "steelblue2";
   }
-  .button{
+  .button{// we set the button style for the whole app here 
     font-size: large;
   }
   .ion-content{
@@ -58,7 +58,7 @@
   
   }
   
-  @keyframes pulse {
+  @keyframes pulse {// this is the animation used on the time is brain icon 
     0% {
       opacity:0;
     }
