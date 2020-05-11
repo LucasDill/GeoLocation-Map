@@ -474,7 +474,7 @@ const resp=await handleMapResponse(response,status);
         PlaneDriveTime=response.rows[0].elements[1].duration.value/3600;// get the values in the form that we are most used to 
         PlaneDriveDistance=response.rows[0].elements[1].distance.value/1000;
   }
-  else if(this.Data.StartLoc.name=="Sena Memorial Nursing Station"||this.Data.StartLoc.name=="Wunnumin Lake Nursing Station")// for the two specical cases that do not have a route defined by google 
+  else if(this.Data.StartLoc.name=="Sena Memorial Nursing Station"||this.Data.StartLoc.name=="Wanapetum Memorial Health Centre")// for the two specical cases that do not have a route defined by google 
   {
     //Trina talked to people at these locations and decided that we should add about 10 minutes for each 
     PlaneDriveDistance=getDistance(this.Data.lat,this.Data.lng,this.loc[1].lat,this.loc[1].lng);// get the straight line distance getDistance is a function we created 
