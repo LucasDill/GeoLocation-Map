@@ -355,8 +355,20 @@ async distMat(destinations,Routes){// this will find the travel information for 
       let val = await Database.collection("/Multipliers/").doc(JSON.stringify(id))
          .get()
          .then((querySnapshot) => {
+           var ret= getMulti();
+          async function getMulti(){
+
+            if(querySnapshot==undefined||querySnapshot.data()==undefined||querySnapshot.data().multi==undefined)//there was an error when a variable was not being filled fast enough so this is a function to wait to be sure it will be filled 
+            {
+              setTimeout(this.getMulti(),25);// if there is nothing wait 25 miliseconds and try again 
+            }
+            else// if the variable is filled search the database for the information required 
+            {
              destination_weather_multiplier = querySnapshot.data().multi;
              return destination_weather_multiplier;
+            }
+          }
+          return ret;
            });
            return val;
      }

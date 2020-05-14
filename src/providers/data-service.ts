@@ -68,6 +68,11 @@ export class DataServiceProvider {
 Destination:any;
 ComplexRoute:Boolean;
 
+//These Variables will be what time zone the person is in and the time zone the sending location is in 
+UserTimeZone:any;
+PatientTimeZone:any;
+
+
 
   constructor(platform: Platform) {//the constructor finds the height and width of the current platform which may be used later on to get a better idea of how large to make each of the pages 
     platform.ready().then((readySource) => {

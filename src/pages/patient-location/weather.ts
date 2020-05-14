@@ -12,4 +12,23 @@ export class WeatherService {
     
   }
 
+  async getTimeZone(lat: string, lng: string){
+    var date= new Date();
+    var timestamp= date.getTime()/1000+date.getTimezoneOffset()*60;// current UTC as Seconds Since Midnight Jan 1, 1970 UTC
+    var result;
+    console.log(timestamp)
+   return this.httpClient.get('https://maps.googleapis.com/maps/api/timezone/json?location='+lat+','+lng+'&timestamp='+timestamp+'&key=AIzaSyC2GRIwOatzPmiamkpv3znVK8hi9g4lGoU');/*.subscribe( Results=>{
+   
+      var finalChange=(Results.rawOffset+Results.dstOffset)/3600;
+      result=finalChange;
+      console.log(result);
+      return finalChange;
+    
+ 
+  
+  //return i;
+  })//get the time zone based on the lat and long 
+  */
+  }
+
 }

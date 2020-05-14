@@ -17,6 +17,11 @@ timeForm =new FormGroup({//creates a new form with the last known well
 });
   constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider) {
    //console.log(this.myDate);//Use of the current machine time for the initial timer value 
+   var offset= getTimeZone();
+   console.log(offset)
+   var totalOffset= new Date().getTimezoneOffset();
+   console.log(totalOffset);
+   this.Data.UserTimeZone=offset;
   }
   
 SubmitTime(params){//once the button is clicked to go to the next page it will push to the PatientLocationPage
@@ -30,4 +35,8 @@ SubmitTime(params){//once the button is clicked to go to the next page it will p
     }
 }
   
+}
+function getTimeZone() {
+  var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);
+  return parseFloat((offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2));
 }

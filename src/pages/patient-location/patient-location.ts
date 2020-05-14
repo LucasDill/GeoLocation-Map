@@ -5,7 +5,7 @@ import { OnInit, ViewChild } from '@angular/core';
 import { DataServiceProvider } from '../../providers/data-service';
 import { MapsAPILoader } from '@agm/core';
 import { AngularFireDatabase } from "@angular/fire/database";
-
+import { HttpClient} from "@angular/common/http";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore"; 
@@ -32,7 +32,7 @@ export class PatientLocationPage implements OnInit{
   db: any;
  
 
-  constructor(public navCtrl: NavController, private mapsAPILoader: MapsAPILoader,
+  constructor(private httpClient: HttpClient,public navCtrl: NavController, private mapsAPILoader: MapsAPILoader,
      public formBuilder: FormBuilder,public Data: DataServiceProvider,
     public DataBase: AngularFireDatabase,
     private weatherService: WeatherService,public Routes: RoutingProvider) {
@@ -380,7 +380,7 @@ async getWeather(){
     return new Promise((resolve, reject) => {
     this.db.collection("/Health Centers/")
     .get()
-    .then((querySnapshot) => {
+    .then(async (querySnapshot) => {
       querySnapshot.forEach(function(doc) {
         if (doc.data().name == name) 
           {
@@ -418,14 +418,62 @@ async getWeather(){
       this.Data.lng = lng;
       this.Data.city = city;
       this.Data.origin_area = area;
-      // get weather from chosen city
+      var SendingTimeZone;
+      
+     (await this.weatherService.getTimeZone(lat.toString(), lng.toString())).subscribe(Results=>{
+      var i=  waitforResults();
+      async function waitforResults()
+      {
+        if (Results==undefined||Results.dstOffset==undefined||Results.rawOffset==undefined)
+        {
+          console.log("Need to wait");
+          setTimeout(this.waitforResults(),25);
+        }
+        else{
+          var finalChange=(Results.rawOffset+Results.dstOffset)/3600;
+          SendingTimeZone=finalChange;
+          console.log(SendingTimeZone);
+          return finalChange;
+        }
+      }
+     
+      })//get the time zone based on the lat and long 
+
       this.getWeather();
-      if (Telestroke == true) {//if the center entered is a telestroke site go to the Imaging required page and if not go to the imaging routes page 
+var user=this.Data.UserTimeZone;
+     let m= await waitForTimeZone();
+
+      function waitForTimeZone(){
+        if(SendingTimeZone==undefined)
+        {
+          console.log("Need to wait");
+          setTimeout(waitForTimeZone,50);
+        }
+        else{
+          console.log(SendingTimeZone);
+          if(this.user==SendingTimeZone)
+     {
+       console.log("They are in the same time Zone");
+       if (Telestroke == true) {//if the center entered is a telestroke site go to the Imaging required page and if not go to the imaging routes page 
         this.navCtrl.push(ImagingRequiredPage);
       }
       else{
         this.navCtrl.push(ImagingPage);
       }
+     } 
+     else if(SendingTimeZone!=undefined){
+       console.log("It is a Different time zone");
+     }
+        }
+      }
+      console.log(m);
+    
+     
+
+
+      // get weather from chosen city
+      
+      
       
     })
      .catch((error: any) => {//catch any errors that might have been thrown 
