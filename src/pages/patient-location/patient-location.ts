@@ -419,18 +419,29 @@ async getWeather(){
       this.Data.city = city;
       this.Data.origin_area = area;
       var SendingTimeZone;
-      
+        /*interface TimeZones{
+          dstOffset: number;
+          rawOffset: number;
+          status: string;
+          timeZoneId: string;
+          timeZoneName: string;
+        }*/
+        var result;
+
+        
      (await this.weatherService.getTimeZone(lat.toString(), lng.toString())).subscribe(Results=>{
-      var i=  waitforResults();
+       result=Results;
+      let i=  waitforResults();
       async function waitforResults()
       {
-        if (Results==undefined||Results.dstOffset==undefined||Results.rawOffset==undefined)
+        console.log(result);
+        if (result==undefined||result.dstOffset==undefined||result.rawOffset==undefined)
         {
           console.log("Need to wait");
           setTimeout(this.waitforResults(),25);
         }
         else{
-          var finalChange=(Results.rawOffset+Results.dstOffset)/3600;
+          var finalChange=(result.rawOffset+result.dstOffset)/3600;
           SendingTimeZone=finalChange;
           console.log(SendingTimeZone);
           return finalChange;
@@ -438,7 +449,6 @@ async getWeather(){
       }
      
       })//get the time zone based on the lat and long 
-
       this.getWeather();
 var user=this.Data.UserTimeZone;
      let m= await waitForTimeZone();
@@ -451,7 +461,7 @@ var user=this.Data.UserTimeZone;
         }
         else{
           console.log(SendingTimeZone);
-          if(this.user==SendingTimeZone)
+          if(user==SendingTimeZone)
      {
        console.log("They are in the same time Zone");
        if (Telestroke == true) {//if the center entered is a telestroke site go to the Imaging required page and if not go to the imaging routes page 
@@ -466,7 +476,6 @@ var user=this.Data.UserTimeZone;
      }
         }
       }
-      console.log(m);
     
      
 
