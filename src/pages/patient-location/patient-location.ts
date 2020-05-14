@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { FormBuilder } from "@angular/forms"
 import { OnInit, ViewChild } from '@angular/core';
 import { DataServiceProvider } from '../../providers/data-service';
@@ -35,9 +35,10 @@ export class PatientLocationPage implements OnInit{
   constructor(private httpClient: HttpClient,public navCtrl: NavController, private mapsAPILoader: MapsAPILoader,
      public formBuilder: FormBuilder,public Data: DataServiceProvider,
     public DataBase: AngularFireDatabase,
-    private weatherService: WeatherService,public Routes: RoutingProvider) {
+    private weatherService: WeatherService,public Routes: RoutingProvider, public alertController: AlertController) {
      
       this.db = firebase.firestore();
+      
       //this.setCurrentPosition();
   }
 
@@ -51,6 +52,27 @@ export class PatientLocationPage implements OnInit{
 
 }
 
+async TimeZonePopup(){
+  const alert=await this.alertController.create({
+    
+    message: "The Site you have specifed is in a different time zone.\nDid you enter the last known well in your time zone or the time zone of the sending location?",
+    buttons: [
+{
+  text:"My Location",
+  handler: ()=>{
+    console.log("User Location")
+  }
+},{
+  text:"Sending Location",
+  handler: ()=>{
+    console.log("Sending Location")
+  }
+}
+    ]
+
+  });
+  await alert.present();
+}
 
 // call weather.ts to get weather of selected location (see getLatLng() function)
 public weather;
@@ -85,6 +107,7 @@ async getWeather(){
 // get current location this is triggered by the Use my Location button and is currently disabled 
 // Once I figure out the firebase and have it syncronized instead of querying I will come up with a search that will find the appropriate health center 
  setCurrentPosition() {
+  this.TimeZonePopup();
   if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
           this.Data.lat = position.coords.latitude;
@@ -95,6 +118,8 @@ async getWeather(){
       });
   }
 }
+
+async
 
 
   Medical_Centers;
@@ -377,6 +402,7 @@ async getWeather(){
   var cityLocation;
   var lat, lng, city, area, Telestroke;
   var OriginObject;
+ var needPopup=false;
     return new Promise((resolve, reject) => {
     this.db.collection("/Health Centers/")
     .get()
@@ -451,7 +477,13 @@ async getWeather(){
       })//get the time zone based on the lat and long 
       this.getWeather();
 var user=this.Data.UserTimeZone;
+
+
      let m= await waitForTimeZone();
+
+
+
+
 
       function waitForTimeZone(){
         if(SendingTimeZone==undefined)
@@ -473,11 +505,12 @@ var user=this.Data.UserTimeZone;
      } 
      else if(SendingTimeZone!=undefined){
        console.log("It is a Different time zone");
+       needPopup=true;
      }
         }
       }
     
-     
+    
 
 
       // get weather from chosen city
@@ -485,11 +518,14 @@ var user=this.Data.UserTimeZone;
       
       
     })
+  
      .catch((error: any) => {//catch any errors that might have been thrown 
             reject(error);
           });
+          console.log(needPopup);
+       this.TimeZonePopup();
   });
-
+ 
   }
 
 }
