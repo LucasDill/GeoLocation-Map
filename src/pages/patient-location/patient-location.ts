@@ -38,7 +38,7 @@ export class PatientLocationPage implements OnInit{
     private weatherService: WeatherService,public Routes: RoutingProvider, public alertController: AlertController) {
      
       this.db = firebase.firestore();
-      
+      console.log(this);
       //this.setCurrentPosition();
   }
 
@@ -52,27 +52,7 @@ export class PatientLocationPage implements OnInit{
 
 }
 
-async TimeZonePopup(){
-  const alert=await this.alertController.create({
-    
-    message: "The Site you have specifed is in a different time zone.\nDid you enter the last known well in your time zone or the time zone of the sending location?",
-    buttons: [
-{
-  text:"My Location",
-  handler: ()=>{
-    console.log("User Location")
-  }
-},{
-  text:"Sending Location",
-  handler: ()=>{
-    console.log("Sending Location")
-  }
-}
-    ]
 
-  });
-  await alert.present();
-}
 
 // call weather.ts to get weather of selected location (see getLatLng() function)
 public weather;
@@ -84,22 +64,23 @@ public tempfeel;
 
 async getWeather(){
   //getWeatherFromApi is found in the weather.ts file 
-    await this.weatherService.getWeatherFromApi(this.Data.lat, this.Data.lng).subscribe( weather => {  // async function returning the weather information for the area specified after the location has been found
-          this.weather = weather;
-          this.id = this.weather.weather[0].id;//the weather id is used to find the multiplier for the time multiplier 
-          this.description = this.weather.weather[0].description;//the description of the weather at the moment this value is not used 
-          this.icon = this.weather.weather[0].icon;
-          this.tempreal = this.weather.main.temp - 273.15;//the actual temperature and feel of the temperature in the area this is used for the display on the routing options
-          this.tempfeel = this.weather.main.temp - 273.15;// the temperature is retunred in Kelven hence the -273.15
-          //console.log(weather);
-         this.Data.origin_weatherdata = [this.id, this.description, this.icon, this.tempreal, this.tempfeel];//Set the custom array in the data provider with the weather data 
-          // gets description of weather
-         // console.log(this.Data.origin_weatherdata);
-          this.Data.origin_id = this.id;//Set specifics of the weather in the data provider used for finding the multipler and other parts 
-          this.Data.origin_icon = "./assets/weather/" + this.Data.origin_weatherdata[2] + ".png";
-          this.Data.origin_tempreal = this.tempreal;
-          this.Data.origin_tempfeel = this.tempfeel;
-        });
+    this.weatherService.getWeatherFromApi(this.Data.lat, this.Data.lng).subscribe(weather => {
+    this.weather = weather;
+    console.log(weather);
+    this.id = this.weather.weather[0].id; //the weather id is used to find the multiplier for the time multiplier 
+    this.description = this.weather.weather[0].description; //the description of the weather at the moment this value is not used 
+    this.icon = this.weather.weather[0].icon;
+    this.tempreal = this.weather.main.temp - 273.15; //the actual temperature and feel of the temperature in the area this is used for the display on the routing options
+    this.tempfeel = this.weather.main.temp - 273.15; // the temperature is retunred in Kelven hence the -273.15
+    //console.log(weather);
+    this.Data.origin_weatherdata = [this.id, this.description, this.icon, this.tempreal, this.tempfeel]; //Set the custom array in the data provider with the weather data 
+    // gets description of weather
+    // console.log(this.Data.origin_weatherdata);
+    this.Data.origin_id = this.id; //Set specifics of the weather in the data provider used for finding the multipler and other parts 
+    this.Data.origin_icon = "./assets/weather/" + this.Data.origin_weatherdata[2] + ".png";
+    this.Data.origin_tempreal = this.tempreal;
+    this.Data.origin_tempfeel = this.tempfeel;
+  });
 
 }
 
@@ -107,7 +88,6 @@ async getWeather(){
 // get current location this is triggered by the Use my Location button and is currently disabled 
 // Once I figure out the firebase and have it syncronized instead of querying I will come up with a search that will find the appropriate health center 
  setCurrentPosition() {
-  this.TimeZonePopup();
   if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
           this.Data.lat = position.coords.latitude;
@@ -445,55 +425,43 @@ async
       this.Data.city = city;
       this.Data.origin_area = area;
       var SendingTimeZone;
-        /*interface TimeZones{
-          dstOffset: number;
-          rawOffset: number;
-          status: string;
-          timeZoneId: string;
-          timeZoneName: string;
-        }*/
+       
         var result;
 
-        
+        //await the call to the google api function which is stored in the weather.ts file it is a http request 
      (await this.weatherService.getTimeZone(lat.toString(), lng.toString())).subscribe(Results=>{
-       result=Results;
+       result=Results;//When I was using just Result in the past it was giving me errors 
       let i=  waitforResults();
       async function waitforResults()
       {
-        console.log(result);
-        if (result==undefined||result.dstOffset==undefined||result.rawOffset==undefined)
+        //console.log(result);/////////////////////////////////////////////////////////////////used to see what the google api result is may be usefull in the future 
+        if (result==undefined||result.dstOffset==undefined||result.rawOffset==undefined)// if anything is undefined the results will loop untill they are filled 
         {
           console.log("Need to wait");
           setTimeout(this.waitforResults(),25);
         }
         else{
-          var finalChange=(result.rawOffset+result.dstOffset)/3600;
+          var finalChange=(result.rawOffset+result.dstOffset)/3600;// convert to the UTC + or - format
           SendingTimeZone=finalChange;
-          console.log(SendingTimeZone);
+       //   console.log(SendingTimeZone);////////////////////Show the time zone of the sending location 
           return finalChange;
         }
       }
      
       })//get the time zone based on the lat and long 
-      this.getWeather();
-var user=this.Data.UserTimeZone;
+      
 
+     let m= waitForTimeZone();
 
-     let m= await waitForTimeZone();
-
-
-
-
-
+var page=this;
       function waitForTimeZone(){
-        if(SendingTimeZone==undefined)
+        if(SendingTimeZone==undefined)// wait untill the sending time zone variable has been filled 
         {
-          console.log("Need to wait");
           setTimeout(waitForTimeZone,50);
         }
         else{
-          console.log(SendingTimeZone);
-          if(user==SendingTimeZone)
+          page.Data.PatientTimeZone=SendingTimeZone;// set the Sending time zone in the Data service we are using page as it did not know what this was 
+          if(page.Data.UserTimeZone==SendingTimeZone)
      {
        console.log("They are in the same time Zone");
        if (Telestroke == true) {//if the center entered is a telestroke site go to the Imaging required page and if not go to the imaging routes page 
@@ -503,29 +471,66 @@ var user=this.Data.UserTimeZone;
         this.navCtrl.push(ImagingPage);
       }
      } 
-     else if(SendingTimeZone!=undefined){
-       console.log("It is a Different time zone");
-       needPopup=true;
+     else if(SendingTimeZone!=undefined){// if it is not the same time zone and not undefined call the popup and send in if the function is a telestroke site 
+       page.TimeZonePopup(Telestroke);// call the popup again using page as there where issues using the this 
+       
      }
         }
       }
-    
-    
-
-
-      // get weather from chosen city
-      
-      
-      
+      this.getWeather();// call the the getWeather function for the next screen 
     })
   
      .catch((error: any) => {//catch any errors that might have been thrown 
             reject(error);
           });
-          console.log(needPopup);
-       this.TimeZonePopup();
   });
  
+  }
+
+  async TimeZonePopup(Telestroke){// this function will create a popup that asks about the time zones 
+    const alert=this.alertController.create({
+      message: "The Site you have specifed is in a different time zone.\nDid you enter the last known well in your time zone or the time zone of the sending location?",
+      buttons: [
+        {
+          text: "Sending Location",
+          handler: () => {
+            // enter the new time zone stuff here once we figure out what it is 
+           // console.log(this.Data.PatientTimeZone);
+            //console.log(this.Data.UserTimeZone);
+           if(this.Data.UserTimeZone<this.Data.PatientTimeZone)
+           {
+             let difference=Math.abs(Math.abs(this.Data.PatientTimeZone)-Math.abs(this.Data.UserTimeZone));// find the total difference and add it to the time 
+             console.log(difference);
+             clearInterval(this.Data.intervalID);//stops the previous interval from running 
+      this.Data.StartTime(this.Data.time,difference);// send the new time 
+           }
+           else{
+            let difference=Math.abs(Math.abs(this.Data.PatientTimeZone)-Math.abs(this.Data.UserTimeZone));// find the total difference and add it to the time 
+            clearInterval(this.Data.intervalID);//stops the previous interval from running 
+            this.Data.StartTime(this.Data.time,(-1)*difference);// send the new time 
+           }
+            if (Telestroke == true) {
+              this.navCtrl.push(ImagingRequiredPage);
+            }
+            else {
+              this.navCtrl.push(ImagingPage);
+            }
+          }
+        }, {
+          text: "My Location",
+          handler: () => {
+            // enter the new time zone stuff here once we figure out what it is 
+            if (Telestroke == true) {
+              this.navCtrl.push(ImagingRequiredPage);
+            }
+            else {
+              this.navCtrl.push(ImagingPage);
+            }
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
 }

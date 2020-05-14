@@ -31,7 +31,7 @@ SubmitTime(params){//once the button is clicked to go to the next page it will p
     if(this.Data.LastKnownWellTime!=this.timeForm.value.time1)//only stop if a new a new time is provided 
     {
       clearInterval(this.Data.intervalID);//stops the previous interval from running 
-      this.Data.StartTime(this.timeForm.value.time1);// send the new time 
+      this.Data.StartTime(this.timeForm.value.time1,0);// send the new time 
     }
 }
   

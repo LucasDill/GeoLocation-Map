@@ -84,7 +84,7 @@ PatientTimeZone:any;
   }
 
 
-  StartTime(param)//starts when a time is provided in last known well sets the time to be displayed at the top of pages after getting the current time 
+  StartTime(param,diff)//starts when a time is provided in last known well sets the time to be displayed at the top of pages after getting the current time 
   {
     this.LastKnownWellTime=param;
     this.SecondsSince= new Date().getSeconds();
@@ -94,7 +94,8 @@ PatientTimeZone:any;
     this.GivenTimeForm=ConvertToTimeForm(this.GivenHours,this.GivenMinutes);
 
     this.CurrentTime= new Date().getTime();//there may be an issue of time zones find the time in this area
-    this.CurrentHours= new Date().getHours();
+    this.CurrentHours= new Date().getHours()+diff;
+    console.log(this.CurrentHours);
     this.CurrentMinutes= new Date().getMinutes();
     //this.CurrentMinutes=this.CurrentMinutes-2;//minus one for seconds purposes
     this.CurrentTimeForm=ConvertToTimeForm(this.CurrentHours,this.CurrentMinutes);//plus one to make up for minus in time since calculation 
