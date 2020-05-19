@@ -166,10 +166,11 @@ async getFlightSpeeds(){// get the flight speeds of planes and helicopers which 
 
 addRoutes(drive, air)//combine the two arrays created on the routing pages 
 {
- 
+var temp=drive;// declare a temporary as creating a new variable gave some issues when it was called 
+drive=[];// empty out the drive array 
+
   for(var i=0;i<air.length;i++)
   {
-   
       if(air[i].Dist!=0&&air[i].name!=this.Data.StartLoc.name)// if the route does not have a distance or the name matches the location it will not display we did this because it used to give routes to where it is with a 0 distance and 1 minute travel time 
       {
         drive.push(air[i]);// add it to the drive array as long as it is not to the same location 
@@ -177,23 +178,16 @@ addRoutes(drive, air)//combine the two arrays created on the routing pages
       
   }
   
-  var i = 0;
-  while(i == 0){
-    if(drive[i]!=undefined){// this is the same idea that gets rid of all driving routes with a distance of zero which would be to the same facility 
-
-      if(drive[i].Dist==0)
+  for(var n=0;n<temp.length;n++)// go through all of the elements in the temp array we created before 
+  {
+    if(temp[n].name!=this.Data.StartLoc.name&&temp[n].name!="London Health Sciences Centre")//if the location has the same name as the start location or is the London centre remove from the list 
     {
-      drive.splice(i, 1);//remove that object from the array 
-  }
-  else{
-    break;
-  }
-}
-    else{
-      break;
+      drive.push(temp[n]);// add to the drive array if everything is as it should be 
     }
   }
   
+
+
 
 return drive;//return the combined list with the routes to the same place taken out 
 }
@@ -288,8 +282,20 @@ async distMat(destinations,Routes){// this will find the travel information for 
         let val = await Database.collection("/Multipliers/").doc(JSON.stringify(id))
         .get()
         .then((querySnapshot) => {
+          var m= waitforMultiAir();
+          function waitforMultiAir()
+          {
+            if(querySnapshot.data()==undefined||querySnapshot.data().multi_air==undefined)
+            {
+              console.log("Wait");
+              setTimeout(this.waitforMultiAir,25);
+            }
+            else{
             flight_dest_weather = querySnapshot.data().multi_air;
             return flight_dest_weather;
+            }
+          }
+            return m;
           })
           .catch(error=>{
             console.log(error);
@@ -360,7 +366,8 @@ async distMat(destinations,Routes){// this will find the travel information for 
 
             if(querySnapshot==undefined||querySnapshot.data()==undefined||querySnapshot.data().multi==undefined)//there was an error when a variable was not being filled fast enough so this is a function to wait to be sure it will be filled 
             {
-              setTimeout(this.getMulti(),25);// if there is nothing wait 25 miliseconds and try again 
+              console.log("GetMulti Print")
+              setTimeout(getMulti,25);// if there is nothing wait 25 miliseconds and try again 
             }
             else// if the variable is filled search the database for the information required 
             {

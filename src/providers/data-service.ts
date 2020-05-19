@@ -94,6 +94,7 @@ PatientTimeZone:any;
     this.GivenTimeForm=ConvertToTimeForm(this.GivenHours,this.GivenMinutes);
 
     this.CurrentTime= new Date().getTime();//there may be an issue of time zones find the time in this area
+    console.log(diff);
     this.CurrentHours= new Date().getHours()+diff;
     console.log(this.CurrentHours);
     this.CurrentMinutes= new Date().getMinutes();

@@ -382,7 +382,6 @@ async
   var cityLocation;
   var lat, lng, city, area, Telestroke;
   var OriginObject;
- var needPopup=false;
     return new Promise((resolve, reject) => {
     this.db.collection("/Health Centers/")
     .get()
@@ -465,10 +464,10 @@ var page=this;
      {
        console.log("They are in the same time Zone");
        if (Telestroke == true) {//if the center entered is a telestroke site go to the Imaging required page and if not go to the imaging routes page 
-        this.navCtrl.push(ImagingRequiredPage);
+        page.navCtrl.push(ImagingRequiredPage);
       }
       else{
-        this.navCtrl.push(ImagingPage);
+        page.navCtrl.push(ImagingPage);
       }
      } 
      else if(SendingTimeZone!=undefined){// if it is not the same time zone and not undefined call the popup and send in if the function is a telestroke site 
