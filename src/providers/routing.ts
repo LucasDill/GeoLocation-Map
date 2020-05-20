@@ -180,7 +180,7 @@ drive=[];// empty out the drive array
   
   for(var n=0;n<temp.length;n++)// go through all of the elements in the temp array we created before 
   {
-    if(temp[n].name!=this.Data.StartLoc.name&&temp[n].name!="London Health Sciences Centre")//if the location has the same name as the start location or is the London centre remove from the list 
+    if(temp[n].name!=this.Data.StartLoc.name&&temp[n].name!="London Health Sciences Centre"&&temp[n].Dist!=0)//if the location has the same name as the start location or is the London centre remove from the list 
     {
       drive.push(temp[n]);// add to the drive array if everything is as it should be 
     }
