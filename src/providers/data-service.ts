@@ -68,6 +68,9 @@ export class DataServiceProvider {
 Destination:any;
 ComplexRoute:Boolean;
 
+
+AllMedicalCenters:any;// this is loaded when the app first initializes and gets all of the Medical Centeres so we do not need to search the Database as much 
+
 //These Variables will be what time zone the person is in and the time zone the sending location is in 
 UserTimeZone:any;
 PatientTimeZone:any;

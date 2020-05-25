@@ -30,7 +30,7 @@
   <div style="height:5vh;"></div>
   <div *ngFor="let health_centres of Medical_Centers"><!--*ngFor is a special function of ionic that allows it to go through and display every part of a list in this case all the parts returned by the search function -->
 <!--Tried the height to fix it probably does nothing and no screen size is that small-->
-    <button type ="button" padding  id="patientLocation-button1" text-wrap style="font-size: auto;" ion-button color="steelblue1"  fill="outline"  block on-click="getLatLng(health_centres.name)" >
+    <button type ="button" padding  id="patientLocation-button1" text-wrap style="font-size: auto;" ion-button color="steelblue1"  fill="outline"  block on-click="getLatLng(health_centres)" >
       <!--{{health_centres.address}}-->
       <p>
         {{health_centres.name}}:  {{health_centres.city}}<!--This is another special part of ionic where it allows you to display information from the ts file -->

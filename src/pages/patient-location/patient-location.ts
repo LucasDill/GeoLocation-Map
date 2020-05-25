@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { FormBuilder } from "@angular/forms"
-import { OnInit, ViewChild } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { DataServiceProvider } from '../../providers/data-service';
 import { MapsAPILoader } from '@agm/core';
 import { AngularFireDatabase } from "@angular/fire/database";
@@ -11,7 +11,7 @@ import "firebase/auth";
 import "firebase/firestore"; 
 
 import { Subject } from 'rxjs/Subject'
-import { Observable } from 'rxjs/Rx';
+
 import { ImagingPage } from '../imaging/imaging';
 import { ImagingRequiredPage } from '../imaging-required/imaging-required';
 
@@ -23,7 +23,7 @@ import { RoutingProvider } from '../../providers/routing';
   selector: 'page-patient-location',
   templateUrl: 'patient-location.html'
 })
-export class PatientLocationPage implements OnInit{
+export class PatientLocationPage /*implements OnInit*/{
  
   @ViewChild("search")
   
@@ -48,8 +48,7 @@ export class PatientLocationPage implements OnInit{
     //this.setCurrentPosition();
 
     //load Places Autocomplete
-    this.mapsAPILoader.load();
-
+    this.mapsAPILoader.load()
 }
 
 
@@ -99,312 +98,72 @@ async getWeather(){
   }
 }
 
-async
 
 
-  Medical_Centers;
-  startAt = new Subject()
-  endAt = new Subject()
-  start;
-  end;
 
-  startobs = this.startAt.asObservable();
-  endobs = this.endAt.asObservable();
-
-  // subscribes to firestore to get realtime results of keys when pressed
-  ngOnInit() {
-    Observable.combineLatest(this.startobs, this.endobs).subscribe((value) => {
-      this.firestorequery(value[0], value[1]).then((Medical_Centers) => {
-        this.Medical_Centers = Medical_Centers;
-    });
-  });
-  }
+  Medical_Centers;//This is what holds the data to be displayed on the start page 
+ 
+  
 
 
   // gets key pressed (see HTML) and pushes it into array of pressed keys
   search($event) {
-      let q = $event.target.value
-      this.startAt.next(q)
-      this.endAt.next(q+"\uf8ff")
+      let q = $event.target.value;//Get the value for what was searched 
+     if(q.length>0)// if there is something there call the search function 
+     {
+      this.getResults(q);
+     }
+     else{//If ther is no results instead of displaying everything display no results 
+       this.Medical_Centers=[]
+     }
+      
   }
 
-  // firestore database search
-  firestorequery(start, end){
-   
-    if (start.length != 0 && start == start.toUpperCase())
+getResults(search)// get the results of the search 
+{
+  let arr=[]//set the array and the Medical_Centers to nothing 
+  this.Medical_Centers=[];
+for(var i=0;i<this.Data.AllMedicalCenters.length;i++)//Go through all of the medical centers and check to see if there is a match 
+{
+if(search.toUpperCase()==this.Data.AllMedicalCenters[i].name.toUpperCase().substring(0,search.length))//make everything uppercase to search and make sure the name in the database is the same length 
+{
+  arr.push(this.Data.AllMedicalCenters[i]);// if there is a match push to the array to be displayed 
+}
+else if(search.toUpperCase()==this.Data.AllMedicalCenters[i].city.toUpperCase().substring(0,search.length))//This one searches by the city 
+{
+  arr.push(this.Data.AllMedicalCenters[i]);
+}
+else if(this.Data.AllMedicalCenters[i].AKA!=undefined)// if there is nothing else search through the also Known as Variables 
+{
+  for(var j=0;j<this.Data.AllMedicalCenters[i].AKA.length;j++)
+  {
+    if(search.toUpperCase()==this.Data.AllMedicalCenters[i].AKA[j].toUpperCase().substring(0,search.length))
     {
-      this.next = 1;
-      return new Promise((resolve, reject) => {//search by the cities with a start and end but keep it to a limit of 3 
-        this.db.collection("/Health Centers/")
-          //.where('city', '==', start
-          .orderBy("city")
-          .startAt(start)
-          .endAt(end+'\uf8ff')
-          .limit(3)
-          .get()
-          .then((querySnapshot) => {
-            let arr = [];
-            querySnapshot.forEach(function(doc) {
-              var obj = JSON.parse(JSON.stringify(doc.data()));
-              obj.id = doc.id;
-              //obj.eventId = doc.id;
-              arr.push(obj);//push the results onto an array so we can combine it with other searches and give the final results 
-              //console.log(doc.data())
-            });
-      
-            if (arr.length > 0) {//if there are any results in the array resolve or search again by the name of the health center
-              resolve(arr);
-            } else {
-              //console.log("No such location!");
-              
-              this.db.collection("/Health Centers/")
-            //.where('city', '==', start)
-            .orderBy("name")
-            .startAt(start)
-            .endAt(end+'\uf8ff')
-            .limit(3)
-            .get()
-            .then((querySnapshot) => {
-              let arr = [];
-              querySnapshot.forEach(function(doc) {
-                var obj = JSON.parse(JSON.stringify(doc.data()));
-                obj.id = doc.id;
-                //obj.eventId = doc.id;
-                arr.push(obj);
-                //console.log(doc.data())
-              });
-        
-              if (arr.length > 0) {//if there are results show them and if not end the searches and look for any errors 
-                resolve(arr);
-              } else {
-                //console.log("No such location!");
-                resolve(null);
-              }
-            })
-            .catch((error: any) => {
-              reject(error);
-            });
-            }
-          })
-          .catch((error: any) => {
-            reject(error);
-          });
-  
-           });
-    }
-    if (start.length != 0 && this.next == 1)//do another search first by city and the by name 
-    {
-      return new Promise((resolve, reject) => {
-        this.db.collection("/Health Centers/")
-          //.where('city', '==', start
-          .orderBy("city")
-          .startAt(start)
-          .endAt(end+'\uf8ff')
-          .limit(3)
-          .get()
-          .then((querySnapshot) => {
-            let arr = [];
-            querySnapshot.forEach(function(doc) {
-              var obj = JSON.parse(JSON.stringify(doc.data()));
-              obj.id = doc.id;
-              //obj.eventId = doc.id;
-              arr.push(obj);
-              //console.log(doc.data())
-            });
-      
-            if (arr.length > 0) {
-              resolve(arr);
-            } else {
-              //console.log("No such location!");
-              
-              this.db.collection("/Health Centers/")
-            //.where('city', '==', start)
-            .orderBy("name")
-            .startAt(start)
-            .endAt(end+'\uf8ff')
-            .limit(3)
-            .get()
-            .then((querySnapshot) => {
-              let arr = [];
-              querySnapshot.forEach(function(doc) {
-                var obj = JSON.parse(JSON.stringify(doc.data()));
-                obj.id = doc.id;
-                //obj.eventId = doc.id;
-                arr.push(obj);
-                //console.log(doc.data())
-              });
-        
-              if (arr.length > 0) {
-                resolve(arr);
-              } else {
-                //console.log("No such location!");
-                resolve(null);
-              }
-            })
-            .catch((error: any) => {
-              reject(error);
-            });
-            }
-          })
-          .catch((error: any) => {
-            reject(error);
-          });
-  
-           });
-    }
-    else if (start.length == 0 && this.next == 1)
-    {
-      this.next = 0;
-      return new Promise((resolve, reject) => {
-        this.db.collection("/Health Centers/")
-          //.where('city', '==', start
-          .orderBy("cityForSearch")//to deal with the issue of capatalization we have created extra data types that have the names without any capatalization 
-          .startAt(start)
-          .endAt(end+'\uf8ff')
-          .limit(3)
-          .get()
-          .then((querySnapshot) => {
-            let arr = [];
-            querySnapshot.forEach(function(doc) {
-              var obj = JSON.parse(JSON.stringify(doc.data()));//the data is returned in a JSON format so we must parse it to get in the formay that we want 
-              obj.id = doc.id;
-              //obj.eventId = doc.id;
-              arr.push(obj);
-              //console.log(doc.data())
-            });
-      
-            if (arr.length > 0) {
-              resolve(arr);
-            } else {
-              //console.log("No such location!");
-              
-              this.db.collection("/Health Centers/")
-            //.where('city', '==', start)
-            .orderBy("nameForSearch")//same story this is a data type name that has no capatalization 
-            .startAt(start)
-            .endAt(end+'\uf8ff')
-            .limit(3)
-            .get()
-            .then((querySnapshot) => {
-              let arr = [];
-              querySnapshot.forEach(function(doc) {
-                var obj = JSON.parse(JSON.stringify(doc.data()));
-                obj.id = doc.id;
-                //obj.eventId = doc.id;
-                arr.push(obj);
-                //console.log(doc.data())
-              });
-        
-              if (arr.length > 0) {
-                resolve(arr);
-              } else {
-                //console.log("No such location!");
-                resolve(null);
-              }
-            })
-            .catch((error: any) => {
-              reject(error);
-            });
-            }
-          })
-          .catch((error: any) => {
-            reject(error);
-          });
-  
-           });
-    }
-    else
-    {
-      return new Promise((resolve, reject) => {
-        this.db.collection("/Health Centers/")
-          //.where('city', '==', start
-          .orderBy("cityForSearch")
-          .startAt(start)
-          .endAt(end+'\uf8ff')
-          .limit(3)
-          .get()
-          .then((querySnapshot) => {
-            let arr = [];
-            querySnapshot.forEach(function(doc) {
-              var obj = JSON.parse(JSON.stringify(doc.data()));
-              obj.id = doc.id;
-              //obj.eventId = doc.id;
-              arr.push(obj);
-              //console.log(doc.data())
-            });
-      
-            if (arr.length > 0) {
-              resolve(arr);
-            } else {
-              //console.log("No such location!");
-              
-              this.db.collection("/Health Centers/")
-            //.where('city', '==', start)
-            .orderBy("nameForSearch")
-            .startAt(start)
-            .endAt(end+'\uf8ff')
-            .limit(3)
-            .get()
-            .then((querySnapshot) => {
-              let arr = [];
-              querySnapshot.forEach(function(doc) {
-                var obj = JSON.parse(JSON.stringify(doc.data()));
-                obj.id = doc.id;
-                //obj.eventId = doc.id;
-                arr.push(obj);
-                //console.log(doc.data())
-              });
-        
-              if (arr.length > 0) {
-                resolve(arr);
-              } else {
-               // console.log("No such location!");
-                resolve(null);
-              }
-            })
-            .catch((error: any) => {
-              reject(error);
-            });
-            }
-          })
-          .catch((error: any) => {
-            reject(error);
-          });
-  
-           });
+      let temp=this.Data.AllMedicalCenters[i].name;// save the usual name temporarally 
+      this.Data.AllMedicalCenters[i].name=this.Data.AllMedicalCenters[i].AKA[j];// set the name for the object as the also known as so it displays on the button
+      this.Data.AllMedicalCenters[i].AKA[j]=temp;//Save the other name in the AKA 
+      arr.push(this.Data.AllMedicalCenters[i]);// add it to the array 
     }
   }
+}
+}
+this.Medical_Centers=arr;//make the display information the array 
+}
+
+  
 
 
   cityLocation;
 
-  getLatLng(name){
-  var cityLocation;
-  var lat, lng, city, area, Telestroke;
-  var OriginObject;
-    return new Promise((resolve, reject) => {
-    this.db.collection("/Health Centers/")
-    .get()
-    .then(async (querySnapshot) => {
-      querySnapshot.forEach(function(doc) {
-        if (doc.data().name == name) 
-          {
-            cityLocation = new google.maps.LatLng(
-              doc.data().lat,
-              doc.data().lng
-            );
-            lat = doc.data().lat;
-            lng = doc.data().lng;
-            city = doc.data().city;
-            area = doc.data().area;
-            OriginObject=doc.data();
-            if (
-              doc.data().bTelestroke == true
-            ) {
+  async getLatLng(name){
+    console.log(name.lat);
+  //var cityLocation=new google.maps.LatLng(name.lat,name.lng);
+  var Telestroke;
+    
+            if ( name.bTelestroke == true) {
               Telestroke=true;
               // write code here to go to next applicable page
               //console.log("YOU ARE AT A TELSTROKE CENTRE");//used to test and make sure it was recognizing the right thing 
-
             }
             else{
               // write code here to go to next applicable page
@@ -413,22 +172,21 @@ async
               
             }
            
-      }
-      });
+      
       // set variables to public versions of the variables
       // could not do this directly inside of query
-      this.Data.StartLoc=OriginObject;
-      this.cityLocation = cityLocation;
-      this.Data.lat = lat;
-      this.Data.lng = lng;
-      this.Data.city = city;
-      this.Data.origin_area = area;
+      this.Data.StartLoc=name;
+     // this.cityLocation = cityLocation;
+      this.Data.lat = name.lat;
+      this.Data.lng = name.lng;
+      this.Data.city = name.city;
+      this.Data.origin_area = name.area;
       var SendingTimeZone;
        
         var result;
 
         //await the call to the google api function which is stored in the weather.ts file it is a http request 
-     (await this.weatherService.getTimeZone(lat.toString(), lng.toString())).subscribe(Results=>{
+     (await this.weatherService.getTimeZone(name.lat.toString(), name.lng.toString())).subscribe(Results=>{
        result=Results;//When I was using just Result in the past it was giving me errors 
       let i=  waitforResults();
       async function waitforResults()
@@ -477,14 +235,10 @@ var page=this;
         }
       }
       this.getWeather();// call the the getWeather function for the next screen 
-    })
-  
-     .catch((error: any) => {//catch any errors that might have been thrown 
-            reject(error);
-          });
-  });
+    }
+
  
-  }
+  
 
   async TimeZonePopup(Telestroke){// this function will create a popup that asks about the time zones 
     const alert=this.alertController.create({
