@@ -27,7 +27,7 @@
 <div style="height:3vh;"></div>
 <!--this is the search box for the cities every time there is a new key entered it will search by calling the functions in the ts -->
   <ion-input type="text" [(ngModel)]="searchterm" (keyup)="search($event)" autocapitalize="off" class="input" style="font-size: large;" placeholder="Search By City or Centre" id="txtHome" required style = "border: solid black 3px;"></ion-input>
-  <div style="height:5vh;"></div>
+  <ion-scroll scrollY="true" style="height: 40vh;">
   <div *ngFor="let health_centres of Medical_Centers"><!--*ngFor is a special function of ionic that allows it to go through and display every part of a list in this case all the parts returned by the search function -->
 <!--Tried the height to fix it probably does nothing and no screen size is that small-->
     <button type ="button" padding  id="patientLocation-button1" text-wrap style="font-size: auto;" ion-button color="steelblue1"  fill="outline"  block on-click="getLatLng(health_centres)" >
@@ -38,12 +38,13 @@
       </p>
     </button>
   </div>
+
   <div *ngIf="Medical_Centers?.length < 1"><!--ngIf is another ionic specific thing that only shows if the value is true in this case if there are no results it will show the No results text if the length of the list is less than one  -->
     <hr>
     <p style="font-size: x-large; text-align: center;">
       No results
     </p>
   </div>
-  
+</ion-scroll>
 </ion-content>
 
