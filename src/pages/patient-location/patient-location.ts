@@ -6,11 +6,8 @@ import { DataServiceProvider } from '../../providers/data-service';
 import { MapsAPILoader } from '@agm/core';
 import { AngularFireDatabase } from "@angular/fire/database";
 import { HttpClient} from "@angular/common/http";
-import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore"; 
-
-import { Subject } from 'rxjs/Subject'
 
 import { ImagingPage } from '../imaging/imaging';
 import { ImagingRequiredPage } from '../imaging-required/imaging-required';
@@ -23,28 +20,22 @@ import { RoutingProvider } from '../../providers/routing';
   selector: 'page-patient-location',
   templateUrl: 'patient-location.html'
 })
-export class PatientLocationPage /*implements OnInit*/{
+export class PatientLocationPage {
  
   @ViewChild("search")
   
   next: number;
   
-  db: any;
- 
 
   constructor(private httpClient: HttpClient,public navCtrl: NavController, private mapsAPILoader: MapsAPILoader,
      public formBuilder: FormBuilder,public Data: DataServiceProvider,
     public DataBase: AngularFireDatabase,
     private weatherService: WeatherService,public Routes: RoutingProvider, public alertController: AlertController) {
-     
-      this.db = firebase.firestore();
-      console.log(this);
-      //this.setCurrentPosition();
   }
 
   ionViewDidLoad() {
 
-    //set current position
+    //set current position used for testing the use my location functionality 
     //this.setCurrentPosition();
 
     //load Places Autocomplete
@@ -71,10 +62,8 @@ async getWeather(){
     this.icon = this.weather.weather[0].icon;
     this.tempreal = this.weather.main.temp - 273.15; //the actual temperature and feel of the temperature in the area this is used for the display on the routing options
     this.tempfeel = this.weather.main.temp - 273.15; // the temperature is retunred in Kelven hence the -273.15
-    //console.log(weather);
     this.Data.origin_weatherdata = [this.id, this.description, this.icon, this.tempreal, this.tempfeel]; //Set the custom array in the data provider with the weather data 
     // gets description of weather
-    // console.log(this.Data.origin_weatherdata);
     this.Data.origin_id = this.id; //Set specifics of the weather in the data provider used for finding the multipler and other parts 
     this.Data.origin_icon = "./assets/weather/" + this.Data.origin_weatherdata[2] + ".png";
     this.Data.origin_tempreal = this.tempreal;
@@ -156,7 +145,6 @@ this.Medical_Centers=arr;//make the display information the array
   cityLocation;
 
   async getLatLng(name){
-    console.log(name.lat);
   //var cityLocation=new google.maps.LatLng(name.lat,name.lng);
   var Telestroke;
     
