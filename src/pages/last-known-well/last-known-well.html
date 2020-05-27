@@ -12,9 +12,14 @@
   </h3>
   <div style="height:13vh;"></div>
   <form [formGroup]="timeForm" (ngSubmit)="SubmitTime()"><!--The last known well in hour format-->
+    <ion-item id="lastKnownWellDate">
+      <ion-label>Date</ion-label>
+      <ion-datetime displayFormat="MMM D" [(placeholder)]="myDate" pickerFormat="MMM D" [(ngModel)]="myDate" formControlName="date"></ion-datetime><!--The time picker without the date included -->
+    </ion-item>
+    <div class="spacer" style="height:3vh;" id="lastKnownWell-spacer7"></div>
     <ion-item id="lastKnownWellTime">
       <ion-label>Time in EST</ion-label>
-      <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="myDate" formControlName="time1"></ion-datetime><!--The time picker without the date included -->
+      <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="myTime" formControlName="time1"></ion-datetime><!--The time picker without the date included -->
     </ion-item>
     <!--I still need to look into how to properly space this out for a full screen app might need to have it with pixels from the height in the Data Provider -->
     <div class="spacer" style="height:3vh;" id="lastKnownWell-spacer7"></div>

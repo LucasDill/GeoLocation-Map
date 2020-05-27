@@ -17,17 +17,20 @@ export class LastKnownWellPage {
 
   db : any;
 
-
-myDate=moment().format("HH:mm");//sets the current time option for the last known well based on the time of the machine 
+myDate=moment().format("MMM D");
+myTime=moment().format("HH:mm");//sets the current time option for the last known well based on the time of the machine 
 timeForm =new FormGroup({//creates a new form with the last known well 
+  date: new FormControl('',),
   time1: new FormControl('',Validators.required),//set the form time with valdators required so they need to be entered in order to continue 
 });
   constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider,public DataBase: AngularFireDatabase) {
    //console.log(this.myDate);//Use of the current machine time for the initial timer value 
    var offset= getTimeZone();
-   console.log(offset)
+   console.log(moment().format("HH:mm"));
+   console.log(moment().format("MMM D   HH:mm"));
+   //console.log(offset)
    var totalOffset= new Date().getTimezoneOffset();
-   console.log(totalOffset);
+  // console.log(totalOffset);
    this.Data.UserTimeZone=offset;
    this.db=firebase.firestore();
   }
@@ -49,7 +52,9 @@ timeForm =new FormGroup({//creates a new form with the last known well
 
 SubmitTime(params){//once the button is clicked to go to the next page it will push to the PatientLocationPage
   if (!params) params = {};//set the parameters to null if there are none 
+  console.log(params);
     this.navCtrl.push(PatientLocationPage);//go to the next page 
+    console.log(this.timeForm.value.time)
     this.Data.time=this.timeForm.value.time1;//set the time on the data page which will start the tier 
     if(this.Data.LastKnownWellTime!=this.timeForm.value.time1)//only stop if a new a new time is provided 
     {

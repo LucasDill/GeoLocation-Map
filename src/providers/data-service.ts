@@ -97,9 +97,7 @@ PatientTimeZone:any;
     this.GivenTimeForm=ConvertToTimeForm(this.GivenHours,this.GivenMinutes);
 
     this.CurrentTime= new Date().getTime();//there may be an issue of time zones find the time in this area
-    console.log(diff);
     this.CurrentHours= new Date().getHours()+diff;
-    console.log(this.CurrentHours);
     this.CurrentMinutes= new Date().getMinutes();
     //this.CurrentMinutes=this.CurrentMinutes-2;//minus one for seconds purposes
     this.CurrentTimeForm=ConvertToTimeForm(this.CurrentHours,this.CurrentMinutes);//plus one to make up for minus in time since calculation 
@@ -109,7 +107,6 @@ PatientTimeZone:any;
     this.CurrentHours=disp.hour;
     this.CurrentMinutes=disp.min;
    
-
     if(this.GivenTimeForm>this.CurrentTimeForm)// if the time given is greater than the current time it will add 24 hours as it assumes that the incident happened the previous day 
     {
       this.SinceTimeForm=((24-this.GivenTimeForm)+this.CurrentTimeForm);
