@@ -14,7 +14,7 @@
   <form [formGroup]="timeForm" (ngSubmit)="SubmitTime()"><!--The last known well in hour format-->
     <ion-item id="lastKnownWellDate">
       <ion-label>Date</ion-label>
-      <ion-datetime displayFormat="MMM D" [(placeholder)]="myDate" pickerFormat="MMM D" [(ngModel)]="myDate" formControlName="date"></ion-datetime><!--The time picker without the date included -->
+      <ion-datetime displayFormat="MMM D" pickerFormat="MMM D" [(ngModel)]="myDate" formControlName="date"></ion-datetime><!--The time picker without the date included -->
     </ion-item>
     <div class="spacer" style="height:3vh;" id="lastKnownWell-spacer7"></div>
     <ion-item id="lastKnownWellTime">
