@@ -27,6 +27,9 @@ import { HttpClientModule} from "@angular/common/http";
 import { WeatherService } from '../pages/patient-location/weather';
 import { RoutingProvider } from '../providers/routing';
 
+import { File } from '@ionic-native/file/ngx';
+import { DocumentViewer } from '@ionic-native/document-viewer';
+
 @NgModule({
   declarations: [// this is where we declare all of our pages and components if you use the auto generate this may be added but you may also need to do it manually 
     MyApp,
@@ -85,7 +88,9 @@ import { RoutingProvider } from '../providers/routing';
     HttpClientModule,
     WeatherService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    RoutingProvider
+    RoutingProvider,
+    File,
+    DocumentViewer
   ]
 })
 export class AppModule {}

@@ -9,6 +9,9 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import "firebase/auth";
 import "firebase/firestore"; 
 import firebase from 'firebase';
+import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
+import { File } from '@ionic-native/file/ngx';
+
 @Component({
   selector: 'page-last-known-well',
   templateUrl: 'last-known-well.html'
@@ -23,7 +26,7 @@ timeForm =new FormGroup({//creates a new form with the last known well
   date: new FormControl(),
   time1: new FormControl('',Validators.required),//set the form time with valdators required so they need to be entered in order to continue 
 });
-  constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider,public DataBase: AngularFireDatabase, private modal: ModalController) {
+  constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider,public DataBase: AngularFireDatabase, private modal: ModalController, private document: DocumentViewer,private file: File) {
    //console.log(this.myDate);//Use of the current machine time for the initial timer value 
    var offset= getTimeZone();
    //console.log(offset)
@@ -67,6 +70,14 @@ TimeModal(){
  const LKWModal= this.modal.create('LkwModalPage');
 
  LKWModal.present();
+}
+
+OpenPdf(){
+
+  const options: DocumentViewerOptions={
+    title:"Test PDF"
+  };
+  this.document.viewDocument('www/assets/pdf/StrokeCare.pdf','applicaion/pdf',{});
 }
 
 }
