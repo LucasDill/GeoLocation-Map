@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms"
 import * as moment from 'moment';
 import { DataServiceProvider } from '../../providers/data-service';
@@ -23,7 +23,7 @@ timeForm =new FormGroup({//creates a new form with the last known well
   date: new FormControl(),
   time1: new FormControl('',Validators.required),//set the form time with valdators required so they need to be entered in order to continue 
 });
-  constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider,public DataBase: AngularFireDatabase) {
+  constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider,public DataBase: AngularFireDatabase, private modal: ModalController) {
    //console.log(this.myDate);//Use of the current machine time for the initial timer value 
    var offset= getTimeZone();
    //console.log(offset)
@@ -63,6 +63,12 @@ SubmitTime(params){//once the button is clicked to go to the next page it will p
     }
 }
   
+TimeModal(){
+ const LKWModal= this.modal.create('LkwModalPage');
+
+ LKWModal.present();
+}
+
 }
 function getTimeZone() {
   var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);

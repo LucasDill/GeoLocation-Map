@@ -10,9 +10,18 @@
   <h3 id="lastKnownWell-heading5" style="color:#000000;font-weight:400;font-size: xx-large;">
     What time was the patient last known to be well?
   </h3>
-  <div style="height:13vh;"></div>
+  <div style="height:6vh;"></div>
+  <ion-item (click)="TimeModal()" no-lines style="text-align: center;" >
+    <ion-row justify-content-center>
+    <ion-icon name="help-circle-outline"></ion-icon>
+    <p style="color: blue;">  More Information</p>
+    </ion-row>
+  </ion-item>
+  
+  <div style="height:6vh;"></div>
   <form [formGroup]="timeForm" (ngSubmit)="SubmitTime()"><!--The last known well in hour format-->
     <ion-item id="lastKnownWellDate">
+  
       <ion-label>Date</ion-label>
       <ion-datetime displayFormat="MMM D" pickerFormat="MMM D" [(ngModel)]="myDate" formControlName="date"></ion-datetime><!--The time picker without the date included -->
     </ion-item>
@@ -30,4 +39,5 @@
       Next
     </button>
   </form>
+
 </ion-content>
