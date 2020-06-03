@@ -11,8 +11,10 @@ import "firebase/firestore";
 import firebase from 'firebase';
 import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
 import { File } from '@ionic-native/file';
-import { fstat } from 'fs';
-import { c } from '@angular/core/src/render3';
+
+import { FileChooser } from "@ionic-native/file-chooser/ngx";
+import { FileOpener } from "@ionic-native/file-opener/ngx";
+import { FilePath } from "@ionic-native/file-path/ngx";
 
 @Component({
   selector: 'page-last-known-well',
@@ -28,7 +30,8 @@ timeForm =new FormGroup({//creates a new form with the last known well
   date: new FormControl(),
   time1: new FormControl('',Validators.required),//set the form time with valdators required so they need to be entered in order to continue 
 });
-  constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider,public DataBase: AngularFireDatabase, private modal: ModalController, private document: DocumentViewer,private file: File,public platform: Platform) {
+  constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider,public DataBase: AngularFireDatabase, private modal: ModalController, private document: DocumentViewer,private file: File,public platform: Platform,
+   private fileChooser: FileChooser,private fileOpener: FileOpener,private filePath: FilePath ) {
    //console.log(this.myDate);//Use of the current machine time for the initial timer value 
    var offset= getTimeZone();
    //console.log(offset)
@@ -76,7 +79,7 @@ TimeModal(){
 
 OpenPdf(){
 
-  const options: DocumentViewerOptions={
+  /*const options: DocumentViewerOptions={
     title:"Test PDF"
   };
   let path=null;
@@ -87,6 +90,21 @@ OpenPdf(){
     path=this.file.dataDirectory
   }
   this.document.viewDocument(this.file.applicationDirectory+'www/assets/pdf/StrokeCare.pdf','applicaion/pdf',options);
+  */
+
+  this.fileChooser.open().then(file=>{
+    this.filePath.resolveNativePath(file).then(resolvedFilePath=>{
+      this.fileOpener.open(resolvedFilePath,'application/pdf').then(value=>{
+        alert("It worked");
+      }).catch(err=>{
+        alert(JSON.stringify(err));
+      });
+    }).catch(err=>{
+      alert(JSON.stringify(err));
+    });
+    }).catch(err=>{
+      alert(JSON.stringify(err));
+    });
 }
 
 }
