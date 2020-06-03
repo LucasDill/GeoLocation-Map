@@ -77,8 +77,8 @@ TimeModal(){
 
 OpenPdf(){
 var url="https://tbrhsc.net/";
-const browser=this.inAppBrowser.create(url,'_self');
-
+//const browser=this.inAppBrowser.create(url,'_self');
+this.inAppBrowser.create(encodeURI(this.file.dataDirectory+"www/assets/pdf/StrokeCare.pdf"),'_system');
   /*const options: DocumentViewerOptions={
     title:"Test PDF"
   };
