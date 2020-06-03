@@ -27,12 +27,10 @@ import { HttpClientModule} from "@angular/common/http";
 import { WeatherService } from '../pages/patient-location/weather';
 import { RoutingProvider } from '../providers/routing';
 
-import { FileChooser } from "@ionic-native/file-chooser/ngx";
-import { FileOpener } from "@ionic-native/file-opener/ngx";
-import { FilePath } from "@ionic-native/file-path/ngx";
-
 import { File } from '@ionic-native/file';
 import { DocumentViewer } from '@ionic-native/document-viewer';
+
+import { InAppBrowser } from "@ionic-native/in-app-browser/ngx";
 
 @NgModule({
   declarations: [// this is where we declare all of our pages and components if you use the auto generate this may be added but you may also need to do it manually 
@@ -95,9 +93,7 @@ import { DocumentViewer } from '@ionic-native/document-viewer';
     RoutingProvider,
     File,
     DocumentViewer,
-    FileChooser,
-    FileOpener,
-    FilePath
+    InAppBrowser
   ]
 })
 export class AppModule {}
