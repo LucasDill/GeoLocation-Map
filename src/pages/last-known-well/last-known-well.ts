@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, Platform } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms"
 import * as moment from 'moment';
 import { DataServiceProvider } from '../../providers/data-service';
@@ -10,7 +10,9 @@ import "firebase/auth";
 import "firebase/firestore"; 
 import firebase from 'firebase';
 import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
-import { File } from '@ionic-native/file/ngx';
+import { File } from '@ionic-native/file';
+import { fstat } from 'fs';
+import { c } from '@angular/core/src/render3';
 
 @Component({
   selector: 'page-last-known-well',
@@ -26,7 +28,7 @@ timeForm =new FormGroup({//creates a new form with the last known well
   date: new FormControl(),
   time1: new FormControl('',Validators.required),//set the form time with valdators required so they need to be entered in order to continue 
 });
-  constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider,public DataBase: AngularFireDatabase, private modal: ModalController, private document: DocumentViewer,private file: File) {
+  constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider,public DataBase: AngularFireDatabase, private modal: ModalController, private document: DocumentViewer,private file: File,public platform: Platform) {
    //console.log(this.myDate);//Use of the current machine time for the initial timer value 
    var offset= getTimeZone();
    //console.log(offset)
@@ -77,7 +79,14 @@ OpenPdf(){
   const options: DocumentViewerOptions={
     title:"Test PDF"
   };
-  this.document.viewDocument('www/assets/pdf/StrokeCare.pdf','applicaion/pdf',{});
+  let path=null;
+  if(this.platform.is("ios")){
+    path=this.file.documentsDirectory;
+  }
+  else if(this.platform.is('android')){
+    path=this.file.dataDirectory
+  }
+  this.document.viewDocument(this.file.applicationDirectory+'www/assets/pdf/StrokeCare.pdf','applicaion/pdf',options);
 }
 
 }

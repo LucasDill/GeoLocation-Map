@@ -27,7 +27,7 @@ import { HttpClientModule} from "@angular/common/http";
 import { WeatherService } from '../pages/patient-location/weather';
 import { RoutingProvider } from '../providers/routing';
 
-import { File } from '@ionic-native/file/ngx';
+import { File } from '@ionic-native/file';
 import { DocumentViewer } from '@ionic-native/document-viewer';
 
 @NgModule({
