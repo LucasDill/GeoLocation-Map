@@ -80,4 +80,18 @@ const viewer=this.document.viewDocument(filePath+fileName, 'application/pdf', op
 console.log(viewer);
 }
 }
+OpenPDF2()
+{
+  let filePath = this.file.applicationDirectory + 'www/assets/pdf';
+ // for android copy the file to a shared space so the PDF reader app can access it
+ if (this.plt.is('android')) {
+  let theMove = this.file.copyFile(filePath, 'StrokeCare.pdf', this.file.externalDataDirectory, 'StrokeCare.pdf');
+  // update the path variable
+  filePath = this.file.externalDataDirectory;
+ }
+ // and open the PDF
+ const browser = this.iab.create(normalizeURL(filePath + 'StrokeCare.pdf'), '_system', 'location=yes');
+}
+
+
 }

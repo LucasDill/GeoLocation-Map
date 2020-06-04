@@ -96,7 +96,8 @@ const browser=this.inAppBrowser.create(url,'_self');
   console.log(test);
   document.getElementById('imgTest').innerHTML="<p>"+test+"\n\n</p>";*/
 
-  this.pdfViewer.openDocument(fileName);
+  //this.pdfViewer.openDocument(fileName);
+  this.pdfViewer.OpenPDF2();
 }
 
 }
