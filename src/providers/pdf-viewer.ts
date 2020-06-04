@@ -41,7 +41,7 @@ if (this.plt.is('android')) {
 let theMove=this.file.copyFile(filePath, fileName, this.file.externalDataDirectory, fileName);
 filePath=this.file.externalDataDirectory;
 console.log(filePath+fileName);
-const browser=this.iab.create(normalizeURL(filePath+fileName), '_system', 'location=yes');
+const browser=this.iab.create(normalizeURL(filePath+fileName), '_blank');
 console.log(browser);
 }
 
