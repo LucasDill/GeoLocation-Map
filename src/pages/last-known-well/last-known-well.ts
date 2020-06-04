@@ -12,6 +12,7 @@ import firebase from 'firebase';
 import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
 import { File } from '@ionic-native/file';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { PdfViewerProvider } from '../../providers/pdf-viewer';
 
 
 @Component({
@@ -29,7 +30,7 @@ timeForm =new FormGroup({//creates a new form with the last known well
   time1: new FormControl('',Validators.required),//set the form time with valdators required so they need to be entered in order to continue 
 });
   constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider,public DataBase: AngularFireDatabase, private modal: ModalController, private document: DocumentViewer,private file: File,public platform: Platform,
-    private inAppBrowser: InAppBrowser) {
+    private inAppBrowser: InAppBrowser, public pdfViewer:PdfViewerProvider) {
    //console.log(this.myDate);//Use of the current machine time for the initial timer value 
    var offset= getTimeZone();
    //console.log(offset)
@@ -75,9 +76,9 @@ TimeModal(){
  LKWModal.present();
 }
 
-OpenPdf(){
-//var url="https://tbrhsc.net/";
-//const browser=this.inAppBrowser.create(url,'_self');
+OpenPdf(fileName){
+/*var url="https://tbrhsc.net/";
+const browser=this.inAppBrowser.create(url,'_self');
 //window.open(encodeURI("/sdcard/www/assets/pdf/StrokeCare.pdf"),'_self');
   const options: DocumentViewerOptions={
     title:"Test PDF"
@@ -92,7 +93,10 @@ OpenPdf(){
   
   this.document.viewDocument(path+'www/assets/pdf/StrokeCare.pdf','applicaion/pdf',options);
   var test=this.document.canViewDocument("./assets/pdf/StrokeCare.pdf","application/pdf",{});
-  document.getElementById('imgTest').innerHTML="<p>"+test+"\n\n</p>";
+  console.log(test);
+  document.getElementById('imgTest').innerHTML="<p>"+test+"\n\n</p>";*/
+
+  this.pdfViewer.openDocument(fileName);
 }
 
 }
