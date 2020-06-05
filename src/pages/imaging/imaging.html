@@ -10,9 +10,6 @@
 
 
 <ion-content no-bounce  id="Imaging">
-<!--This is the weather display which has the data stored in the data provider and makes use of the ionic {{}} access to date types along with a data pipeline to better format the numbers -->
-  <p id="weather" style="background-color:powderblue;">Weather in {{this.Data.city}}: <b>{{this.Data.origin_tempreal |number:'.0'}} \u00B0C</b>
-    <img src= {{this.Data.origin_icon}} style="vertical-align: middle;"></p>
 
   <h4 id="treatment-heading6" style="color:#000000;font-size: x-large;"><!--the header for the page with style specified  -->
  
@@ -20,7 +17,7 @@
   </h4>
   <spinner *ngIf="Spinner"></spinner><!--ngIF is a special ionic element that works like an if and only shows if true in this case if spinner is true it will show it -->
   <div class="card-scroll" *ngIf="show"><!--this is where the cards will be once show is set to true  -->
-    
+    <p style="background-color: yellow;" text-center>Click on the route option for next steps</p>
 <div *ngIf="results"><!--if there are no results this will show the error message  -->
   <br><br>
   <p style="font-size: large;">{{display}}</p>
@@ -64,6 +61,11 @@
 <div class="treatment-button"><!--This is the view treatment options button which will bring you to the tPA and EVT route treatment page -->
   <h2 id="or" style="text-align: center;font-size: large;">OR</h2>
       <button id="moreTreatments" ion-button color="steelblue1" block on-click="GoToTreatment()">View Treatment Options</button>
+         <!--This is the weather display which has the data stored in the data provider and makes use of the ionic {{}} access to date types along with a data pipeline to better format the numbers -->
+  <p id="weather" style="background-color:powderblue;">Weather in {{this.Data.city}}: <b>{{this.Data.origin_tempreal |number:'.0'}} \u00B0C</b>
+    <img src= {{this.Data.origin_icon}} style="vertical-align: middle;"></p>
    </div>
+
+
 
 </ion-content>
