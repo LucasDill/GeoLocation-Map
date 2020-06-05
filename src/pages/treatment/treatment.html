@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="steelblue2">
+  <ion-navbar color="steelblue2" text-center>
     <ion-title>
       Treatment Options
     </ion-title>
@@ -9,9 +9,7 @@
 
 
 <ion-content no-bounce id="Treatment-Page">
- <!--the weather information of the origin location  -->
-  <p id="weather" style="background-color:powderblue;">Weather in {{this.Data.city}}: <b>{{this.Data.origin_tempreal |number:'.0'}} \u00B0C</b>
-    <img src= {{this.Data.origin_icon}} style="vertical-align: middle;"></p>
+ 
 
   <h4 id="treatment-heading6" style="color:#000000;font-size: x-large;">
     Routes To tPA Capable Hospitals
@@ -102,5 +100,9 @@
     </ion-list>
     </ion-scroll>
     </div>
+    <br>
+    <!--the weather information of the origin location  -->
+  <p id="weather" style="background-color:powderblue;">Weather in {{this.Data.city}}: <b>{{this.Data.origin_tempreal |number:'.0'}} \u00B0C</b>
+    <img src= {{this.Data.origin_icon}} style="vertical-align: middle;"></p>
      <!--end of the page -->
 </ion-content>
