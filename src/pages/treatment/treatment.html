@@ -17,6 +17,7 @@
   <spinner *ngIf="tpaSpinner"></spinner> <!--The spinner component which will show until results are returned  -->
 
   <div class="card-scroll" *ngIf="tpashow"> <!--The div that will not be shown until tpashow is set to true -->
+    <p style="background-color: yellow;" text-center>Click on the route option for next steps</p>
     <div *ngIf="results"> <!--If there are no results display the message -->
       <br><br>
       <p style="font-size: large;">{{display}}</p>
@@ -65,6 +66,7 @@
   </h4>
   <spinner *ngIf="evtSpinner"></spinner> <!--The spinner which stops after evt routes are returned -->
   <div class="card-scroll" *ngIf="evtshow"> <!--The div which hold the cards and will be shown if it is set to true  -->
+    <p style="background-color: yellow;" text-center>Click on the route option for next steps</p>
   <ion-scroll scrollY="true" style="height: 30vh;">
     <div *ngIf="evtEmpty"><br><br><br><p style="font-size: large;">{{message}}</p></div> <!--if this section is empty it will display the message -->
     <ion-list justify-content-center align-items-center>
