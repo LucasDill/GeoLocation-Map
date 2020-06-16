@@ -76,28 +76,14 @@ TimeModal(){
  LKWModal.present();
 }
 
-OpenPdf(fileName){
-/*var url="https://tbrhsc.net/";
-const browser=this.inAppBrowser.create(url,'_self');
-//window.open(encodeURI("/sdcard/www/assets/pdf/StrokeCare.pdf"),'_self');
-  const options: DocumentViewerOptions={
-    title:"Test PDF"
-  };
-  let path=null;
-  if(this.platform.is("ios")){
-    path=this.file.documentsDirectory;
-  }
-  else if(this.platform.is('android')){
-    path=this.file.dataDirectory
-  }
-  
-  this.document.viewDocument(path+'www/assets/pdf/StrokeCare.pdf','applicaion/pdf',options);
-  var test=this.document.canViewDocument("./assets/pdf/StrokeCare.pdf","application/pdf",{});
-  console.log(test);
-  document.getElementById('imgTest').innerHTML="<p>"+test+"\n\n</p>";*/
+OpenPdf(name){
+  this.pdfViewer.openDocument(name);
+}
 
-  //this.pdfViewer.openDocument(fileName);
-  this.pdfViewer.OpenPDF2();
+OpenWebsite(url)
+{
+  //var url="https://tbrhsc.net/";
+const browser=this.inAppBrowser.create(url,'_self');
 }
 
 }
