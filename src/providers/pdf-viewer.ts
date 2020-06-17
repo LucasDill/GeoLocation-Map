@@ -4,6 +4,8 @@ import { File } from '@ionic-native/file';
 import { DocumentViewer } from '@ionic-native/document-viewer';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
+//https://www.brainfever.co.uk/2018/02/05/how-to-view-local-pdfs-in-ionic-on-android-and-ios/
+
 /*
 ****************************
 This requires adding the line
