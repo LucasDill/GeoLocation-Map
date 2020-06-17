@@ -32,7 +32,7 @@ import { DocumentViewer } from '@ionic-native/document-viewer';
 
 import { InAppBrowser } from "@ionic-native/in-app-browser/ngx";
 import { PdfViewerProvider } from '../providers/pdf-viewer';
-import { CallNumber } from "@ionic-native/call-number/ngx";
+
 
 
 @NgModule({
@@ -97,8 +97,7 @@ import { CallNumber } from "@ionic-native/call-number/ngx";
     File,
     DocumentViewer,
     InAppBrowser,
-    PdfViewerProvider,
-    CallNumber
+    PdfViewerProvider
   ]
 })
 export class AppModule {}

@@ -22,7 +22,7 @@
     "@angular/platform-browser": "^5.2.11",
     "@angular/platform-browser-dynamic": "^5.2.11",
     "@firebase/app": "^0.5.2",
-    "@ionic-native/call-number": "^5.26.0",
+    "@ionic-native/call-number": "^3.14.0",
     "@ionic-native/core": "^4.20.0",
     "@ionic-native/document-viewer": "^4.20.0",
     "@ionic-native/file": "^4.20.0",
@@ -87,8 +87,7 @@
       },
       "cordova-plugin-filechooser": {},
       "cordova-plugin-filepath": {},
-      "cordova-plugin-inappbrowser": {},
-      "mx.ferreyra.callnumber": {}
+      "cordova-plugin-inappbrowser": {}
     },
     "platforms": [
       "android",
