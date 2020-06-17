@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 
 /**
  * Generated class for the LkwModalPage page.
@@ -15,7 +16,9 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class LkwModalPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private view: ViewController) {
+message:any;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,private view: ViewController, private callNumber: CallNumber) {
   }
 
   ionViewDidLoad() {
@@ -24,6 +27,11 @@ export class LkwModalPage {
 
 CloseInfo(){
 this.view.dismiss();
+}
+
+CallNumber(){
+  this.callNumber.callNumber('14039092432',true).then(res=>{this.message="Sucess"+res}).catch(err=>{this.message="Error "+err});
+
 }
 
 }

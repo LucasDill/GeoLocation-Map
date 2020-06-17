@@ -32,6 +32,8 @@ import { DocumentViewer } from '@ionic-native/document-viewer';
 
 import { InAppBrowser } from "@ionic-native/in-app-browser/ngx";
 import { PdfViewerProvider } from '../providers/pdf-viewer';
+import { CallNumber } from "@ionic-native/call-number/ngx";
+
 
 @NgModule({
   declarations: [// this is where we declare all of our pages and components if you use the auto generate this may be added but you may also need to do it manually 
@@ -95,7 +97,8 @@ import { PdfViewerProvider } from '../providers/pdf-viewer';
     File,
     DocumentViewer,
     InAppBrowser,
-    PdfViewerProvider
+    PdfViewerProvider,
+    CallNumber
   ]
 })
 export class AppModule {}
