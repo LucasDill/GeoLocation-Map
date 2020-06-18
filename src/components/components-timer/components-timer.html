@@ -6,7 +6,7 @@
      <p style="font-size: large;">Time Since LKW:<b> {{Data.HoursSince |number:'2.0'}}:{{Data.MinutesSince |number:'2.0'}}:{{Data.SecondsSince |number:'2.0'}}</b></p>
      <!--The |number:2.0 is a data pipeline which means that there must be 2 digits before the decimal and any amount after so instead of 1h passing it would be 01h there is not currently a decimal for any though -->
   </ion-col>
-    <ion-col col2 align-self-center align-self-stretch><!--The second column shows the imformation of how much time is left for each treatment-->
+    <ion-col style="border-right: 0 !important;" col2 align-self-center align-self-stretch><!--The second column shows the imformation of how much time is left for each treatment-->
       <span style="vertical-align: middle;" [innerHTML]="Data.TreatmentInfo"></span><!--The information is all specified on the back end in HTML form and simply added when the time has changed-->
     </ion-col>
   </ion-row>
