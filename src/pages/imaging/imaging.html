@@ -29,19 +29,19 @@
     <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour"><!--These are if the card is a driving type and wil call the normal routing function -->
       <ion-card-content>
         <ion-card-title>
-        {{card.name}} <h1> <img src= "./assets/imgs/ambulance.png" style="float:right"></h1>
+        {{card.name}} <h1> <figure><img src= "./assets/imgs/ambulance.png" style="float:right"><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1>
         </ion-card-title>
       <p id="cardinfo" >
-          Distance: {{card.DistChar}} &nbsp;&nbsp;&nbsp;&nbsp; Time: {{card.TimeWithMultChar}} 
+        Patient Pickup to Destination time: {{card.TimeWithMultChar}}  
       </ion-card-content>
     </ion-card>
     <ion-card *ngIf="card.Helipad" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"><!--These are cards with helicoper routes and will display the helicoper icon and call the complexroute function -->
       <ion-card-content>
         <ion-card-title>
-        {{card.name}} <h1> <img src= "./assets/imgs/Helicopter.png" style="float:right"></h1>
+        {{card.name}} <h1><figure> <img src= "./assets/imgs/Helicopter.png" style="float:right"><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1>
         </ion-card-title>
       <p id="cardinfo" >
-          Distance: {{card.DistChar}} &nbsp;&nbsp;&nbsp;&nbsp; Time: {{card.TimeWithMultChar}} 
+        Patient Pickup to Destination time: {{card.TimeWithMultChar}}  
       </ion-card-content>
     </ion-card>
     <ion-card *ngIf="card.Airport" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"><!--These are cards that have airplane routes and will show the icon and call the complexroute function  -->
