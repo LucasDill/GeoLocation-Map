@@ -32,6 +32,7 @@ import { DocumentViewer } from '@ionic-native/document-viewer';
 
 import { InAppBrowser } from "@ionic-native/in-app-browser/ngx";
 import { PdfViewerProvider } from '../providers/pdf-viewer';
+import { NextStepsPage } from '../pages/next-steps/next-steps';
 
 
 
@@ -48,7 +49,8 @@ import { PdfViewerProvider } from '../providers/pdf-viewer';
     HelpPage,
     ImagingPage,
     TPaQuestionPage,
-    EvtOptionsPage
+    EvtOptionsPage,
+    NextStepsPage
   ],
   imports: [// these are special imports used by the app and where we declare the api key and firestore information 
     BrowserModule,
@@ -82,7 +84,8 @@ import { PdfViewerProvider } from '../providers/pdf-viewer';
     HelpPage,
     ImagingPage,
     TPaQuestionPage,
-    EvtOptionsPage
+    EvtOptionsPage,
+    NextStepsPage
   ],
   providers: [// the providers used the only ones we made where the DataServiceProvider and the RoutingProvider I think the others are standardized
     DataServiceProvider,

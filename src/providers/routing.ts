@@ -584,7 +584,7 @@ for(var l=0;l<obj.length;l++)// go through all of the obects in the array and co
   hours=Math.floor(hours);//round down to find the hours without the minutes
   let minutes=Math.abs(newtimeChar)-hours;// find the minutes by subtracting the hours
   minutes=Math.ceil(minutes*60);// get the minutes rounded up and converted into the right base in this case 0.5 would be 30 min 
-  if(minutes==60)// if the minutes are 60 an hour would have passed
+  /*if(minutes==60)// if the minutes are 60 an hour would have passed
   {
     minutes=0;//reset the minutes
     hours++;// add an hour 
@@ -597,10 +597,26 @@ for(var l=0;l<obj.length;l++)// go through all of the obects in the array and co
   }
   else{// if it is not an hour yet just display minutes 
     newtimeChar=minutes.toString()+" mins";
-  }
-  obj[l].TimeWithMultChar=newtimeChar;// set the new time in the object 
-
+  }*/
+  if(hours<10)
+{
+  newtimeChar="0"+hours.toString()+":";
 }
+else{
+  newtimeChar=hours.toString()+":";
+}
+
+if(minutes<10)
+{
+  newtimeChar+="0"+minutes.toString();
+}
+else{
+  newtimeChar+=minutes.toString();
+}
+  obj[l].TimeWithMultChar=newtimeChar;// set the new time in the object 
+}
+
+
 return obj;// return the object with the new times 
 }
 
@@ -616,7 +632,7 @@ function convertTimePlanes(obj: any)//convert the time into hours when dealing w
     Minutes=0;
     Hours++;
   }
-
+/*
   if (Hours != 0 && Minutes != 0){// if they are not zero display them all 
     newtimeChar=Hours.toString()+" hours "+Minutes.toString()+" mins";
   }
@@ -627,7 +643,22 @@ function convertTimePlanes(obj: any)//convert the time into hours when dealing w
   {// if there are no hours just display minutes 
     newtimeChar=Minutes.toString()+" mins";
   }
+*/
+if(Hours<10)
+{
+  newtimeChar="0"+Hours.toString()+":";
+}
+else{
+  newtimeChar=Hours.toString()+":";
+}
 
+if(Minutes<10)
+{
+  newtimeChar+="0"+Minutes.toString();
+}
+else{
+  newtimeChar+=Minutes.toString();
+}
 
 return newtimeChar;// return the value not the whole array of objects like in the other one 
 }

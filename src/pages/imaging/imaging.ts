@@ -4,6 +4,7 @@ import { MapPage } from '../map/map';
 import { TreatmentPage } from '../treatment/treatment';
 import { DataServiceProvider } from '../../providers/data-service';
 import { RoutingProvider } from '../../providers/routing';
+import { NextStepsPage } from '../next-steps/next-steps';
 
 /**
  * Generated class for the ImagingPage page.
@@ -68,7 +69,7 @@ FlightRoutes=distances;//set the totalcard variable with the information from th
   goToRoute(DriveDat){//if the route is a simple driving one
     this.Data.ComplexRoute=false;//set complexroute to false so it will do a driving route 
     this.Data.Destination=DriveDat;//set the destination with the card information passed in 
-    this.navCtrl.push(MapPage);//go to the map page to show the route 
+    this.navCtrl.push(NextStepsPage);//go to the map page to show the route 
   }
 
 
@@ -76,7 +77,7 @@ FlightRoutes=distances;//set the totalcard variable with the information from th
   {
     this.Data.ComplexRoute=true;//set complexroute to be true so the mapping page knows to do a route with flying and driving 
     this.Data.Destination=FlightDat;//set the destination to be the card that has been selected 
-    this.navCtrl.push(MapPage);//go to the map page to show the results 
+    this.navCtrl.push(NextStepsPage);//go to the map page to show the results 
   }
 
 

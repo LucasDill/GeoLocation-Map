@@ -3,6 +3,7 @@ import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { MapPage } from '../map/map';
 import { DataServiceProvider } from '../../providers/data-service';
 import { RoutingProvider } from '../../providers/routing';
+import { NextStepsPage } from '../next-steps/next-steps';
 /*   
 This page shows two results one with tpa and one with evt and as such has doubles for a lot of things 
 
@@ -99,14 +100,14 @@ async EVTsetup(){//EVT at the moment is just Thunder Bay which is the only bRegi
   goToRoute(DriveDest){//if it is a simple driving route 
     this.Data.ComplexRoute=false;//set complexroute to be false 
     this.Data.Destination=DriveDest;//pass the destination in for the route display
-    this.navCtrl.push(MapPage);//go to the map page to show the results 
+    this.navCtrl.push(NextStepsPage);//go to the map page to show the results 
   }
 
   ComplexRoute(FlightDat)// if this is a complex route with driving and flying 
   {
     this.Data.ComplexRoute=true;//set the complexroute to true 
     this.Data.Destination=FlightDat;//pass in the destination information 
-    this.navCtrl.push(MapPage);// go to the map page to show the results 
+    this.navCtrl.push(NextStepsPage);// go to the map page to show the results 
   }
   
 }

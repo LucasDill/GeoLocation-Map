@@ -3,6 +3,7 @@ import {  NavController, NavParams } from 'ionic-angular';
 import { MapPage } from '../map/map';
 import { DataServiceProvider } from '../../providers/data-service';
 import { RoutingProvider } from '../../providers/routing';
+import { NextStepsPage } from '../next-steps/next-steps';
 
 
 /**
@@ -64,7 +65,7 @@ export class EvtOptionsPage {
   goToRoute(params){//If the user clicks on a route that includes driving 
     this.Data.ComplexRoute=false;//set the complex route to false 
     this.Data.Destination=params;//pass the destination selected to the Data Provider 
-    this.navCtrl.push(MapPage);//Go to the map page to display the selected route
+    this.navCtrl.push(NextStepsPage);//Go to the map page to display the selected route
   }
 
 
@@ -72,7 +73,7 @@ export class EvtOptionsPage {
   {
     this.Data.ComplexRoute=true;//set complexroute to be true 
     this.Data.Destination=cardDat;//set the destination as the card that was selected 
-    this.navCtrl.push(MapPage);//push the user to the map page to see the route 
+    this.navCtrl.push(NextStepsPage);//push the user to the map page to see the route 
   } 
 }
 
