@@ -15,6 +15,7 @@ import { ImagingRequiredPage } from '../imaging-required/imaging-required';
 
 import { WeatherService } from './weather';
 import { RoutingProvider } from '../../providers/routing';
+import { CityPage } from '../city/city';
 
 @Component({
   selector: 'page-patient-location',
@@ -114,38 +115,50 @@ getResults(search)// get the results of the search
   this.Medical_Centers=[];
 for(var i=0;i<this.Data.AllMedicalCenters.length;i++)//Go through all of the medical centers and check to see if there is a match 
 {
-if(search.toUpperCase()==this.Data.AllMedicalCenters[i].name.toUpperCase().substring(0,search.length))//make everything uppercase to search and make sure the name in the database is the same length 
-{
-  arr.push(this.Data.AllMedicalCenters[i]);// if there is a match push to the array to be displayed 
-}
-else if(search.toUpperCase()==this.Data.AllMedicalCenters[i].city.toUpperCase().substring(0,search.length))//This one searches by the city 
-{
-  arr.push(this.Data.AllMedicalCenters[i]);
-}
-else if(this.Data.AllMedicalCenters[i].AKA!=undefined)// if there is nothing else search through the also Known as Variables 
-{
-  for(var j=0;j<this.Data.AllMedicalCenters[i].AKA.length;j++)
+  if(this.Data.AllMedicalCenters[i].name!=undefined)
   {
-    if(search.toUpperCase()==this.Data.AllMedicalCenters[i].AKA[j].toUpperCase().substring(0,search.length))
+    if(search.toUpperCase()==this.Data.AllMedicalCenters[i].name.toUpperCase().substring(0,search.length))//make everything uppercase to search and make sure the name in the database is the same length 
     {
-      let temp=this.Data.AllMedicalCenters[i].name;// save the usual name temporarally 
-      this.Data.AllMedicalCenters[i].name=this.Data.AllMedicalCenters[i].AKA[j];// set the name for the object as the also known as so it displays on the button
-      this.Data.AllMedicalCenters[i].AKA[j]=temp;//Save the other name in the AKA 
-      arr.push(this.Data.AllMedicalCenters[i]);// add it to the array 
+      arr.push(this.Data.AllMedicalCenters[i]);// if there is a match push to the array to be displayed 
+    }
+    else if(search.toUpperCase()==this.Data.AllMedicalCenters[i].city.toUpperCase().substring(0,search.length))//This one searches by the city 
+    {
+      arr.push(this.Data.AllMedicalCenters[i]);
+    }
+    else if(this.Data.AllMedicalCenters[i].AKA!=undefined)// if there is nothing else search through the also Known as Variables 
+    {
+      for(var j=0;j<this.Data.AllMedicalCenters[i].AKA.length;j++)
+      {
+        if(search.toUpperCase()==this.Data.AllMedicalCenters[i].AKA[j].toUpperCase().substring(0,search.length))
+        {
+          let temp=this.Data.AllMedicalCenters[i].name;// save the usual name temporarally 
+          this.Data.AllMedicalCenters[i].name=this.Data.AllMedicalCenters[i].AKA[j];// set the name for the object as the also known as so it displays on the button
+          this.Data.AllMedicalCenters[i].AKA[j]=temp;//Save the other name in the AKA 
+          arr.push(this.Data.AllMedicalCenters[i]);// add it to the array 
+        }
+      }
     }
   }
-}
+  else{
+    arr.push(this.Data.AllMedicalCenters[i]);
+  }
+
 }
 this.Medical_Centers=arr;//make the display information the array 
 }
 
   
-
+goToCityPage(city)
+{
+  console.log(city);
+  this.navCtrl.push(CityPage);
+}
 
   cityLocation;
 
   async getLatLng(name){
   //var cityLocation=new google.maps.LatLng(name.lat,name.lng);
+
   var Telestroke;
     
             if ( name.bTelestroke == true) {
