@@ -3,6 +3,11 @@
     <ion-title>
       EVT Routes
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only menuToggle right>
+        <ion-icon name='menu'></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
   <components-timer ></components-timer><!--The timer showing how much time has passed and should be present on all pages after the Last Known Well Page-->
 </ion-header>
@@ -13,8 +18,10 @@
   <h4 id="treatment-heading6" style="color:#000000;font-size: x-large;">
     Routes To EVT Capable Hospitals
   </h4>
-  <spinner *ngIf="evtSpinner" style="height: 70vh;"></spinner><!--This is the spinner component that runs until results are available-->
-  <div class="card-scroll" *ngIf="evtshow"><!--This creates the scroll div with all of the cards and is visable after evtshow is set to true-->
+  <div *ngIf="evtSpinner" style="height: 60vh;" >
+  <spinner ></spinner><!--This is the spinner component that runs until results are available-->
+</div>
+  <div class="card-scroll" *ngIf="evtshow" style="height: 70vh;"><!--This creates the scroll div with all of the cards and is visable after evtshow is set to true-->
     <p style="background-color: yellow;" text-center>Click on the route option for next steps</p>
   <ion-scroll scrollY="true" style="height: 70vh;"><!--This is the actual compnent for the scroll with the vh probably needing to change and horizontal scroll not enabled -->
     <div *ngIf="evtEmpty"><br><br><br><p style="font-size: large;">{{message}}</p></div><!--If there are no results returned display the error message  -->

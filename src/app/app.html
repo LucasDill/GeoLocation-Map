@@ -9,7 +9,7 @@
 
 
   <!--This was a side menu we deicded was too confusing it could be accessed on all screens and it is good to keep if we need to look at it for reference-->
-  <!--<ion-menu [content]="mainContent">
+  <ion-menu [content]="mainContent" side="right" persistent="true">
 
   <ion-header>
     <ion-toolbar>
@@ -20,7 +20,7 @@
   </ion-header>
   <ion-content id="side-menu21">
     <ion-list id="menu-list1">
-    <ion-item color="none" menuClose="" on-click="goToPatientLocation()" id="menu-list-item1">
+    <ion-item color="none" on-click="goToPatientLocation()" id="menu-list-item1">
         Main Page
         <ion-icon name="home" item-right></ion-icon>
       </ion-item>
@@ -30,5 +30,5 @@
       </ion-item>
     </ion-list>
   </ion-content>
-</ion-menu>-->
+</ion-menu>
 <ion-nav #mainContent [root]="rootPage"></ion-nav><!--This is where to start the information-->

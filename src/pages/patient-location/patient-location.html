@@ -1,13 +1,13 @@
 <ion-header>
   <ion-navbar color="steelblue2" text-center>
-    <ion-buttons start>
-       <button ion-button icon-only menuToggle>
-         <ion-icon name="menu"></ion-icon>
-       </button>
-      </ion-buttons>
     <ion-title style="font-size: x-large;"><!--keep the font size extra large I think this allows it to change with different devices instead of specifying a font size or pixel size -->
       Patient Location
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only menuToggle right>
+        <ion-icon name='menu'></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
   <components-timer></components-timer><!--the timer is a component or a developer defined entry it does not take any arguments and because declaring it on every page made it reset each time the data is controlled by the data provider and just acessed by the component-->
