@@ -19,7 +19,7 @@ export class CityPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CityPage');
+    
   }
 
 }

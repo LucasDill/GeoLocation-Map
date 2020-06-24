@@ -139,8 +139,24 @@ for(var i=0;i<this.Data.AllMedicalCenters.length;i++)//Go through all of the med
       }
     }
   }
-  else{
-    arr.push(this.Data.AllMedicalCenters[i]);
+  else{// if the name is not defined it will be a city site and we will have different functions 
+    if(search.toUpperCase()==this.Data.AllMedicalCenters[i].city.toUpperCase().substring(0,search.length))//This one searches by the city 
+    {
+      arr.push(this.Data.AllMedicalCenters[i]);
+    }
+    else if(this.Data.AllMedicalCenters[i].AKA!=undefined)// if there is nothing else search through the also Known as Variables 
+    {
+      for(var j=0;j<this.Data.AllMedicalCenters[i].AKA.length;j++)
+      {
+        if(search.toUpperCase()==this.Data.AllMedicalCenters[i].AKA[j].toUpperCase().substring(0,search.length))
+        {
+          let temp=this.Data.AllMedicalCenters[i].city;// save the usual city temporarally 
+          this.Data.AllMedicalCenters[i].city=this.Data.AllMedicalCenters[i].AKA[j];// set the name for the object as the also known as so it displays on the button
+          this.Data.AllMedicalCenters[i].AKA[j]=temp;//Save the other name in the AKA 
+          arr.push(this.Data.AllMedicalCenters[i]);// add it to the array 
+        }
+      }
+    }
   }
 
 }
