@@ -38,7 +38,6 @@ export class MyApp {
 
   goToMap(){
     console.log("The menu is working");
-    this.Data.MapRoutes=false;
     this.navCtrl.push(MapExplorePage);
   }
 

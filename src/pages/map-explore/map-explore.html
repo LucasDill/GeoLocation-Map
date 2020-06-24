@@ -11,7 +11,7 @@
         </button>
       </ion-buttons>
     </ion-navbar>
-    <components-timer></components-timer>
+    <components-timer *ngIf="Data.GivenTime"></components-timer>
 </ion-header>
 
 <ion-content>
@@ -55,7 +55,7 @@
 
   </div>
 
-  <div #Map class="map" style="height: 80vh" ></div>
+  <div #Map class="map" [style.height]=height></div>
 
        
 </ion-content>

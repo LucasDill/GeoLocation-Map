@@ -52,12 +52,17 @@ timeForm =new FormGroup({//creates a new form with the last known well
       });
       this.Data.AllMedicalCenters=total;// save the array of all abjects to the Data Service provider 
   });
-  
+  this.Data.GivenTime=false;
+}
+
+ionViewWillEnter(){
+  this.Data.GivenTime=false;
 }
 
 SubmitTime(params){//once the button is clicked to go to the next page it will push to the PatientLocationPage
   if (!params) params = {};//set the parameters to null if there are none 
   console.log(params);
+  this.Data.GivenTime=true;
     this.navCtrl.push(PatientLocationPage);//go to the next page 
     console.log(this.timeForm.value.time1)
     console.log(this.myDate)

@@ -22,9 +22,12 @@ var clicked_marker = [];
 
 // array to hold directionsDisplay information so that we can push the array and show only one route on the map at one time
 
+
+
+
 // loads the page
 @Component({
-  selector: 'page-map',
+  selector: 'page-map-explore',
   templateUrl: 'map-explore.html'
 })
 
@@ -34,8 +37,9 @@ export class MapExplorePage {
   // makes Google Maps API visible
     @ViewChild('Map') mapElement: ElementRef;
     map: any;
-    google:any;
     mapOptions: any;
+    height:any;
+    google:any;
     location = {lat: null, lng: null};//at the start the location is set to null 
     markerOptions: any = {position: null, map: null, title: null};
     marker: any;
@@ -51,7 +55,7 @@ export class MapExplorePage {
 initmap()
 {
   this.map = new google.maps.Map(this.mapElement.nativeElement, {
-    zoom: 8,
+    zoom: 6,
     center:{ lat: 48.424889, lng: -89.270721}
 });
 }
@@ -61,7 +65,15 @@ ionViewDidLoad(){
 
 }
 
-
+ionViewWillEnter(){
+if (this.Data.GivenTime==true)
+{
+  this.height="80vh";
+}
+else{
+  this.height="89vh";
+}
+}
 
 addMarker(map: any,LatLng:any,GivenLabel:any) {// this function will place custom markers on the map at the specific lat and long and with the label provided
 
@@ -412,7 +424,7 @@ AddAirport() {
 AddAmbBase() {
   var items;
   var map = this.map;
-  console.log("Made it");
+ 
   //add ambulance base markers
   this.db.collection("/Ambulance Bases/")
     .get()
