@@ -68,6 +68,7 @@ export class DataServiceProvider {
 Destination:any;
 ComplexRoute:Boolean;
 
+MapRoutes:Boolean=true;
 
 AllMedicalCenters:any;// this is loaded when the app first initializes and gets all of the Medical Centeres so we do not need to search the Database as much 
 

@@ -1,0 +1,40 @@
+page-map-explore {
+    agm-map {
+      height: 500px;
+    }
+  }
+
+  .map {
+    position: relative;
+  }
+
+  .contact {
+    position: absolute;
+    bottom:   0;
+    width: 100%;
+  }
+  
+  ion-label{
+    font-size: .7em;
+  }
+  /* sets the size of the icons with a relative position may need to change to fit different screen size in the future*/ 
+    .item ion-thumbnail {
+      position: relative;
+      min-height: 20px;
+      max-height: 20px;
+      min-width: 20px;
+      max-width: 20px;
+    }
+  
+    /* changes the position of the image after it has been resized so it is present in the middle of the block */
+    .item ion-thumbnail img {
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      height: 100%;
+      width: auto;
+      -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(0%, -50%);
+      transform: translate(-50%, -50%);
+    }

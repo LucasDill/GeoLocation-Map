@@ -12,7 +12,7 @@
   <ion-menu [content]="mainContent" side="right" persistent="true">
 
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="steelblue2">
       <ion-title>
         Menu
       </ion-title>
@@ -20,13 +20,21 @@
   </ion-header>
   <ion-content id="side-menu21">
     <ion-list id="menu-list1">
-    <ion-item color="none" on-click="goToPatientLocation()" id="menu-list-item1">
-        Main Page
-        <ion-icon name="home" item-right></ion-icon>
+    <ion-item color="none" on-click="goToMap()" id="menu-list-item1">
+        Map
+        <ion-icon name="map" item-right></ion-icon>
       </ion-item>
-      <ion-item color="none" menuClose="" on-click="goToHelp()" id="menu-list-item2">
-        Help
-        <ion-icon name="help-circle" item-right></ion-icon>
+      <ion-item color="none" menuClose="" on-click="goToContact()" id="menu-list-item2">
+        Contact Us
+        <ion-icon name="mail" item-right></ion-icon>
+      </ion-item>
+      <ion-item color="none" on-click="goToBestPractice()" id="menu-list-item3">
+        Best Practice
+        <ion-icon name="medkit" item-right></ion-icon>
+      </ion-item>
+      <ion-item color="none" on-click="StartOver()" id="menu-list-item4">
+        Start Over
+        <ion-icon name="home" item-right></ion-icon>
       </ion-item>
     </ion-list>
   </ion-content>
