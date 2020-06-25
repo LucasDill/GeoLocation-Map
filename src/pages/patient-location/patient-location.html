@@ -30,14 +30,18 @@
   <ion-scroll scrollY="true" style="height: 40vh;">
   <div *ngFor="let health_centres of Medical_Centers"><!--*ngFor is a special function of ionic that allows it to go through and display every part of a list in this case all the parts returned by the search function -->
 <!--Tried the height to fix it probably does nothing and no screen size is that small-->
-    <button type ="button" padding *ngIf="health_centres.name; else elseText" id="patientLocation-button1" text-wrap style="font-size: auto;" ion-button color="steelblue1"  fill="outline"  block on-click="getLatLng(health_centres)" >
-      <!--{{health_centres.address}}-->
+  <!--<ion-card *ngIf="health_centres.name; else elseText" text-wrap style="font-size: auto; text-align: center;" color="steelblue1" block (click)="getLatLng(health_centres)">
+  <p>
+    {{health_centres.name}}:  {{health_centres.city}}
+  </p>
+  </ion-card>-->
+   <button type ="button" padding *ngIf="health_centres.name; else elseText" id="patientLocation-button1" text-wrap style="font-size: auto; text-align: center;" ion-button color="steelblue1"  fill="outline"  block on-click="getLatLng(health_centres)" >
       <p >
         {{health_centres.name}}:  {{health_centres.city}}<!--This is another special part of ionic where it allows you to display information from the ts file -->
       </p>
     </button>
     <ng-template #elseText>
-    <button type ="button" padding  id="patientLocation-button1" text-wrap style="font-size: auto;" ion-button color="steelblue1"  fill="outline"  block on-click="goToCityPage(health_centres)" >
+    <button type ="button" padding  id="patientLocation-button1" text-wrap style="font-size: auto; text-align: center;" ion-button color="steelblue1"  fill="outline"  block on-click="goToCityPage(health_centres)" >
       <p>
         {{health_centres.city}}<!--This is another special part of ionic where it allows you to display information from the ts file -->
       </p>
