@@ -395,7 +395,7 @@ async distMat(destinations,Routes){// this will find the travel information for 
      async function sortRoutes(){
       Routes.sort((a,b)=>a.TimeWithMult-b.TimeWithMult);// sort the routes in order of the time with the multipler 
 
-      return Routes;// all of these returns are neccecery for the async functions to worrk and wait the proper amount 
+      return Routes;// all of these returns are neccecery for the async functions to work and wait the proper amount 
     }
     return Routes;
   }

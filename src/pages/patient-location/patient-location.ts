@@ -57,7 +57,7 @@ async getWeather(){
   //getWeatherFromApi is found in the weather.ts file 
     this.weatherService.getWeatherFromApi(this.Data.lat, this.Data.lng).subscribe(weather => {
     this.weather = weather;
-    console.log(weather);
+    //console.log(weather);// Used this to look at the weather Data //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     this.id = this.weather.weather[0].id; //the weather id is used to find the multiplier for the time multiplier 
     this.description = this.weather.weather[0].description; //the description of the weather at the moment this value is not used 
     this.icon = this.weather.weather[0].icon;

@@ -22,7 +22,6 @@ message:any;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LkwModalPage');
   }
 
 CloseInfo(){

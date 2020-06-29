@@ -29,6 +29,9 @@ export class DataServiceProvider {
   colour: any="#90ee90";
   TreatmentInfo: any;
 
+  CurrentDate: any;
+  GivenDate: any;
+
   //this data is used to store information on the weather and where the different locations are 
   StartLoc:any;
 
@@ -90,40 +93,19 @@ PatientTimeZone:any;
 
   StartTime(param,diff)//starts when a time is provided in last known well sets the time to be displayed at the top of pages after getting the current time 
   {
-    this.LastKnownWellTime=param;
+    var givendate: any= new Date(this.GivenDate.toString()+" "+param.toString());// creates a new date format we can use to calculate the difference in two dates and times 
+    let DateDiff=(this.CurrentDate-givendate);// calculates the difference between the two dates which are the ones provided and given 
+    let days=Math.abs((DateDiff / 86400000));// get the 
+    let hours= Math.abs(Math.floor((DateDiff % 86400000)/3600000))+diff;// to get the hours that have passed 
+    let minutes=Math.abs(Math.floor(((DateDiff % 86400000) % 3600000)/60000));// the minutes that have passed 
+    hours+=(24*days);// convert the days that have passed to 24 hours 
     this.SecondsSince= new Date().getSeconds();
-    var index =this.LastKnownWellTime.indexOf(":");// split the string into two parts to be used later
-    this.GivenHours=parseInt(this.LastKnownWellTime.substr(0,index));
-    this.GivenMinutes=parseInt(this.LastKnownWellTime.substr(index+1));
-    this.GivenTimeForm=ConvertToTimeForm(this.GivenHours,this.GivenMinutes);
-
-    this.CurrentTime= new Date().getTime();//there may be an issue of time zones find the time in this area
-    this.CurrentHours= new Date().getHours()+diff;
-    this.CurrentMinutes= new Date().getMinutes();
-    //this.CurrentMinutes=this.CurrentMinutes-2;//minus one for seconds purposes
-    this.CurrentTimeForm=ConvertToTimeForm(this.CurrentHours,this.CurrentMinutes);//plus one to make up for minus in time since calculation 
-    let DisplayTime=this.CurrentTimeForm;
-    DisplayTime=DisplayTime+(1/60);
-    let disp=ConvertBack(DisplayTime);
-    this.CurrentHours=disp.hour;
-    this.CurrentMinutes=disp.min;
-   
-    if(this.GivenTimeForm>this.CurrentTimeForm)// if the time given is greater than the current time it will add 24 hours as it assumes that the incident happened the previous day 
-    {
-      this.SinceTimeForm=((24-this.GivenTimeForm)+this.CurrentTimeForm);
-    }
-    else if (this.GivenTimeForm==this.CurrentTimeForm)//if it is the same time set passed to zero used to be 24
-    {
-      this.SinceTimeForm=0;
-    }
-    else
-    {
-    this.SinceTimeForm=this.CurrentTimeForm-this.GivenTimeForm;
-    }
-    let m=ConvertBack(this.SinceTimeForm+(1/60));
+    
+    
+   this.SinceTimeForm=ConvertToTimeForm(hours,minutes);
+   let m=ConvertBack(this.SinceTimeForm+(1/60));
     this.HoursSince=m.hour;
     this.MinutesSince=(m.min);
-    
     
       if(this.SinceTimeForm<4.5)// this sets the information for the first time so it is not blank until a second passes 
       {
@@ -149,7 +131,7 @@ PatientTimeZone:any;
         this.TreatmentInfo="<ul>Passed usual recovery time</ul>";
       }
 
-    this.intervalID= setInterval(()=>{//set an interval to perform a calculation every second and update the values 
+    this.intervalID= setInterval(()=>{//set an interval to perform a calculation every second and update the values this one is the same as the last one but only after one second so we need the first one so there is no blank space 
         this.SecondsSince++;
         if(this.SecondsSince==60)//increment the count 
         {
@@ -159,9 +141,6 @@ PatientTimeZone:any;
          
           this.HoursSince=m.hour;
           this.MinutesSince=m.min;
-  
-      
-          
         }
         
         

@@ -22,7 +22,6 @@ And finally normalizeURL to propwerly format the URL based on platfrom.
 @Injectable()
 export class PdfViewerProvider {
 constructor(private document:DocumentViewer, private iab:InAppBrowser, private file:File, public plt:Platform) {
-console.log('Hello PdfViewerProvider Provider');
 }
 
 openDocument(fileName) {

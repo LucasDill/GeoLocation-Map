@@ -28,7 +28,7 @@
     <ion-item id="lastKnownWellDate">
   
       <ion-label>Date</ion-label>
-      <ion-datetime displayFormat="MMM D" pickerFormat="MMM D" [(ngModel)]="myDate" formControlName="date"></ion-datetime><!--The time picker without the date included -->
+      <ion-datetime type="date" id="lastKnownWellDateTime" [(ngModel)]="GivenDate" [max]="MaxDate" displayFormat="MMM D" pickerFormat="MMM D" formControlName="date"></ion-datetime><!--The time picker without the date included -->
     </ion-item>
     <div class="spacer" style="height:3vh;" id="lastKnownWell-spacer7"></div>
     <ion-item id="lastKnownWellTime">
@@ -44,8 +44,8 @@
       Next
     </button>
   </form>
-  
+  <!-- This is from when I was testing the ability to open pdfs and websites on the application 
   <button ion-button (click)="OpenPdf('StrokeCare.pdf');">Open a PDF</button>
   <br>
-  <button ion-button (click)="OpenWebsite('https://tbrhsc.net/');">Open a Website</button>
+  <button ion-button (click)="OpenWebsite('https://tbrhsc.net/');">Open a Website</button>-->
 </ion-content>
