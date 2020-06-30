@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, Platform, App } from 'ionic-angular';
 import { FormBuilder } from "@angular/forms"
 import { ViewChild } from '@angular/core';
 import { DataServiceProvider } from '../../providers/data-service';
@@ -16,6 +16,7 @@ import { ImagingRequiredPage } from '../imaging-required/imaging-required';
 import { WeatherService } from './weather';
 import { RoutingProvider } from '../../providers/routing';
 import { CityPage } from '../city/city';
+import { LastKnownWellPage } from '../last-known-well/last-known-well';
 
 @Component({
   selector: 'page-patient-location',
@@ -27,11 +28,12 @@ export class PatientLocationPage {
   
   next: number;
   
+  Alerts:any;
 
   constructor(private httpClient: HttpClient,public navCtrl: NavController, private mapsAPILoader: MapsAPILoader,
      public formBuilder: FormBuilder,public Data: DataServiceProvider,
     public DataBase: AngularFireDatabase,
-    private weatherService: WeatherService,public Routes: RoutingProvider, public alertController: AlertController) {
+    private weatherService: WeatherService,public Routes: RoutingProvider, public alertController: AlertController, public platform: Platform, public app: App) {
   }
 
   ionViewDidLoad() {
@@ -258,33 +260,37 @@ var page=this;
   
 
   async TimeZonePopup(Telestroke){// this function will create a popup that asks about the time zones 
-    const alert=this.alertController.create({
+    var difference=Math.abs(Math.abs(this.Data.PatientTimeZone)-Math.abs(this.Data.UserTimeZone));// find the total difference and add it to the time 
+    let alert=this.alertController.create({
+      title:"Different Time Zones",
       message: "The Site you have specifed is in a different time zone.\nDid you enter the last known well in your time zone or the time zone of the sending location?",
       buttons: [
         {
           text: "Sending Location",
           handler: () => {
-            // enter the new time zone stuff here once we figure out what it is 
-           // console.log(this.Data.PatientTimeZone);
-            //console.log(this.Data.UserTimeZone);
-           if(this.Data.UserTimeZone<this.Data.PatientTimeZone)
+           if((this.Data.HoursSince-difference)<0)// if the time would be negative 
            {
-             let difference=Math.abs(Math.abs(this.Data.PatientTimeZone)-Math.abs(this.Data.UserTimeZone));// find the total difference and add it to the time 
-             console.log(difference);
-             clearInterval(this.Data.intervalID);//stops the previous interval from running 
-      this.Data.StartTime(this.Data.time,difference);// send the new time 
+            this.WrongTime(); 
            }
            else{
-            let difference=Math.abs(Math.abs(this.Data.PatientTimeZone)-Math.abs(this.Data.UserTimeZone));// find the total difference and add it to the time 
-            clearInterval(this.Data.intervalID);//stops the previous interval from running 
-            this.Data.StartTime(this.Data.time,(-1)*difference);// send the new time 
+            if(this.Data.UserTimeZone<this.Data.PatientTimeZone)
+            {
+             clearInterval(this.Data.intervalID);//stops the previous interval from running 
+               this.Data.StartTime(this.Data.time,difference);// send the new time 
+            }
+            else{
+             
+             clearInterval(this.Data.intervalID);//stops the previous interval from running 
+             this.Data.StartTime(this.Data.time,(-1)*difference);// send the new time 
+            }
+             if (Telestroke == true) {
+               this.navCtrl.push(ImagingRequiredPage);
+             }
+             else {
+               this.navCtrl.push(ImagingPage);
+             }
            }
-            if (Telestroke == true) {
-              this.navCtrl.push(ImagingRequiredPage);
-            }
-            else {
-              this.navCtrl.push(ImagingPage);
-            }
+            
           }
         }, {
           text: "My Location",
@@ -303,4 +309,27 @@ var page=this;
     await alert.present();
   }
 
+
+  async WrongTime(){
+    let alert =await this.alertController.create({
+      title: 'Incorrect Time',
+      message: "The time provided is incorrect with your time zone.\n Would you like to enter a new time?",
+      buttons:[
+        {
+          text:"No"
+          
+          },
+          {
+            text:"Yes",
+            handler: ()=>{
+              this.navCtrl.push(LastKnownWellPage);
+            }
+          }
+    ]
+
+    });
+    await alert.present();
+  }
+  
 }
+
