@@ -2,6 +2,8 @@
 //This particular provider is used to store a lot of information that other pages need to access and it is also used for the timer to count down the seconds 
 import { Injectable } from '@angular/core';
 import {Platform} from 'ionic-angular'
+import { AngularFireDatabase } from '@angular/fire/database';
+import firebase from 'firebase';
 
 /*
   Generated class for the DataServiceProvider provider.
@@ -11,6 +13,7 @@ import {Platform} from 'ionic-angular'
 */
 @Injectable()
 export class DataServiceProvider {
+  db: any;
 // this data is mostly used by the timer function and not really by the rest of the application 
   time: any;
   CurrentTime: any;
@@ -79,17 +82,45 @@ AllMedicalCenters:any;// this is loaded when the app first initializes and gets 
 UserTimeZone:any;
 PatientTimeZone:any;
 
+Plans:any; //This will store all of the plans in the database and should only be queried once 
 
 
-  constructor(platform: Platform) {//the constructor finds the height and width of the current platform which may be used later on to get a better idea of how large to make each of the pages 
+  constructor(platform: Platform, public DataBase: AngularFireDatabase) {//the constructor finds the height and width of the current platform which may be used later on to get a better idea of how large to make each of the pages 
     platform.ready().then((readySource) => {
       console.log('Width: ' + platform.width());
       console.log('Height: ' + platform.height());
       this.height=platform.height();
       this.width=platform.width();
     });
+    this.db=firebase.firestore();
   }
 
+getPlans(){
+  this.Plans= this.db.collection("/Plans")// gets all of the plans ahead of time so they will only be queried once and stored 
+  .get()
+  .then((planSnapshot)=>{
+  var plans=[];
+  planSnapshot.forEach(function(doc) {
+    var obj=doc.data();
+    plans[doc.id]=(obj);
+  });
+  this.Plans=plans;
+  });
+}
+
+getCenters(){
+  this.AllMedicalCenters= this.db.collection("/Health Centers/")//This would be better done somewhere else or done with syncronization through realtime database but this is how we have it now 
+  .get()
+  .then((querySnapshot) => {
+    var total=[]
+    querySnapshot.forEach(function(doc) {
+        var obj = doc.data();
+        total.push(obj);
+      
+    });
+    this.AllMedicalCenters=total;// save the array of all abjects to the Data Service provider 
+});
+}
 
   StartTime(param,diff)//starts when a time is provided in last known well sets the time to be displayed at the top of pages after getting the current time 
   {

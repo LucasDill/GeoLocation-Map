@@ -21,10 +21,13 @@ export class NextStepsPage {
   }
 
   ionViewDidLoad() {
-    console.log(this.Data.StartLoc);
-    console.log(this.Data.Destination);
     document.getElementById("Destination").innerHTML="<h1><b>"+this.Data.StartLoc.city+" to "+this.Data.Destination.city+"</b></h1>";
   }
+
+ionViewWillEnter()
+{
+  document.getElementById("Plan").innerHTML=this.Data.Plans[10].HTML;
+}
 
 GoToMap(){
   this.navCtrl.push(MapPage);

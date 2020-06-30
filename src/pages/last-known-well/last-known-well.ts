@@ -42,20 +42,6 @@ timeForm =new FormGroup({//creates a new form with the last known well
    this.db=firebase.firestore();
   }
 
-  ionViewWillLoad(){// A simple query that finds all of the medical centers to better search for them
-    this.Data.AllMedicalCenters= this.db.collection("/Health Centers/")//This would be better done somewhere else or done with syncronization through realtime database but this is how we have it now 
-    .get()
-    .then((querySnapshot) => {
-      var total=[]
-      querySnapshot.forEach(function(doc) {
-          var obj = doc.data();
-          total.push(obj);
-        
-      });
-      this.Data.AllMedicalCenters=total;// save the array of all abjects to the Data Service provider 
-  });
-  this.Data.GivenTime=false;
-}
 
 ionViewWillEnter(){
   this.Data.GivenTime=false;// this is just to set the value to false in order for it to have the top timer not appear on menu screens
