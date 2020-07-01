@@ -168,7 +168,7 @@ this.Medical_Centers=arr;//make the display information the array
   
 goToCityPage(city)
 {
-  console.log(city);
+  this.Data.StartLoc=city;
   this.navCtrl.push(CityPage);
 }
 

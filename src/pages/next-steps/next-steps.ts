@@ -20,12 +20,9 @@ export class NextStepsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,public Data: DataServiceProvider) {
   }
 
-  ionViewDidLoad() {
-    document.getElementById("Destination").innerHTML="<h1><b>"+this.Data.StartLoc.city+" to "+this.Data.Destination.city+"</b></h1>";
-  }
-
 ionViewWillEnter()
 {
+  document.getElementById("Destination").innerHTML="<h1><b>"+this.Data.StartLoc.city+" to "+this.Data.Destination.city+"</b></h1>";
   document.getElementById("Plan").innerHTML=this.Data.Plans[10].HTML;
 }
 
