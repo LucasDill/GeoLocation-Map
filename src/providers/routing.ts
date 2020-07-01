@@ -22,6 +22,19 @@ loc:any;
       this.Database = firebase.firestore();
   }
 
+FindPlan(Dest)
+{
+  console.log(Dest);
+  console.log(this.Data.StartLoc);
+  console.log(this.Data.SinceTimeForm);
+var here=this;
+  setTimeout(function(){
+    console.log(here.Data.SinceTimeForm);
+  },60000)
+
+
+}
+
     async nearestLocations(){//This function gets the list of landing sites from the database to be searched for the closest location 
       //once we figure out how to do syncronization this function can be removed 
      var Sites= this.Database.collection("/Landing Sites/")

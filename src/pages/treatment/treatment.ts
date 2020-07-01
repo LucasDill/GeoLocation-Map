@@ -100,6 +100,7 @@ async EVTsetup(){//EVT at the moment is just Thunder Bay which is the only bRegi
   goToRoute(DriveDest){//if it is a simple driving route 
     this.Data.ComplexRoute=false;//set complexroute to be false 
     this.Data.Destination=DriveDest;//pass the destination in for the route display
+    this.Routes.FindPlan(DriveDest);
     this.navCtrl.push(NextStepsPage);//go to the map page to show the results 
   }
 
@@ -107,6 +108,7 @@ async EVTsetup(){//EVT at the moment is just Thunder Bay which is the only bRegi
   {
     this.Data.ComplexRoute=true;//set the complexroute to true 
     this.Data.Destination=FlightDat;//pass in the destination information 
+    this.Routes.FindPlan(FlightDat);
     this.navCtrl.push(NextStepsPage);// go to the map page to show the results 
   }
   
