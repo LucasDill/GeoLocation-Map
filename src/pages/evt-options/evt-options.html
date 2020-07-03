@@ -30,7 +30,7 @@
         <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour"><!--If it is a driving card have the ambulance picture and use the goToRoute function passing the information of the card -->
           <ion-card-content>
             <ion-card-title>
-            {{card.name}} <h1> <figure><img src= "./assets/imgs/ambulance.png" style="float:right"><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1><!--Show the card with the image of the ambulance -->
+            {{card.name}} <h1> <figure><img src= "./assets/Travel/Ambulance.png" style="float:right"><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1><!--Show the card with the image of the ambulance -->
             </ion-card-title>
           <p id="cardinfo" >
             Patient Pickup to Destination time: {{card.TimeWithMultChar}}  <!--Display the distance and time for that route-->
@@ -39,7 +39,7 @@
         <ion-card *ngIf="card.Helipad" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"><!--If the card is a helicopter route show it with the image of the helicopter and use the ComplexRoute function to diplay the route-->
           <ion-card-content>
             <ion-card-title>
-            {{card.name}} <h1> <figure><img src= "./assets/imgs/Helicopter.png" style="float:right"><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1>
+            {{card.name}} <h1> <figure><img src= "./assets/Travel/Helecopter.png" style="float:right"><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1>
             </ion-card-title>
           <p id="cardinfo" >
             Patient Pickup to Destination time: {{card.TimeWithMultChar}}  <!--these are special ionic data types that allow you to see the data from the cards -->
@@ -48,7 +48,7 @@
         <ion-card *ngIf="card.Airport" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"><!--If the card is a Airport Type show the image of the airplane and use the complexRoute function to show the routes-->
           <ion-card-content>
             <ion-card-title>
-            {{card.name}} <h1><figure> <img src= "./assets/imgs/Airplane.png" style="float:right"><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1>
+            {{card.name}} <h1><figure> <img src= "./assets/Travel/Airplane.png" style="float:right"><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1>
             </ion-card-title>
           <p id="cardinfo" >
             Patient Pickup to Destination time: {{card.TimeWithMultChar}}  
