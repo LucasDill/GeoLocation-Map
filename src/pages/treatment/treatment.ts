@@ -98,17 +98,17 @@ async EVTsetup(){//EVT at the moment is just Thunder Bay which is the only bRegi
 }
 
   goToRoute(DriveDest){//if it is a simple driving route 
+    this.Routes.FindPlan(DriveDest);
     this.Data.ComplexRoute=false;//set complexroute to be false 
     this.Data.Destination=DriveDest;//pass the destination in for the route display
-    this.Routes.FindPlan(DriveDest);
     this.navCtrl.push(NextStepsPage);//go to the map page to show the results 
   }
 
   ComplexRoute(FlightDat)// if this is a complex route with driving and flying 
   {
+    this.Routes.FindPlan(FlightDat);
     this.Data.ComplexRoute=true;//set the complexroute to true 
     this.Data.Destination=FlightDat;//pass in the destination information 
-    this.Routes.FindPlan(FlightDat);
     this.navCtrl.push(NextStepsPage);// go to the map page to show the results 
   }
   

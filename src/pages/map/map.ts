@@ -586,7 +586,6 @@ AddAirport() {
 AddAmbBase() {
   var items;
   var map = this.map;
-  console.log("Made it");
   //add ambulance base markers
   this.db.collection("/Ambulance Bases/")
     .get()

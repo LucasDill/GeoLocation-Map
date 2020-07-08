@@ -67,6 +67,7 @@ FlightRoutes=distances;//set the totalcard variable with the information from th
 }
 
   goToRoute(DriveDat){//if the route is a simple driving one
+    this.Routes.FindPlan(DriveDat);
     this.Data.ComplexRoute=false;//set complexroute to false so it will do a driving route 
     this.Data.Destination=DriveDat;//set the destination with the card information passed in 
     this.navCtrl.push(NextStepsPage);//go to the map page to show the route 
@@ -75,6 +76,7 @@ FlightRoutes=distances;//set the totalcard variable with the information from th
 
   ComplexRoute(FlightDat)// if the route selected is a more complex flying route with driving sections to get to the airports or helipads 
   {
+    this.Routes.FindPlan(FlightDat);
     this.Data.ComplexRoute=true;//set complexroute to be true so the mapping page knows to do a route with flying and driving 
     this.Data.Destination=FlightDat;//set the destination to be the card that has been selected 
     this.navCtrl.push(NextStepsPage);//go to the map page to show the results 

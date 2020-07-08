@@ -83,7 +83,7 @@ UserTimeZone:any;
 PatientTimeZone:any;
 
 Plans:any; //This will store all of the plans in the database and should only be queried once 
-
+ChosenPlan:any;//This will store the plan that has been selected for display 
 
   constructor(platform: Platform, public DataBase: AngularFireDatabase) {//the constructor finds the height and width of the current platform which may be used later on to get a better idea of how large to make each of the pages 
     platform.ready().then((readySource) => {

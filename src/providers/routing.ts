@@ -27,10 +27,66 @@ FindPlan(Dest)
   console.log(Dest);
   console.log(this.Data.StartLoc);
   console.log(this.Data.SinceTimeForm);
-var here=this;
-  setTimeout(function(){
-    console.log(here.Data.SinceTimeForm);
-  },60000)
+ 
+  if(this.Data.SinceTimeForm<6)
+  {
+    if(this.Data.StartLoc.id=="MED_NIPIGON"||this.Data.StartLoc.id=="MED_NOSH"&&Dest.closestSite.id=="MED_TBRHSC")
+    {
+      this.Data.ChosenPlan=this.Data.Plans[1];
+    }
+    else if(this.Data.StartLoc.id=="MED_REDLAKE"&&Dest.closestSite.id=="MED_DRYDEN")
+    {
+      this.Data.ChosenPlan=this.Data.Plans[2];
+    }
+    else if(this.Data.StartLoc.id=="MED_EMO"||this.Data.StartLoc.id=="MED_RIVERSIDERAINY"||this.Data.StartLoc.id=="MED_AGH"&&Dest.closestSite.id=="MED_RIVERSIDE")
+    {
+      this.Data.ChosenPlan=this.Data.Plans[3];
+    }
+    else if(this.Data.StartLoc.bTelestroke==true)
+    {
+      this.Data.ChosenPlan=this.Data.Plans[4];
+    }
+    else if(this.Data.StartLoc.bRegionalStrokeCentre)
+    {
+      this.Data.ChosenPlan=this.Data.Plans[7];
+    }
+    else if(this.Data.StartLoc.Plan!=undefined)// not sure about this one 
+    {
+      this.Data.ChosenPlan=this.Data.Plans[this.Data.StartLoc.Plan];
+    }
+    else{
+      this.Data.ChosenPlan=this.Data.Plans[6];
+    }
+    
+  }
+  else if (this.Data.SinceTimeForm>=6&&this.Data.SinceTimeForm<24)
+  {
+    if(this.Data.StartLoc.id="MED_EMO")
+    {
+      this.Data.ChosenPlan=this.Data.Plans[8];
+    }
+    else if(this.Data.StartLoc.bRegionalStrokeCentre==true)
+    {
+      this.Data.ChosenPlan=this.Data.Plans[7];
+    }
+    else if(this.Data.StartLoc.Plan!=undefined)
+    {
+      this.Data.ChosenPlan=this.Data.Plans[this.Data.StartLoc.Plan];
+    }
+    else{
+      this.Data.ChosenPlan=this.Data.Plans[6];
+    }
+  }
+  else if (this.Data.SinceTimeForm>=24&&this.Data.SinceTimeForm<48)
+  {
+    this.Data.ChosenPlan=this.Data.Plans[9];
+  }
+  else if(this.Data.SinceTimeForm>=48){
+    this.Data.ChosenPlan=this.Data.Plans[10];
+  }
+  else{
+    console.error("No Plan found Critical Error")
+  }
 
 
 }
@@ -230,6 +286,7 @@ var ret= await this.Database.collection("/Health Centers/").where(param,"==",tru
         lat:doc.data().lat,
         lng:doc.data().lng,
         area:doc.data().area,
+        id:doc.data().id,
         Driving:true,
         TimeWithMult: 0,
         TimeWithMultChar: "",

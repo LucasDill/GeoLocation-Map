@@ -23,7 +23,7 @@ export class NextStepsPage {
 ionViewWillEnter()
 {
   document.getElementById("Destination").innerHTML="<h1><b>"+this.Data.StartLoc.city+" to "+this.Data.Destination.city+"</b></h1>";
-  document.getElementById("Plan").innerHTML=this.Data.Plans[10].HTML;
+  document.getElementById("Plan").innerHTML=this.Data.ChosenPlan.HTML;
 }
 
 GoToMap(){

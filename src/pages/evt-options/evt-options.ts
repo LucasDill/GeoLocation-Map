@@ -63,6 +63,7 @@ export class EvtOptionsPage {
   
 
   goToRoute(params){//If the user clicks on a route that includes driving 
+    this.Routes.FindPlan(params);
     this.Data.ComplexRoute=false;//set the complex route to false 
     this.Data.Destination=params;//pass the destination selected to the Data Provider 
     this.navCtrl.push(NextStepsPage);//Go to the map page to display the selected route
@@ -71,6 +72,7 @@ export class EvtOptionsPage {
 
   ComplexRoute(cardDat)// if the user selects a route that includes driving then flying it is considered a ComplexRoute
   {
+    this.Routes.FindPlan(cardDat);
     this.Data.ComplexRoute=true;//set complexroute to be true 
     this.Data.Destination=cardDat;//set the destination as the card that was selected 
     this.navCtrl.push(NextStepsPage);//push the user to the map page to see the route 
