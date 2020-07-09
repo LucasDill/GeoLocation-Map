@@ -7,6 +7,7 @@ import { MapPage } from '../pages/map/map';
 import { DataServiceProvider } from '../providers/data-service';
 import { MapExplorePage } from '../pages/map-explore/map-explore';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { WelcomePage } from '../pages/welcome/welcome';
 
 
 
@@ -44,7 +45,7 @@ export class MyApp {
   }
 
   StartOver(){
-document.location.href='index.html';// starts the application over from the start 
+  this.navCtrl.push(WelcomePage);// starts the application over from the start page 
   }
 
   goToContact(){
@@ -58,7 +59,7 @@ document.location.href='index.html';// starts the application over from the star
   ionViewDidLoad(){// once the view loads set the root page after three seconds so the animation can play and variables can be set up 
     setTimeout(()=> {
       this.splash = false;
-      this.rootPage = LastKnownWellPage;// set the root page to start the app off with to be the Last known well page 
+      this.rootPage = WelcomePage;// set the root page to start the app off with to be the Last known well page 
     }, 3000);
   }
 
