@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { LastKnownWellPage } from '../last-known-well/last-known-well';
 
 /**
  * Generated class for the WelcomePage page.
@@ -18,8 +19,8 @@ export class WelcomePage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad WelcomePage');
+  goToLKW(){
+this.navCtrl.push(LastKnownWellPage);
   }
 
 }
