@@ -24,11 +24,11 @@ loc:any;
 
 FindPlan(Dest)
 {
-  console.log(Dest);
+ /* console.log(Dest);
   console.log(this.Data.StartLoc);
-  console.log(this.Data.SinceTimeForm);
+  console.log(this.Data.SinceTimeForm);*/
  
-  if(this.Data.SinceTimeForm<6)
+  if(this.Data.SinceTimeForm<6)// this is the long if statement that will get the final plan html for the page 
   {
     if(this.Data.StartLoc.id=="MED_NIPIGON"||this.Data.StartLoc.id=="MED_NOSH"&&Dest.closestSite.id=="MED_TBRHSC")
     {
@@ -61,7 +61,7 @@ FindPlan(Dest)
   }
   else if (this.Data.SinceTimeForm>=6&&this.Data.SinceTimeForm<24)
   {
-    if(this.Data.StartLoc.id="MED_EMO")
+    if(this.Data.StartLoc.id=="MED_EMO")
     {
       this.Data.ChosenPlan=this.Data.Plans[8];
     }

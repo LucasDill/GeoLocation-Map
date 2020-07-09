@@ -126,15 +126,17 @@ getCenters(){
   {
     var givendate: any= new Date(this.GivenDate.toString()+" "+param.toString());// creates a new date format we can use to calculate the difference in two dates and times 
     let DateDiff=(this.CurrentDate-givendate);// calculates the difference between the two dates which are the ones provided and given 
-    let days=Math.abs((DateDiff / 86400000));// get the 
+    let days=Math.abs(Math.floor((DateDiff / 86400000)));// get the date with no parts 
     let hours= Math.abs(Math.floor((DateDiff % 86400000)/3600000))+diff;// to get the hours that have passed 
     let minutes=Math.abs(Math.floor(((DateDiff % 86400000) % 3600000)/60000));// the minutes that have passed 
     hours+=(24*days);// convert the days that have passed to 24 hours 
     this.SecondsSince= new Date().getSeconds();
-    
-    
+   /* console.log("Days",days);
+    console.log("Hours",hours);
+    console.log("Minutes",minutes);*/
    this.SinceTimeForm=ConvertToTimeForm(hours,minutes);
    let m=ConvertBack(this.SinceTimeForm+(1/60));
+
     this.HoursSince=m.hour;
     this.MinutesSince=(m.min);
     
