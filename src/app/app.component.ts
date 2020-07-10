@@ -17,7 +17,7 @@ import { WelcomePage } from '../pages/welcome/welcome';
 export class MyApp {
 
     @ViewChild(Nav) navCtrl: Nav;
-    splash = true;
+    splash = false;
     rootPage:any;
 
   constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private config: Config, private Data: DataServiceProvider,private inAppBrowser: InAppBrowser) {
@@ -45,7 +45,8 @@ export class MyApp {
   }
 
   StartOver(){
-  this.navCtrl.push(WelcomePage);// starts the application over from the start page 
+    document.location.href='index.html';// starts the app over from scratch s
+  //this.navCtrl.push(WelcomePage);// starts the application over from the start page 
   }
 
   goToContact(){
@@ -57,10 +58,10 @@ export class MyApp {
     const browser=this.inAppBrowser.create(url,'_self');
   }
   ionViewDidLoad(){// once the view loads set the root page after three seconds so the animation can play and variables can be set up 
-    setTimeout(()=> {
+    //setTimeout(()=> {
       this.splash = false;
       this.rootPage = WelcomePage;// set the root page to start the app off with to be the Last known well page 
-    }, 3000);
+//}, 3000);
   }
 
 }
