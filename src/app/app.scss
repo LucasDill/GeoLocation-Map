@@ -32,7 +32,26 @@
 *{
   font-family: 'Gotham';
 }
-
+body{
+  color: #006BB6;
+}
+button{
+  color: white;
+}
+p{
+  color: #006BB6;
+}
+ion-button {
+  color: #006bb6;
+}
+ion-header{
+ color: #006bb6;
+}
+h3{
+  color:#006bb6;
+  font-weight:400;
+  font-size: xx-large;
+}
 #custom-overlay {
     position: fixed;
     top: 0;
