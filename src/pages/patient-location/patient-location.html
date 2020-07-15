@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="steelblue2" text-center>
+  <ion-navbar text-center>
     <ion-title style="font-size: x-large;"><!--keep the font size extra large I think this allows it to change with different devices instead of specifying a font size or pixel size -->
       Patient Location
     </ion-title>
@@ -19,14 +19,14 @@
   </h3>
   <div style="height:5vh;"></div>
   <!--This button is currently disabled it would require a search of all the health centers to see which one is the closest but in order to cut down on the amount of queries we are making I would like to figure out how to store it all locally and synchronize before moving on with this part-->
-  <button type ="button"  id="patientLocation-button1"  ion-button color="steelblue1"  fill="outline"  block on-click="setCurrentPosition()"> 
+  <button type ="button"  id="patientLocation-button1"  ion-button fill="outline"  block on-click="setCurrentPosition()" large round> 
     CHOOSE YOUR LOCATION
   </button>
   <div style="height:3vh;"></div><!-- more of the spacer divs I will need to figure out how to make these work better -->
 <p style="text-align: center;font-size: large">OR</p>
 <div style="height:3vh;"></div>
 <!--this is the search box for the cities every time there is a new key entered it will search by calling the functions in the ts -->
-  <ion-input type="text" [(ngModel)]="searchterm" (keyup)="search($event)" autocapitalize="off" class="input" style="font-size: large;" placeholder="Search By City or Centre" id="txtHome" required style = "border: solid black 3px;"></ion-input>
+  <ion-input type="text" [(ngModel)]="searchterm" (keyup)="search($event)" autocapitalize="off" class="input" style="font-size: large;" placeholder="Search By City or Centre" id="txtHome" required style = "background-color: lightgray;" class="roundedEntry"></ion-input>
   <ion-scroll scrollY="true" style="height: 40vh;">
   <div *ngFor="let health_centres of Medical_Centers"><!--*ngFor is a special function of ionic that allows it to go through and display every part of a list in this case all the parts returned by the search function -->
 <!--Tried the height to fix it probably does nothing and no screen size is that small-->
@@ -35,14 +35,14 @@
     {{health_centres.name}}:  {{health_centres.city}}
   </p>
   </ion-card>-->
-   <button type ="button" padding *ngIf="health_centres.name; else elseText" id="patientLocation-button1" text-wrap style="font-size: auto; text-align: center;" ion-button color="steelblue1"  fill="outline"  block on-click="getLatLng(health_centres)" >
-      <p >
+   <button type ="button" padding *ngIf="health_centres.name; else elseText" id="patientLocation-button1" text-wrap style="font-size: auto; text-align: center;" ion-button  fill="outline"  block on-click="getLatLng(health_centres)" round large>
+      <p style="color: white;">
         {{health_centres.name}}:  {{health_centres.city}}<!--This is another special part of ionic where it allows you to display information from the ts file -->
       </p>
     </button>
     <ng-template #elseText>
-    <button type ="button" padding  id="patientLocation-button1" text-wrap style="font-size: auto; text-align: center;" ion-button color="steelblue1"  fill="outline"  block on-click="goToCityPage(health_centres)" >
-      <p>
+    <button type ="button" padding  id="patientLocation-button1" text-wrap style="font-size: auto; text-align: center;" ion-button  fill="outline"  block on-click="goToCityPage(health_centres)" large round>
+      <p style="color: white;">
         {{health_centres.city}}<!--This is another special part of ionic where it allows you to display information from the ts file -->
       </p>
     </button>
