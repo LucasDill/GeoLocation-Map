@@ -90,3 +90,13 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+@font-face{
+  font-family: 'Gotham';
+  src: url('./assets/fonts/gotham-medium.ttf') format('truetype'),//this one is for Safari, Android and iOS
+  url('./assets/fonts/gotham-medium.woff') format('woff');// this one is for modern browsers 
+  font-weight: normal;
+  font-style: normal;
+}
+
+$font-family-base: 'Gotham';

@@ -14,6 +14,25 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+/*body{
+  font-family: 'Gotham';
+}
+.ion-content{
+  font-family: 'Gotham';
+}*/
+
+
+@font-face{
+  font-family: Gotham;
+  src: url('../assets/fonts/GothamBook.ttf') format('truetype');//this one is for Safari, Android and iOS
+  //url('../assets/fonts/gotham-medium.woff') format('woff');// this one is for modern browsers 
+}
+
+*{
+  font-family: 'Gotham';
+}
+
 #custom-overlay {
     position: fixed;
     top: 0;
@@ -67,7 +86,7 @@
     }
   }
   
-  
+  /*
   @-webkit-keyframes animation {
     0% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -500, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -500, 0, 0, 1); }
     1.14% { -webkit-transform: matrix3d(1, 0, 0, 0, 0.621, 1, 0, 0, 0, 0, 1, 0, -282.728, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0.621, 1, 0, 0, 0, 0, 1, 0, -282.728, 0, 0, 1); }
@@ -174,7 +193,7 @@
     94.28% { -webkit-transform: matrix3d(1, 0, 0, 0, 0.839, 1, 0, 0, 0, 0, 1, 0, 499.986, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0.839, 1, 0, 0, 0, 0, 1, 0, 499.986, 0, 0, 1); }
     98.21% { -webkit-transform: matrix3d(1, 0, 0, 0, 0.839, 1, 0, 0, 0, 0, 1, 0, 499.997, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0.839, 1, 0, 0, 0, 0, 1, 0, 499.997, 0, 0, 1); }
     100% { -webkit-transform: matrix3d(1, 0, 0, 0, 0.839, 1, 0, 0, 0, 0, 1, 0, 500, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0.839, 1, 0, 0, 0, 0, 1, 0, 500, 0, 0, 1); }
-  }
+  }*/
   
   
   
