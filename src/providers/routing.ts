@@ -42,9 +42,13 @@ FindPlan(Dest)
     {
       this.Data.ChosenPlan=this.Data.Plans[3];
     }
-    else if(this.Data.StartLoc.bTelestroke==true)
+    else if(this.Data.StartLoc.bTelestroke==true&&this.Data.TelestrokePlan==false)
     {
       this.Data.ChosenPlan=this.Data.Plans[4];
+    }
+    else if(this.Data.StartLoc.bTelestroke==true&&this.Data.TelestrokePlan==true)
+    {
+      this.Data.ChosenPlan=this.Data.Plans[11];
     }
     else if(this.Data.StartLoc.bRegionalStrokeCentre)
     {

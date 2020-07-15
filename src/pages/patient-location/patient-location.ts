@@ -45,6 +45,10 @@ export class PatientLocationPage {
     this.mapsAPILoader.load()
 }
 
+ionViewWillEnter()
+{
+  this.Data.TelestrokePlan=false;//every time there is a new place it will reset the variable so it does not always go to the special case 
+}
 
 
 // call weather.ts to get weather of selected location (see getLatLng() function)
