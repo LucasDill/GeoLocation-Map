@@ -67,8 +67,19 @@
   <h2 id="or" style="text-align: center;font-size: large;">OR</h2>
       <button id="moreTreatments" ion-button color="steelblue1" block on-click="GoToTreatment()">View Treatment Options</button>
          <!--This is the weather display which has the data stored in the data provider and makes use of the ionic {{}} access to date types along with a data pipeline to better format the numbers -->
-  <p id="weather" style="background-color:powderblue;">Weather in {{this.Data.city}}: <b>{{this.Data.origin_tempreal |number:'.0'}} \u00B0C</b>
-    <img src= {{this.Data.origin_icon}} style="vertical-align: middle;"></p>
+         <ion-grid style="background-color: #006bb6;">
+          <ion-row>
+            <ion-col col-auto>
+              <p id="weather" style="background-color:#006bb6;color: white;font-size: large;padding-top: 35px;">Weather in<br><b>{{this.Data.city}}</b></p>
+            </ion-col>
+            <ion-col>
+              <p style="font-size: x-large;color: white;padding-top: 35px;" text-center ><b>{{this.Data.origin_tempreal |number:'1.0-0'}}\u00B0C</b></p>
+            </ion-col>
+            <ion-col>
+              <img src= {{this.Data.origin_icon}} style="vertical-align: middle; ">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
    </div>
 
 

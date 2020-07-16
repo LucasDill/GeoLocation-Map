@@ -15,7 +15,7 @@
 <ion-content no-bounce id="evt-options">
 
 
-  <h4 id="treatment-heading6" style="color:#000000;font-size: x-large;">
+  <h4 id="treatment-heading6" style="color:#006bb6;font-size: x-large;">
     Routes To EVT Capable Hospitals
   </h4>
   <div *ngIf="evtSpinner" style="height: 60vh;" >
@@ -32,7 +32,7 @@
             <ion-card-title>
             {{card.name}} <h1> <figure><img src= "./assets/Travel/Ambulance.png" style="float:right"><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1><!--Show the card with the image of the ambulance -->
             </ion-card-title>
-          <p id="cardinfo" >
+          <p id="cardinfo" style="color: black;">
             Patient Pickup to Destination time: {{card.TimeWithMultChar}}  <!--Display the distance and time for that route-->
           </ion-card-content>
         </ion-card>
@@ -41,7 +41,7 @@
             <ion-card-title>
             {{card.name}} <h1> <figure><img src= "./assets/Travel/Helecopter.png" style="float:right"><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1>
             </ion-card-title>
-          <p id="cardinfo" >
+          <p id="cardinfo"style="color: black;" >
             Patient Pickup to Destination time: {{card.TimeWithMultChar}}  <!--these are special ionic data types that allow you to see the data from the cards -->
           </ion-card-content>
         </ion-card>
@@ -50,7 +50,7 @@
             <ion-card-title>
             {{card.name}} <h1><figure> <img src= "./assets/Travel/Airplane.png" style="float:right"><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1>
             </ion-card-title>
-          <p id="cardinfo" >
+          <p id="cardinfo" style="color: black;">
             Patient Pickup to Destination time: {{card.TimeWithMultChar}}  
           </ion-card-content>
         </ion-card>
@@ -58,7 +58,17 @@
     </ion-list>
     </ion-scroll><!--Close all of the divs exactly the same way it is done in HTML-->
     </div>
-    <p id="weather" style="background-color:powderblue;">Weather in {{this.Data.city}}: <b>{{this.Data.origin_tempreal |number:'.0'}} \u00B0C</b>
-      <img src= {{this.Data.origin_icon}} style="vertical-align: middle;"></p> <!--This Section shows the weather in the origin city which may affect the decision of how the patient will be transported-->
-  
+    <ion-grid style="background-color: #006bb6;">
+      <ion-row>
+        <ion-col col-auto>
+          <p id="weather" style="background-color:#006bb6;color: white;font-size: large;padding-top: 35px;">Weather in<br><b>{{this.Data.city}}</b></p>
+        </ion-col>
+        <ion-col>
+          <p style="font-size: x-large;color: white;padding-top: 35px;" text-center ><b>{{this.Data.origin_tempreal |number:'1.0-0'}}\u00B0C</b></p>
+        </ion-col>
+        <ion-col>
+          <img src= {{this.Data.origin_icon}} style="vertical-align: middle; ">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 </ion-content>
