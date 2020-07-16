@@ -24,42 +24,42 @@ loc:any;
 
 FindPlan(Dest)
 {
- /* console.log(Dest);
+  console.log(Dest);
   console.log(this.Data.StartLoc);
-  console.log(this.Data.SinceTimeForm);*/
+ 
  
   if(this.Data.SinceTimeForm<6)// this is the long if statement that will get the final plan html for the page 
   {
-    if(this.Data.StartLoc.id=="MED_NIPIGON"||this.Data.StartLoc.id=="MED_NOSH"&&Dest.closestSite.id=="MED_TBRHSC")
+    if(this.Data.StartLoc.id=="MED_NIPIGON"||this.Data.StartLoc.id=="MED_NOSH"&&Dest.id=="MED_TBRHSC")
     {
-      this.Data.ChosenPlan=this.Data.Plans[1];
+      this.Data.ChosenPlan=this.Data.Plans[1].HTML;
     }
-    else if(this.Data.StartLoc.id=="MED_REDLAKE"&&Dest.closestSite.id=="MED_DRYDEN")
+    else if(this.Data.StartLoc.id=="MED_REDLAKE"&&Dest.id=="MED_DRYDEN")
     {
-      this.Data.ChosenPlan=this.Data.Plans[2];
+      this.Data.ChosenPlan=this.Data.Plans[2].HTML;
     }
-    else if(this.Data.StartLoc.id=="MED_EMO"||this.Data.StartLoc.id=="MED_RIVERSIDERAINY"||this.Data.StartLoc.id=="MED_AGH"&&Dest.closestSite.id=="MED_RIVERSIDE")
+    else if(this.Data.StartLoc.id=="MED_EMO"||this.Data.StartLoc.id=="MED_RIVERSIDERAINY"||this.Data.StartLoc.id=="MED_AGH"&&Dest.id=="MED_RIVERSIDE")
     {
-      this.Data.ChosenPlan=this.Data.Plans[3];
+      this.Data.ChosenPlan=this.Data.Plans[3].HTML;
+    }
+    else if(this.Data.StartLoc.bRegionalStrokeCentre==true&&Dest.bRegionalStrokeCentre==true)
+    {
+      this.Data.ChosenPlan=this.Data.Plans[7].HTML;
     }
     else if(this.Data.StartLoc.bTelestroke==true&&this.Data.TelestrokePlan==false)
     {
-      this.Data.ChosenPlan=this.Data.Plans[4];
+      this.Data.ChosenPlan=this.Data.Plans[4].HTML;
     }
     else if(this.Data.StartLoc.bTelestroke==true&&this.Data.TelestrokePlan==true)
     {
-      this.Data.ChosenPlan=this.Data.Plans[11];
-    }
-    else if(this.Data.StartLoc.bRegionalStrokeCentre)
-    {
-      this.Data.ChosenPlan=this.Data.Plans[7];
+      this.Data.ChosenPlan=this.Data.Plans[4].HTMLA;
     }
     else if(this.Data.StartLoc.Plan!=undefined)// not sure about this one 
     {
-      this.Data.ChosenPlan=this.Data.Plans[this.Data.StartLoc.Plan];
+      this.Data.ChosenPlan=this.Data.Plans[this.Data.StartLoc.Plan].HTML;
     }
     else{
-      this.Data.ChosenPlan=this.Data.Plans[6];
+      this.Data.ChosenPlan=this.Data.Plans[6].HTML;
     }
     
   }
@@ -67,26 +67,30 @@ FindPlan(Dest)
   {
     if(this.Data.StartLoc.id=="MED_EMO")
     {
-      this.Data.ChosenPlan=this.Data.Plans[8];
+      this.Data.ChosenPlan=this.Data.Plans[8].HTML;
     }
-    else if(this.Data.StartLoc.bRegionalStrokeCentre==true)
+    else if(this.Data.StartLoc.bRegionalStrokeCentre==true&&Dest.bRegionalStrokeCentre==true)
     {
-      this.Data.ChosenPlan=this.Data.Plans[7];
+      this.Data.ChosenPlan=this.Data.Plans[7].HTML;
+    }
+    else if(this.Data.StartLoc.bTelestroke==true&&this.Data.TelestrokePlan==true)
+    {
+      this.Data.ChosenPlan=this.Data.Plans[5].HTMLA;
     }
     else if(this.Data.StartLoc.Plan!=undefined)
     {
-      this.Data.ChosenPlan=this.Data.Plans[this.Data.StartLoc.Plan];
+      this.Data.ChosenPlan=this.Data.Plans[this.Data.StartLoc.Plan].HTML;
     }
     else{
-      this.Data.ChosenPlan=this.Data.Plans[6];
+      this.Data.ChosenPlan=this.Data.Plans[6].HTML;
     }
   }
   else if (this.Data.SinceTimeForm>=24&&this.Data.SinceTimeForm<48)
   {
-    this.Data.ChosenPlan=this.Data.Plans[9];
+    this.Data.ChosenPlan=this.Data.Plans[9].HTML;
   }
   else if(this.Data.SinceTimeForm>=48){
-    this.Data.ChosenPlan=this.Data.Plans[10];
+    this.Data.ChosenPlan=this.Data.Plans[10].HTML;
   }
   else{
     console.error("No Plan found Critical Error")
@@ -291,6 +295,7 @@ var ret= await this.Database.collection("/Health Centers/").where(param,"==",tru
         lng:doc.data().lng,
         area:doc.data().area,
         id:doc.data().id,
+        bRegionalStrokeCentre:doc.data().bRegionalStrokeCentre,
         Driving:true,
         TimeWithMult: 0,
         TimeWithMultChar: "",
@@ -601,7 +606,9 @@ var time=(heliDist / heli_speed) * flight_o_weather * this.destination_flight_we
     name: dest[m].CloseHospital,
     city: dest[m].CloseCity,
     closestSite: endpoints[m],
+    id: endpoints[m].id,
     Helipad: true,
+    bRegionalStrokeCentre:endpoints[m].bRegionalStrokeCentre,
     Airport: false,
     TimeWithMult: time,
     TimeWithMultChar: convertTimePlanes(time),// convert the time into a string using a function we created specifically for the time of these flight options 
@@ -627,8 +634,10 @@ for(var m=0;m<dest.length;m++)
     name: dest[m].CloseHospital,
     city: dest[m].CloseCity,
     closestSite: endpoints[m],
+    id: endpoints[m].id,
     Helipad: false,
     Airport: true,
+    bRegionalStrokeCentre:endpoints[m].bRegionalStrokeCentre,
     TimeWithMult: timeplane,
     TimeWithMultChar: convertTimePlanes(timeplane),// convert to char using the function we created 
     CompTime: timeplane

@@ -87,6 +87,8 @@ ChosenPlan:any;//This will store the plan that has been selected for display
 
 TelestrokePlan: boolean=false;//This determines if the special 4A case is needed for the Telestroke site and will be set if imaging is required 
 
+TimerTextColour:any;
+
   constructor(platform: Platform, public DataBase: AngularFireDatabase) {//the constructor finds the height and width of the current platform which may be used later on to get a better idea of how large to make each of the pages 
     platform.ready().then((readySource) => {
       console.log('Width: ' + platform.width());
@@ -148,7 +150,7 @@ getCenters(){
         let EVT=ConvertBack(EVTtime);
         let TPAtime=4.5-this.SinceTimeForm;
         let TPA=ConvertBack(TPAtime);
-  
+          this.TimerTextColour="white";
           this.colour="green";
           this.TreatmentInfo="<ul>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+":"+pad((60-this.SecondsSince),2)+"<br></b>"+"EVT Avilable for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
       }
@@ -156,14 +158,15 @@ getCenters(){
       {
         let EVTtime=6-this.SinceTimeForm;
         let EVT=ConvertBack(EVTtime);
-        
-          this.colour="yellow";
-         this.TreatmentInfo="<br><ul>EVT Avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+":"+pad((60-this.SecondsSince),2)+"</ul>";//pad is a function we made to add zeros to the numbers if they are less than 10
+        this.TimerTextColour="black";
+        this.colour="yellow";
+        this.TreatmentInfo="<br><ul>EVT Avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+":"+pad((60-this.SecondsSince),2)+"</ul>";//pad is a function we made to add zeros to the numbers if they are less than 10
       }
       else if(this.SinceTimeForm>=6)
       {
+        this.TimerTextColour="white";
         this.colour="red";
-        this.TreatmentInfo="<ul>Passed usual recovery time</ul>";
+        this.TreatmentInfo="<br><ul>Passed Treatment Window</ul>";
       }
 
     this.intervalID= setInterval(()=>{//set an interval to perform a calculation every second and update the values this one is the same as the last one but only after one second so we need the first one so there is no blank space 
@@ -186,7 +189,7 @@ getCenters(){
           let EVT=ConvertBack(EVTtime);
           let TPAtime=4.5-this.SinceTimeForm;
           let TPA=ConvertBack(TPAtime);
-    
+            this.TimerTextColour="white";
             this.colour="green";
             this.TreatmentInfo="<ul>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+":"+pad((60-this.SecondsSince),2)+"<br></b>"+"EVT Avilable for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
         }
@@ -194,14 +197,15 @@ getCenters(){
         {
           let EVTtime=6-this.SinceTimeForm;
           let EVT=ConvertBack(EVTtime);
-          
+          this.TimerTextColour="black";
             this.colour="yellow";
            this.TreatmentInfo="<br><ul>EVT Avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+":"+pad((60-this.SecondsSince),2)+"</ul>";
         }
         else if(this.SinceTimeForm>=6)
         {
+          this.TimerTextColour="white";
           this.colour="red";
-          this.TreatmentInfo="<ul>Passed usual recovery time</ul>";
+          this.TreatmentInfo="<br><ul>Passed Treatment Window</ul>";
         }
       },1000);//this is one second as it is all measured in miliseconds 
     
