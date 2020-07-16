@@ -1,7 +1,7 @@
 
   <ion-header><!-- sets the header for the page with -->
     
-      <ion-navbar color="steelblue2" text-center>
+      <ion-navbar text-center>
         <ion-title>
           Mapping Routes<!-- the title of the page -->
         </ion-title>
@@ -21,7 +21,7 @@
   
   
   <!--the section of the code that deals with the markers in an ion item list -->
-    <div id="markers" height="10vh;">
+    <div id="markers" height="10vh;" style="color: #006bb6;">
       <ion-item><!-- an ionic element that contains the dropdown with the selections for icons -->
         <ion-label style="font-size: 1em;">Add Markers</ion-label><!-- The label present in the menue -->
         <ion-select multiple="true" interface="alert" (ionChange)="AddMapMarkers($event)">

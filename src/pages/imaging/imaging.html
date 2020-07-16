@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="steelblue2" text-center>
+  <ion-navbar  text-center>
     <ion-title>
       Imaging Routes
     </ion-title>
@@ -16,7 +16,7 @@
 
 <ion-content no-bounce  id="Imaging">
 
-  <h4 id="treatment-heading6" style="color:#000000;font-size: x-large;"><!--the header for the page with style specified  -->
+  <h4 id="treatment-heading6" style="color:#006bb6;font-size: x-large;"><!--the header for the page with style specified  -->
  
    Routes to Imaging Capable Hospitals
   </h4>
@@ -28,15 +28,15 @@
   <p style="font-size: large;">{{display}}</p>
   
 </div>
-    <ion-scroll scrollY="true" style="height: 55vh;"><!--this is the actual card section which is allowed to scroll but I will need to revisit the height to have it work on more devices  -->
+    <ion-scroll scrollY="true" style="height: 53vh;"><!--this is the actual card section which is allowed to scroll but I will need to revisit the height to have it work on more devices  -->
 <ion-list justify-content-center align-items-center><!--the list of elements all put into the center -->
   <ion-item *ngFor="let card of cards"><!--ngFor is another ionic element that allows you to iterate through a list each one being called card in this case -->
     <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour"><!--These are if the card is a driving type and wil call the normal routing function -->
-      <ion-card-content>
+      <ion-card-content >
         <ion-card-title>
         {{card.name}} <h1> <figure><img src= "./assets/Travel/Ambulance.png" style="float:right" ><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1>
         </ion-card-title>
-      <p id="cardinfo" >
+      <p id="cardinfo" style="color: black;">
         Patient Pickup to Destination time: {{card.TimeWithMultChar}}  
       </ion-card-content>
     </ion-card>
@@ -45,7 +45,7 @@
         <ion-card-title>
         {{card.name}} <h1><figure> <img src= "./assets/Travel/Helecopter.png" style="float:right"><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1>
         </ion-card-title>
-      <p id="cardinfo" >
+      <p id="cardinfo" style="color: black;">
         Patient Pickup to Destination time: {{card.TimeWithMultChar}}  
       </ion-card-content>
     </ion-card>
@@ -54,7 +54,7 @@
         <ion-card-title>
         {{card.name}} <h1><figure> <img src= "./assets/Travel/Airplane.png"><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1>
         </ion-card-title>
-      <p id="cardinfo" >
+      <p id="cardinfo" style="color: black;">
         Patient Pickup to Destination time: {{card.TimeWithMultChar}} 
       </ion-card-content>
     </ion-card>
@@ -64,8 +64,8 @@
 </div>
 
 <div class="treatment-button" ><!--This is the view treatment options button which will bring you to the tPA and EVT route treatment page -->
-  <h2 id="or" style="text-align: center;font-size: large;">OR</h2>
-      <button id="moreTreatments" ion-button color="steelblue1" block on-click="GoToTreatment()">View Treatment Options</button>
+  <h2 id="or" style="text-align: center;font-size: large;color: #006bb6;">OR</h2>
+      <button id="moreTreatments" ion-button block on-click="GoToTreatment()" round>View Treatment Options</button>
          <!--This is the weather display which has the data stored in the data provider and makes use of the ionic {{}} access to date types along with a data pipeline to better format the numbers -->
          <ion-grid style="background-color: #006bb6;">
           <ion-row>
