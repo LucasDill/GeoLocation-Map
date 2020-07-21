@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/data-service';
 import { MapPage } from '../map/map';
 
@@ -17,7 +17,7 @@ import { MapPage } from '../map/map';
 })
 export class NextStepsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public Data: DataServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public Data: DataServiceProvider, public alertController: AlertController) {
   }
 
 ionViewWillEnter()
@@ -31,7 +31,21 @@ GoToMap(){
 }
 
 GoToBestPractice(){
-  console.log("No Page yet");
+  this.ComingSoonPop();
+}
+
+async ComingSoonPop(){
+  let alert=this.alertController.create({
+    title:"Coming Soon",
+    message: "Sorry but the application does not have that functionality yet. This functionality should be added soon.",
+    buttons: [
+      {
+        text: "Ok",
+        
+         }     
+    ]
+  })
+  await alert.present();
 }
 
 }

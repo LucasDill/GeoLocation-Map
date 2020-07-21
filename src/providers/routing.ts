@@ -24,8 +24,8 @@ loc:any;
 
 FindPlan(Dest)
 {
-  console.log(Dest);
-  console.log(this.Data.StartLoc);
+  //console.log(Dest);
+ // console.log(this.Data.StartLoc);
  
  
   if(this.Data.SinceTimeForm<6)// this is the long if statement that will get the final plan html for the page 
