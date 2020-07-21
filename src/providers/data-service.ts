@@ -151,21 +151,21 @@ getCenters(){
         let TPAtime=4.5-this.SinceTimeForm;
         let TPA=ConvertBack(TPAtime);
           this.TimerTextColour="white";
-          this.colour="green";
+          this.colour="#008742";
           this.TreatmentInfo="<ul>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+":"+pad((60-this.SecondsSince),2)+"<br></b>"+"EVT Avilable for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
       }
       else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<6)
       {
         let EVTtime=6-this.SinceTimeForm;
         let EVT=ConvertBack(EVTtime);
-        this.TimerTextColour="black";
-        this.colour="yellow";
+        this.TimerTextColour="white";
+        this.colour="#db811a";
         this.TreatmentInfo="<br><ul>EVT Avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+":"+pad((60-this.SecondsSince),2)+"</ul>";//pad is a function we made to add zeros to the numbers if they are less than 10
       }
       else if(this.SinceTimeForm>=6)
       {
         this.TimerTextColour="white";
-        this.colour="red";
+        this.colour="#d2232a";
         this.TreatmentInfo="<br><ul>Passed Treatment Window</ul>";
       }
 
@@ -182,7 +182,7 @@ getCenters(){
         }
         
         
-       
+       // this is repeated because it updates every second but only after a second has passed so the first one is for that second
         if(this.SinceTimeForm<4.5)
         {
           let EVTtime=6-this.SinceTimeForm;
@@ -190,21 +190,21 @@ getCenters(){
           let TPAtime=4.5-this.SinceTimeForm;
           let TPA=ConvertBack(TPAtime);
             this.TimerTextColour="white";
-            this.colour="green";
+            this.colour="#008742";
             this.TreatmentInfo="<ul>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+":"+pad((60-this.SecondsSince),2)+"<br></b>"+"EVT Avilable for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
         }
         else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<6)
         {
           let EVTtime=6-this.SinceTimeForm;
           let EVT=ConvertBack(EVTtime);
-          this.TimerTextColour="black";
-            this.colour="yellow";
+          this.TimerTextColour="white";//This is now not useful because the background was changed but might as well keep it around 
+            this.colour="#db811a";
            this.TreatmentInfo="<br><ul>EVT Avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+":"+pad((60-this.SecondsSince),2)+"</ul>";
         }
         else if(this.SinceTimeForm>=6)
         {
           this.TimerTextColour="white";
-          this.colour="red";
+          this.colour="#d2232a";
           this.TreatmentInfo="<br><ul>Passed Treatment Window</ul>";
         }
       },1000);//this is one second as it is all measured in miliseconds 
