@@ -15,43 +15,85 @@
 <ion-content no-bounce id="evt-options">
 
 
-  <h4 id="treatment-heading6" style="color:#006bb6;font-size: x-large;">
+  <h4 id="treatment-heading6" style="color:#006bb6;font-size: x-large;padding-left: 5vw;">
     Routes To EVT Capable Hospitals
   </h4>
   <div *ngIf="evtSpinner" style="height: 60vh;" >
   <spinner ></spinner><!--This is the spinner component that runs until results are available-->
 </div>
   <div class="card-scroll" *ngIf="evtshow" style="height: 70vh;"><!--This creates the scroll div with all of the cards and is visable after evtshow is set to true-->
-    <p style="background-color: yellow;" text-center>Click on the route option for next steps</p>
+    <p style="color: black;" text-center>Click on the route option for next steps</p>
   <ion-scroll scrollY="true" style="height: 70vh;"><!--This is the actual compnent for the scroll with the vh probably needing to change and horizontal scroll not enabled -->
     <div *ngIf="evtEmpty"><br><br><br><p style="font-size: large;">{{message}}</p></div><!--If there are no results returned display the error message  -->
     <ion-list justify-content-center align-items-center>
       <ion-item *ngFor="let card of cards"><!--The ngFor will iterate through all elements in cards and give each one the name card -->
         <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour"><!--If it is a driving card have the ambulance picture and use the goToRoute function passing the information of the card -->
           <ion-card-content>
-            <ion-card-title>
-            {{card.name}} <h1> <figure><img src= "./assets/Travel/Ambulance.png" style="float:right"><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1><!--Show the card with the image of the ambulance -->
-            </ion-card-title>
-          <p id="cardinfo" style="color: black;">
-            Patient Pickup to Destination time: {{card.TimeWithMultChar}}  <!--Display the distance and time for that route-->
+            <ion-grid no-padding>
+              <ion-row>
+                <p id="cardinfo" style="font-size: small;color: white;">
+                  Patient Pickup to Destination: <b>{{card.TimeWithMultChar}}</b></p>
+              </ion-row>
+              <ion-row >
+                <ion-col col-9 >
+                  <p style="font-size: larger;color: white;"><b>{{card.name}}</b></p>
+              </ion-col>
+              <ion-col>
+                <div style="height: 50%;"></div>
+               <img src= "./assets/Travel/Ambulance.png"> 
+              </ion-col>
+              </ion-row>
+              <ion-row>
+                <p style="font-size: small;color: white;">Fastest Total Time Achieved<br>Call to Definitive care:<br>
+                <span style="font-size: medium;"><b>XX:XX (n=X)</b></span></p>
+              </ion-row>
+            </ion-grid>
           </ion-card-content>
         </ion-card>
         <ion-card *ngIf="card.Helipad" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"><!--If the card is a helicopter route show it with the image of the helicopter and use the ComplexRoute function to diplay the route-->
           <ion-card-content>
-            <ion-card-title>
-            {{card.name}} <h1> <figure><img src= "./assets/Travel/Helecopter.png" style="float:right"><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1>
-            </ion-card-title>
-          <p id="cardinfo"style="color: black;" >
-            Patient Pickup to Destination time: {{card.TimeWithMultChar}}  <!--these are special ionic data types that allow you to see the data from the cards -->
+            <ion-grid no-padding>
+              <ion-row>
+                <p id="cardinfo" style="font-size: small;color: white;">
+                  Patient Pickup to Destination: <b>{{card.TimeWithMultChar}}</b></p>
+              </ion-row>
+              <ion-row >
+                <ion-col col-9 >
+                  <p style="font-size: larger;color: white;"><b>{{card.name}}</b></p>
+              </ion-col>
+              <ion-col>
+                <div style="height: 50%;"></div>
+               <img src= "./assets/Travel/Helecopter.png"> 
+              </ion-col>
+              </ion-row>
+              <ion-row>
+                <p style="font-size: small;color: white;">Fastest Total Time Achieved<br>Call to Definitive care:<br>
+                <span style="font-size: medium;"><b>XX:XX (n=X)</b></span></p>
+              </ion-row>
+            </ion-grid>
           </ion-card-content>
         </ion-card>
         <ion-card *ngIf="card.Airport" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"><!--If the card is a Airport Type show the image of the airplane and use the complexRoute function to show the routes-->
           <ion-card-content>
-            <ion-card-title>
-            {{card.name}} <h1><figure> <img src= "./assets/Travel/Airplane.png" style="float:right"><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1>
-            </ion-card-title>
-          <p id="cardinfo" style="color: black;">
-            Patient Pickup to Destination time: {{card.TimeWithMultChar}}  
+            <ion-grid no-padding>
+              <ion-row>
+                <p id="cardinfo" style="font-size: small;color: white;">
+                  Patient Pickup to Destination: <b>{{card.TimeWithMultChar}}</b></p>
+              </ion-row>
+              <ion-row >
+                <ion-col col-9 >
+                  <p style="font-size: larger;color: white;"><b>{{card.name}}</b></p>
+              </ion-col>
+              <ion-col>
+                <div style="height: 50%;"></div>
+               <img src= "./assets/Travel/Airplane.png"> 
+              </ion-col>
+              </ion-row>
+              <ion-row>
+                <p style="font-size: small;color: white;">Fastest Total Time Achieved<br>Call to Definitive care:<br>
+                <span style="font-size: medium;"><b>XX:XX (n=X)</b></span></p>
+              </ion-row>
+            </ion-grid>
           </ion-card-content>
         </ion-card>
       </ion-item>

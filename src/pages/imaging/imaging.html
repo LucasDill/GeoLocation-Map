@@ -14,48 +14,90 @@
 
 
 
-<ion-content no-bounce  id="Imaging">
+<ion-content no-bounce  id="Imaging" >
 
-  <h4 id="treatment-heading6" style="color:#006bb6;font-size: x-large;"><!--the header for the page with style specified  -->
+  <h4 id="treatment-heading6" style="color:#006bb6;font-size: x-large;padding-left: 5vw;"><!--the header for the page with style specified  -->
  
    Routes to Imaging Capable Hospitals
   </h4>
   <spinner *ngIf="Spinner"></spinner><!--ngIF is a special ionic element that works like an if and only shows if true in this case if spinner is true it will show it -->
   <div class="card-scroll" *ngIf="show"><!--this is where the cards will be once show is set to true  -->
-    <p style="background-color: yellow;" text-center>Click on the route option for next steps</p>
+    <p text-center style="color: black;">Click on the route option for next steps</p>
 <div *ngIf="results"><!--if there are no results this will show the error message  -->
   <br><br>
   <p style="font-size: large;">{{display}}</p>
   
 </div>
-    <ion-scroll scrollY="true" style="height: 53vh;"><!--this is the actual card section which is allowed to scroll but I will need to revisit the height to have it work on more devices  -->
+    <ion-scroll scrollY="true" style="height: 53vh; color: white;" ><!--this is the actual card section which is allowed to scroll but I will need to revisit the height to have it work on more devices  -->
 <ion-list justify-content-center align-items-center><!--the list of elements all put into the center -->
-  <ion-item *ngFor="let card of cards"><!--ngFor is another ionic element that allows you to iterate through a list each one being called card in this case -->
-    <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour"><!--These are if the card is a driving type and wil call the normal routing function -->
+  <ion-item *ngFor="let card of cards" ><!--ngFor is another ionic element that allows you to iterate through a list each one being called card in this case -->
+    <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)"  text-wrap [style.background-color]="card.colour"><!--These are if the card is a driving type and wil call the normal routing function -->
       <ion-card-content >
-        <ion-card-title>
-        {{card.name}} <h1> <figure><img src= "./assets/Travel/Ambulance.png" style="float:right" ><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1>
-        </ion-card-title>
-      <p id="cardinfo" style="color: black;">
-        Patient Pickup to Destination time: {{card.TimeWithMultChar}}  
+        <ion-grid >
+          <ion-row>
+            <p id="cardinfo" style="font-size: small;color: white;">
+              Patient Pickup to Destination: <b>{{card.TimeWithMultChar}}</b></p>
+          </ion-row>
+          <ion-row >
+            <ion-col col-9 >
+              <p style="font-size: larger;color: white;"><b>{{card.name}}</b></p>
+          </ion-col>
+          <ion-col>
+            <div style="height: 15%;"></div>
+           <img src= "./assets/Travel/Ambulance.png"> 
+          </ion-col>
+          </ion-row>
+          <ion-row >
+            <p style="font-size: small;color: white;">Fastest Total Time Achieved<br>Call to Definitive care:<br>
+            <span style="font-size: medium;"><b>XX:XX (n=X)</b></span></p>
+          </ion-row>
+        </ion-grid>
       </ion-card-content>
     </ion-card>
     <ion-card *ngIf="card.Helipad" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"><!--These are cards with helicoper routes and will display the helicoper icon and call the complexroute function -->
       <ion-card-content>
-        <ion-card-title>
-        {{card.name}} <h1><figure> <img src= "./assets/Travel/Helecopter.png" style="float:right"><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1>
-        </ion-card-title>
-      <p id="cardinfo" style="color: black;">
-        Patient Pickup to Destination time: {{card.TimeWithMultChar}}  
+        <ion-grid >
+          <ion-row>
+            <p id="cardinfo" style="font-size: small;color: white;">
+              Patient Pickup to Destination: <b>{{card.TimeWithMultChar}}</b></p>
+          </ion-row>
+          <ion-row >
+            <ion-col col-9 >
+              <p style="font-size: larger;color: white;"><b>{{card.name}}</b></p>
+          </ion-col>
+          <ion-col>
+            <div style="height: 50%;"></div>
+           <img src= "./assets/Travel/Helecopter.png"> 
+          </ion-col>
+          </ion-row>
+          <ion-row>
+            <p style="font-size: small;color: white;">Fastest Total Time Achieved<br>Call to Definitive care:<br>
+            <span style="font-size: medium;"><b>XX:XX (n=X)</b></span></p>
+          </ion-row>
+        </ion-grid>  
       </ion-card-content>
     </ion-card>
     <ion-card *ngIf="card.Airport" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"><!--These are cards that have airplane routes and will show the icon and call the complexroute function  -->
       <ion-card-content>
-        <ion-card-title>
-        {{card.name}} <h1><figure> <img src= "./assets/Travel/Airplane.png"><figcaption style="font-size: small;">{{card.DistChar}}</figcaption> </figure></h1>
-        </ion-card-title>
-      <p id="cardinfo" style="color: black;">
-        Patient Pickup to Destination time: {{card.TimeWithMultChar}} 
+        <ion-grid >
+          <ion-row>
+            <p id="cardinfo" style="font-size: small;color: white;">
+              Patient Pickup to Destination: <b>{{card.TimeWithMultChar}}</b></p>
+          </ion-row>
+          <ion-row >
+            <ion-col col-9 >
+              <p style="font-size: larger;color: white;"><b>{{card.name}}</b></p>
+          </ion-col>
+          <ion-col>
+            <div style="height: 35%;"></div>
+           <img src= "./assets/Travel/Airplane.png"> 
+          </ion-col>
+          </ion-row>
+          <ion-row>
+            <p style="font-size: small;color: white;">Fastest Total Time Achieved<br>Call to Definitive care:<br>
+            <span style="font-size: medium;"><b>XX:XX (n=X)</b></span></p>
+          </ion-row>
+        </ion-grid>
       </ion-card-content>
     </ion-card>
   </ion-item>
