@@ -45,7 +45,7 @@ export class MyApp {
   }
 
   StartOver(){
-    document.location.href='index.html';// starts the app over from scratch s
+    this.navCtrl.push(WelcomePage);// starts the app over from scratch s
   //this.navCtrl.push(WelcomePage);// starts the application over from the start page 
   }
 
