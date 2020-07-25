@@ -169,6 +169,17 @@ for(var i=0;i<this.Data.AllMedicalCenters.length;i++)//Go through all of the med
 this.Medical_Centers=arr;//make the display information the array 
 }
 
+GoNext(center)//go to the next page if it is the city page or the locations 
+{
+  this.Data.StartLoc=center;
+  if(center.OnlyCity!=undefined&&center.OnlyCity==true)
+  {
+    this.goToCityPage(center);
+  }
+  else{
+  this.getLatLng(center);
+  }
+}
   
 goToCityPage(city)
 {
@@ -180,7 +191,8 @@ goToCityPage(city)
 
   async getLatLng(name){
   //var cityLocation=new google.maps.LatLng(name.lat,name.lng);
-
+    //console.log(name);
+   
   var Telestroke;
     
             if ( name.bTelestroke == true) {
