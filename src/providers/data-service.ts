@@ -159,7 +159,7 @@ getCenters(){
         let EVTtime=6-this.SinceTimeForm;
         let EVT=ConvertBack(EVTtime);
         this.TimerTextColour="white";
-        this.colour="#db811a";
+        this.colour="#ecb318";
         this.TreatmentInfo="<br><ul>EVT Avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+":"+pad((60-this.SecondsSince),2)+"</ul>";//pad is a function we made to add zeros to the numbers if they are less than 10
       }
       else if(this.SinceTimeForm>=6)
@@ -198,7 +198,7 @@ getCenters(){
           let EVTtime=6-this.SinceTimeForm;
           let EVT=ConvertBack(EVTtime);
           this.TimerTextColour="white";//This is now not useful because the background was changed but might as well keep it around 
-            this.colour="#db811a";
+            this.colour="#ecb318";
            this.TreatmentInfo="<br><ul>EVT Avilable for: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+":"+pad((60-this.SecondsSince),2)+"</ul>";
         }
         else if(this.SinceTimeForm>=6)
