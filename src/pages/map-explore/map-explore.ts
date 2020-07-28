@@ -6,6 +6,7 @@ import "firebase/auth";
 import "firebase/firestore";
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import { DataServiceProvider } from '../../providers/data-service';
+import { AnyMxRecord } from 'dns';
 declare var google: any;//this was giving us some trouble because it kept saying that google is not defined 
 
 
@@ -45,6 +46,10 @@ export class MapExplorePage {
     marker: any;
     db: any;
     items;
+    latin: any;
+    lngin: any;
+    zoom: any;
+    content: any;
   constructor(public zone: NgZone, public geolocation: Geolocation, public navCtrl: NavController,
     public DataBase: AngularFireDatabase,
     public Data: DataServiceProvider) {
@@ -54,10 +59,55 @@ export class MapExplorePage {
 
 initmap()
 {
+  if(this.Data.StartLoc!=undefined&&this.Data.CityMap==true)
+  {
+    this.latin=this.Data.StartLoc.lat;
+    this.lngin=this.Data.StartLoc.lng;
+    this.zoom=10;
+  }
+  else{
+    this.latin=48.424889;
+    this.lngin=-89.270721;
+    this.zoom=6;
+  }
   this.map = new google.maps.Map(this.mapElement.nativeElement, {
-    zoom: 6,
-    center:{ lat: 48.424889, lng: -89.270721}
+    zoom: this.zoom,
+    center:{ lat: this.latin, lng: this.lngin}
 });
+if(this.Data.StartLoc!=undefined&&this.Data.CityMap==true)
+{
+  var marker=new google.maps.Marker({
+    position: { lat: this.latin, lng: this.lngin},
+    map: this.map,
+    title: this.Data.StartLoc.city
+  });
+if(this.Data.StartLoc.name!=undefined)
+{
+  this.content =
+  "<b>Name:</b> " +
+  this.Data.StartLoc.name +
+  "<br>" +
+  "<b>City:</b> "+
+  this.Data.StartLoc.city+
+  "<br>"+
+  "<b>Address:</b> " +
+  this.Data.StartLoc.address;  
+}
+else{
+  this.content="<b>"+this.Data.StartLoc.city+"</b>";
+}
+  
+     
+let infoWindow = new google.maps.InfoWindow({
+  content: this.content
+});
+google.maps.event.addListener(marker, "click", () => {
+  infoWindow.open(this.map, marker);
+});             
+
+  marker.setMap(this.map);
+}
+
 }
 
 ionViewDidLoad(){

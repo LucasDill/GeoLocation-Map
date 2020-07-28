@@ -41,6 +41,7 @@ export class MyApp {
   }
 
   goToMap(){
+    this.Data.CityMap=false;
     this.navCtrl.push(MapExplorePage);// starts the map page for exploration 
   }
 

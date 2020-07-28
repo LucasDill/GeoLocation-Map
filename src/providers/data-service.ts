@@ -73,6 +73,7 @@ export class DataServiceProvider {
 
 Destination:any;
 ComplexRoute:Boolean;
+CityMap:Boolean=false;
 
 GivenTime:Boolean=false;// a test to see if the time has been given
 
