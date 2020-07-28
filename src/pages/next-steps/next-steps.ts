@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/data-service';
 import { MapPage } from '../map/map';
-
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 /**
  * Generated class for the NextStepsPage page.
  *
@@ -17,7 +17,7 @@ import { MapPage } from '../map/map';
 })
 export class NextStepsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public Data: DataServiceProvider, public alertController: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public Data: DataServiceProvider, public alertController: AlertController, private inAppBrowser: InAppBrowser) {
   }
 
 ionViewWillEnter()
@@ -31,7 +31,9 @@ GoToMap(){
 }
 
 GoToBestPractice(){
-  this.ComingSoonPop();
+  var url="https://www.strokebestpractices.ca/recommendations/acute-stroke-management/emergency-department-evaluation-and-management";
+  const browser=this.inAppBrowser.create(url,'_self');
+  //this.ComingSoonPop();
 }
 
 async ComingSoonPop(){
