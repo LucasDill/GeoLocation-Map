@@ -46,6 +46,50 @@ timeForm =new FormGroup({//creates a new form with the last known well
 ionViewWillEnter(){
   this.Data.GivenTime=false;// this is just to set the value to false in order for it to have the top timer not appear on menu screens
 }
+/*
+ionViewWillLoad(){
+  this.Data.AllDrivingData= this.db.collection("/GoogleDrivingData/")//This would be better done somewhere else or done with syncronization through realtime database but this is how we have it now 
+  .get()
+  .then((querySnapshot) => {
+    var total=[]
+    querySnapshot.forEach(function(doc) {
+        var obj = doc.data();
+        total.push(obj);
+      
+    });
+    this.Data.AllDrivingData=total;// save the array of all abjects to the Data Service provider 
+    console.log("AllDrivingData:");
+    console.log(JSON.stringify(this.Data.AllDrivingData));
+    //console.log(JSON.stringify(this.Data.AllDrivingData));
+  });
+  
+this.Data.AllDrivingData= this.db.collection("/Landing Sites/")//This would be better done somewhere else or done with syncronization through realtime database but this is how we have it now 
+.get()
+.then((querySnapshot) => {
+  var total=[]
+  querySnapshot.forEach(function(doc) {
+      var obj = doc.data();
+      total.push(obj);
+    
+  });
+  this.Data.AllLandingSites=total;// save the array of all abjects to the Data Service provider 
+  console.log("AllLandingSites:");
+  console.log(JSON.stringify(this.Data.AllLandingSites));
+//   for (var i = 0; i< this.Data.AllLandingSites.length; i++) {
+//     delete this.Data.AllLandingSites[i].city ;
+//     delete this.Data.AllLandingSites[i].siteName   ;
+//     delete this.Data.AllLandingSites[i].type;
+//     delete this.Data.AllLandingSites[i].Address   ;
+//     delete this.Data.AllLandingSites[i].id   ;
+ 
+//   }
+ 
+
+
+
+    
+});
+}*/
 
 SubmitTime(){//once the button is clicked to go to the next page it will push to the PatientLocationPage
   this.Data.GivenTime=true;
