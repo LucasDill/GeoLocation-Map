@@ -49,28 +49,53 @@ export class MapPage {
     marker: any;
     db: any;
     items;
+    StartLocation = null;
+    DestinationLocation = null;
+
+    A_Star_results = null;
+    Results_arr = [];
+    iterator_obj = null;
+    directionsService = new google.maps.DirectionsService();
+    nodeIDCounter = 0;
+    edgeIDCounter = 0;
+    Nodes = this.Data.nodes;
+    Edges = this.Data.edges;
+ 
+    StartNode = null;
+    DestinationNode = null;
+
+    //DijkstraStartNode = null;
+    DijkstraGoalNode = null;
+    DijkstraDuration = null;
+    DijkstraDistance = null;
+
   constructor(public zone: NgZone, public geolocation: Geolocation, public navCtrl: NavController,
     public DataBase: AngularFireDatabase,
     public Data: DataServiceProvider) {
     /*load google map script dynamically */
       this.db = firebase.firestore();
-      setTimeout(() => {// this initially threw an error unless we added a bit of a time buffer to allow it to continue 
+      console.log(this.Data.Destination)
+      //setTimeout(() => {// this initially threw an error unless we added a bit of a time buffer to allow it to continue 
         directionsService = new google.maps.DirectionsService();
         directionsDisplay = new google.maps.DirectionsRenderer();
+        setTimeout(() => {
+          var latlng = new google.maps.LatLng(48.3809, -89.2477);
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
             preserveViewport: true,
-            zoom: 8
+            zoom: 8,
+            center: latlng
         });
         // if a route is calcualted, display it on the map
+        
         directionsDisplay.setMap(this.map);
 if(myPolyline!=undefined)// if it was a driving route it would throw an error because it would try to do this part but it now allows us to set a line
 {
   myPolyline.setMap(this.map);// set a line on the map 
 }
-        
+}, 100);
 
-
-  if (bounds1.getNorthEast().equals(bounds1.getSouthWest())) {//bounds are the display parameter of the map and make sure it shows the whole route these are set further below 
+console.log(this.Data.tPARoutes);
+ /* if (bounds1.getNorthEast().equals(bounds1.getSouthWest())) {//bounds are the display parameter of the map and make sure it shows the whole route these are set further below 
     var extendPoint = new google.maps.LatLng(bounds1.getNorthEast().lat() + 0.01, bounds1.getNorthEast().lng() + 0.01);//an extra 0.01 is added so it zooms a bit more out to improve the look
     bounds1.extend(extendPoint);//extend the bounds to include the new point
   }
@@ -81,11 +106,202 @@ if(myPolyline!=undefined)// if it was a driving route it would throw an error be
 
   this.map.fitBounds(bounds1);
       }, 2);//this is the end of the interval so it will wait 2 micro or miliseconds before performing these actions 
+     */ 
+      //this.Data.map=this.map;
+  }
+
+  DrawDijkstraResults(end ) {
+    //console.log(G.Nodes);
+    console.log("Starting to Draw Dijkstra");
+
+    //let end = "MED_TBRHSC";
+    //let start = "MED_UPSALA";
+
+    //let StartNode = this.GetNode(start);
+    //this.DijkstraStartNode = StartNode;
+    //let EndNode = this.GetNode(end);
+
+    //this.DijkstraDuration = 0;
+    //this.DijkstraDistance = 0;
+
+    let CurrentNode = this.GetNode(end);
+    console.log("CurrentNode.DijkstraPreviousNode:" + CurrentNode.DijkstraPreviousNode);
+    while (CurrentNode.DijkstraPreviousNode !== null) {
+        console.log("looping...");
+        //console.log("this.DijkstraDuration: " + this.DijkstraDuration);
+        let CurrentEdge = this.get_edge(CurrentNode.name,CurrentNode.DijkstraPreviousNode.name);
+
+        if (CurrentEdge.type === "road") {
+            console.log("drawing road route...");
+            console.log("ROAD: " + this.EstDrivingDuration(this.get_edge_distance(CurrentNode.name ,CurrentNode.DijkstraPreviousNode.name)));
+            //this.DijkstraDuration = this.DijkstraDuration + this.EstDrivingDuration(this.get_edge_distance(CurrentNode.name ,CurrentNode.DijkstraPreviousNode.name)) ;
+            this.requestDirections(
+                {lat: CurrentNode.GetLat(),lng: CurrentNode.GetLng() },
+                {lat: CurrentNode.DijkstraPreviousNode.GetLat(),lng: CurrentNode.DijkstraPreviousNode.GetLng() }
+                );
+
+        } else if (CurrentEdge.type === "plane" ){
+            console.log("drawing air plane route...");
+            console.log("plane: " + this.EstPlaneDuration(this.get_edge_distance(CurrentNode.name ,CurrentNode.DijkstraPreviousNode.name)));
+            //this.DijkstraDuration = this.DijkstraDuration + this.EstPlaneDuration(this.get_edge_distance(CurrentNode.name ,CurrentNode.DijkstraPreviousNode.name)) ;
+            this.DrawFlightPath(
+                {lat: CurrentNode.GetLat(),lng: CurrentNode.GetLng() },
+                {lat: CurrentNode.DijkstraPreviousNode.GetLat(),lng: CurrentNode.DijkstraPreviousNode.GetLng() },
+                true);
+
+        }  else if (CurrentEdge.type === "helicopter") {
+            console.log("drawing air helicopter route...");
+            console.log("helicopter: " + this.EstHelicopterDuration(this.get_edge_distance(CurrentNode.name ,CurrentNode.DijkstraPreviousNode.name)));
+            //this.DijkstraDuration = this.DijkstraDuration + this.EstHelicopterDuration(this.get_edge_distance(CurrentNode.name ,CurrentNode.DijkstraPreviousNode.name)) ;
+           this.DrawFlightPath(
+                {lat: CurrentNode.GetLat(),lng: CurrentNode.GetLng() },
+                {lat: CurrentNode.DijkstraPreviousNode.GetLat(),lng: CurrentNode.DijkstraPreviousNode.GetLng() },
+                true);
+        }
+        //console.log("this.DijkstraDuration: " + (this.DijkstraDuration) );
+        CurrentNode = CurrentNode.DijkstraPreviousNode;
+    }
+
+
+    //map.setCenter({lat: 50.856499293272854, lng: -87.89515385691308});
+    //this.map.setZoom(3);
+    //console.log("this.DijkstraDuration:" + this.DijkstraDuration);
+    //document.getElementById("txtDist").value = (this.DijkstraDuration)/60 /60  ;
+    console.log("Done Drawing Dijkstra");
+    return true;
+}
+
+GetNode (y) {
+  return this.Nodes[this.Nodes.findIndex(x => x.name === y)];
+}
+
+get_edge_distance(x,y) {
+  //console.log("Calling get_edge_distance()");
+  let minDist = -1;
+  for (let i = 0; i < this.Edges.length; i++) {
+      //console.log(this.Edges[i].endNodes[0].name + " " + this.Edges[i].endNodes[1].name)
+      if ((this.Edges[i].endNodes[0] === x && this.Edges[i].endNodes[1] === y) ||
+          (this.Edges[i].endNodes[0] === y && this.Edges[i].endNodes[1] === x)) {
+          if (minDist < 0) {
+              minDist = this.Edges[i].distance;
+          } else {
+              if (minDist > this.Edges[i].distance) {
+                  minDist = this.Edges[i].distance;
+              }
+          }
+      }
+  }
+  if (minDist === -1) {
+      return false;
+  } else {
+      return minDist;
+  }
+
+}
+
+requestDirections(start, end ) {
+  var temp=this;
+  this.directionsService.route({
+      origin: start,
+      destination: end,
+      travelMode: google.maps.DirectionsTravelMode.DRIVING
+  }, function(result) {
+   
+      temp.renderDirections(result);
+  });
+}
+
+renderDirections(result) {
+let directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: true});
+
+directionsRenderer.setMap(this.map);
+directionsRenderer.setDirections(result);
+}
+ DrawFlightPath (a,b, SolidLine = false) {
+  let flightPlanCoordinates = [a,b];
+  console.log(flightPlanCoordinates);
+  // Define a symbol using SVG path notation, with an opacity of 1.
+  let lineSymbol = { // Define a symbol using SVG path notation, with an opacity of 1.
+      path: 'M 0,-1 0, 1',
+      strokeOpacity: 1,
+      scale: 1.5
+  };
+
+  let flightPath = null;
+  //console.log("AA");
+  if (SolidLine === true) {
+      flightPath = new google.maps.Polyline({
+          path: flightPlanCoordinates,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+      });
+  } else {
+      flightPath = new google.maps.Polyline({
+          path: flightPlanCoordinates,
+          geodesic: true,
+          strokeOpacity: 0,
+          icons: [{
+              icon: lineSymbol,
+              offset: '0',
+              repeat: '10px'
+          }],
+          map: this.map
+      });
+  }
+  //console.log("XX");
+  flightPath.setMap(this.map);
+  //console.log("ZZ");
+}
+get_edge(x,y) {
+  //console.log("Calling get_edge()");
+  for (let i = 0; i < this.Edges.length; i++) {
+      //console.log(this.Edges[i].endNodes[0].name + " " + this.Edges[i].endNodes[1].name)
+      if ((this.Edges[i].endNodes[0] === x && this.Edges[i].endNodes[1] === y) ||
+          (this.Edges[i].endNodes[0] === y && this.Edges[i].endNodes[1] === x)) {
+          return this.Edges[i];
+      }
+  }
+  return false;
+}
+  EstPlaneDuration(distance) {
+      //console.log("calling EstPlaneDuration");
+      //console.log("distance: " + distance);
+      let x = distance;
+      let calc =   (9.901e-08 *(x**2)) + (0.002161 *x) + 0.1569;
+      //console.log("plane calc: " + calc + " for distance: " + distance);
+      return (calc);
+  }
+
+  EstHelicopterDuration(distance) {
+      //console.log("calling EstHelicopterDuration");
+      //console.log("distance: " + distance);
+      let x = distance;
+      let calc = (1.377e-06 *(x**2)) +(  0.003636*x) + 0.09594;
+      //console.log("heli calc: " + calc);
+      return (calc);
+  }
+
+  EstDrivingDuration(distance) {
+      //console.log("calling EstDrivingDuration");
+      //console.log("distance: " + distance);
+      let x = distance;
+      let calc;
+      calc = ((0.04043 * x + 184.5)/60) /1.4;
+      //console.log("driving calc: " + calc);
+      return (calc);
 
   }
 
+  
+  
+
 ionViewDidLoad(){
-  myPolyline=new google.maps.Polyline();// declare all of the variables that will be used to get the directions and display them 
+
+  this.DrawDijkstraResults(this.Data.Destination.id);
+ 
+  /*myPolyline=new google.maps.Polyline();// declare all of the variables that will be used to get the directions and display them 
 directionsService = new google.maps.DirectionsService();
 directionsDisplay = new google.maps.DirectionsRenderer();
 directionsDisplay1 =new google.maps.DirectionsRenderer();
@@ -232,7 +448,7 @@ else{
   );
 }
 }
-
+*/
 }
 
 

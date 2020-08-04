@@ -46,7 +46,7 @@ timeForm =new FormGroup({//creates a new form with the last known well
 ionViewWillEnter(){
   this.Data.GivenTime=false;// this is just to set the value to false in order for it to have the top timer not appear on menu screens
 }
-/*
+
 ionViewWillLoad(){
   this.Data.AllDrivingData= this.db.collection("/GoogleDrivingData/")//This would be better done somewhere else or done with syncronization through realtime database but this is how we have it now 
   .get()
@@ -89,7 +89,7 @@ this.Data.AllDrivingData= this.db.collection("/Landing Sites/")//This would be b
 
     
 });
-}*/
+}
 
 SubmitTime(){//once the button is clicked to go to the next page it will push to the PatientLocationPage
   this.Data.GivenTime=true;

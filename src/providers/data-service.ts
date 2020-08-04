@@ -75,6 +75,13 @@ Destination:any;
 ComplexRoute:Boolean;
 CityMap:Boolean=false;
   
+tPARoutes:any;
+EVTRoutes:any;
+
+map:any;
+edges:any;
+nodes:any;
+
 AllLandingSites: any;
 AllDrivingData: any;
 

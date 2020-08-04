@@ -36,6 +36,7 @@ import { NextStepsPage } from '../pages/next-steps/next-steps';
 import { CityPage } from '../pages/city/city';
 import { MapExplorePage } from '../pages/map-explore/map-explore';
 import { WelcomePage } from '../pages/welcome/welcome';
+import { DijkstraProvider } from '../providers/dijkstra';
 
 
 
@@ -109,7 +110,8 @@ import { WelcomePage } from '../pages/welcome/welcome';
     File,
     DocumentViewer,
     InAppBrowser,
-    PdfViewerProvider
+    PdfViewerProvider,
+    DijkstraProvider
   ]
 })
 export class AppModule {}
