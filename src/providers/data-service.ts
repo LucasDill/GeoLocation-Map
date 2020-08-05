@@ -156,7 +156,7 @@ getCenters(){
         let TPA=ConvertBack(TPAtime);
           this.TimerTextColour="white";
           this.colour="#008742";
-          this.TreatmentInfo="<ul>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+":"+pad((60-this.SecondsSince),2)+"<br></b>"+"EVT Avilable for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
+          this.TreatmentInfo="<ul>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+":"+pad((60-this.SecondsSince),2)+"<br></b>"+"EVT Available for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
       }
       else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<6)
       {
@@ -195,7 +195,7 @@ getCenters(){
           let TPA=ConvertBack(TPAtime);
             this.TimerTextColour="white";
             this.colour="#008742";
-            this.TreatmentInfo="<ul>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+":"+pad((60-this.SecondsSince),2)+"<br></b>"+"EVT Avilable for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
+            this.TreatmentInfo="<ul>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+":"+pad((60-this.SecondsSince),2)+"<br></b>"+"EVT Available for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
         }
         else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<6)
         {

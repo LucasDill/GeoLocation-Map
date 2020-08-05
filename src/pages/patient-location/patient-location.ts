@@ -279,12 +279,14 @@ var page=this;
     var difference=Math.abs(Math.abs(this.Data.PatientTimeZone)-Math.abs(this.Data.UserTimeZone));// find the total difference and add it to the time 
     let alert=this.alertController.create({
       title:"Different Time Zones",
-      message: "The Site you have specifed is in a different time zone.\nDid you enter the last known well in your time zone or the time zone of the sending location?",
+      message: "The site you have specifed is in a different time zone.<br/><br/>Did you enter the last known well in your time zone or the time zone of the sending location?",
       buttons: [
         {
           text: "Sending Location",
           handler: () => {
-           if((this.Data.HoursSince-difference)<0)// if the time would be negative 
+           // console.log(this.Data.HoursSince)
+            //console.log(difference)
+            if(this.Data.UserTimeZone>this.Data.PatientTimeZone&&(this.Data.HoursSince-difference)<0)// if the time would be negative ////////////////////////////NEED TO CHANGE WAS SHOWING UP WHEN TIME WOULD BE GREATER
            {
             this.WrongTime(); 
            }
