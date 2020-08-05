@@ -36,6 +36,7 @@ import { NextStepsPage } from '../pages/next-steps/next-steps';
 import { CityPage } from '../pages/city/city';
 import { MapExplorePage } from '../pages/map-explore/map-explore';
 import { WelcomePage } from '../pages/welcome/welcome';
+import { ContactPage } from '../pages/contact/contact';
 
 
 
@@ -56,7 +57,8 @@ import { WelcomePage } from '../pages/welcome/welcome';
     NextStepsPage,
     CityPage,
     MapExplorePage,
-    WelcomePage
+    WelcomePage,
+    ContactPage
   ],
   imports: [// these are special imports used by the app and where we declare the api key and firestore information 
     BrowserModule,
@@ -94,7 +96,8 @@ import { WelcomePage } from '../pages/welcome/welcome';
     NextStepsPage,
     CityPage,
     MapExplorePage,
-    WelcomePage
+    WelcomePage,
+    ContactPage
   ],
   providers: [// the providers used the only ones we made where the DataServiceProvider and the RoutingProvider I think the others are standardized
     DataServiceProvider,

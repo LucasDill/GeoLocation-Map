@@ -8,6 +8,7 @@ import { DataServiceProvider } from '../providers/data-service';
 import { MapExplorePage } from '../pages/map-explore/map-explore';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { WelcomePage } from '../pages/welcome/welcome';
+import { ContactPage } from '../pages/contact/contact';
 
 
 
@@ -46,12 +47,13 @@ export class MyApp {
   }
 
   StartOver(){
-    this.navCtrl.push(WelcomePage);// starts the app over from scratch s
+this.splashScreen.show();// show the loading screen if any 
+window.location.reload();//reload the start of the application  
   //this.navCtrl.push(WelcomePage);// starts the application over from the start page 
   }
 
-  goToContact(){
-    console.log("contact");
+  goToContact(){// simply push to the contact page of the application
+    this.navCtrl.push(ContactPage);
   }
 
   goToBestPractice(){
