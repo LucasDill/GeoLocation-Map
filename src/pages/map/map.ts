@@ -11,7 +11,7 @@ declare var google: any;//this was giving us some trouble because it kept saying
 
 
 // variable arrays for each marker (hospital, telestroke site, etc.), this way we can push the arrays to clear the markers when they are deselected in the UI
-var gmarkers = [], gmarkers2 = [], gmarkers3 = [], gmarkers4 = [], gmarkers5 = [], gmarkers6 = [], gmarkers7 = [];
+var gmarkers = [], gmarkers2 = [], gmarkers3 = [], gmarkers4 = [], gmarkers5 = [], gmarkers6 = [], gmarkers7 = [], gmarkers8=[], gmarkers9=[];
 
 // variable array for pin that appears when the map is clicked, we can push to the array to clear it when a new location is clicked (this way we do not have multiple pins on the map)
 var clicked_marker = [];
@@ -271,6 +271,8 @@ AddMapMarkers(e) {
   for (var i = 0; i < gmarkers5.length; i++) gmarkers5[i].setMap(null);
   for (var i = 0; i < gmarkers6.length; i++) gmarkers6[i].setMap(null);
   for (var i = 0; i < gmarkers7.length; i++) gmarkers7[i].setMap(null);
+  for (var i = 0; i < gmarkers8.length; i++) gmarkers7[i].setMap(null);
+  for (var i = 0; i < gmarkers9.length; i++) gmarkers7[i].setMap(null);
  
   // call methods to show markers when they are selected in menu (in the html file we use numbers, stored in array e, to distinguish which markers the user would like displayed)
   for (var i = 0; i < e.length; i++) {
@@ -281,18 +283,24 @@ AddMapMarkers(e) {
       this.AddTele();
     }
     if (e[i] == 3) {
-      this.AddHealthService();
+      this.AddtPA();
     }
     if (e[i] == 4) {
-      this.AddHele();
+      this.AddEVT();
     }
     if (e[i] == 5) {
-      this.AddAirport();
+      this.AddHealthService();
     }
     if (e[i] == 6) {
-      this.AddAmbBase();
+      this.AddHele();
     }
     if (e[i] == 7) {
+      this.AddAirport();
+    }
+    if (e[i] == 8) {
+      this.AddAmbBase();
+    }
+    if (e[i] == 9) {
       this.AddORNGE();
     }
   }
@@ -436,7 +444,7 @@ AddTele() {
   });
 }
 
-AddHealthService() {
+AddtPA(){
   var items;
   var map = this.map;
   //add health service markers
@@ -446,14 +454,14 @@ AddHealthService() {
       querySnapshot.forEach(function(doc) {
 
       var icon = {
-        url: "./assets/imgs/healthservices.png",
+        url: "./assets/imgs/tPA.png",
         scaledSize: new google.maps.Size(25, 25)
       };
 
         if (
-          doc.data().bHealthServices == true &&
-          doc.data().bTelestroke == false &&
-          doc.data().bHospital == false
+          doc.data().bRegionalStrokeCentre == false &&
+          doc.data().bTelestroke == true
+          
         ) {
           let marker3 = new google.maps.Marker({
             map: map,
@@ -485,6 +493,103 @@ AddHealthService() {
   });
 }
 
+AddEVT()
+{
+  var items;
+  var map = this.map;
+  //add health service markers
+  this.db.collection("/Health Centers/")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach(function(doc) {
+
+      var icon = {
+        url: "./assets/imgs/EVT.png",
+        scaledSize: new google.maps.Size(25, 25)
+      };
+
+        if (
+          doc.data().bRegionalStrokeCentre == true 
+        ) {
+          let marker4 = new google.maps.Marker({
+            map: map,
+            animation: google.maps.Animation.DROP,
+            position: { lat: doc.data().lat, lng: doc.data().lng },
+            icon: icon
+          });
+
+          let content =
+            "<b>Name:</b> " +
+            doc.data().name +
+            "<br>" +
+            "<b>Address:</b> " +
+            doc.data().address;
+
+            let infoWindow = new google.maps.InfoWindow({
+              content: content
+            });
+          
+            google.maps.event.addListener(marker4, "click", () => {
+              infoWindow.open(map, marker4);
+            });
+
+          gmarkers4.push(marker4);
+        }
+      
+    });
+    this.items = items;
+  });
+}
+
+AddHealthService() {
+  var items;
+  var map = this.map;
+  //add health service markers
+  this.db.collection("/Health Centers/")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach(function(doc) {
+
+      var icon = {
+        url: "./assets/imgs/healthservices.png",
+        scaledSize: new google.maps.Size(25, 25)
+      };
+
+        if (
+          doc.data().bHealthServices == true &&
+          doc.data().bTelestroke == false &&
+          doc.data().bHospital == false
+        ) {
+          let marker5 = new google.maps.Marker({
+            map: map,
+            animation: google.maps.Animation.DROP,
+            position: { lat: doc.data().lat, lng: doc.data().lng },
+            icon: icon
+          });
+
+          let content =
+            "<b>Name:</b> " +
+            doc.data().name +
+            "<br>" +
+            "<b>Address:</b> " +
+            doc.data().address;
+
+            let infoWindow = new google.maps.InfoWindow({
+              content: content
+            });
+          
+            google.maps.event.addListener(marker5, "click", () => {
+              infoWindow.open(map, marker5);
+            });
+
+          gmarkers5.push(marker5);
+        }
+      
+    });
+    this.items = items;
+  });
+}
+
 AddHele() {
   var items;
   var map = this.map;
@@ -501,7 +606,7 @@ AddHele() {
       };
 
         if (doc.data().type == "Helipad") {
-          let marker4 = new google.maps.Marker({
+          let marker6 = new google.maps.Marker({
             map: map,
             animation: google.maps.Animation.DROP,
             position: { lat: doc.data().lat, lng: doc.data().lng },
@@ -522,11 +627,11 @@ AddHele() {
               content: content
             });
           
-            google.maps.event.addListener(marker4, "click", () => {
-              infoWindow.open(map, marker4);
+            google.maps.event.addListener(marker6, "click", () => {
+              infoWindow.open(map, marker6);
             });
 
-          gmarkers4.push(marker4);
+          gmarkers6.push(marker6);
         }
       
     });
@@ -550,7 +655,7 @@ AddAirport() {
       };
 
         if (doc.data().type == "Airport") {
-          let marker5 = new google.maps.Marker({
+          let marker7 = new google.maps.Marker({
             map: map,
             animation: google.maps.Animation.DROP,
             position: { lat: doc.data().lat, lng: doc.data().lng },
@@ -571,11 +676,11 @@ AddAirport() {
               content: content
             });
           
-            google.maps.event.addListener(marker5, "click", () => {
-              infoWindow.open(map, marker5);
+            google.maps.event.addListener(marker7, "click", () => {
+              infoWindow.open(map, marker7);
             });
 
-          gmarkers5.push(marker5);
+          gmarkers7.push(marker7);
         }
       
     });
@@ -598,7 +703,7 @@ AddAmbBase() {
         scaledSize: new google.maps.Size(26, 20)
       };
 
-        let marker6 = new google.maps.Marker({
+        let marker8 = new google.maps.Marker({
           map: map,
           animation: google.maps.Animation.DROP,
           position: { lat: doc.data().lat, lng: doc.data().lng },
@@ -619,11 +724,11 @@ AddAmbBase() {
             content: content
           });
         
-          google.maps.event.addListener(marker6, "click", () => {
-            infoWindow.open(map, marker6);
+          google.maps.event.addListener(marker8, "click", () => {
+            infoWindow.open(map, marker8);
           });
 
-        gmarkers6.push(marker6);
+        gmarkers8.push(marker8);
       
     });
     this.items = items;
@@ -645,7 +750,7 @@ AddORNGE() {
         scaledSize: new google.maps.Size(25, 25)
       };
 
-        let marker7 = new google.maps.Marker({
+        let marker9 = new google.maps.Marker({
           map: map,
           animation: google.maps.Animation.DROP,
           position: { lat: doc.data().lat, lng: doc.data().lng },
@@ -664,11 +769,11 @@ AddORNGE() {
             content: content
           });
         
-          google.maps.event.addListener(marker7, "click", () => {
-            infoWindow.open(map, marker7);
+          google.maps.event.addListener(marker9, "click", () => {
+            infoWindow.open(map, marker9);
           });
 
-        gmarkers7.push(marker7);
+        gmarkers9.push(marker9);
       
     });
     this.items = items;
