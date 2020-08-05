@@ -271,8 +271,8 @@ AddMapMarkers(e) {
   for (var i = 0; i < gmarkers5.length; i++) gmarkers5[i].setMap(null);
   for (var i = 0; i < gmarkers6.length; i++) gmarkers6[i].setMap(null);
   for (var i = 0; i < gmarkers7.length; i++) gmarkers7[i].setMap(null);
-  for (var i = 0; i < gmarkers8.length; i++) gmarkers7[i].setMap(null);
-  for (var i = 0; i < gmarkers9.length; i++) gmarkers7[i].setMap(null);
+  for (var i = 0; i < gmarkers8.length; i++) gmarkers8[i].setMap(null);
+  for (var i = 0; i < gmarkers9.length; i++) gmarkers9[i].setMap(null);
  
   // call methods to show markers when they are selected in menu (in the html file we use numbers, stored in array e, to distinguish which markers the user would like displayed)
   for (var i = 0; i < e.length; i++) {
@@ -336,7 +336,8 @@ AddHospitals() {// add the hosital markers to the map with the specified icons t
         // see the Firebase database for corresponding data values and attributes
         if (
           doc.data().bHospital == true &&
-          doc.data().bRegionalStrokeCentre == false
+          doc.data().bRegionalStrokeCentre == false&&
+          doc.data().bTelestroke==false
         ) {
           // marker is displayed with properties
           let marker1 = new google.maps.Marker({
@@ -365,7 +366,7 @@ AddHospitals() {// add the hosital markers to the map with the specified icons t
           gmarkers.push(marker1);
         } 
         // special case for TBRHSC
-        else if (doc.data().bRegionalStrokeCentre == true) {
+       /* else if (doc.data().bRegionalStrokeCentre == true) {
           let markerTB = new google.maps.Marker({
             map: map,
             animation: google.maps.Animation.DROP,
@@ -390,7 +391,7 @@ AddHospitals() {// add the hosital markers to the map with the specified icons t
             
 
           gmarkers.push(markerTB);
-        }
+        }*/
      
     });
     this.items = items;
@@ -413,7 +414,7 @@ AddTele() {
         scaledSize: new google.maps.Size(25, 25)
       };
 
-        if (doc.data().bTelestroke == true) {
+        if (doc.data().bTelestroke == true&&doc.data().bRegionalStrokeCentre==false) {
           let marker2 = new google.maps.Marker({
             map: map,
             animation: google.maps.Animation.DROP,
@@ -558,7 +559,8 @@ AddHealthService() {
         if (
           doc.data().bHealthServices == true &&
           doc.data().bTelestroke == false &&
-          doc.data().bHospital == false
+          doc.data().bHospital == false&&
+          doc.data().bRegionalStrokeCentre==false
         ) {
           let marker5 = new google.maps.Marker({
             map: map,

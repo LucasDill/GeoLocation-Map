@@ -27,28 +27,32 @@
       <ion-select multiple="true" interface="alert" (ionChange)="AddMapMarkers($event)">
         <!-- the ionic element that creates the dropdown menue with multiple allowed to be seleced and the alert interface others are available but not in this case whenever the values change and ok is pressed it will call the AddMapMarkers function passing the values of the selected markers -->
         <ion-option [value]="1">
-          <ion-label>Hospital Markers</ion-label>
+          <ion-label>Hospitals</ion-label>
         </ion-option>
         <!-- each ion-option has a value and a label showing which markers will be added and their values which will be passed to the end this is the same for all following ion-select-options -->
         <ion-option [value]="2" >
-          <ion-label>TeleStroke Markers</ion-label>
-          <ion-checkbox ></ion-checkbox>
+          <ion-label>TeleStroke Sites</ion-label>
         </ion-option>
-        <ion-option [value]="3">
-          <ion-label>Health Service Markers</ion-label>
+        <ion-option [value]="3" >
+          <ion-label>tPA Sites</ion-label>
         </ion-option>
-        <ion-option [value]="4">
-          <ion-label>Helipad Markers</ion-label>
+        <ion-option [value]="4" >
+          <ion-label>EVT Sites</ion-label>
         </ion-option>
         <ion-option [value]="5">
-          <ion-label>Airport Markers</ion-label>
-          <ion-checkbox></ion-checkbox>
+          <ion-label>Health Services</ion-label>
         </ion-option>
         <ion-option [value]="6">
-          <ion-label>Ambulance Base Markers</ion-label>
+          <ion-label>Helipads</ion-label>
         </ion-option>
         <ion-option [value]="7">
-          <ion-label>ORNGE Base Markers</ion-label>
+          <ion-label>Airports</ion-label>
+        </ion-option>
+        <ion-option [value]="8">
+          <ion-label>Ambulance Bases</ion-label>
+        </ion-option>
+        <ion-option [value]="9">
+          <ion-label>ORNGE Bases</ion-label>
         </ion-option>
       </ion-select>
     </ion-item>
