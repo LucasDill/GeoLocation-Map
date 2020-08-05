@@ -13,9 +13,12 @@ page-map{
     bottom:   0;
     width: 100%;
   }
-  
+  ion-option{
+    color: #006bb6;
+  }
   ion-label{
     font-size: .7em;
+    color: #006bb6;
   }
   /* sets the size of the icons with a relative position may need to change to fit different screen size in the future*/ 
     .item ion-thumbnail {

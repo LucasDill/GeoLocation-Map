@@ -26,8 +26,8 @@
         <ion-label style="font-size: 1em;">Add Markers</ion-label><!-- The label present in the menue -->
         <ion-select multiple="true" interface="alert" (ionChange)="AddMapMarkers($event)" style="color: #006bb6;">
           <!-- the ionic element that creates the dropdown menue with multiple allowed to be seleced and the alert interface others are available but not in this case whenever the values change and ok is pressed it will call the AddMapMarkers function passing the values of the selected markers -->
-          <ion-option [value]="1">
-            <ion-label>Hospitals</ion-label>
+          <ion-option style="color: #006bb6;" [value]="1">
+            <ion-label >Hospitals</ion-label>
           </ion-option>
           <!-- each ion-option has a value and a label showing which markers will be added and their values which will be passed to the end this is the same for all following ion-select-options -->
           <ion-option [value]="2" >

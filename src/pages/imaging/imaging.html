@@ -28,7 +28,7 @@
   <p style="font-size: large;">{{display}}</p>
   
 </div>
-    <ion-scroll scrollY="true" style="height: 53vh; color: white;" ><!--this is the actual card section which is allowed to scroll but I will need to revisit the height to have it work on more devices  -->
+    <ion-scroll scrollY="true" style="height: 55vh; color: white;" ><!--this is the actual card section which is allowed to scroll but I will need to revisit the height to have it work on more devices  -->
 <ion-list justify-content-center align-items-center><!--the list of elements all put into the center -->
   <ion-item *ngFor="let card of cards" ><!--ngFor is another ionic element that allows you to iterate through a list each one being called card in this case -->
     <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)"  text-wrap [style.background-color]="card.colour"><!--These are if the card is a driving type and wil call the normal routing function -->
@@ -108,14 +108,15 @@
 <div class="treatment-button" ><!--This is the view treatment options button which will bring you to the tPA and EVT route treatment page -->
   <h2 id="or" style="text-align: center;font-size: large;color: #006bb6;">OR</h2>
       <button id="moreTreatments" ion-button block on-click="GoToTreatment()" round>View Treatment Options</button>
+      <br>
          <!--This is the weather display which has the data stored in the data provider and makes use of the ionic {{}} access to date types along with a data pipeline to better format the numbers -->
          <ion-grid style="background-color: #006bb6;">
           <ion-row>
             <ion-col col-auto>
-              <p id="weather" style="background-color:#006bb6;color: white;font-size: large;padding-top: 35px;">Weather in<br><b>{{this.Data.city}}</b></p>
+              <p id="weather" style="background-color:#006bb6;color: white;font-size: large;padding-top: 1vh;">Weather in<br><b>{{this.Data.city}}</b></p>
             </ion-col>
             <ion-col>
-              <p style="font-size: x-large;color: white;padding-top: 35px;" text-center ><b>{{this.Data.origin_tempreal |number:'1.0-0'}}\u00B0C</b></p>
+              <p style="font-size: x-large;color: white;padding-top: 1vh;" text-center ><b>{{this.Data.origin_tempreal |number:'1.0-0'}}\u00B0C</b></p>
             </ion-col>
             <ion-col>
               <img src= {{this.Data.origin_icon}} style="vertical-align: middle; ">

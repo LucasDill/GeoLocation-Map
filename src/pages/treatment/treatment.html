@@ -30,7 +30,7 @@
     </div>
 
 
-    <ion-scroll scrollY="true" style="height: 30vh;"> <!--This is the section for the tpa results  -->
+    <ion-scroll scrollY="true" style="height: 29vh;"> <!--This is the section for the tpa results  -->
   <ion-list justify-content-center align-items-center>
     <ion-item *ngFor="let card of cards"> <!--iteratie through all cards  -->
       <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour"> <!--if it is a driving route show the correct icon and call the right display function  -->
@@ -114,7 +114,7 @@
   <spinner *ngIf="evtSpinner"></spinner> <!--The spinner which stops after evt routes are returned -->
   <div class="card-scroll" *ngIf="evtshow"> <!--The div which hold the cards and will be shown if it is set to true  -->
     <p style="color: black;" text-center>Click on the route option for next steps</p>
-  <ion-scroll scrollY="true" style="height: 30vh;">
+  <ion-scroll scrollY="true" style="height: 29vh;">
     <div *ngIf="evtEmpty"><br><br><br><p style="font-size: large;">{{message}}</p></div> <!--if this section is empty it will display the message -->
     <ion-list justify-content-center align-items-center>
       <ion-item *ngFor="let card of EvtCards"> <!--goes through all of the evt routes as cards  -->
@@ -195,10 +195,10 @@
       <ion-grid style="background-color: #006bb6;">
       <ion-row>
         <ion-col>
-          <p id="weather" style="background-color:#006bb6;color: white;font-size: large;padding-top: 35px;">Weather in<br><b>{{this.Data.city}}</b></p>
+          <p id="weather" style="background-color:#006bb6;color: white;font-size: large;padding-top: 1vh;">Weather in<br><b>{{this.Data.city}}</b></p>
         </ion-col>
         <ion-col>
-          <p style="font-size: x-large;color: white;padding-top: 35px;" text-center ><b>{{this.Data.origin_tempreal |number:'1.0-0'}}\u00B0C</b></p>
+          <p style="font-size: x-large;color: white;padding-top: 1vh;" text-center ><b>{{this.Data.origin_tempreal |number:'1.0-0'}}\u00B0C</b></p>
         </ion-col>
         <ion-col>
           <img src= {{this.Data.origin_icon}} style="vertical-align: middle; ">

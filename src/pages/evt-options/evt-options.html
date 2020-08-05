@@ -21,7 +21,7 @@
   <div *ngIf="evtSpinner" style="height: 60vh;" >
   <spinner ></spinner><!--This is the spinner component that runs until results are available-->
 </div>
-  <div class="card-scroll" *ngIf="evtshow" style="height: 70vh;"><!--This creates the scroll div with all of the cards and is visable after evtshow is set to true-->
+  <div class="card-scroll" *ngIf="evtshow" style="height: 73vh;"><!--This creates the scroll div with all of the cards and is visable after evtshow is set to true-->
     <p style="color: black;" text-center>Click on the route option for next steps</p>
   <ion-scroll scrollY="true" style="height: 70vh;"><!--This is the actual compnent for the scroll with the vh probably needing to change and horizontal scroll not enabled -->
     <div *ngIf="evtEmpty"><br><br><br><p style="font-size: large;">{{message}}</p></div><!--If there are no results returned display the error message  -->
@@ -103,10 +103,10 @@
     <ion-grid style="background-color: #006bb6;">
       <ion-row>
         <ion-col col-auto>
-          <p id="weather" style="background-color:#006bb6;color: white;font-size: large;padding-top: 35px;">Weather in<br><b>{{this.Data.city}}</b></p>
+          <p id="weather" style="background-color:#006bb6;color: white;font-size: large;padding-top: 1vh;">Weather in<br><b>{{this.Data.city}}</b></p>
         </ion-col>
         <ion-col>
-          <p style="font-size: x-large;color: white;padding-top: 35px;" text-center ><b>{{this.Data.origin_tempreal |number:'1.0-0'}}\u00B0C</b></p>
+          <p style="font-size: x-large;color: white;padding-top: 1vh;" text-center ><b>{{this.Data.origin_tempreal |number:'1.0-0'}}\u00B0C</b></p>
         </ion-col>
         <ion-col>
           <img src= {{this.Data.origin_icon}} style="vertical-align: middle; ">
