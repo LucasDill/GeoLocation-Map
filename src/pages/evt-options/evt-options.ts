@@ -1,6 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import {  NavController, NavParams } from 'ionic-angular';
-import { MapPage } from '../map/map';
 import { DataServiceProvider } from '../../providers/data-service';
 import { RoutingProvider } from '../../providers/routing';
 import { NextStepsPage } from '../next-steps/next-steps';

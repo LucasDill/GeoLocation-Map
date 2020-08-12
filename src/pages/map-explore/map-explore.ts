@@ -348,7 +348,6 @@ AddtPA(){
       };
 
         if (
-          doc.data().bRegionalStrokeCentre == false &&
           doc.data().bTelestroke == true
           
         ) {
