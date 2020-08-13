@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import {Platform} from 'ionic-angular'
 import { AngularFireDatabase } from '@angular/fire/database';
 import firebase from 'firebase';
+import { Conditional } from '@angular/compiler';
 
 /*
   Generated class for the DataServiceProvider provider.

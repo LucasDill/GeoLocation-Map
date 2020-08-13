@@ -93,6 +93,8 @@ this.Data.AllDrivingData= this.db.collection("/Landing Sites/")//This would be b
 
 SubmitTime(){//once the button is clicked to go to the next page it will push to the PatientLocationPage
   this.Data.GivenTime=true;
+  this.MaxDate=moment().format("YYYY-MM-DD").toString();
+  this.CurrentTime=moment().format("HH:mm");
     this.navCtrl.push(PatientLocationPage);//go to the next page 
     this.Data.CurrentDate=new Date(this.MaxDate.toString()+" "+this.CurrentTime.toString());// get the value in the correct format to be passed on 
     this.Data.GivenDate=this.timeForm.value.date;
