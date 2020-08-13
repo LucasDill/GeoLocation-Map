@@ -104,7 +104,7 @@ SubmitTime(){//once the button is clicked to go to the next page it will push to
       clearInterval(this.Data.intervalID);//stops the previous interval from running 
       this.Data.StartTime(this.timeForm.value.time1,0);// send the new time 
     }
-}
+}   
   
 TimeModal(){
  const LKWModal= this.modal.create('LkwModalPage');
