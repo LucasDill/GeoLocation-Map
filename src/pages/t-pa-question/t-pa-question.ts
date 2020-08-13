@@ -19,8 +19,12 @@ export class TPaQuestionPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public Data: DataServiceProvider) {
   }
+  ionViewWillEnter(){
+    this.Data.NeedtPA=true;
+  }
 //This is a simple question page for navigating the application 
-  goToEVTOptions(){//if the user selects yes they will be brought to the EvtOptions page and the hadTpa Data will be set to true although I do not think it is being used at the moment 
+  goToEVTOptions(){//if the user selects yes they will be brought to the EvtOptions page and the hadTpa Data will be set to true although I do not think it is being used at the moment
+    this.Data.NeedtPA=false; 
     this.navCtrl.push(EvtOptionsPage);
     this.Data.hadtPA=true;
   }

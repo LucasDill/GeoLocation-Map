@@ -80,6 +80,8 @@ AllDrivingData: any;
 
 GivenTime:Boolean=false;// a test to see if the time has been given
 
+NeedtPA:Boolean=true;
+
 AllMedicalCenters:any;// this is loaded when the app first initializes and gets all of the Medical Centeres so we do not need to search the Database as much 
 
 //These Variables will be what time zone the person is in and the time zone the sending location is in 
@@ -148,7 +150,7 @@ getCenters(){
     this.HoursSince=m.hour;
     this.MinutesSince=(m.min);
     
-      if(this.SinceTimeForm<4.5)// this sets the information for the first time so it is not blank until a second passes 
+      if(this.SinceTimeForm<4.5&&this.NeedtPA==true)// this sets the information for the first time so it is not blank until a second passes 
       {
         let EVTtime=6-this.SinceTimeForm;
         let EVT=ConvertBack(EVTtime);
@@ -157,6 +159,16 @@ getCenters(){
           this.TimerTextColour="white";
           this.colour="#008742";
           this.TreatmentInfo="<ul>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+":"+pad((60-this.SecondsSince),2)+"<br></b>"+"EVT Available for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
+      }
+      else if(this.SinceTimeForm<4.5&&this.NeedtPA==false)
+      {
+        let EVTtime=6-this.SinceTimeForm;
+        let EVT=ConvertBack(EVTtime);
+        let TPAtime=4.5-this.SinceTimeForm;
+        let TPA=ConvertBack(TPAtime);
+          this.TimerTextColour="white";
+          this.colour="#008742";
+          this.TreatmentInfo="EVT Available for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
       }
       else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<6)
       {
@@ -187,16 +199,26 @@ getCenters(){
         
         
        // this is repeated because it updates every second but only after a second has passed so the first one is for that second
-        if(this.SinceTimeForm<4.5)
-        {
-          let EVTtime=6-this.SinceTimeForm;
-          let EVT=ConvertBack(EVTtime);
-          let TPAtime=4.5-this.SinceTimeForm;
-          let TPA=ConvertBack(TPAtime);
-            this.TimerTextColour="white";
-            this.colour="#008742";
-            this.TreatmentInfo="<ul>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+":"+pad((60-this.SecondsSince),2)+"<br></b>"+"EVT Available for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
-        }
+       if(this.SinceTimeForm<4.5&&this.NeedtPA==true)// this sets the information for the first time so it is not blank until a second passes 
+      {
+        let EVTtime=6-this.SinceTimeForm;
+        let EVT=ConvertBack(EVTtime);
+        let TPAtime=4.5-this.SinceTimeForm;
+        let TPA=ConvertBack(TPAtime);
+          this.TimerTextColour="white";
+          this.colour="#008742";
+          this.TreatmentInfo="<ul>tPA Available for: <b>"+pad((TPA.hour),2)+":"+pad(((TPA.min)),2)+":"+pad((60-this.SecondsSince),2)+"<br></b>"+"EVT Available for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b></ul>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
+      }
+      else if(this.SinceTimeForm<4.5&&this.NeedtPA==false)
+      {
+        let EVTtime=6-this.SinceTimeForm;
+        let EVT=ConvertBack(EVTtime);
+        let TPAtime=4.5-this.SinceTimeForm;
+        let TPA=ConvertBack(TPAtime);
+          this.TimerTextColour="white";
+          this.colour="#008742";
+          this.TreatmentInfo="EVT Available for: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
+      }
         else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<6)
         {
           let EVTtime=6-this.SinceTimeForm;
