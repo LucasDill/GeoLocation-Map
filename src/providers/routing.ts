@@ -250,7 +250,21 @@ drive=[];// empty out the drive array
   {
       if(air[i].Dist!=0&&air[i].name!=this.Data.StartLoc.name)// if the route does not have a distance or the name matches the location it will not display we did this because it used to give routes to where it is with a 0 distance and 1 minute travel time 
       {
-        drive.push(air[i]);// add it to the drive array as long as it is not to the same location 
+        //console.log(air[i]);
+        if(air[i].Helipad==true)// if the site is for a helicopter check the distance 
+        {
+          if(air[i].Dist<240)// if the distance is below 240 Kilometers add it to the final list 
+          {
+            drive.push(air[i]);
+          }
+          /*else{
+            console.log("Helicopter over 240K",air[i].Dist)
+          }*/
+        }
+        else{
+          drive.push(air[i]);// add it to the drive array as long as it is not to the same location 
+        }
+        
       }
       
   }
@@ -667,11 +681,11 @@ for(var l=0;l<obj.length;l++)// go through all of the obects in the array and co
   hours=Math.floor(hours);//round down to find the hours without the minutes
   let minutes=Math.abs(newtimeChar)-hours;// find the minutes by subtracting the hours
   minutes=Math.ceil(minutes*60);// get the minutes rounded up and converted into the right base in this case 0.5 would be 30 min 
-  /*if(minutes==60)// if the minutes are 60 an hour would have passed
+  if(minutes==60)// if the minutes are 60 an hour would have passed
   {
     minutes=0;//reset the minutes
     hours++;// add an hour 
-  }
+  }/*
  if (hours != 0 && minutes != 0){// if none of them are zero display hours and minutes 
     newtimeChar=hours.toString()+" hours "+minutes.toString()+" mins";
   }
