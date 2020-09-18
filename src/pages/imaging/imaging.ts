@@ -360,6 +360,7 @@ FlightRoutes=distances;//set the totalcard variable with the information from th
           return true;
       }
      requestDirections(start, end ) {
+         var google;
         this.directionsService.route({
             origin: start,
             destination: end,
