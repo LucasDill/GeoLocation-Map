@@ -6,6 +6,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import firebase from 'firebase';
 import { Conditional } from '@angular/compiler';
 import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Console } from 'console';
 
 /*
   Generated class for the DataServiceProvider provider.
@@ -128,15 +129,32 @@ TimerTextColour:any;
     this.db=firebase.firestore();
   }
 
-/*SendAnalytics()
+SendAnalytics()
 {
-  this.db.collection("Analytics").doc().set({
+  //var reference=firebase.database().ref("Analytics");
+  //this.db.collection("/Analytics").push({
+    this.db.collection("/Analytics").add({
     LKW:this.Analytics.LKW,
     DateUsed:this.Analytics.DateUsed,
     StartLocation:this.Analytics.StartLoc,
     ContactViewed:this.Analytics.ContactViewed,
+    OtherLocation:this.Analytics.OtherLocation,
+    OtherExplore:this.Analytics.OtherExplore,
+    ImagingRequired:this.Analytics.ImagingRequired,
+    tPAReceived:this.Analytics.tPAReceived,
+    Destination:this.Analytics.Destination,
+    TravelMethod:this.Analytics.Method,
+    Plan:this.Analytics.Plan,
+    TimeOnApp:this.Analytics.TimeOnApp,
+    RouteTime:this.Analytics.RouteTime
   })
-}*/
+  .catch(function(error)
+  {
+    console.log("error",error);
+  })
+  
+  
+}
 
 getPlans(){
   this.Plans= this.db.collection("/Plans")// gets all of the plans ahead of time so they will only be queried once and stored 
