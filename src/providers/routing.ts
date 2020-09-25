@@ -33,33 +33,41 @@ FindPlan(Dest)
     if(this.Data.StartLoc.id=="MED_NIPIGON"||this.Data.StartLoc.id=="MED_NOSH"&&Dest.id=="MED_TBRHSC")
     {
       this.Data.ChosenPlan=this.Data.Plans[1].HTML;
+      this.Data.plan="1";
     }
     else if(this.Data.StartLoc.id=="MED_REDLAKE"&&Dest.id=="MED_DRYDEN")
     {
       this.Data.ChosenPlan=this.Data.Plans[2].HTML;
+      this.Data.plan="2";
     }
     else if(this.Data.StartLoc.id=="MED_EMO"||this.Data.StartLoc.id=="MED_RIVERSIDERAINY"||this.Data.StartLoc.id=="MED_AGH"&&Dest.id=="MED_RIVERSIDE")
     {
       this.Data.ChosenPlan=this.Data.Plans[3].HTML;
+      this.Data.plan="3";
     }
     else if(this.Data.StartLoc.bRegionalStrokeCentre==true&&Dest.bRegionalStrokeCentre==true)
     {
       this.Data.ChosenPlan=this.Data.Plans[7].HTML;
+      this.Data.plan="7";
     }
     else if(this.Data.StartLoc.bTelestroke==true&&this.Data.TelestrokePlan==false)
     {
       this.Data.ChosenPlan=this.Data.Plans[4].HTML;
+      this.Data.plan="4";
     }
     else if(this.Data.StartLoc.bTelestroke==true&&this.Data.TelestrokePlan==true)
     {
       this.Data.ChosenPlan=this.Data.Plans[4].HTMLA;
+      this.Data.plan="4A";
     }
     else if(this.Data.StartLoc.Plan!=undefined)// not sure about this one 
     {
       this.Data.ChosenPlan=this.Data.Plans[this.Data.StartLoc.Plan].HTML;
+      this.Data.plan=this.Data.StartLoc.Plan.toString();
     }
     else{
       this.Data.ChosenPlan=this.Data.Plans[6].HTML;
+      this.Data.plan="6";
     }
     
   }
@@ -68,29 +76,36 @@ FindPlan(Dest)
     if(this.Data.StartLoc.id=="MED_EMO")
     {
       this.Data.ChosenPlan=this.Data.Plans[8].HTML;
+      this.Data.plan="8";
     }
     else if(this.Data.StartLoc.bRegionalStrokeCentre==true&&Dest.bRegionalStrokeCentre==true)
     {
       this.Data.ChosenPlan=this.Data.Plans[7].HTML;
+      this.Data.plan="7";
     }
     else if(this.Data.StartLoc.bTelestroke==true&&this.Data.TelestrokePlan==true)
     {
       this.Data.ChosenPlan=this.Data.Plans[5].HTMLA;
+      this.Data.plan="5A";
     }
     else if(this.Data.StartLoc.Plan!=undefined)
     {
       this.Data.ChosenPlan=this.Data.Plans[this.Data.StartLoc.Plan].HTML;
+      this.Data.plan=this.Data.StartLoc.Plan.toString();
     }
     else{
       this.Data.ChosenPlan=this.Data.Plans[6].HTML;
+      this.Data.plan="6";
     }
   }
   else if (this.Data.SinceTimeForm>=24&&this.Data.SinceTimeForm<48)
   {
     this.Data.ChosenPlan=this.Data.Plans[9].HTML;
+    this.Data.plan="9";
   }
   else if(this.Data.SinceTimeForm>=48){
     this.Data.ChosenPlan=this.Data.Plans[10].HTML;
+    this.Data.plan="10";
   }
   else{
     console.error("No Plan found Critical Error")

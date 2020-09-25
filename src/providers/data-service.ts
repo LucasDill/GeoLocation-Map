@@ -5,6 +5,7 @@ import {Platform} from 'ionic-angular'
 import { AngularFireDatabase } from '@angular/fire/database';
 import firebase from 'firebase';
 import { Conditional } from '@angular/compiler';
+import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 
 /*
   Generated class for the DataServiceProvider provider.
@@ -83,6 +84,27 @@ GivenTime:Boolean=false;// a test to see if the time has been given
 
 NeedtPA:Boolean=true;
 
+starttime:any;
+endtime:any;
+
+plan:any;
+
+Analytics: any={
+  LKW:"NULL",//filled on this page 
+  DateUsed:"NULL",//Filled on Last Known Well Page
+  StartLoc:"NULL",//filled on next steps
+  ContactViewed:false,//filled on contact page
+  OtherLocation:false,//filled in city page
+  OtherExplore:false,//filled in city page 
+  ImagingRequired:"NOT USED",
+  tPAReceived:"NOT USED",
+  Destination:"NULL",//filled on next steps page
+  Method:"NOT USED",//filled in next steps
+  Plan: "NOT USED",//Filled on next steps
+  TimeOnApp:"NULL",// filled on next steps page
+  RouteTime:'NULL'//filled on next steps page
+}
+
 AllMedicalCenters:any;// this is loaded when the app first initializes and gets all of the Medical Centeres so we do not need to search the Database as much 
 
 //These Variables will be what time zone the person is in and the time zone the sending location is in 
@@ -150,6 +172,8 @@ getCenters(){
 
     this.HoursSince=m.hour;
     this.MinutesSince=(m.min);
+    this.Analytics.LKW=(m.hour.toString()+" Hours "+m.min.toString()+" Minutes");
+   
     
       if(this.SinceTimeForm<4.5&&this.NeedtPA==true)// this sets the information for the first time so it is not blank until a second passes 
       {

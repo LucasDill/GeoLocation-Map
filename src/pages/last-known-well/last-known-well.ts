@@ -44,6 +44,8 @@ timeForm =new FormGroup({//creates a new form with the last known well
 
 
 ionViewWillEnter(){
+  console.log(this.CurrentTime)
+  this.Data.starttime=new Date();
   this.Data.GivenTime=false;// this is just to set the value to false in order for it to have the top timer not appear on menu screens
 }
 /*
@@ -97,6 +99,7 @@ SubmitTime(){//once the button is clicked to go to the next page it will push to
   this.CurrentTime=moment().format("HH:mm");
     this.navCtrl.push(PatientLocationPage);//go to the next page 
     this.Data.CurrentDate=new Date(this.MaxDate.toString()+" "+this.CurrentTime.toString());// get the value in the correct format to be passed on 
+    this.Data.Analytics.DateUsed=this.Data.CurrentDate;//set for the anylitics later
     this.Data.GivenDate=this.timeForm.value.date;
     this.Data.time=this.timeForm.value.time1;//set the time on the data page which will start the tier 
     if(this.Data.LastKnownWellTime!=this.timeForm.value.time1)//only stop if a new a new time is provided 

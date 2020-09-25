@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { DataServiceProvider } from '../../providers/data-service';
 
 /**
  * Generated class for the ContactPage page.
@@ -15,11 +16,11 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ContactPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public Data: DataServiceProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ContactPage');
+    this.Data.Analytics.ContactViewed=true;
   }
 
 }

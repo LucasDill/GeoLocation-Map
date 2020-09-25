@@ -19,6 +19,7 @@ export class WelcomePage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
+
   goToLKW(){
 this.navCtrl.push(LastKnownWellPage);
   }

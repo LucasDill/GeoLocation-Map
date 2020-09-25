@@ -22,7 +22,7 @@ export class CityPage {
   }
 
   ionViewDidLoad() {
-    
+    this.Data.Analytics.OtherLocation=true;
   }
 
   ionViewWillEnter()
@@ -33,6 +33,7 @@ export class CityPage {
 
 
 GoToMap(){
+  this.Data.Analytics.OtherExplore=true;
   this.Data.CityMap=true;
   this.navCtrl.push(MapExplorePage);
 }
