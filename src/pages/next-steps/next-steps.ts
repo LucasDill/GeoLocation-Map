@@ -33,7 +33,7 @@ ionViewWillEnter()
   this.MethodUsed();
   this.Data.Analytics.Plan=this.Data.plan;
   console.log(this.Data.Analytics)
-  this.Data.SendAnalytics();
+  //this.Data.SendAnalytics();//Call the function to send the data collected into the database
 }
 
 MethodUsed(){
