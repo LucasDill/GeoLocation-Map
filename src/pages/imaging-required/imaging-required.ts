@@ -21,10 +21,12 @@ export class ImagingRequiredPage {
   }
 
   goToTpaQuestion(){//If the user clicks no they will be brought to the tpa question page 
+    this.Data.Analytics.ImagingRequired="No";
     this.navCtrl.push(TPaQuestionPage);
     this.Data.NeedImaging=false;// set the NeedImaging Option to false but I do not think this is currently in use 
   }
   goToImagingRoutes(){//If the user selects yes then they will be brought to the imaging routes page 
+    this.Data.Analytics.ImagingRequired="Yes";
     this.Data.TelestrokePlan=true;
     this.navCtrl.push(ImagingPage);
     this.Data.NeedImaging=true;//The needImaging will be set to true but I still do not think this is being used by anything yet 

@@ -97,7 +97,7 @@ Analytics: any={
   OtherLocation:false,//filled in city page
   OtherExplore:false,//filled in city page 
   ImagingRequired:"NOT USED",
-  tPAReceived:"NOT USED",
+  tPAReceived:"NOT USED",//filled in tpa
   Destination:"NULL",//filled on next steps page
   Method:"NOT USED",//filled in next steps
   Plan: "NOT USED",//Filled on next steps
@@ -127,6 +127,16 @@ TimerTextColour:any;
     });
     this.db=firebase.firestore();
   }
+
+/*SendAnalytics()
+{
+  this.db.collection("Analytics").doc().set({
+    LKW:this.Analytics.LKW,
+    DateUsed:this.Analytics.DateUsed,
+    StartLocation:this.Analytics.StartLoc,
+    ContactViewed:this.Analytics.ContactViewed,
+  })
+}*/
 
 getPlans(){
   this.Plans= this.db.collection("/Plans")// gets all of the plans ahead of time so they will only be queried once and stored 

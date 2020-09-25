@@ -42,10 +42,11 @@ timeForm =new FormGroup({//creates a new form with the last known well
    this.db=firebase.firestore();
   }
 
+ionViewDidLoad(){
+  this.Data.starttime=new Date();
+}
 
 ionViewWillEnter(){
-  console.log(this.CurrentTime)
-  this.Data.starttime=new Date();
   this.Data.GivenTime=false;// this is just to set the value to false in order for it to have the top timer not appear on menu screens
 }
 /*

@@ -28,6 +28,7 @@ export class MyApp {
       this.ionViewDidLoad();
       statusBar.styleDefault();
       splashScreen.hide();
+
     });
     
       this.config.set("scrollPadding", false);
