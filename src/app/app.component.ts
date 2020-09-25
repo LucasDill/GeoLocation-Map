@@ -30,20 +30,18 @@ export class MyApp {
       splashScreen.hide();
     });
     
-   if(document.URL.startsWith('http'))// if the app is currently running on web it will do this on mobile it seemed to do both 
-   {
+  ////////////////////////////////////////////////USE FOR WEB COMMIT WHEN SWITCHING TO MOBILE //////////////////////////////////////
     window.addEventListener('beforeunload',()=>{
       this.Data.SendAnalytics();
       console.log("Sent data from reload");
     });
-   }
-   else{// if the app is on mobile this was going twice before 
-    platform.pause.subscribe(()=>{//when the app is not the foccus add the data to the database 
-      this.Data.SendAnalytics();
-      console.log("Sent in data from pause")
-    });
-  }
-    
+  
+  
+  /*////////////////////////////////////////////USE FOR MOBILE AND COMMIT THE WEB VERSION //////////////////////////////////////////////
+  platform.pause.subscribe(()=>{//when the app is not the foccus add the data to the database 
+    this.Data.SendAnalytics();
+    console.log("Sent in data from pause")
+  });*/
 
       this.config.set("scrollPadding", false);
       this.config.set("scrollAssist", false);
