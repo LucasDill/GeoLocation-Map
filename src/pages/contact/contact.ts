@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/data-service';
 
@@ -16,11 +17,14 @@ import { DataServiceProvider } from '../../providers/data-service';
 })
 export class ContactPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public Data: DataServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public Data: DataServiceProvider, private inAppBrowser: InAppBrowser) {
   }
 
   ionViewDidLoad() {
     this.Data.Analytics.ContactViewed=true;
   }
-
+goToSite(){
+  var url="https://www.nwostroke.ca";
+  const browser=this.inAppBrowser.create(url,'_self');
+}
 }

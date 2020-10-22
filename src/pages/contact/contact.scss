@@ -5,13 +5,26 @@ page-contact {
         padding: 0;
     }
     .imgbox {
-        display: grid;
-        height: 95%;
+        height: 80vh;
+        width: auto;
+        //border: 2px solid black;
+        text-align: center;
+        //object-fit: scale-down !important;
     }
     .center-fit {
-        max-width: 100%;
-        max-height: 83vh;
-        margin: auto;
+      //  max-width: 100%;
+        max-height: calc(80vh/4) !important;
+       // margin: auto;
+       // object-fit: contain !important;
+       height: calc(80vh/5.25);
+       width: auto;
+      
+
+    }
+
+    .img-response{
+        vertical-align: middle;
+        display: table-cell;
     }
 
 }

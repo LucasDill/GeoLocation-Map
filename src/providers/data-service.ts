@@ -97,7 +97,7 @@ Analytics: any={
   ContactViewed:false,//filled on contact page
   OtherLocation:false,//filled in city page
   OtherExplore:false,//filled in city page 
-  ImagingRequired:"NOT USED",
+  ImagingRequired:"NOT USED",//filled on imaging-required page
   tPAReceived:"NOT USED",//filled in tpa
   Destination:"NULL",//filled on next steps page
   Method:"NOT USED",//filled in next steps
@@ -105,6 +105,7 @@ Analytics: any={
   TimeOnApp:"NULL",// filled on next steps page
   RouteTime:'NULL'//filled on next steps page
 }
+//add best practices for the two areas 
 
 AllMedicalCenters:any;// this is loaded when the app first initializes and gets all of the Medical Centeres so we do not need to search the Database as much 
 
