@@ -20,6 +20,7 @@ export class CityPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public Data: DataServiceProvider, private inAppBrowser: InAppBrowser) {
   }
+planhtml:any;
 
   ionViewDidLoad() {
     this.Data.Analytics.OtherLocation=true;
@@ -28,15 +29,27 @@ export class CityPage {
   ionViewWillEnter()
 {
   document.getElementById("Destination").innerHTML="<h1><b>"+this.Data.StartLoc.city;
-  document.getElementById("Plan").innerHTML=this.Data.Plans[6].HTML;
+  this.planhtml=this.Data.Plans[6].HTML;
+  //this.planhtml="<button ion-button block large>here</button>";
+  //document.getElementById("Plan").innerHTML=this.Data.Plans[6].HTML;
+  console.log(this.planhtml)
+
+ 
 }
 
+stringToHTML(str) {
+  var parser = new DOMParser();
+  var doc = parser.parseFromString(str, 'text/html');
+  return doc.body;
+}
 
 GoToMap(){
   this.Data.Analytics.OtherExplore=true;
   this.Data.CityMap=true;
   this.navCtrl.push(MapExplorePage);
 }
+
+
 
 GoToBestPractice(){
   var url="https://www.strokebestpractices.ca/recommendations/acute-stroke-management/emergency-department-evaluation-and-management";
@@ -45,3 +58,5 @@ GoToBestPractice(){
 }
 
 }
+
+

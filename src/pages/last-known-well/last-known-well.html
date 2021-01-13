@@ -15,11 +15,15 @@
   <h3 text-center id="lastKnownWell-heading5" >
     What time was the patient last known to be well?
   </h3>
-    <ion-row>
-    <p (click)="TimeModal()" text-center style="color: black;width:100%;font-size: larger;">More Information</p>
+
+
+    <ion-row center>
+      <ion-col text-center>
+      <button ion-button center round (click)="TimeModal()" small style="text-align: center;font-size: larger;">Help</button>
+    </ion-col>  
     </ion-row>
- 
-  
+
+
   <div style="height:6vh;"></div>
   <form [formGroup]="timeForm" (ngSubmit)="SubmitTime()"><!--The last known well in hour format-->
     <p text-center> Date</p>

@@ -37,7 +37,8 @@ import { CityPage } from '../pages/city/city';
 import { MapExplorePage } from '../pages/map-explore/map-explore';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { ContactPage } from '../pages/contact/contact';
-
+import { HtmlPipe } from '../pipes/htmlpipe/htmlpipe';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { ContactPage } from '../pages/contact/contact';
     CityPage,
     MapExplorePage,
     WelcomePage,
-    ContactPage
+    ContactPage,
+    HtmlPipe
   ],
   imports: [// these are special imports used by the app and where we declare the api key and firestore information 
     BrowserModule,

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LastKnownWellPage } from '../last-known-well/last-known-well';
 
 /**
@@ -16,12 +16,28 @@ import { LastKnownWellPage } from '../last-known-well/last-known-well';
 })
 export class WelcomePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertController: AlertController) {
   }
 
 
-  goToLKW(){
-this.navCtrl.push(LastKnownWellPage);
+  async goToLKW(){
+
+
+
+    let alert=this.alertController.create({
+      title:"NWO Navigate Disclaimer",
+    //  cssClass: "popup",/////////////////comment this out to put in the center.ion class is found in the app.scss
+      message: "<h5>This app is not intended to replace the clinical judgment of a health care professional or replace any medical advice to make a clinical diagnosis or treatment decision regarding an individual patient.</h5>",
+      buttons: [
+        {
+          text: "I Accept",
+          handler: () => {
+            this.navCtrl.push(LastKnownWellPage);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
   }
 
-}
