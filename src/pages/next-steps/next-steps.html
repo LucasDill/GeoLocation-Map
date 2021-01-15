@@ -14,7 +14,66 @@
 
 <ion-content padding style="color: #006bb6;">
   <div id="Destination" text-center></div>
-  <div id="Plan" style="height: 60vh;font-size: large;" >
+  <div id="Plan" [ngSwitch]="plan" style="height: 60vh;font-size: large;" >
+    <div *ngSwitchCase="1">
+      <br><br><h4 text-center>Transfer Patient immediately as per your Acute Stroke Protocol</h4>
+      <br><br><p><a href="tel:8076237342" center ion-button round  small class="callButton"><button ion-button small>Call</button></a> CACC Thunder Bay <span class="Call">@ 1-807-623-7342</span></p><br><br>
+      <p><a href="tel:8076846001" center ion-button round  small class="callButton"><button ion-button small>Call</button></a> TBRHSC ED @ 1-807-684-6001 inform of patient transfer</p><br><br>
+      <h5><i>Reference:</i></h5><ol><li><i>MOU for Acute Stroke Bypass and Transfer Agreement</i></li><li><i>Acute Stroke Algorithm</i></li></ol> 
+    </div>
+    <div *ngSwitchCase="2">
+      <br><br><h4 text-center>Transfer Patient immediately as per your Acute Stroke Protocol</h4><br><br><br>
+      <p><a href="tel:8076484598" center ion-button round  small class="callButton"><button ion-button small>Call</button></a> CACC Kenora <span class="Call">@ 1-807-468-4598</span></p><br><br>
+      <p><a href="tel:8072238820" center ion-button round  small class="callButton"><button ion-button small>Call</button></a> Dryden ED <span class="Call">@ 1-807-223-8820</span> inform of patient transfer</p><br><br>
+      <h5><i>Reference:</i></h5><ol><li><i>MOU for Acute Stroke Bypass and Transfer Agreement</i></li><li><i>Acute Stroke Algorithm</i></li></ol>
+    </div>
+    <div *ngSwitchCase="3">
+      <br><br><h4 text-center>Transfer Patient immediately as per your Acute Stroke Protocol</h4><br><br><br>
+      <p><a href="tel:8074684598" center ion-button round  small class="callButton"><button ion-button small>Call</button></a> CACC Kenora <span class="Call">@ 1-807-468-4598</span></p><br><br>
+      <p><a href="tel:8072743621" center ion-button round  small class="callButton"><button ion-button small>Call</button></a> Fort Frances ED <span class="Call">@ 1-807-274-3621</span> inform of patient transfer</p><br><br
+      ><h5><i>Reference:</i></h5><ol><li><i>MOU for Acute Stroke Bypass and Transfer Agreement</i></li><li><i>Acute Stroke Algorithm</i></li></ol>
+    </div>
+    <div *ngSwitchCase="4">
+      <br><br><h4 text-center>Consult with Telestroke Neurologist utilizing the Telestroke program</h4><br><br><br>
+      <p><a href="tel:8076684357" center ion-button round  small class="callButton"><button ion-button small>Call</button></a> CritiCall <span class="Call">@ 1-807-668-4357</span></p><br><br>
+      <h5><i>Reference:</i></h5><p><i>Telestroke Referring Site Handbook</i></p>
+    </div>
+    <div *ngSwitchCase="'4A'">
+      <br><br><h4 text-center>We understand you are at a Telestroke Site. We assume your imaging capabilities (CT) are suspended.<br>
+        Your patient requires imaging to proceed.</h4><br><br><p><b><u>Call:</u></b> Your closest imaging capable site and inform them of patient transfer</p><br><br>
+        <h5><i>Reference:</i></h5><ol><li><i>Telestroke Referring Site Handbook</i></li><li><i>NWO Telestroke Acute Stroke Protocol</i></li></ol> 
+    </div>
+    <div *ngSwitchCase="5">
+      <br><br><h4 text-center>Consult with Acute Stroke Physician at Thunder Bay utilizing the Regional Critical Response Program</h4><br><br><br>
+      <p><a href="tel:8076684357" center ion-button round  small class="callButton"><button ion-button small>Call</button></a> CritiCall <span class="Call">@ 1-807-668-4357</span></p><br><br>
+      <h5><i>Reference:</i></h5><p><i>RCCR Initial Consultation Algorithm</i></p>
+    </div>
+    <div *ngSwitchCase="'5A'">
+      <br><br><h4 text-center>Consult with Acute Stroke Physician at Thunder Bay utilizing the Regional Critical Response Program. Stay and receive direction from RCCR.</h4><br><br><br>
+      <p><a href="tel:8076684357" center ion-button round  small class="callButton"><button ion-button small>Call</button></a> CritiCall <span class="Call">@ 1-807-668-4357</span></p><br><br>
+      <h5><i>Reference:</i></h5><p><i>RCCR Initial Consultation Algorithm</i></p>
+    </div>
+    <div *ngSwitchCase="6">
+      <br><br><h4 text-center>Respond immediately</h4><br><br><br><p text-center>
+        <a href="tel:911" center ion-button round  small class="callButton"><button ion-button small>Call</button></a>: 9-1-1 
+      <br><br>OR<br><br> your local emergency number</p>
+    </div>
+    <div *ngSwitchCase="7">
+      <br><br><h4 text-center>Consult with EVT surgeon</h4><br><br><br><p><b><u>Call:</u></b> EVT site</p>
+    </div>
+    <div *ngSwitchCase="8">
+      <br><br><br><br><p><a href="tel:8076846001" center ion-button round  small class="callButton"><button ion-button small>Call</button></a> Acute Stroke Physician @ TBRHSC <span class="Call">1-807-684-6001</span></p>
+    </div>
+    <div *ngSwitchCase="9">
+      <br><br><p><a href="tel:8076846001" center ion-button round  small class="callButton"><button ion-button small>Call</button></a> Acute Stroke Physician @ TBRHSC <span class="Call">1-807-684-6001</span></p><b>&</b><br>
+      <p><b><u>Send:</u></b> Urgent Referral to TBRHSC Stroke Prevention Clinic, Fax: 807-684-5883</p><br><br>
+      <h5><i>Reference:</i></h5><p><i>NWO TIA and Mild Non-Disabiling Stroke TRIAGE Algorithm</i></p>
+    </div>
+    <div *ngSwitchCase="10">
+      <br><br><p><b><u>Consult:</u></b> the NWO TIA and Mild Non-Disabiling Stroke Triage Algorithm</p><br>
+      <p><b><u>Refer to:</u></b> the section for >48 hours</p><br><br>
+      <h5><i>Reference:</i></h5><p><i>NWO TIA and Mild Non-Disabiling Stroke TRIAGE Algorithm. Specifically the section for >48 hours</i></p>
+    </div>
   </div>
   <button ion-button block on-click="GoToMap()" round large>Map My Route</button>
   <button ion-button block on-click="GoToBestPractice()" round large>Patient Care - Best Practice</button>

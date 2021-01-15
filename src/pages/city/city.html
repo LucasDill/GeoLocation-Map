@@ -16,14 +16,14 @@
 <div id="Plan" [innerHTML]="planhtml|htmlpipe" style="height: 60vh; font-size: large;"></div>
 -->
 <div style="height: 60vh; font-size: large;">
- 
-<br><br><h4 text-center>Respond immediately</h4><br><br><br><p text-center>
-
+ <div [ngSwitch]="numplan">
+<div *ngSwitchCase="6">
+  <br><br><h4 text-center>Respond immediately</h4><br><br><br><p text-center>
     <a href="tel:+911" center ion-button round  small class="callButton"><button ion-button small>Call</button></a>: 9-1-1 
-  
-  
-  
   <br><br>OR<br><br> your local emergency number</p>
+</div>
+ </div>
+
 </div>
  <button ion-button block on-click="GoToMap()" round large>Explore My Area</button>
 <button ion-button block on-click="GoToBestPractice()" round large>Patient Care - Best Practice</button>

@@ -21,11 +21,13 @@ export class NextStepsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,public Data: DataServiceProvider, public alertController: AlertController, private inAppBrowser: InAppBrowser) {
   }
 
+  plan: any;
 ionViewWillEnter()
 {
   document.getElementById("Destination").innerHTML="<h1><b>"+this.Data.StartLoc.city+" to "+this.Data.Destination.city+"</b></h1>";
-  document.getElementById("Plan").innerHTML=this.Data.ChosenPlan;
-
+ // document.getElementById("Plan").innerHTML=this.Data.ChosenPlan;
+ console.log(this.Data.plan)
+  this.plan=this.Data.plan;
   this.Data.Analytics.StartLoc=this.Data.StartLoc.name
   this.Data.Analytics.Destination=this.Data.Destination.name;
   this.Data.Analytics.RouteTime=this.Data.Destination.TimeWithMultChar;
