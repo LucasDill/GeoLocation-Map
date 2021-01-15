@@ -60,9 +60,9 @@ export class MyApp {
   }
 
   StartOver(){
-this.splashScreen.show();// show the loading screen if any 
-window.location.reload();//reload the start of the application  
-  //this.navCtrl.push(WelcomePage);// starts the application over from the start page 
+//this.splashScreen.show();// show the loading screen if any 
+//window.location.reload();//reload the start of the application  
+  this.navCtrl.push(LastKnownWellPage);// starts the application over from the start page 
   }
 
   goToContact(){// simply push to the contact page of the application

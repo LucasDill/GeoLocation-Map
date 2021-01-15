@@ -32,12 +32,10 @@ ionViewWillEnter()
   this.timeDiff();//get the difference in time 
   this.MethodUsed();
   this.Data.Analytics.Plan=this.Data.plan;
-  console.log(this.Data.Analytics)
   //this.Data.SendAnalytics();//Call the function to send the data collected into the database
 }
 
 MethodUsed(){
-console.log(this.Data.Destination)
 var method;
 if(this.Data.Destination.Driving!=undefined&&this.Data.Destination.Driving==true)
 {

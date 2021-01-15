@@ -21,9 +21,12 @@ export class CityPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public Data: DataServiceProvider, private inAppBrowser: InAppBrowser) {
   }
 planhtml:any;
-
+numplan:any;
   ionViewDidLoad() {
     this.Data.Analytics.OtherLocation=true;
+    //this.numplan=this.Data.plan;//Load in the number for the attempted 
+    this.numplan=6;
+    console.log(this.numplan)
   }
 
   ionViewWillEnter()
@@ -32,7 +35,7 @@ planhtml:any;
   this.planhtml=this.Data.Plans[6].HTML;
   //this.planhtml="<button ion-button block large>here</button>";
   //document.getElementById("Plan").innerHTML=this.Data.Plans[6].HTML;
-  console.log(this.planhtml)
+  //console.log(this.planhtml)
 
  
 }
