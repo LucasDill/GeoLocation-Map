@@ -1,3 +1,8 @@
+/*
+THIS SEEMS TO BE THE WORK DONE BY TOM BUT IS NOT BEING IMPLEMENTED 
+*/ 
+
+
 import {Component, ElementRef, NgZone, ViewChild} from '@angular/core';
 import { IonicPage } from "ionic-angular";
 import { NavController } from "ionic-angular";
