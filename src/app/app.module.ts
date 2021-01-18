@@ -42,6 +42,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { HtmlPipe } from '../pipes/htmlpipe/htmlpipe';
 import { PipesModule } from '../pipes/pipes.module';
 
+import {ExpandComponent } from '../components/expand/expand';
 
 @NgModule({
   declarations: [// this is where we declare all of our pages and components if you use the auto generate this may be added but you may also need to do it manually 
@@ -62,7 +63,8 @@ import { PipesModule } from '../pipes/pipes.module';
     MapExplorePage,
     WelcomePage,
     ContactPage,
-    HtmlPipe
+    HtmlPipe,
+    ExpandComponent
   ],
   imports: [ 
     FormsModule,  
