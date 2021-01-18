@@ -14,11 +14,13 @@
 
 <ion-content padding style="color: #006bb6;">
   <div id="Destination" text-center></div>
-  <div id="Plan" [ngSwitch]="plan" style="height: 60vh;font-size: large;" >
+  <div id="Plan" [ngSwitch]="plan" style="height: 60vh;font-size: auto;" >
     <div *ngSwitchCase="1">
+      <div text-center>
       <br><br><h4 text-center>Transfer Patient immediately as per your Acute Stroke Protocol</h4>
-      <br><br><p><a href="tel:8076237342" center ion-button round  small class="callButton"><button ion-button small>Call</button></a> CACC Thunder Bay <span class="Call">@ 1-807-623-7342</span></p><br><br>
-      <p><a href="tel:8076846001" center ion-button round  small class="callButton"><button ion-button small>Call</button></a> TBRHSC ED @ 1-807-684-6001 inform of patient transfer</p><br><br>
+      <br><br><p><a href="tel:8076237342" center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>CACC Thunder Bay<br><span class="Call">@ 1-807-623-7342</span></p><br><br>
+      <p><a href="tel:8076846001" center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>TBRHSC ED and inform of patient transfer</p><p><span class="Call">@ 1-807-684-6001</span></p><br><br>
+    </div>
       <h5><i>Reference:</i></h5><ol><li><i>MOU for Acute Stroke Bypass and Transfer Agreement</i></li><li><i>Acute Stroke Algorithm</i></li></ol> 
     </div>
     <div *ngSwitchCase="2">

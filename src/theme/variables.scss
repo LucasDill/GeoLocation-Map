@@ -102,3 +102,5 @@ $colors: (
 $font-family-base: 'Gotham';
 
 $toolbar-background: #006bb6;
+$mbsc-font-path: '../lib/mobiscroll/css/';
+@import "../../node_modules/@mobiscroll/angular/dist/css/mobiscroll.scss";
