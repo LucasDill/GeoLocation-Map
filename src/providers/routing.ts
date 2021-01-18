@@ -332,7 +332,9 @@ var ret= await this.Database.collection("/Health Centers/").where(param,"==",tru
         Timeval: 0,
         DistChar: "",
         Dist: 0,
-        weather_code: ""
+        weather_code: "",
+        expanded:false
+
       }
       Routes.push(distobj);//add each of the new objects to the routes array 
 

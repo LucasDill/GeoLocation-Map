@@ -19,6 +19,7 @@ import { NextStepsPage } from '../next-steps/next-steps';
   templateUrl: 'imaging.html',
 })
 export class ImagingPage {
+items:any=[];
 cards: any;//the cards are the data type that is displayed on the html page 
 Spinner: Boolean=true;//Set the spinner to be true and shown untill the content has finished loading 
 show: Boolean=false;//Have the div be hidden untill the data has loaded and the spinner disapears 
@@ -27,7 +28,6 @@ display: String="There are no routes available from your location please call lo
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public Data: DataServiceProvider,//set constructor so the page can access the routing and data provider 
     public Routes: RoutingProvider) {
-   
   }
  async ionViewWillLoad(){// part of the ionic lifecycle that will start before the page is about to load 
  var dat=await this.pageSetup();// wait for the calls to the routing provider to perform its actions and return the data 
@@ -44,7 +44,24 @@ this.results=true;
  
 }
 
-
+expandItem(item): void {
+  console.log("ClickWorks")
+  console.log(item);
+  if (item.expanded) {
+    item.expanded = false;
+  } else {
+    item.expanded=true;
+    this.items.map(listItem => {
+      if (item == listItem) {
+        listItem.expanded = !listItem.expanded;
+      } else {
+        listItem.expanded = false;
+      }
+      return listItem;
+    });
+  }
+  return item;
+}
 
 async pageSetup()
 {

@@ -31,11 +31,13 @@
     <ion-scroll scrollY="true" style="height: 55vh; color: white;" ><!--this is the actual card section which is allowed to scroll but I will need to revisit the height to have it work on more devices  -->
 <ion-list justify-content-center align-items-center><!--the list of elements all put into the center -->
   <ion-item *ngFor="let card of cards" ><!--ngFor is another ionic element that allows you to iterate through a list each one being called card in this case -->
-    <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)"  text-wrap [style.background-color]="card.colour"><!--These are if the card is a driving type and wil call the normal routing function -->
+    <ion-card *ngIf="card.Driving" tappable (click)="expandItem(card)"  text-wrap [style.background-color]="card.colour"><!--These are if the card is a driving type and wil call the normal routing function -->
       <ion-card-content >
+       
         <ion-grid >
           <ion-row>
             <ion-col col-9 >
+              <p style="font-size: small;color: white;">{{card.city}}</p>
               <p style="font-size: larger;color: white;"><b>{{card.name}}</b></p>
           </ion-col>
           <ion-col>
@@ -47,14 +49,19 @@
             Patient Pickup to Destination: <b>{{card.TimeWithMultChar}}</b></p>
             <br>
           </ion-row>
+          <expand expandHeight="20vh" [expanded]="card.expanded">
           <ion-row >
             <p style="font-size: small;color: white;">Fastest Total Time Achieved<br>Call to Definitive care:<br>
             <span style="font-size: medium;"><b>XX:XX (n=X)</b></span></p>
+            <button ion-button (click)="goToRoute(card)">Route</button>
           </ion-row>
+        </expand>
+        <p style="color: white;">Imaging/tPA</p>
         </ion-grid>
+     
       </ion-card-content>
     </ion-card>
-    <ion-card *ngIf="card.Helipad" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"><!--These are cards with helicoper routes and will display the helicoper icon and call the complexroute function -->
+    <ion-card *ngIf="card.Helipad" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"><!--These are cards with helicopter routes and will display the helicoper icon and call the complexroute function -->
       <ion-card-content>
         <ion-grid >
           <ion-row>
