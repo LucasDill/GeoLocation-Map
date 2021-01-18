@@ -544,6 +544,13 @@ async distMat(destinations,Routes){// this will find the travel information for 
    return param;// return the data with the colours added on 
   }
 
+CombineAll(cards)
+{
+console.log(cards)
+return cards;
+}
+
+
 async getFlights(endpoints)
 {
  var loc = await this.getCloseLoc(this.Data.lat,this.Data.lng);// get the closest helipad and airport to the origin site 
