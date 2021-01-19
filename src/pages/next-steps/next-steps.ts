@@ -20,14 +20,16 @@ export class NextStepsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public Data: DataServiceProvider, public alertController: AlertController, private inAppBrowser: InAppBrowser) {
   }
+  start:any;
+  end:any;
 
   plan: any;
 ionViewWillEnter()
 {
-  document.getElementById("Destination").innerHTML="<h1><b>"+this.Data.StartLoc.city+" to "+this.Data.Destination.city+"</b></h1>";
- // document.getElementById("Plan").innerHTML=this.Data.ChosenPlan;
- console.log(this.Data.plan)
-  this.plan=this.Data.plan;
+  this.end=this.Data.Destination.city;//Set the start and end locations to be put on the scree
+  this.start=this.Data.StartLoc.city;
+  this.plan=this.Data.plan;//set the plan to be used in the switch case 
+  //set some points for the analytics 
   this.Data.Analytics.StartLoc=this.Data.StartLoc.name
   this.Data.Analytics.Destination=this.Data.Destination.name;
   this.Data.Analytics.RouteTime=this.Data.Destination.TimeWithMultChar;

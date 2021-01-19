@@ -22,17 +22,14 @@ export class CityPage {
   }
 planhtml:any;
 numplan:any;
-  ionViewDidLoad() {
-    this.Data.Analytics.OtherLocation=true;
-    //this.numplan=this.Data.plan;//Load in the number for the attempted 
-    this.numplan=6;
-    console.log(this.numplan)
-  }
+Location:any;
 
   ionViewWillEnter()
 {
-  document.getElementById("Destination").innerHTML="<h1><b>"+this.Data.StartLoc.city;
-  this.planhtml=this.Data.Plans[6].HTML;
+  this.Data.Analytics.OtherLocation=true;
+  this.Location=this.Data.StartLoc.city;
+  //document.getElementById("Destination").innerHTML="<h1><b>"+this.Data.StartLoc.city;
+  //this.planhtml=this.Data.Plans[6].HTML;
   //this.planhtml="<button ion-button block large>here</button>";
   //document.getElementById("Plan").innerHTML=this.Data.Plans[6].HTML;
   //console.log(this.planhtml)

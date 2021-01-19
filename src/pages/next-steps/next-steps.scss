@@ -9,13 +9,16 @@ page-next-steps {
 
     .callButton{
       text-align: center;
-      font-size: large; 
+      font-size: auto; 
       vertical-align: middle;
       padding-left: 0.2vw;
       padding-right: 0.2vw;
      // margin-left: -3vw;
   }
 
+  .CallText{
+    font-size: larger;
+  }
 
     ol {
         margin: 0 0 1.5em;
