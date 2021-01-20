@@ -1,5 +1,5 @@
 import {Component, ElementRef, NgZone, ViewChild } from '@angular/core';
-import { NavController } from "ionic-angular";
+import { MenuController, NavController } from "ionic-angular";
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
 import * as firebase from "firebase/app";
 import "firebase/auth";
@@ -51,7 +51,8 @@ export class MapPage {
     items;
   constructor(public zone: NgZone, public geolocation: Geolocation, public navCtrl: NavController,
     public DataBase: AngularFireDatabase,
-    public Data: DataServiceProvider) {
+    public Data: DataServiceProvider,
+    private menu: MenuController) {
     /*load google map script dynamically */
       this.db = firebase.firestore();
       setTimeout(() => {// this initially threw an error unless we added a bit of a time buffer to allow it to continue 
@@ -85,6 +86,7 @@ if(myPolyline!=undefined)// if it was a driving route it would throw an error be
   }
 
 ionViewDidLoad(){
+  this.menu.swipeEnable(false);
   myPolyline=new google.maps.Polyline();// declare all of the variables that will be used to get the directions and display them 
 directionsService = new google.maps.DirectionsService();
 directionsDisplay = new google.maps.DirectionsRenderer();
@@ -235,7 +237,9 @@ else{
 
 }
 
-
+ionViewWillLeave(){
+  this.menu.swipeEnable(true);
+}
 
 addMarker(map: any,LatLng:any,GivenLabel:any) {// this function will place custom markers on the map at the specific lat and long and with the label provided
 

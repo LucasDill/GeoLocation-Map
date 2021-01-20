@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, MenuController, NavController, NavParams } from 'ionic-angular';
 import { LastKnownWellPage } from '../last-known-well/last-known-well';
 
 /**
@@ -16,9 +16,16 @@ import { LastKnownWellPage } from '../last-known-well/last-known-well';
 })
 export class WelcomePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertController: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertController: AlertController, private menu:MenuController) {
   }
 
+  ionViewWillEnter()
+  {
+    this.menu.swipeEnable(false);
+  }
+  ionViewWillLeave(){
+    this.menu.swipeEnable(true);
+  }
 
   async goToLKW(){
 

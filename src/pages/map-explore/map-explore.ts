@@ -1,5 +1,5 @@
 import {Component, ElementRef, NgZone, ViewChild } from '@angular/core';
-import { NavController } from "ionic-angular";
+import { MenuController, NavController } from "ionic-angular";
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
 import * as firebase from "firebase/app";
 import "firebase/auth";
@@ -52,7 +52,8 @@ export class MapExplorePage {
     content: any;
   constructor(public zone: NgZone, public geolocation: Geolocation, public navCtrl: NavController,
     public DataBase: AngularFireDatabase,
-    public Data: DataServiceProvider) {
+    public Data: DataServiceProvider,
+    private menu: MenuController) {
     /*load google map script dynamically */
       this.db = firebase.firestore();
   }
@@ -113,6 +114,12 @@ google.maps.event.addListener(marker, "click", () => {
 ionViewDidLoad(){
   this.initmap();
 
+}
+ionViewDidEnter(){
+  this.menu.swipeEnable(false);
+}
+ionViewWillLeave(){
+  this.menu.swipeEnable(true);
 }
 
 ionViewWillEnter(){
