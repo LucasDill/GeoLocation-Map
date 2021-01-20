@@ -554,6 +554,7 @@ CombineAll(cards)
   var matched=false;
   var meth;
   var bdrive;
+  var hasDrive, hasFly;
  for(var i=0;i<cards.length;i++)
  {
    matched=false;
@@ -566,11 +567,14 @@ CombineAll(cards)
     if(cards[i].name==comb[m].name)
     {
     //console.log("Match");
+    hasDrive=comb[m].HasDrive;//get the values to be looked at and changed 
+    hasFly=comb[m].HasFly;
       if(cards[i].Driving==true)
       {
         comb[m].Drive=cards[i];
         meth="Driving";
         bdrive=true;
+        hasDrive=true;
       }
       else if(cards[i].Airport==true||cards[i].Helipad==true)
       {
@@ -578,10 +582,21 @@ CombineAll(cards)
        // if(cards[i].TimeWithMult<comb[m].Air.TimeWithMult)
        // {
         //  console.log("swap")
+        if(comb[m].Air!=undefined)//if there is already data put the lower one in 
+        {
+          if(cards[i].TimeWithMult<comb[m].Air.TimeWithMult)
+          {
+            comb[m].Air=cards[i];
+          }
+        }
+        else{
           comb[m].Air=cards[i];
+        }
+         
         //}
         meth="Flying";
         bdrive=false;
+        hasFly=true;
         
       }
       if(comb[m].TimeWithMult>cards[i].TimeWithMult)
@@ -592,9 +607,10 @@ CombineAll(cards)
         comb[m].TimeWithMult=cards[i].TimeWithMult;
         comb[m].TravelMode=meth;
         comb[m].CompTime=cards[i].CompTime;
-        comb[m].colour=cards[i].colour;
-        
+        comb[m].colour=cards[i].colour;      
       }
+      comb[m].HasDrive=hasDrive;//if it is the same nothing happens if one was found it will be added in 
+      comb[m].HasFly=hasFly;
     matched=true;
     }
    
@@ -613,6 +629,8 @@ var methods;
 var capabilities;
 var drive,Flying,lat,lng;
 var booldrive;
+var hasDrive=false;
+var hasFly=false;
   if(card.Driving==true)
   {
     methods="Driving";
@@ -620,6 +638,7 @@ var booldrive;
     lat=card.lat;
     lng=card.lng;
     booldrive=true;
+    hasDrive=true;
   }
   else if(card.Airport==true||card.Helipad==true)
   {
@@ -628,6 +647,7 @@ var booldrive;
     lat=card.desti.lat;
     lng=card.desti.lng;
     booldrive=false;
+    hasFly=true;
   }
  
 
@@ -650,11 +670,13 @@ var booldrive;
    TravelMode: methods,
    lat: lat,
    lng: lng,
+   id:card.id,
   services:capabilities,
     Drive:drive,
     Air:Flying,
     Driving:booldrive,
-
+    HasDrive: hasDrive,
+    HasFly: hasFly,
   }
   return together;
 }
