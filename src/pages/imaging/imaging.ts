@@ -44,7 +44,7 @@ this.results=true;
  
 }
 
-expandItem(item): void {///This function will expand the card when it is clicked 
+expandItem(event,item): void {///This function will expand the card when it is clicked 
  // console.log("ClickWorks")
   //console.log(item);
   if (item.expanded) {
@@ -60,6 +60,7 @@ expandItem(item): void {///This function will expand the card when it is clicked
       return listItem;
     });
   }
+  event.stopPropagation();//stop the upper click event from taking place 
   return item;/// this passes by the else and might need to be removed if the closing is added in 
 }
 
@@ -78,11 +79,14 @@ FlightRoutes=distances;//set the totalcard variable with the information from th
  var imgroutes=this.Routes.addRoutes(DrivingRoutes,FlightRoutes);//combines the flight information and the driving information into one list 
  imgroutes=this.Routes.masterSort(imgroutes);//Sort the combined list of flight and driving information to have the shortest amount of time first
  
- imgroutes=this.Routes.CombineAll(imgroutes);
+ var testroutes=this.Routes.CombineAll(imgroutes);
  
- imgroutes= this.Routes.SetColour(imgroutes);//Set the colour of each of the options for arrival green if able to make it for tPA yellow if able to make it for EVT and red if not able to make it in usual recovery time 
+ testroutes=this.Routes.SetColour(testroutes)
+
+ //imgroutes= this.Routes.SetColour(imgroutes);//Set the colour of each of the options for arrival green if able to make it for tPA yellow if able to make it for EVT and red if not able to make it in usual recovery time 
  //console.log(imgroutes);//used to view the final list that is passed to the back reenable to show full information passed 
- return imgroutes;//return the final list of sorted information ready to be displayed 
+
+ return testroutes;//return the final list of sorted information ready to be displayed 
 }
 
   goToRoute(DriveDat){//if the route is a simple driving one

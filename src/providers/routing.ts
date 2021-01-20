@@ -521,6 +521,9 @@ async distMat(destinations,Routes){// this will find the travel information for 
 
  async SetColour(param){// goes through all the routes and sets the colour based on when it is estimated they will reach the hospital 
    
+  //console.log(param)
+  //console.log(param.length)
+
  
   for(var i=0; i<param.length;i++)
   {
@@ -546,10 +549,116 @@ async distMat(destinations,Routes){// this will find the travel information for 
 
 CombineAll(cards)
 {
-console.log(cards)
-return cards;
+  console.log(cards)
+ // console.log(cards)
+  var comb:any=[];
+  var matched=false;
+  var meth;
+  var bdrive, bplane, bheli;
+ for(var i=0;i<cards.length;i++)
+ {
+   matched=false;
+   if(comb.length==0)
+   {
+     comb.push(this.NewCard(cards[i]));
+   }
+   for(var m=0;m<comb.length;m++)
+   {
+    if(cards[i].name==comb[m].name)
+    {
+    //console.log("Match");
+      if(cards[i].Driving==true)
+      {
+        comb[m].Drive=cards[i];
+        meth="Driving";
+        bdrive=true;
+      }
+      else if(cards[i].Airport==true||cards[i].Helipad==true)
+      {
+        console.log(comb[m].Air.TimeWithMult)
+       // if(cards[i].TimeWithMult<comb[m].Air.TimeWithMult)
+       // {
+        //  console.log("swap")
+          comb[m].Air=cards[i];
+        //}
+        meth="Flying";
+        bdrive=false;
+        
+      }
+      if(comb[m].TimeWithMult>cards[i].TimeWithMult)
+      {
+       // console.log("Faster")
+       console.log(bdrive)
+       comb[m].Driving=bdrive;
+        comb[m].TimeWithMult=cards[i].TimeWithMult;
+        comb[m].TravelMode=meth;
+        comb[m].CompTime=cards[i].CompTime;
+        comb[m].colour=cards[i].colour;
+        
+      }
+    matched=true;
+    }
+   
+   }
+   if(matched!=true)
+   {
+     comb.push(this.NewCard(cards[i]));
+   }
+ }
+console.log(comb)
+return comb;
 }
 
+NewCard(card){
+var methods;
+var capabilities;
+var drive,Flying,lat,lng;
+var booldrive;
+  if(card.Driving==true)
+  {
+    methods="Driving";
+    drive=card;
+    lat=card.lat;
+    lng=card.lng;
+    booldrive=true;
+  }
+  else if(card.Airport==true||card.Helipad==true)
+  {
+    methods="Flying";
+    Flying=card;
+    lat=card.desti.lat;
+    lng=card.desti.lng;
+    booldrive=false;
+  }
+ 
+
+  if(card.bRegionalStrokeCentre==true)
+  {
+    capabilities="EVT/tPA/Imaging";
+  }
+  else{
+    capabilities="tPA/Imaging";
+  }
+  //console.log(card)
+  var together={
+  name: card.name,
+   city: card.city,
+   colour: card.colour,
+   expanded: false,
+   CompTime:card.CompTime,
+   TimeWithMultChar: card.TimeWithMultChar,
+   TimeWithMult:card.TimeWithMult,
+   TravelMode: methods,
+   lat: lat,
+   lng: lng,
+  services:capabilities,
+    Drive:drive,
+    Air:Flying,
+    Driving:booldrive,
+
+  }
+  return together;
+}
 
 async getFlights(endpoints)
 {
