@@ -1,5 +1,4 @@
 import { FormsModule } from '@angular/forms';
-import { MbscModule } from '@mobiscroll/angular';
 // these are all of the libraries that are being used by the application 
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -68,7 +67,7 @@ import {ExpandComponent } from '../components/expand/expand';
   ],
   imports: [ 
     FormsModule,  
-    MbscModule, // these are special imports used by the app and where we declare the api key and firestore information 
+     // these are special imports used by the app and where we declare the api key and firestore information 
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AgmCoreModule.forRoot({
