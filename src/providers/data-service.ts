@@ -1,4 +1,4 @@
-//This is a provider it is regularly accessed by other pages and used to store and syncronize data 
+//This is a provider it is regularly accessed by other pages and used to store and synchronize data 
 //This particular provider is used to store a lot of information that other pages need to access and it is also used for the timer to count down the seconds 
 import { Injectable } from '@angular/core';
 import {Platform} from 'ionic-angular'
@@ -107,7 +107,7 @@ Analytics: any={
 }
 //add best practices for the two areas 
 
-AllMedicalCenters:any;// this is loaded when the app first initializes and gets all of the Medical Centeres so we do not need to search the Database as much 
+AllMedicalCenters:any;// this is loaded when the app first initializes and gets all of the Medical Centers so we do not need to search the Database as much 
 
 //These Variables will be what time zone the person is in and the time zone the sending location is in 
 UserTimeZone:any;
@@ -171,7 +171,7 @@ getPlans(){
 }
 
 getCenters(){
-  this.AllMedicalCenters= this.db.collection("/Health Centers/")//This would be better done somewhere else or done with syncronization through realtime database but this is how we have it now 
+  this.AllMedicalCenters= this.db.collection("/Health Centers/")//This would be better done somewhere else or done with synchronization through realtime database but this is how we have it now 
   .get()
   .then((querySnapshot) => {
     var total=[]
@@ -180,7 +180,7 @@ getCenters(){
         total.push(obj);
       
     });
-    this.AllMedicalCenters=total;// save the array of all abjects to the Data Service provider 
+    this.AllMedicalCenters=total;// save the array of all objects to the Data Service provider 
 });
 }
 
@@ -287,7 +287,7 @@ getCenters(){
           this.colour="#d2232a";
           this.TreatmentInfo="<br><ul>Passed Treatment Window</ul>";
         }
-      },1000);//this is one second as it is all measured in miliseconds 
+      },1000);//this is one second as it is all measured in milliseconds 
     
     
   }
@@ -295,7 +295,7 @@ getCenters(){
   
 
 }
-function pad(num:number, size:number): string {//turns the number into a string and adds a zero to keep it consistant 
+function pad(num:number, size:number): string {//turns the number into a string and adds a zero to keep it consistent 
   let s = num+"";
   while (s.length < size) s = "0" + s;
   return s;

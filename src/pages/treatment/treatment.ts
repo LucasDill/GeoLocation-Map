@@ -15,7 +15,7 @@ This page shows two results one with tpa and one with evt and as such has double
 })
 export class TreatmentPage {
 cards: any;//set the variable for the cards for the tPA routes which at the moment is the same as imaging 
-EvtCards: any;//set the varible for the evt routes which at the moment is just to TBRHSC
+EvtCards: any;//set the variable for the evt routes which at the moment is just to TBRHSC
 tpaSpinner: Boolean=true;//the spinner for the tpa section 
 tpashow: Boolean=false;//the show for the tpa section 
 evtSpinner: Boolean=true;//spinner for the evt section 
@@ -30,12 +30,12 @@ display: String="There are no routes available from your location please call lo
   
   }
  async ionViewWillLoad(){
- var dat=await this.tPASetup();//For the tPA capable hsopitals 
+ var dat=await this.tPASetup();//For the tPA capable hospitals 
  if(dat.length==0)//if there are no results returned 
  {
 this.results=true;
  }
- else{// if there are ressults set the card data to be the information returned 
+ else{// if there are results set the card data to be the information returned 
   this.cards=dat;
  }
  
@@ -61,7 +61,7 @@ async tPASetup()// get the results for the places that are bTelestroke which at 
    DrivingRoutes=data;
  });
  
- await this.Routes.nearestLocations();//Get the nearest locations of airports and helepads to the destinations 
+ await this.Routes.nearestLocations();//Get the nearest locations of airports and helipads to the destinations 
  var FlightRoutes;
   await this.Routes.getFlights(DrivingRoutes).then(distances =>{//Get the flight information along with the amount of time it takes to drive to the sites  
 FlightRoutes=distances;
@@ -91,7 +91,7 @@ async EVTsetup(){//EVT at the moment is just Thunder Bay which is the only bRegi
      });
      var evtRoutes=this.Routes.addRoutes(evtDriveRoutes,evtFlightRoutes);//Combine the lists of flight and driving routes 
      evtRoutes=this.Routes.masterSort(evtRoutes);//sort the routes to have the shortest time first 
-     evtRoutes=this.Routes.SetColour(evtRoutes);//set the colour of the cards based on when the patient will arive 
+     evtRoutes=this.Routes.SetColour(evtRoutes);//set the colour of the cards based on when the patient will arrive 
      this.evtSpinner=false;//stop the spinner and allow the div to be shown
      this.evtshow=true;
      return evtRoutes;// return the information 

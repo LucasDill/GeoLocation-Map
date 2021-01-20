@@ -195,7 +195,7 @@ AddMapMarkers(e) {
 }
 
 
-AddHospitals() {// add the hosital markers to the map with the specified icons this may need to change if i try to store them locally and syncronize with firebase 
+AddHospitals() {// add the hospital markers to the map with the specified icons this may need to change if i try to store them locally and synchronize with firebase 
   var items;
   var map = this.map;
   // add hospital markers
@@ -482,7 +482,7 @@ AddHealthService() {
 AddHele() {
   var items;
   var map = this.map;
-  //add helepad markers
+  //add helipad markers
   this.db.collection("/Landing Sites/")
     .get()
     .then((querySnapshot) => {

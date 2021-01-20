@@ -32,7 +32,7 @@
 
     <ion-scroll scrollY="true" style="height: 29vh;"> <!--This is the section for the tpa results  -->
   <ion-list justify-content-center align-items-center>
-    <ion-item *ngFor="let card of cards"> <!--iteratie through all cards  -->
+    <ion-item *ngFor="let card of cards"> <!--iterative through all cards  -->
       <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour"> <!--if it is a driving route show the correct icon and call the right display function  -->
         <ion-card-content>
           <ion-grid no-padding>
@@ -56,7 +56,7 @@
           </ion-grid>
         </ion-card-content>
       </ion-card>
-      <ion-card *ngIf="card.Helipad" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"> <!--if it is a helicoper route show the correct icon and call the complec route function  -->
+      <ion-card *ngIf="card.Helipad" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"> <!--if it is a helicopter route show the correct icon and call the complex route function  -->
         <ion-card-content>
           <ion-grid no-padding>
             <ion-row>
@@ -118,7 +118,7 @@
     <div *ngIf="evtEmpty"><br><br><br><p style="font-size: large;">{{message}}</p></div> <!--if this section is empty it will display the message -->
     <ion-list justify-content-center align-items-center>
       <ion-item *ngFor="let card of EvtCards"> <!--goes through all of the evt routes as cards  -->
-        <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour"> <!--for driving routes to show the right icon and call the nomral route  -->
+        <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour"> <!--for driving routes to show the right icon and call the normal route  -->
           <ion-card-content>
             <ion-grid no-padding>
               <ion-row>
@@ -141,7 +141,7 @@
             </ion-grid>
           </ion-card-content>
         </ion-card>
-        <ion-card *ngIf="card.Helipad" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"> <!--for helicoper routes to show the right icon and call the complex route function  -->
+        <ion-card *ngIf="card.Helipad" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"> <!--for helecopter routes to show the right icon and call the complex route function  -->
           <ion-card-content>
             <ion-grid no-padding>
               <ion-row>

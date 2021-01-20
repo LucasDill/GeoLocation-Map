@@ -61,7 +61,7 @@ export class MapPage {
             preserveViewport: true,
             zoom: 8
         });
-        // if a route is calcualted, display it on the map
+        // if a route is calculated, display it on the map
         directionsDisplay.setMap(this.map);
 if(myPolyline!=undefined)// if it was a driving route it would throw an error because it would try to do this part but it now allows us to set a line
 {
@@ -80,7 +80,7 @@ if(myPolyline!=undefined)// if it was a driving route it would throw an error be
     }
 
   this.map.fitBounds(bounds1);
-      }, 2);//this is the end of the interval so it will wait 2 micro or miliseconds before performing these actions 
+      }, 2);//this is the end of the interval so it will wait 2 micro or milliseconds before performing these actions 
 
   }
 
@@ -106,7 +106,7 @@ if(this.Data.ComplexRoute==false)//if the route is not complex as we set if clic
     {
       origin: originLatLng,
       destination: destLatLng,
-      travelMode: "DRIVING"//the driving mode is driving but if needed we could add trafic and other variables to this request 
+      travelMode: "DRIVING"//the driving mode is driving but if needed we could add traffic and other variables to this request 
     },
     // retrieve Maps API response, if it is able to find a route
     (response, status, request) => {
@@ -124,7 +124,7 @@ if(this.Data.ComplexRoute==false)//if the route is not complex as we set if clic
         window.alert("Directions request failed due to " + status);
       }
       // push route into displayEnd array to be cleared on click of new marker
-      displayEnd.push(directionsDisplay);//add the directions to the displayend which will show all of the directions 
+      displayEnd.push(directionsDisplay);//add the directions to the displayed which will show all of the directions 
     }
   );
   }
@@ -171,7 +171,7 @@ else{
         // load the route to calculate its distance and time
         directionsDisplay.setDirections(response);
       } else{
-        this.addMarker(this.map,StartClinc,"A");// if there are no reusults as there are with sena memorial station this will place two markers with the labels provided 
+        this.addMarker(this.map,StartClinc,"A");// if there are no results as there are with sena memorial station this will place two markers with the labels provided 
         this.addMarker(this.map,FirstSite,"B");
       }
 
@@ -307,7 +307,7 @@ AddMapMarkers(e) {
 }
 
 
-AddHospitals() {// add the hosital markers to the map with the specified icons this may need to change if i try to store them locally and syncronize with firebase 
+AddHospitals() {// add the hospital markers to the map with the specified icons this may need to change if i try to store them locally and synchronize with firebase 
   var items;
   var map = this.map;
   // add hospital markers
@@ -594,7 +594,7 @@ AddHealthService() {
 AddHele() {
   var items;
   var map = this.map;
-  //add helepad markers
+  //add helipad markers
   this.db.collection("/Landing Sites/")
     .get()
     .then((querySnapshot) => {

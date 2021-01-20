@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {DataServiceProvider } from '../providers/data-service';
 import { AngularFireDatabase } from "@angular/fire/database";
-import { AngularFirestore } from "angularfire2/firestore"
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore"; 
@@ -115,7 +114,7 @@ FindPlan(Dest)
 }
 
     async nearestLocations(){//This function gets the list of landing sites from the database to be searched for the closest location 
-      //once we figure out how to do syncronization this function can be removed 
+      //once we figure out how to do synchronization this function can be removed 
      var Sites= this.Database.collection("/Landing Sites/")
       .get()
       .then((querySnapshot) => {
@@ -138,14 +137,14 @@ FindPlan(Dest)
       var all= this.LandingSites;
       var heli=[];// the array of helipads that will be shortened and combined later
       var plane=[];//The array of airports 
-      var repeat=1;//The repeat variable which will not be changed untill there is at least one helipad and aitport 
+      var repeat=1;//The repeat variable which will not be changed until there is at least one helipad and airport 
       var radius=0.5;// the initial radius of the search to be performed 
       var closestFlightOpt=[];//The final array which the plane and heli arrays will be combined into 
       while(repeat==1)// as long as repeat is one it will search repeatedly while increasing the radius of the search 
       {
         for(var i=0;i<all.length;i++)// go through all of the landing sites 
         {
-          if(Math.abs(Math.abs(all[i].lat)-Math.abs(lat))<radius&&Math.abs(Math.abs(all[i].lng)-Math.abs(lng))<radius)// if the lat and long are within the radius of the seach 
+          if(Math.abs(Math.abs(all[i].lat)-Math.abs(lat))<radius&&Math.abs(Math.abs(all[i].lng)-Math.abs(lng))<radius)// if the lat and long are within the radius of the search 
           {
             if(all[i].type=="Airport")// if the location that has been found is an airport add it to the plane array 
             {
@@ -169,7 +168,7 @@ FindPlan(Dest)
       // sort the arrays of heli and plane so the shortest distance between the facility and the site will be first in the array 
       heli.sort((a,b)=>(Math.abs(Math.abs(a.lat)-Math.abs(lat))+Math.abs(Math.abs(a.lng)-Math.abs(lng)))-(Math.abs(Math.abs(b.lat)-Math.abs(lat))+Math.abs(Math.abs(b.lng)-Math.abs(lng))));
       plane.sort((a,b)=>(Math.abs(Math.abs(a.lat)-Math.abs(lat))+Math.abs(Math.abs(a.lng)-Math.abs(lng)))-(Math.abs(Math.abs(b.lat)-Math.abs(lat))+Math.abs(Math.abs(b.lng)-Math.abs(lng))));
-      closestFlightOpt[0]=heli[0];// make the closestflightoptions array have the closest helipad in the first element and the closest airport in the seconf element 
+      closestFlightOpt[0]=heli[0];// make the closestflightoptions array have the closest helipad in the first element and the closest airport in the second element 
       closestFlightOpt[1]=plane[0];
       return closestFlightOpt;//return the closest helipad and airport
     }
@@ -184,7 +183,7 @@ origin_total_multiplier: any;
 
 if(this.Data==undefined||this.Data.origin_id==undefined)//there was an error when a variable was not being filled fast enough so this is a function to wait to be sure it will be filled 
 {
-  setTimeout(this.getOriginWeatherMultiplier,25);// if there is nothing wait 25 miliseconds and try again 
+  setTimeout(this.getOriginWeatherMultiplier,25);// if there is nothing wait 25 milliseconds and try again 
 }
 else// if the variable is filled search the database for the information required 
 {
@@ -202,7 +201,7 @@ else// if the variable is filled search the database for the information require
 
 }
 
-async getOriginAreaMultiplier(){// search the database for the area multipler for the results based on the data 
+async getOriginAreaMultiplier(){// search the database for the area multiplier for the results based on the data 
 await this.Database.collection("/Multipliers Area/").doc(this.Data.origin_area)
   .get()
   .then((querySnapshot) => {
@@ -212,7 +211,7 @@ await this.Database.collection("/Multipliers Area/").doc(this.Data.origin_area)
 
 }
 
-async totalOriginMultiplier(){//Get the total multipler by taking the average of the area and weather multiplers 
+async totalOriginMultiplier(){//Get the total multiplier by taking the average of the area and weather multipliers 
   await this.getOriginAreaMultiplier();
   await this.getOriginWeatherMultiplier();
   this.origin_total_multiplier = (this.origin_weather_multiplier + this.origin_area_multiplier)/2;
@@ -220,11 +219,11 @@ async totalOriginMultiplier(){//Get the total multipler by taking the average of
 
 }
 
-heli: any;// the air speed of helicopers 
+heli: any;// the air speed of helicopters 
 plane: any;//the air speed of planes 
 flight_weather_origin: any;
 
-async getFlightSpeeds(){// get the flight speeds of planes and helicopers which may be taken out if we figure out the database syncronization 
+async getFlightSpeeds(){// get the flight speeds of planes and helicopters which may be taken out if we figure out the database synchronization 
   await this.Database.collection("/Air_Speed/").doc("heli")
   .get()
   .then((querySnapshot) => {
@@ -239,7 +238,7 @@ async getFlightSpeeds(){// get the flight speeds of planes and helicopers which 
       return this.plane;
   });
 
-  await this.Database.collection("/Multipliers/").doc(JSON.stringify(this.Data.origin_id))// get the speed multipler based on the origin id 
+  await this.Database.collection("/Multipliers/").doc(JSON.stringify(this.Data.origin_id))// get the speed multiplier based on the origin id 
   .get()
   .then((querySnapshot) => {
       this.flight_weather_origin = querySnapshot.data().multi_air;
@@ -360,7 +359,7 @@ let coords= new google.maps.LatLng(Routes[i].lat,Routes[i].lng);
 destinations[i]=coords;
 }
 ret=await this.distMat(destinations,ret);// get the distance and time from the distance matrix api which is not as intensive as the google ones we have been using 
-//the distance matrrix function is liklely the one that takes the longest time and it is important that we wait for it to finish so we have results 
+//the distance matrix function is likely the one that takes the longest time and it is important that we wait for it to finish so we have results 
 
 return ret;// return all of the driving routes 
 }
@@ -369,7 +368,7 @@ destination_flight_weather_array;
 
 async distMat(destinations,Routes){// this will find the travel information for all of the driving routes 
   
-  var mult=await this.totalOriginMultiplier();// the multipler used to modify all of the travel times 
+  var mult=await this.totalOriginMultiplier();// the multiplier used to modify all of the travel times 
   var Database = this.Database;
   var destination_weather_multiplier;
   var destination_area_multiplier;
@@ -417,10 +416,10 @@ async distMat(destinations,Routes){// this will find the travel information for 
 
   var origin=new google.maps.LatLng(this.Data.lat,this.Data.lng);// set the origin for the distance matrix to be the origin site the patient starts at
   var service= new google.maps.DistanceMatrixService();//declare the service 
-  const {response,status}=await new Promise(resolve => //this is an ususual way of doing it but it is the best way we found for it to actually wait for the data to be returned 
+  const {response,status}=await new Promise(resolve => //this is an usual way of doing it but it is the best way we found for it to actually wait for the data to be returned 
     service.getDistanceMatrix(
    {
-     origins: [origin],//as it is only one latlng the brakets are neccecery 
+     origins: [origin],//as it is only one latlng the brackets are neccecery 
      destinations: destinations,//enter all of the destinations
      travelMode: google.maps.TravelMode.DRIVING,//specify that it is using driving routes
    },(response, status) => resolve({response,status}))//once done call this function 
@@ -452,7 +451,7 @@ async distMat(destinations,Routes){// this will find the travel information for 
 
      var weather_multiplier;
      var area_multiplier;
-     var destination_total;//get weather multiplers to add on to the time based on what has been found 
+     var destination_total;//get weather multipliers to add on to the time based on what has been found 
      var final;
      async function initiateMultipliers(id, area){
        await getDestinationWeatherMultiplier(id).then(data => {
@@ -477,7 +476,7 @@ async distMat(destinations,Routes){// this will find the travel information for 
             if(querySnapshot==undefined||querySnapshot.data()==undefined||querySnapshot.data().multi==undefined)//there was an error when a variable was not being filled fast enough so this is a function to wait to be sure it will be filled 
             {
               console.log("GetMulti Print")
-              setTimeout(getMulti,25);// if there is nothing wait 25 miliseconds and try again 
+              setTimeout(getMulti,25);// if there is nothing wait 25 milliseconds and try again 
             }
             else// if the variable is filled search the database for the information required 
             {
@@ -503,7 +502,7 @@ async distMat(destinations,Routes){// this will find the travel information for 
      Routes = await convertTime(Routes);// this is a function we made to go though all of the routes and convert the time into a char and something we could use 
        await sortRoutes();// the sortRoutes is specific to this data and is defined below 
      async function sortRoutes(){
-      Routes.sort((a,b)=>a.TimeWithMult-b.TimeWithMult);// sort the routes in order of the time with the multipler 
+      Routes.sort((a,b)=>a.TimeWithMult-b.TimeWithMult);// sort the routes in order of the time with the multiplier 
 
       return Routes;// all of these returns are neccecery for the async functions to work and wait the proper amount 
     }
@@ -554,7 +553,7 @@ CombineAll(cards)
   var comb:any=[];
   var matched=false;
   var meth;
-  var bdrive, bplane, bheli;
+  var bdrive;
  for(var i=0;i<cards.length;i++)
  {
    matched=false;
@@ -664,7 +663,7 @@ async getFlights(endpoints)
 {
  var loc = await this.getCloseLoc(this.Data.lat,this.Data.lng);// get the closest helipad and airport to the origin site 
  this.loc=loc;
-var dest= new Array(endpoints.length);// create an array for all of the destinations which could vary based on what you are searhing for 
+var dest= new Array(endpoints.length);// create an array for all of the destinations which could vary based on what you are searching for 
 for(var o=0;o<endpoints.length;o++)
 {
   var closesites={// create an array of objects for the landing sites close to the destination hospital with the site that is close to and the closest helipad and airport 
@@ -706,12 +705,12 @@ const resp=await handleMapResponse(response,status);
   var PlaneDriveTime=0;
   var HeliDriveDistance=0;
   var PlaneDriveDistance=0;
-  if(response.rows[0].elements[0].status="OK"&&response.rows[0].elements[0].duration!=undefined)// if the response was good for helicopers and there are values
+  if(response.rows[0].elements[0].status="OK"&&response.rows[0].elements[0].duration!=undefined)// if the response was good for helicopters and there are values
   {
         HeliDriveTime=response.rows[0].elements[0].duration.value/3600;//get the time and distance and convert them into the standard base we are using 
         HeliDriveDistance=response.rows[0].elements[0].distance.value/1000;
   }
-  else{// if there is no response set the boolen value to false 
+  else{// if there is no response set the boolean value to false 
     RouteToHeli=false;
   }
   if(response.rows[0].elements[1].status="OK"&&response.rows[0].elements[1].duration!=undefined)// if there are values for the driving to the plane site 
@@ -719,7 +718,7 @@ const resp=await handleMapResponse(response,status);
         PlaneDriveTime=response.rows[0].elements[1].duration.value/3600;// get the values in the form that we are most used to 
         PlaneDriveDistance=response.rows[0].elements[1].distance.value/1000;
   }
-  else if(this.Data.StartLoc.name=="Sena Memorial Nursing Station"||this.Data.StartLoc.name=="Wanapetum Memorial Health Centre")// for the two specical cases that do not have a route defined by google 
+  else if(this.Data.StartLoc.name=="Sena Memorial Nursing Station"||this.Data.StartLoc.name=="Wanapetum Memorial Health Centre")// for the two special cases that do not have a route defined by google 
   {
     //Trina talked to people at these locations and decided that we should add about 10 minutes for each 
     PlaneDriveDistance=getDistance(this.Data.lat,this.Data.lng,this.loc[1].lat,this.loc[1].lng);// get the straight line distance getDistance is a function we created 
@@ -744,7 +743,7 @@ if(RouteToHeli==true)// if there is a route to helipad sites
   for(var m=0;m<dest.length;m++)
 { 
 var heliDist= getDistance(loc[0].lat,loc[0].lng,dest[m].Sites[0].lat,dest[m].Sites[0].lng)+HeliDriveDistance;//get the distance in straight line form plus what we have for the driving time
-var time=(heliDist / heli_speed) * flight_o_weather * this.destination_flight_weather_array[m]+HeliDriveTime;//have the time be the distance with multiplers added and driving time added
+var time=(heliDist / heli_speed) * flight_o_weather * this.destination_flight_weather_array[m]+HeliDriveTime;//have the time be the distance with multipliers added and driving time added
   var heliopt={//set the format for the cards which is very similar to what we have for driving 
     origin: loc[0],
     desti:dest[m].Sites[0],
@@ -793,7 +792,7 @@ for(var m=0;m<dest.length;m++)
   AirTravel.push(flightopt);// add the objects to the same array 
 }
 }
-  return AirTravel;// return the total array with helicopers and airplanes if routes where found 
+  return AirTravel;// return the total array with helicopters and airplanes if routes where found 
 }
 }//end of the export class 
 
@@ -806,7 +805,7 @@ function convertDist(dist)//convert the distance into a string
 
 async function convertTime(obj: any)// convert the driving time into a string 
 {
-for(var l=0;l<obj.length;l++)// go through all of the obects in the array and convert the numbers into strings for time 
+for(var l=0;l<obj.length;l++)// go through all of the objects in the array and convert the numbers into strings for time 
 {
   var newtimeChar=obj[l].TimeWithMult;
   newtimeChar=newtimeChar/3600;
@@ -853,7 +852,7 @@ return obj;// return the object with the new times
 function convertTimePlanes(obj: any)//convert the time into hours when dealing with the flight time the main calculations are the same to what is above but it returns something different 
 {
   var newtimeChar=obj;
-  let Hours=Math.abs(newtimeChar);// get the absoute value and just worry about the number before the decimal 
+  let Hours=Math.abs(newtimeChar);// get the absolute value and just worry about the number before the decimal 
   Hours=Math.floor(Hours);
   let Minutes=Math.abs(newtimeChar)-Hours;//get the number after the decimal 
   Minutes=Math.ceil(Minutes*60);//convert it into minutes

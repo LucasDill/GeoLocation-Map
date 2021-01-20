@@ -1,12 +1,12 @@
 <!-- Generated template for the ComponentsTimerComponent component -->
-<div id="Timer" [style.background-color]="Data.colour" no-padding style="vertical-align: middle;height: auto;color: white;"><!--Gets the colout from the data provider green for tPA and EVT yellow for just EVT and red when the usual recovery time has passed  -->
-  <ion-grid ><!--Put into a grid at Keli's request to show seperation between parts-->
+<div id="Timer" [style.background-color]="Data.colour" no-padding style="vertical-align: middle;height: auto;color: white;"><!--Gets the colour from the data provider green for tPA and EVT yellow for just EVT and red when the usual recovery time has passed  -->
+  <ion-grid ><!--Put into a grid at Keli's request to show separation between parts-->
     <ion-row>
     <ion-col col-auto style="padding-right: 4vw;" [style.border-right]="Border" ><!--Put it all into one row the first column shows the time that has passed  -->
      <p [style.color]="Data.TimerTextColour">Time Since LKW:<br><b><span style="font-size: x-large;text-align: center;"> {{Data.HoursSince |number:'2.0'}}:{{Data.MinutesSince |number:'2.0'}}:{{Data.SecondsSince |number:'2.0'}}</span></b></p>
      <!--The |number:2.0 is a data pipeline which means that there must be 2 digits before the decimal and any amount after so instead of 1h passing it would be 01h there is not currently a decimal for any though -->
   </ion-col>
-    <ion-col col-auto style="border-right: 0 !important;padding-left: 3vw;" [style.border-color]="Data.TimerTextColour" ><!--The second column shows the imformation of how much time is left for each treatment-->
+    <ion-col col-auto style="border-right: 0 !important;padding-left: 3vw;" [style.border-color]="Data.TimerTextColour" ><!--The second column shows the information of how much time is left for each treatment-->
       <span style="vertical-align: middle;" [style.color]="Data.TimerTextColour" [innerHTML]="Data.TreatmentInfo"></span><!--The information is all specified on the back end in HTML form and simply added when the time has changed-->
     </ion-col>
   </ion-row>

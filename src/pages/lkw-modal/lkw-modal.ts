@@ -30,7 +30,7 @@ this.view.dismiss();
 
 CallNumber(){
   document.getElementById("test").innerText="Works";
-  //this.callNumber.callNumber('14039092432',false).then(res=>{console.log("Sucess",res)}).catch(err=>{console.log("Error",err)});
+  //this.callNumber.callNumber('14039092432',false).then(res=>{console.log("Success",res)}).catch(err=>{console.log("Error",err)});
   this.message="This does work";
 
 }

@@ -63,15 +63,15 @@ async getWeather(){
   //getWeatherFromApi is found in the weather.ts file 
     this.weatherService.getWeatherFromApi(this.Data.lat, this.Data.lng).subscribe(weather => {
     this.weather = weather;
-    //console.log(weather);// Used this to look at the weather Data //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //console.log(weather);// Used this to look at the weather Data 
     this.id = this.weather.weather[0].id; //the weather id is used to find the multiplier for the time multiplier 
     this.description = this.weather.weather[0].description; //the description of the weather at the moment this value is not used 
     this.icon = this.weather.weather[0].icon;
     this.tempreal = this.weather.main.temp - 273.15; //the actual temperature and feel of the temperature in the area this is used for the display on the routing options
-    this.tempfeel = this.weather.main.temp - 273.15; // the temperature is retunred in Kelven hence the -273.15
+    this.tempfeel = this.weather.main.temp - 273.15; // the temperature is returned in Kelvin hence the -273.15
     this.Data.origin_weatherdata = [this.id, this.description, this.icon, this.tempreal, this.tempfeel]; //Set the custom array in the data provider with the weather data 
     // gets description of weather
-    this.Data.origin_id = this.id; //Set specifics of the weather in the data provider used for finding the multipler and other parts 
+    this.Data.origin_id = this.id; //Set specifics of the weather in the data provider used for finding the multiplier and other parts 
     this.Data.origin_icon = "./assets/weather/" + this.Data.origin_weatherdata[2] + ".png";
     this.Data.origin_tempreal = this.tempreal;
     this.Data.origin_tempfeel = this.tempfeel;
@@ -81,14 +81,14 @@ async getWeather(){
 
 
 // get current location this is triggered by the Use my Location button and is currently disabled 
-// Once I figure out the firebase and have it syncronized instead of querying I will come up with a search that will find the appropriate health center 
+// Once I figure out the firebase and have it synchronized instead of querying I will come up with a search that will find the appropriate health center 
  setCurrentPosition() {
   if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
           this.Data.lat = position.coords.latitude;
-          this.Data.lng = position.coords.longitude;//Still need to impliment this part 
+          this.Data.lng = position.coords.longitude;//Still need to implement this part 
           console.log("Your current position is:\n"+"Latitude: "+position.coords.latitude+"\n"+"Longitude: "+position.coords.longitude);
-          //console.log("The closest Health Center is:");//needs to be implimented after sorting out the firebase maybe with a pop up window 
+          //console.log("The closest Health Center is:");//needs to be implemented after sorting out the firebase maybe with a pop up window 
           
       });
   }
@@ -109,7 +109,7 @@ async getWeather(){
      {
       this.getResults(q);
      }
-     else{//If ther is no results instead of displaying everything display no results 
+     else{//If there is no results instead of displaying everything display no results 
        this.Medical_Centers=[]
      }
       
@@ -137,7 +137,7 @@ for(var i=0;i<this.Data.AllMedicalCenters.length;i++)//Go through all of the med
       {
         if(search.toUpperCase()==this.Data.AllMedicalCenters[i].AKA[j].toUpperCase().substring(0,search.length))
         {
-          let temp=this.Data.AllMedicalCenters[i].name;// save the usual name temporarally 
+          let temp=this.Data.AllMedicalCenters[i].name;// save the usual name temporarily 
           this.Data.AllMedicalCenters[i].name=this.Data.AllMedicalCenters[i].AKA[j];// set the name for the object as the also known as so it displays on the button
           this.Data.AllMedicalCenters[i].AKA[j]=temp;//Save the other name in the AKA 
           arr.push(this.Data.AllMedicalCenters[i]);// add it to the array 
@@ -156,7 +156,7 @@ for(var i=0;i<this.Data.AllMedicalCenters.length;i++)//Go through all of the med
       {
         if(search.toUpperCase()==this.Data.AllMedicalCenters[i].AKA[j].toUpperCase().substring(0,search.length))
         {
-          let temp=this.Data.AllMedicalCenters[i].city;// save the usual city temporarally 
+          let temp=this.Data.AllMedicalCenters[i].city;// save the usual city temporarily 
           this.Data.AllMedicalCenters[i].city=this.Data.AllMedicalCenters[i].AKA[j];// set the name for the object as the also known as so it displays on the button
           this.Data.AllMedicalCenters[i].AKA[j]=temp;//Save the other name in the AKA 
           arr.push(this.Data.AllMedicalCenters[i]);// add it to the array 
@@ -198,7 +198,7 @@ goToCityPage(city)
             if ( name.bTelestroke == true) {
               Telestroke=true;
               // write code here to go to next applicable page
-              //console.log("YOU ARE AT A TELSTROKE CENTRE");//used to test and make sure it was recognizing the right thing 
+              //console.log("YOU ARE AT A TELESTROKE CENTRE");//used to test and make sure it was recognizing the right thing 
             }
             else{
               // write code here to go to next applicable page
@@ -226,8 +226,8 @@ goToCityPage(city)
       let i=  waitforResults();
       async function waitforResults()
       {
-        //console.log(result);/////////////////////////////////////////////////////////////////used to see what the google api result is may be usefull in the future 
-        if (result==undefined||result.dstOffset==undefined||result.rawOffset==undefined)// if anything is undefined the results will loop untill they are filled 
+        //console.log(result);//used to see what the google api result is may be useful in the future 
+        if (result==undefined||result.dstOffset==undefined||result.rawOffset==undefined)// if anything is undefined the results will loop until they are filled 
         {
           console.log("Need to wait");
           setTimeout(this.waitforResults(),25);
@@ -247,7 +247,7 @@ goToCityPage(city)
 
 var page=this;
       function waitForTimeZone(){
-        if(SendingTimeZone==undefined)// wait untill the sending time zone variable has been filled 
+        if(SendingTimeZone==undefined)// wait until the sending time zone variable has been filled 
         {
           setTimeout(waitForTimeZone,50);
         }
@@ -279,7 +279,7 @@ var page=this;
     var difference=Math.abs(Math.abs(this.Data.PatientTimeZone)-Math.abs(this.Data.UserTimeZone));// find the total difference and add it to the time 
     let alert=this.alertController.create({
       title:"Different Time Zones",
-      message: "The site you have specifed is in a different time zone.<br/><br/>Did you enter the last known well in your time zone or the time zone of the sending location?",
+      message: "The site you have specified is in a different time zone.<br/><br/>Did you enter the last known well in your time zone or the time zone of the sending location?",
       buttons: [
         {
           text: "Sending Location",

@@ -36,7 +36,7 @@ export class EvtOptionsPage {
       this.evtEmpty=true;// set the empty to be true and pass in a message that will be displayed where the cards usually would be 
       this.message="You appear to already be at an EVT Capable Hospital \nPlease Consult Hospital Regulations for further instructions";
     }
-    else{//If there are routes returned set the cards to reflect those routes at the moment the TRHSC is the only site that is capable of performing EVT 
+    else{//If there are routes returned set the cards to reflect those routes at the moment the TBRHSC is the only site that is capable of performing EVT 
       this.cards=evt;
     }
     
@@ -48,13 +48,13 @@ export class EvtOptionsPage {
       evtRoutes=data;//assign the evtRoutes to the data returned function 
     });
     await this.Routes.nearestLocations(); //Wait for the Routing provider to get the closest Helipad and Airport to the starting and ending location 
-    var flightcards;//create a new varable to hold the information for the cards that deal with the helicopters and airplanes 
+    var flightcards;//create a new variable to hold the information for the cards that deal with the helicopters and airplanes 
     await this.Routes.getFlights(evtRoutes).then(distances =>{
       flightcards=distances;//Have the routing Provider get information for the cards including the distances and the times needed 
        });
        evtRoutes=this.Routes.addRoutes(evtRoutes,flightcards);//add the elements of the flights to the end 
        evtRoutes=this.Routes.masterSort(evtRoutes);//The masterSort function will sort the options based on how long they take and take out any that have the same name to avoid getting routes to the origin location 
-       evtRoutes=this.Routes.SetColour(evtRoutes);//Set the colour of each of the cards based on when the patient is sheduled to arrive 
+       evtRoutes=this.Routes.SetColour(evtRoutes);//Set the colour of each of the cards based on when the patient is scheduled to arrive 
        this.evtSpinner=false;//stop the spinner 
        this.evtshow=true;//show the div that contains all of the cards 
        return evtRoutes;//return the final list of cards to be displayed on the page 

@@ -10,13 +10,13 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 ****************************
 This requires adding the line
 <preference name="android-targetSdkVersion" value="23" />
-to the project config.xml otherwse Android 7 permissions don't allow opening the PDF file
+to the project config.xml otherwise Android 7 permissions don't allow opening the PDF file
 ****************************
-We're going to use Platfrom for platffrom detection then:
+We're going to use Platform for platform detection then:
 Document Viewer for iOS
 In App Browser for Android
 window.open for browser
-And finally normalizeURL to propwerly format the URL based on platfrom.
+And finally normalizeURL to properly format the URL based on platform.
 */
 
 @Injectable()
@@ -45,7 +45,7 @@ let theMove = this.file.copyFile(filePath, fileName, this.file.externalDataDirec
   const browser = this.iab.create(normalizeURL(filePath + fileName), '_system', 'location=yes');
 }
 
-// ios use ionic document viewer becasue it's a nicer ux
+// ios use ionic document viewer because it's a nicer ux
 else if (this.plt.is('ios')) {
 const options= {
 title:'My PDF',

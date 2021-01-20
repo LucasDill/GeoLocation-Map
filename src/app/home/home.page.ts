@@ -100,7 +100,7 @@ export class HomePage {
         });
         // if a pin is placed, display it on the map
         //this.addMarker(this.map);
-        // if a route is calcualted, display it on the map
+        // if a route is calculated, display it on the map
         directionsDisplay.setMap(this.map);
     
         end1 = new google.maps.LatLng(48.424818, -89.270847);
@@ -145,7 +145,7 @@ getData() {
 
 
 addEndLocation(name) {
-  // for loop to load in locations from imaging capable hospials that are clicked on, we can push to the array to clear previously stored distances and times
+  // for loop to load in locations from imaging capable hospitals that are clicked on, we can push to the array to clear previously stored distances and times
   for (var i = 0; i < displayEnd.length; i++) {
       displayEnd[i].setMap(null);
     }
@@ -619,7 +619,7 @@ addInfoWindow(marker, content) {
 }
 
 AddMapMarkers(e) {
-  // clear markers when they are delected from menu
+  // clear markers when they are deleted from menu
   for (var i = 0; i < gmarkers.length; i++) gmarkers[i].setMap(null);
   for (var i = 0; i < gmarkers2.length; i++) gmarkers2[i].setMap(null);
   for (var i = 0; i < gmarkers3.length; i++) gmarkers3[i].setMap(null);
@@ -806,7 +806,7 @@ AddHealthService() {
 }
 
 AddHele() {
-  //add helepad markers
+  //add helipad markers
 
   this.DataBase.list("/Landing Sites/")
     .valueChanges()

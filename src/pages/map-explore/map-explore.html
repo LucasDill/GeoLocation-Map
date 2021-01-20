@@ -16,16 +16,16 @@
 
 <ion-content>
   
-<!-- A section of the page with the id map set to take up 50% of the height automaticaly taking all of the width and calling the onMapClick function passing the $event which is the lat and lng of where was clicked -->
+<!-- A section of the page with the id map set to take up 50% of the height automatically taking all of the width and calling the onMapClick function passing the $event which is the lat and lng of where was clicked -->
   
 
 
 <!--the section of the code that deals with the markers in an ion item list -->
   <div id="markers" height="10vh;" style="color: #006bb6;">
     <ion-item><!-- an ionic element that contains the dropdown with the selections for icons -->
-      <ion-label style="font-size: 1em;">Add Markers</ion-label><!-- The label present in the menue -->
+      <ion-label style="font-size: 1em;">Add Markers</ion-label><!-- The label present in the menu -->
       <ion-select multiple="true" interface="alert" (ionChange)="AddMapMarkers($event)">
-        <!-- the ionic element that creates the dropdown menue with multiple allowed to be seleced and the alert interface others are available but not in this case whenever the values change and ok is pressed it will call the AddMapMarkers function passing the values of the selected markers -->
+        <!-- the ionic element that creates the dropdown menu with multiple allowed to be selected and the alert interface others are available but not in this case whenever the values change and ok is pressed it will call the AddMapMarkers function passing the values of the selected markers -->
         <ion-option [value]="1">
           <ion-label>Hospitals</ion-label>
         </ion-option>

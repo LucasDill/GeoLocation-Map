@@ -21,9 +21,9 @@
   <div *ngIf="evtSpinner" style="height: 60vh;" >
   <spinner ></spinner><!--This is the spinner component that runs until results are available-->
 </div>
-  <div class="card-scroll" *ngIf="evtshow" style="height: 73vh;"><!--This creates the scroll div with all of the cards and is visable after evtshow is set to true-->
+  <div class="card-scroll" *ngIf="evtshow" style="height: 73vh;"><!--This creates the scroll div with all of the cards and is visible after evtshow is set to true-->
     <p style="color: black;" text-center>Click on the route option for next steps</p>
-  <ion-scroll scrollY="true" style="height: 70vh;"><!--This is the actual compnent for the scroll with the vh probably needing to change and horizontal scroll not enabled -->
+  <ion-scroll scrollY="true" style="height: 70vh;"><!--This is the actual component for the scroll with the vh probably needing to change and horizontal scroll not enabled -->
     <div *ngIf="evtEmpty"><br><br><br><p style="font-size: large;">{{message}}</p></div><!--If there are no results returned display the error message  -->
     <ion-list justify-content-center align-items-center>
       <ion-item *ngFor="let card of cards"><!--The ngFor will iterate through all elements in cards and give each one the name card -->
@@ -50,7 +50,7 @@
             </ion-grid>
           </ion-card-content>
         </ion-card>
-        <ion-card *ngIf="card.Helipad" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"><!--If the card is a helicopter route show it with the image of the helicopter and use the ComplexRoute function to diplay the route-->
+        <ion-card *ngIf="card.Helipad" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"><!--If the card is a helicopter route show it with the image of the helicopter and use the ComplexRoute function to display the route-->
           <ion-card-content>
             <ion-grid no-padding>
               <ion-row>

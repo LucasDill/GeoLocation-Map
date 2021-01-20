@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
   selector: 'spinner',
   templateUrl: 'spinner.html'
 })
-export class SpinnerComponent {//Most of this componenet is in the scss page it was found online and used in our project 
+export class SpinnerComponent {//Most of this component is in the scss page it was found online and used in our project 
 
   
 

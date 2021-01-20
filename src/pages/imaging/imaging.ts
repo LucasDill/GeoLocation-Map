@@ -21,9 +21,9 @@ import { NextStepsPage } from '../next-steps/next-steps';
 export class ImagingPage {
 items:any=[];
 cards: any;//the cards are the data type that is displayed on the html page 
-Spinner: Boolean=true;//Set the spinner to be true and shown untill the content has finished loading 
-show: Boolean=false;//Have the div be hidden untill the data has loaded and the spinner disapears 
-results: Boolean=false;//a Boolean showing if there are no results reruned from the calculations 
+Spinner: Boolean=true;//Set the spinner to be true and shown until the content has finished loading 
+show: Boolean=false;//Have the div be hidden until the data has loaded and the spinner disappears 
+results: Boolean=false;//a Boolean showing if there are no results returned from the calculations 
 display: String="There are no routes available from your location please call local health services for more information";//The message to display if there are no results 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public Data: DataServiceProvider,//set constructor so the page can access the routing and data provider 
@@ -84,7 +84,6 @@ FlightRoutes=distances;//set the totalcard variable with the information from th
  testroutes=this.Routes.SetColour(testroutes)
 
  //imgroutes= this.Routes.SetColour(imgroutes);//Set the colour of each of the options for arrival green if able to make it for tPA yellow if able to make it for EVT and red if not able to make it in usual recovery time 
- //console.log(imgroutes);//used to view the final list that is passed to the back reenable to show full information passed 
 
  return testroutes;//return the final list of sorted information ready to be displayed 
 }

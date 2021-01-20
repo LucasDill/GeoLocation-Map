@@ -29,7 +29,7 @@ CurrentTime=moment().format("HH:mm");
 myTime=moment().format("HH:mm");//sets the current time option for the last known well based on the time of the machine 
 timeForm =new FormGroup({//creates a new form with the last known well 
   date: new FormControl('',Validators.required),
-  time1: new FormControl('',Validators.required),//set the form time with valdators required so they need to be entered in order to continue 
+  time1: new FormControl('',Validators.required),//set the form time with validators required so they need to be entered in order to continue 
 });
   constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider,public DataBase: AngularFireDatabase, private modal: ModalController, private document: DocumentViewer,private file: File,public platform: Platform,
     private inAppBrowser: InAppBrowser, public pdfViewer:PdfViewerProvider) {
@@ -51,7 +51,7 @@ ionViewWillEnter(){
 }
 /*
 ionViewWillLoad(){
-  this.Data.AllDrivingData= this.db.collection("/GoogleDrivingData/")//This would be better done somewhere else or done with syncronization through realtime database but this is how we have it now 
+  this.Data.AllDrivingData= this.db.collection("/GoogleDrivingData/")//This would be better done somewhere else or done with synchronization through realtime database but this is how we have it now 
   .get()
   .then((querySnapshot) => {
     var total=[]
@@ -60,13 +60,13 @@ ionViewWillLoad(){
         total.push(obj);
       
     });
-    this.Data.AllDrivingData=total;// save the array of all abjects to the Data Service provider 
+    this.Data.AllDrivingData=total;// save the array of all objects to the Data Service provider 
     console.log("AllDrivingData:");
     console.log(JSON.stringify(this.Data.AllDrivingData));
     //console.log(JSON.stringify(this.Data.AllDrivingData));
   });
   
-this.Data.AllDrivingData= this.db.collection("/Landing Sites/")//This would be better done somewhere else or done with syncronization through realtime database but this is how we have it now 
+this.Data.AllDrivingData= this.db.collection("/Landing Sites/")//This would be better done somewhere else or done with synchronization through realtime database but this is how we have it now 
 .get()
 .then((querySnapshot) => {
   var total=[]
@@ -75,7 +75,7 @@ this.Data.AllDrivingData= this.db.collection("/Landing Sites/")//This would be b
       total.push(obj);
     
   });
-  this.Data.AllLandingSites=total;// save the array of all abjects to the Data Service provider 
+  this.Data.AllLandingSites=total;// save the array of all objects to the Data Service provider 
   console.log("AllLandingSites:");
   console.log(JSON.stringify(this.Data.AllLandingSites));
 //   for (var i = 0; i< this.Data.AllLandingSites.length; i++) {
@@ -100,7 +100,7 @@ SubmitTime(){//once the button is clicked to go to the next page it will push to
   this.CurrentTime=moment().format("HH:mm");
     this.navCtrl.push(PatientLocationPage);//go to the next page 
     this.Data.CurrentDate=new Date(this.MaxDate.toString()+" "+this.CurrentTime.toString());// get the value in the correct format to be passed on 
-    this.Data.Analytics.DateUsed=this.Data.CurrentDate;//set for the anylitics later
+    this.Data.Analytics.DateUsed=this.Data.CurrentDate;//set for the analytics later
     this.Data.GivenDate=this.timeForm.value.date;
     this.Data.time=this.timeForm.value.time1;//set the time on the data page which will start the tier 
     if(this.Data.LastKnownWellTime!=this.timeForm.value.time1)//only stop if a new a new time is provided 

@@ -38,7 +38,7 @@ export class MyApp {
   
   
   /*////////////////////////////////////////////USE FOR MOBILE AND COMMIT THE WEB VERSION //////////////////////////////////////////////
-  platform.pause.subscribe(()=>{//when the app is not the foccus add the data to the database 
+  platform.pause.subscribe(()=>{//when the app is not the focus add the data to the database 
     this.Data.SendAnalytics();
     console.log("Sent in data from pause")
   });*/
