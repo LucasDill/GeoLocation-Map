@@ -18,6 +18,13 @@ page-map-explore {
     width: 100%;
   }
   
+#searchBar{
+  display: block;
+  z-index: 999;
+  position: relative;
+  border: black 1px;
+}
+
   ion-label{
     font-size: .7em;
   }

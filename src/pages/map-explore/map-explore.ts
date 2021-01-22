@@ -58,6 +58,7 @@ export class MapExplorePage {
       this.db = firebase.firestore();
   }
 
+
 initmap()
 {
   if(this.Data.StartLoc!=undefined&&this.Data.CityMap==true)
@@ -125,10 +126,10 @@ ionViewWillLeave(){
 ionViewWillEnter(){
 if (this.Data.GivenTime==true)
 {
-  this.height="80vh";
+  this.height="76vh";
 }
 else{
-  this.height="89vh";
+  this.height="84vh";
 }
 }
 

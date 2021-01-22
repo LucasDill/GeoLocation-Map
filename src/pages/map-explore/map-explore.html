@@ -58,8 +58,9 @@
     </ion-item>
 
   </div>
-
+  <ion-searchbar #searchBar (ionInput)="SearchInput($event)" [(ngModel)]="SearchResults"></ion-searchbar>
   <div #Map class="map" [style.height]=height></div>
+  
 
        
 </ion-content>
