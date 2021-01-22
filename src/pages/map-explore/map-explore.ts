@@ -7,6 +7,7 @@ import "firebase/firestore";
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import { DataServiceProvider } from '../../providers/data-service';
 import { AnyMxRecord } from 'dns';
+import { MappingProvider } from '../../providers/mapping';
 declare var google: any;//this was giving us some trouble because it kept saying that google is not defined 
 
 
@@ -50,14 +51,40 @@ export class MapExplorePage {
     lngin: any;
     zoom: any;
     content: any;
+    HideMap:any=false;
+    SearchResults: any;
+    Results:any;
   constructor(public zone: NgZone, public geolocation: Geolocation, public navCtrl: NavController,
     public DataBase: AngularFireDatabase,
     public Data: DataServiceProvider,
-    private menu: MenuController) {
+    private menu: MenuController,
+    private Mapping: MappingProvider) {
     /*load google map script dynamically */
       this.db = firebase.firestore();
   }
 
+SearchInput(event)//This function is called whenever something is put in the search bar and will do the search and return results
+{
+  console.log("SearchResults: ",this.SearchResults)//get what is currently typed into the form to be searched for
+  //console.log(this.Data.AllMedicalCenters)
+  if(this.SearchResults=="")
+  {
+    this.HideMap=false;
+  }
+  else{
+    this.HideMap=true;
+    var Searched=this.Mapping.SearchMap(this.SearchResults)
+  }
+  
+  this.Results=this.Data.AllMedicalCenters;
+}
+
+AddPlace(location)//this will eventually place the pin and recenter the map 
+{
+  console.log(location)//get the location sent in
+  this.HideMap=false;//show the map 
+  //this.SearchResults="";//?THIS will clear the text in the search bar but it may be better kept as it is.
+}
 
 initmap()
 {

@@ -5,7 +5,8 @@ page-map-explore {
   }
 
   .map {
-    position: relative;
+    //position: absolute;
+   // z-index: 1;
   }
 
   ion-option{
@@ -17,7 +18,11 @@ page-map-explore {
     bottom:   0;
     width: 100%;
   }
-  
+  .scroller{
+    position: relative;
+    //z-index: 2;
+    //background-color: transparent;
+  }
 #searchBar{
   display: block;
   z-index: 999;

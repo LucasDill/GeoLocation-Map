@@ -58,8 +58,19 @@
     </ion-item>
 
   </div>
-  <ion-searchbar #searchBar (ionInput)="SearchInput($event)" [(ngModel)]="SearchResults"></ion-searchbar>
-  <div #Map class="map" [style.height]=height></div>
+  <ion-searchbar #searchBar (ionInput)="SearchInput()" [(ngModel)]="SearchResults"></ion-searchbar>
+  <div #Map class="map" [hidden]="HideMap" [style.height]=height></div>
+  <ion-scroll [hidden]="!HideMap" scrollY="true" [style.height]=height class="scroller">
+    <ion-list>
+    <div *ngFor="let result of Results">
+      <ion-item (click)="AddPlace(result)">
+        <ion-label>
+      {{result.city}}
+    </ion-label>
+    </ion-item>
+    </div>
+  </ion-list>
+  </ion-scroll>
   
 
        
