@@ -34,6 +34,14 @@ page-imaging {
   padding-right: 0vw;
   padding-top: 0vh;
   padding-bottom: 0vh;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.imageText{
+  display: inline-block;
+  vertical-align: middle;
+  color: white;
 }
 
 body {

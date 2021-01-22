@@ -56,7 +56,7 @@
           <p id="cardinfo" style="font-size: small;color: white;">
             Patient Pickup to Destination: <b>{{card.TimeWithMultChar}}</b></p>
             <br>
-            <p style="color: white;">{{card.services}}</p>
+            <p class="imageText">{{card.services}}</p>
             <br>
           </ion-row>
           <expand expandHeight="20vh" [expanded]="card.expanded">
@@ -69,15 +69,17 @@
               <img class="image" src= "./assets/Travel/Ambulance.png">
             </ion-col>
             <ion-col>
-              <p style="color: white;">: {{card.Drive.TimeWithMultChar}}</p>
+              <p class="imageText">{{card.Drive.TimeWithMultChar}}</p>
             </ion-col>
           </ion-row>
           <ion-row *ngIf="card.HasFly">
             <ion-col col-3>
-              <img class="image" src= "./assets/Travel/Airplane.png"> 
+              <!--
+              <img class="image" src= "./assets/Travel/Airplane.png"> -->
+              <img class="image" src= "./assets/Travel/Helecopter.png">
             </ion-col>
             <ion-col style="padding-left: 0vw;">
-              <p style="color: white;">: {{card.Air.TimeWithMultChar}}</p>
+              <p style="color: white;">{{card.Air.TimeWithMultChar}}</p>
             </ion-col>
             </ion-row>
           </ion-row>
@@ -120,20 +122,22 @@
             <p style="font-size: small;color: white;">Fastest Total Time Achieved<br>Call to Definitive care:<br>
             <span style="font-size: medium;"><b>XX:XX (n=X)</b></span></p>
             <ion-row *ngIf="card.HasFly">
-              <ion-col col-3>
-                <img class="image" src= "./assets/Travel/Airplane.png"> 
+              <ion-col col-4>
+                <!--
+                <img class="image" src= "./assets/Travel/Airplane.png"> -->
+                <img class="image" src= "./assets/Travel/Helecopter.png">
               </ion-col>
               <ion-col style="padding-left: 0vw;">
-                <p style="color: white;">: {{card.Air.TimeWithMultChar}}</p>
+                <p class="imageText">{{card.Air.TimeWithMultChar}}</p>
               </ion-col>
             </ion-row>
             <ion-row *ngIf="card.HasDrive">
               <br>
-              <ion-col col-3>
+              <ion-col col-4 >
                 <img class="image" src= "./assets/Travel/Ambulance.png">
               </ion-col>
               <ion-col>
-                <p style="color: white;">: {{card.Drive.TimeWithMultChar}}</p>
+                <p class="imageText">{{card.Drive.TimeWithMultChar}}</p>
               </ion-col>
             </ion-row>
           </ion-row>
