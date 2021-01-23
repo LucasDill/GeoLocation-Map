@@ -17,6 +17,7 @@ import { WeatherService } from './weather';
 import { RoutingProvider } from '../../providers/routing';
 import { CityPage } from '../city/city';
 import { LastKnownWellPage } from '../last-known-well/last-known-well';
+import { MappingProvider } from '../../providers/mapping';
 
 @Component({
   selector: 'page-patient-location',
@@ -33,7 +34,8 @@ export class PatientLocationPage {
   constructor(private httpClient: HttpClient,public navCtrl: NavController, private mapsAPILoader: MapsAPILoader,
      public formBuilder: FormBuilder,public Data: DataServiceProvider,
     public DataBase: AngularFireDatabase,
-    private weatherService: WeatherService,public Routes: RoutingProvider, public alertController: AlertController, public platform: Platform, public app: App) {
+    private weatherService: WeatherService,public Routes: RoutingProvider, public alertController: AlertController, public platform: Platform, public app: App,
+    private Mapping: MappingProvider) {
   }
 
   ionViewDidLoad() {

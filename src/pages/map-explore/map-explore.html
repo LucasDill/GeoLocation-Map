@@ -61,7 +61,7 @@
   <ion-searchbar #searchBar (ionInput)="SearchInput()" [(ngModel)]="SearchResults"></ion-searchbar>
   <div #Map class="map" [hidden]="HideMap" [style.height]=height></div>
   <ion-scroll [hidden]="!HideMap" scrollY="true" [style.height]=height class="scroller">
-    <ion-list>
+    <ion-list *ngIf="!NoResults">
     <div *ngFor="let result of Results">
       <ion-item (click)="AddPlace(result)">
         <ion-label>
@@ -70,6 +70,7 @@
     </ion-item>
     </div>
   </ion-list>
+  <div *ngIf="NoResults"><h1 text-center>No Results</h1></div>
   </ion-scroll>
   
 

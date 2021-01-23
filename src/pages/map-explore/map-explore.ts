@@ -19,7 +19,10 @@ var gmarkers = [], gmarkers2 = [], gmarkers3 = [], gmarkers4 = [], gmarkers5 = [
 var clicked_marker = [];
 
 
-
+function DeleteMarker()
+{
+  console.log("Here")
+}
 
 
 // array to hold directionsDisplay information so that we can push the array and show only one route on the map at one time
@@ -54,6 +57,8 @@ export class MapExplorePage {
     HideMap:any=false;
     SearchResults: any;
     Results:any;
+    NoResults: any=false;
+    
   constructor(public zone: NgZone, public geolocation: Geolocation, public navCtrl: NavController,
     public DataBase: AngularFireDatabase,
     public Data: DataServiceProvider,
@@ -73,10 +78,17 @@ SearchInput(event)//This function is called whenever something is put in the sea
   }
   else{
     this.HideMap=true;
-    var Searched=this.Mapping.SearchMap(this.SearchResults)
+    this.Results=this.Mapping.SearchMap(this.SearchResults)
+    if(this.Results.length==0)
+    {
+      this.NoResults=true;
+    }
+    else{
+      this.NoResults=false;
+    }
   }
   
-  this.Results=this.Data.AllMedicalCenters;
+  //this.Results=this.Data.AllMedicalCenters;
 }
 
 AddPlace(location)//this will eventually place the pin and recenter the map 
@@ -84,6 +96,7 @@ AddPlace(location)//this will eventually place the pin and recenter the map
   console.log(location)//get the location sent in
   this.HideMap=false;//show the map 
   //this.SearchResults="";//?THIS will clear the text in the search bar but it may be better kept as it is.
+  this.addMarker(this.map,location,location.city)//TODO need to look at more search options, removing the markers and setting info for the windows.  
 }
 
 initmap()
@@ -159,30 +172,43 @@ else{
   this.height="84vh";
 }
 }
-
-addMarker(map: any,LatLng:any,GivenLabel:any) {// this function will place custom markers on the map at the specific lat and long and with the label provided
+//TODO This function adds a marker for the search at the moment Still need to look at removing the marker
+addMarker(map: any,Location,GivenLabel:any) {// this function will place custom markers on the map at the specific lat and long and with the label provided
 
   // variable to hold chosen imaging capable hospital location
 
 let clickedm = new google.maps.Marker({
-  position: LatLng,
+  position: { lat: Location.lat, lng: Location.lng },
   map: map,
   draggable: false,
-  label: GivenLabel
+  label: GivenLabel,
+  animation: google.maps.Animation.DROP
 });
 // pushes marker to array (so that it can be cleared easily)
 clicked_marker.push(clickedm);
+this.map.setCenter({ lat: Location.lat, lng: Location.lng })//this will set the new center for the map to put you near the marker
+this.addInfoWindow(clickedm,'<p>City: '+Location.city+'</p>')
 }
 
 // add information window to show data from database for markers which are in the legend when they are clicked on 
 addInfoWindow(marker, content) {
-  let infoWindow = new google.maps.InfoWindow({
+  var infoWindow = new google.maps.InfoWindow({
     content: content
   });
-
+  
+ 
   google.maps.event.addListener(marker, "click", () => {
+    infoWindow.setContent('<button onClick="marker.setMap(\'null\')">CLICK</button>')//TODO this button may work but has trouble finding the function 
+    //! Maybe look at this https://stackoverflow.com/questions/41921126/google-map-marker-info-window-needs-to-remove-the-marker 
+    console.log(marker)
     infoWindow.open(this.map, marker);
+    
   });
+}
+
+DeleteMarker(a)
+{
+  console.log("Actually here")
 }
 
 AddMapMarkers(e) {
@@ -708,4 +734,7 @@ AddORNGE() {
 
 
 
+}
+function CloseMarker(){
+  console.log("This")
 }
