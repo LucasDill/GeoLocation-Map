@@ -653,10 +653,10 @@ var hasFly=false;
 
   if(card.bRegionalStrokeCentre==true)
   {
-    capabilities="EVT/tPA/Imaging";
+    capabilities="Imaging/tPA/EVT";
   }
   else{
-    capabilities="tPA/Imaging";
+    capabilities="Imaging/tPA";
   }
   //console.log(card)
   var together={

@@ -12,7 +12,7 @@ import { MapPage } from '../pages/map/map';
 import { EvtOptionsPage } from '../pages/evt-options/evt-options';
 import { ComponentsTimerComponent } from '../components/components-timer/components-timer';
 import { SpinnerComponent } from '../components/spinner/spinner';
-import {Geolocation} from '@ionic-native/geolocation/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
