@@ -624,6 +624,26 @@ console.log(comb)
 return comb;
 }
 
+expandItem(event,item): void {///This function will expand the card when it is clicked 
+  // console.log("ClickWorks")
+   //console.log(item);
+   if (item.expanded) {
+     item.expanded = false;
+   } else {///////This is currently unused and it is what will eventually make the cards only expand one at a time 
+     item.expanded=true;
+     /*this.items.map(listItem => {
+       if (item == listItem) {
+         listItem.expanded = !listItem.expanded;
+       } else {
+         listItem.expanded = false;
+       }
+       return listItem;
+     });*/
+   }
+   event.stopPropagation();//stop the upper click event from taking place 
+   return item;/// this passes by the else and might need to be removed if the closing is added in 
+ }
+
 NewCard(card){
 var methods;
 var capabilities;

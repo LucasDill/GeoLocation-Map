@@ -48,6 +48,7 @@ ionViewDidLoad(){
 
 ionViewWillEnter(){
   this.Data.GivenTime=false;// this is just to set the value to false in order for it to have the top timer not appear on menu screens
+  this.Data.NeedtPA=true;
 }
 /*
 ionViewWillLoad(){

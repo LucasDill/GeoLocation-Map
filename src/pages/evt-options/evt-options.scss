@@ -29,6 +29,21 @@ page-evt-options {
       padding: 0;
     }
     
+    .image{
+      padding-left: 0vw;
+      padding-right: 0vw;
+      padding-top: 0vh;
+      padding-bottom: 0vh;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    
+    .imageText{
+      display: inline-block;
+      vertical-align: middle;
+      color: white;
+    }
+
     body {
       width: 100vw;
       height: 100vh;
