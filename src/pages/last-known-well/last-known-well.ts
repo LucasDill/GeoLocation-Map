@@ -111,10 +111,12 @@ SubmitTime(){//once the button is clicked to go to the next page it will push to
     }
 }   
   
-TimeModal(){
+TimeModal(event){
+
  const LKWModal= this.modal.create('LkwModalPage');
 
  LKWModal.present();
+
 }
 
 OpenPdf(name){

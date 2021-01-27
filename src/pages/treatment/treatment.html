@@ -17,9 +17,11 @@
  
 
   <h4 id="treatment-heading6" text-center style="color:#006bb6;font-size: x-large;">
-    Routes To tPA Capable Hospitals
+    Routes To tPA<br>Capable Hospitals
   </h4>
-  <spinner *ngIf="tpaSpinner" style="height: 30vh;"></spinner> <!--The spinner component which will show until results are returned  -->
+  <div *ngIf="tpaSpinner" style="height: 18vh;" >
+  <spinner  ></spinner> <!--The spinner component which will show until results are returned  -->
+</div>
 
   <div class="card-scroll" *ngIf="tpashow"> <!--The div that will not be shown until tpashow is set to true -->
     <p style="color: black;" text-center>Click on the route option for next steps</p>
@@ -33,49 +35,120 @@
     <ion-scroll scrollY="true" style="height: 29vh;"> <!--This is the section for the tpa results  -->
   <ion-list justify-content-center align-items-center>
     <ion-item *ngFor="let card of cards"> <!--iterative through all cards  -->
-      <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour"> <!--if it is a driving route show the correct icon and call the right display function  -->
-        <ion-card-content>
-          <ion-grid no-padding>
+      <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)"  text-wrap [style.background-color]="card.colour"><!--These are if the card is a driving type and wil call the normal routing function -->
+        <ion-card-content >
+         
+          <ion-grid >
             <ion-row>
-              <ion-col col-9 >
-                <p style="font-size: larger;color: white;"><b>{{card.name}}</b></p>
+              <ion-col col-10 >
+                <p style="font-size: small;color: white; margin-left: -2vw;"><b>{{card.city}}</b></p>
+                <p style="font-size: larger;color: white;">{{card.name}}</p>
             </ion-col>
             <ion-col>
+              <!--
              <img src= "./assets/Travel/Ambulance.png"> 
+             -->
+             <div *ngIf="!card.expanded" (click)="expandItem($event,card)">
+              <svg xmlns='http://www.w3.org/2000/svg'  class='ionicon' viewBox='0 0 512 512'><title>Chevron Down</title><path fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='48' d='M112 184l144 144 144-144'/></svg>
+            </div>
+            <div *ngIf="card.expanded" (click)="expandItem($event,card)">
+              <svg xmlns='http://www.w3.org/2000/svg' class='ionicon' viewBox='0 0 512 512'><title>Chevron Up</title><path fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='48' d='M112 328l144-144 144 144'/></svg>
+          </div>
             </ion-col>
             </ion-row>
             <ion-row >
+              <p class="imageText">{{card.services}}</p>
+              <br><!-- Put in the line somewhere here to have the expansion separated-->
+              <p style="font-size: small;color: white;">Historical Time to Definitive Care
+                <span style="font-size: medium;"><b> XX:XX<!-- (n=X)--></b></span></p>
+              <br><br>
+            </ion-row>
+            <expand expandHeight="20vh" [expanded]="card.expanded">
+            <ion-row style="border-top: white 1px solid; padding-top: 1vh;">
+              
+            <ion-row *ngIf="card.HasDrive">
+              <br>
+              <ion-col col-3>
+                <img class="image" src= "./assets/Travel/Ambulance.png">
+              </ion-col>
+              <ion-col>
+                <p class="imageText"><!--{{card.Drive.TimeWithMultChar}}-->XX:XX</p>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="card.HasFly">
+              <ion-col col-3>
+                <!--
+                <img class="image" src= "./assets/Travel/Airplane.png"> -->
+                <img class="image" src= "./assets/Travel/Helecopter.png">
+              </ion-col>
+              <ion-col style="padding-left: 0vw;">
+                <p style="color: white;"><!--{{card.Air.TimeWithMultChar}}-->XX:XX</p>
+              </ion-col>
+              </ion-row>
+            </ion-row>
             <p id="cardinfo" style="font-size: small;color: white;">
               Patient Pickup to Destination: <b>{{card.TimeWithMultChar}}</b></p>
-              <br>
-            </ion-row>
-            <ion-row>
-              <p style="font-size: small;color: white;">Fastest Total Time Achieved<br>Call to Definitive care:<br>
-              <span style="font-size: medium;"><b>XX:XX (n=X)</b></span></p>
-            </ion-row>
+          </expand>
+          
           </ion-grid>
+       
         </ion-card-content>
       </ion-card>
-      <ion-card *ngIf="card.Helipad" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"> <!--if it is a helicopter route show the correct icon and call the complex route function  -->
+      
+      <ion-card *ngIf="!card.Driving" tappable (click)="ComplexRoute(card.Air)" text-wrap [style.background-color]="card.colour"><!--These are cards that have airplane routes and will show the icon and call the complexroute function  -->
         <ion-card-content>
-          <ion-grid no-padding>
+          <ion-grid >
             <ion-row>
-              <ion-col col-9 >
-                <p style="font-size: larger;color: white;"><b>{{card.name}}</b></p>
+              <ion-col col-10 >
+                <p style="font-size: small;color: white;margin-left: -2vw;"><b>{{card.city}}</b></p>
+                <p style="font-size: larger;color: white;">{{card.name}}</p>
             </ion-col>
             <ion-col>
-             <img src= "./assets/Travel/Helecopter.png"> 
+              <!--
+             <img src= "./assets/Travel/Airplane.png"> 
+              -->
+              <div *ngIf="!card.expanded" (click)="expandItem($event,card)">
+              <svg xmlns='http://www.w3.org/2000/svg'  class='ionicon' viewBox='0 0 512 512'><title>Chevron Down</title><path fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='48' d='M112 184l144 144 144-144'/></svg>
+            </div>
+            <div *ngIf="card.expanded" (click)="expandItem($event,card)">
+              <svg xmlns='http://www.w3.org/2000/svg' class='ionicon' viewBox='0 0 512 512'><title>Chevron Up</title><path fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='48' d='M112 328l144-144 144 144'/></svg>
+          </div>
             </ion-col>
             </ion-row>
             <ion-row >
-            <p id="cardinfo" style="font-size: small;color: white;">
-              Patient Pickup to Destination: <b>{{card.TimeWithMultChar}}</b></p>
+              <p style="color: white;">{{card.services}}</p>
+              <br>
+              <p style="font-size: small;color: white;">Historical Time to Definitive Care:
+                <span style="font-size: medium;"><b> XX:XX <!--(n=X)--></b></span></p>
               <br>
             </ion-row>
-            <ion-row>
-              <p style="font-size: small;color: white;">Fastest Total Time Achieved<br>Call to Definitive care:<br>
-              <span style="font-size: medium;"><b>XX:XX (n=X)</b></span></p>
+            <expand expandHeight="20vh" [expanded]="card.expanded" style="border-top: white 1px;">
+              
+            <ion-row style="border-top: white 1px solid; padding-top: 1vh;">
+              
+              <ion-row *ngIf="card.HasFly">
+                <ion-col col-4>
+                  <!--
+                  <img class="image" src= "./assets/Travel/Airplane.png"> -->
+                  <img class="image" src= "./assets/Travel/Helecopter.png">
+                </ion-col>
+                <ion-col style="padding-left: 0vw;">
+                  <p class="imageText"><!--{{card.Air.TimeWithMultChar}}-->XX:XX</p>
+                </ion-col>
+              </ion-row>
+              <ion-row *ngIf="card.HasDrive">
+                <br>
+                <ion-col col-4 >
+                  <img class="image" src= "./assets/Travel/Ambulance.png">
+                </ion-col>
+                <ion-col>
+                  <p class="imageText"><!--{{card.Drive.TimeWithMultChar}}-->XX:XX</p>
+                </ion-col>
+              </ion-row>
             </ion-row>
+            <p id="cardinfo" style="font-size: small;color: white;">
+              Institution to Institution: <b>{{card.TimeWithMultChar}}</b></p>
+            </expand>
           </ion-grid>
         </ion-card-content>
       </ion-card>
@@ -109,82 +182,132 @@
    <!--The end of the tpa section and start of evt section  -->
 <br>
   <h4 id="treatment-heading7" text-center style="color:#006bb6;font-size: x-large;">
-    Routes To EVT Capable Hospitals 
+    Routes To EVT<br>Capable Hospitals 
   </h4>
-  <spinner *ngIf="evtSpinner"></spinner> <!--The spinner which stops after evt routes are returned -->
+  <div *ngIf="evtSpinner" style="height: 18vh;" >
+    <spinner  ></spinner> <!--The spinner component which will show until results are returned  -->
+  </div>
   <div class="card-scroll" *ngIf="evtshow"> <!--The div which hold the cards and will be shown if it is set to true  -->
     <p style="color: black;" text-center>Click on the route option for next steps</p>
   <ion-scroll scrollY="true" style="height: 29vh;">
     <div *ngIf="evtEmpty"><br><br><br><p style="font-size: large;">{{message}}</p></div> <!--if this section is empty it will display the message -->
     <ion-list justify-content-center align-items-center>
       <ion-item *ngFor="let card of EvtCards"> <!--goes through all of the evt routes as cards  -->
-        <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)" text-wrap [style.background-color]="card.colour"> <!--for driving routes to show the right icon and call the normal route  -->
-          <ion-card-content>
-            <ion-grid no-padding>
+        <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)"  text-wrap [style.background-color]="card.colour"><!--These are if the card is a driving type and wil call the normal routing function -->
+          <ion-card-content >
+           
+            <ion-grid >
               <ion-row>
-                <ion-col col-9 >
-                  <p style="font-size: larger;color: white;"><b>{{card.name}}</b></p>
+                <ion-col col-10 >
+                  <p style="font-size: small;color: white; margin-left: -2vw;"><b>{{card.city}}</b></p>
+                  <p style="font-size: larger;color: white;">{{card.name}}</p>
               </ion-col>
               <ion-col>
+                <!--
                <img src= "./assets/Travel/Ambulance.png"> 
+               -->
+               <div *ngIf="!card.expanded" (click)="expandItem($event,card)">
+                <svg xmlns='http://www.w3.org/2000/svg'  class='ionicon' viewBox='0 0 512 512'><title>Chevron Down</title><path fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='48' d='M112 184l144 144 144-144'/></svg>
+              </div>
+              <div *ngIf="card.expanded" (click)="expandItem($event,card)">
+                <svg xmlns='http://www.w3.org/2000/svg' class='ionicon' viewBox='0 0 512 512'><title>Chevron Up</title><path fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='48' d='M112 328l144-144 144 144'/></svg>
+            </div>
               </ion-col>
               </ion-row>
               <ion-row >
+                <p class="imageText">{{card.services}}</p>
+                <br><!-- Put in the line somewhere here to have the expansion separated-->
+                <p style="font-size: small;color: white;">Historical Time to Definitive Care
+                  <span style="font-size: medium;"><b> XX:XX<!-- (n=X)--></b></span></p>
+                <br><br>
+              </ion-row>
+              <expand expandHeight="20vh" [expanded]="card.expanded">
+              <ion-row style="border-top: white 1px solid; padding-top: 1vh;">
+                
+              <ion-row *ngIf="card.HasDrive">
+                <br>
+                <ion-col col-3>
+                  <img class="image" src= "./assets/Travel/Ambulance.png">
+                </ion-col>
+                <ion-col>
+                  <p class="imageText"><!--{{card.Drive.TimeWithMultChar}}-->XX:XX</p>
+                </ion-col>
+              </ion-row>
+              <ion-row *ngIf="card.HasFly">
+                <ion-col col-3>
+                  <!--
+                  <img class="image" src= "./assets/Travel/Airplane.png"> -->
+                  <img class="image" src= "./assets/Travel/Helecopter.png">
+                </ion-col>
+                <ion-col style="padding-left: 0vw;">
+                  <p style="color: white;"><!--{{card.Air.TimeWithMultChar}}-->XX:XX</p>
+                </ion-col>
+                </ion-row>
+              </ion-row>
               <p id="cardinfo" style="font-size: small;color: white;">
                 Patient Pickup to Destination: <b>{{card.TimeWithMultChar}}</b></p>
-                <br>
-              </ion-row>
-              <ion-row>
-                <p style="font-size: small;color: white;">Fastest Total Time Achieved<br>Call to Definitive care:<br>
-                <span style="font-size: medium;"><b>XX:XX (n=X)</b></span></p>
-              </ion-row>
+            </expand>
+            
             </ion-grid>
+         
           </ion-card-content>
         </ion-card>
-        <ion-card *ngIf="card.Helipad" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"> <!--for helecopter routes to show the right icon and call the complex route function  -->
+        
+        <ion-card *ngIf="!card.Driving" tappable (click)="ComplexRoute(card.Air)" text-wrap [style.background-color]="card.colour"><!--These are cards that have airplane routes and will show the icon and call the complexroute function  -->
           <ion-card-content>
-            <ion-grid no-padding>
+            <ion-grid >
               <ion-row>
-                <ion-col col-9 >
-                  <p style="font-size: larger;color: white;"><b>{{card.name}}</b></p>
+                <ion-col col-10 >
+                  <p style="font-size: small;color: white;margin-left: -2vw;"><b>{{card.city}}</b></p>
+                  <p style="font-size: larger;color: white;">{{card.name}}</p>
               </ion-col>
               <ion-col>
-               <img src= "./assets/Travel/Helecopter.png"> 
-              </ion-col>
-              </ion-row>
-              <ion-row >
-              <p id="cardinfo" style="font-size: small;color: white;">
-                Patient Pickup to Destination: <b>{{card.TimeWithMultChar}}</b></p>
-                <br>
-              </ion-row>
-              <ion-row>
-                <p style="font-size: small;color: white;">Fastest Total Time Achieved<br>Call to Definitive care:<br>
-                <span style="font-size: medium;"><b>XX:XX (n=X)</b></span></p>
-              </ion-row>
-            </ion-grid>
-          </ion-card-content>
-        </ion-card>
-        <ion-card *ngIf="card.Airport" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"> <!--for airplane routes to show the correct icon and call the complex route function  -->
-          <ion-card-content>
-            <ion-grid no-padding>
-              <ion-row>
-                <ion-col col-9 >
-                  <p style="font-size: larger;color: white;"><b>{{card.name}}</b></p>
-              </ion-col>
-              <ion-col>
+                <!--
                <img src= "./assets/Travel/Airplane.png"> 
+                -->
+                <div *ngIf="!card.expanded" (click)="expandItem($event,card)">
+                <svg xmlns='http://www.w3.org/2000/svg'  class='ionicon' viewBox='0 0 512 512'><title>Chevron Down</title><path fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='48' d='M112 184l144 144 144-144'/></svg>
+              </div>
+              <div *ngIf="card.expanded" (click)="expandItem($event,card)">
+                <svg xmlns='http://www.w3.org/2000/svg' class='ionicon' viewBox='0 0 512 512'><title>Chevron Up</title><path fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='48' d='M112 328l144-144 144 144'/></svg>
+            </div>
               </ion-col>
               </ion-row>
               <ion-row >
-              <p id="cardinfo" style="font-size: small;color: white;">
-                Patient Pickup to Destination: <b>{{card.TimeWithMultChar}}</b></p>
+                <p style="color: white;">{{card.services}}</p>
+                <br>
+                <p style="font-size: small;color: white;">Historical Time to Definitive Care:
+                  <span style="font-size: medium;"><b> XX:XX <!--(n=X)--></b></span></p>
                 <br>
               </ion-row>
-              <ion-row>
-                <p style="font-size: small;color: white;">Fastest Total Time Achieved<br>Call to Definitive care:<br>
-                <span style="font-size: medium;"><b>XX:XX (n=X)</b></span></p>
+              <expand expandHeight="20vh" [expanded]="card.expanded" style="border-top: white 1px;">
+                
+              <ion-row style="border-top: white 1px solid; padding-top: 1vh;">
+                
+                <ion-row *ngIf="card.HasFly">
+                  <ion-col col-4>
+                    <!--
+                    <img class="image" src= "./assets/Travel/Airplane.png"> -->
+                    <img class="image" src= "./assets/Travel/Helecopter.png">
+                  </ion-col>
+                  <ion-col style="padding-left: 0vw;">
+                    <p class="imageText"><!--{{card.Air.TimeWithMultChar}}-->XX:XX</p>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="card.HasDrive">
+                  <br>
+                  <ion-col col-4 >
+                    <img class="image" src= "./assets/Travel/Ambulance.png">
+                  </ion-col>
+                  <ion-col>
+                    <p class="imageText"><!--{{card.Drive.TimeWithMultChar}}-->XX:XX</p>
+                  </ion-col>
+                </ion-row>
               </ion-row>
-            </ion-grid> 
+              <p id="cardinfo" style="font-size: small;color: white;">
+                Institution to Institution: <b>{{card.TimeWithMultChar}}</b></p>
+              </expand>
+            </ion-grid>
           </ion-card-content>
         </ion-card>
       </ion-item>

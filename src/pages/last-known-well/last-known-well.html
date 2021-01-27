@@ -21,7 +21,7 @@
 
 
   <div style="height:6vh;"></div>
-  <form [formGroup]="timeForm" (ngSubmit)="SubmitTime()"><!--The last known well in hour format-->
+  <form [formGroup]="timeForm" ><!--The last known well in hour format-->
     <p text-center> Date</p>
     <br>
     <ion-item id="lastKnownWellDate" style="background-color: lightgray;text-align: center;" class="roundedEntry">
@@ -39,12 +39,12 @@
    <br>
     <ion-row center>
       <ion-col text-center>
-      <button ion-button center round (click)="TimeModal()" small style="text-align: center;font-size: larger;">More Information</button>
+      <button ion-button center round (click)="TimeModal($event)" small style="text-align: center;font-size: larger;">Tips</button>
     </ion-col>  
     </ion-row>
     <div class="spacer" style="height:7vh;" id="lastKnownWell-spacer7"></div>
     
-    <button  id="lastKnownWell-button2" ion-button [disabled]="!timeForm.valid" type="submit" block round large><!--The button will not be accessible until a value is entered for the time-->
+    <button (click)="SubmitTime()" id="lastKnownWell-button2" ion-button [disabled]="!timeForm.valid" type="submit" block round large><!--The button will not be accessible until a value is entered for the time-->
       Next
     </button>
   </form>

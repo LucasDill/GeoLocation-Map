@@ -71,6 +71,7 @@ FlightRoutes=distances;
  
  tPAroutes=this.Routes.masterSort(tPAroutes);//sort the combined list so the shortest times are first 
 
+ tPAroutes=this.Routes.CombineAll(tPAroutes)
 
  tPAroutes= this.Routes.SetColour(tPAroutes);//set the colour of the cards based on when they will get to their destination 
  
@@ -91,6 +92,7 @@ async EVTsetup(){//EVT at the moment is just Thunder Bay which is the only bRegi
      });
      var evtRoutes=this.Routes.addRoutes(evtDriveRoutes,evtFlightRoutes);//Combine the lists of flight and driving routes 
      evtRoutes=this.Routes.masterSort(evtRoutes);//sort the routes to have the shortest time first 
+     evtRoutes=this.Routes.CombineAll(evtRoutes);
      evtRoutes=this.Routes.SetColour(evtRoutes);//set the colour of the cards based on when the patient will arrive 
      this.evtSpinner=false;//stop the spinner and allow the div to be shown
      this.evtshow=true;
@@ -103,6 +105,27 @@ async EVTsetup(){//EVT at the moment is just Thunder Bay which is the only bRegi
     this.Data.Destination=DriveDest;//pass the destination in for the route display
     this.navCtrl.push(NextStepsPage);//go to the map page to show the results 
   }
+
+
+  expandItem(event,item): void {///This function will expand the card when it is clicked 
+    // console.log("ClickWorks")
+     //console.log(item);
+     if (item.expanded) {
+       item.expanded = false;
+     } else {///////This is currently unused and it is what will eventually make the cards only expand one at a time 
+       item.expanded=true;
+      /* this.items.map(listItem => {
+         if (item == listItem) {
+           listItem.expanded = !listItem.expanded;
+         } else {
+           listItem.expanded = false;
+         }
+         return listItem;
+       });*/
+     }
+     event.stopPropagation();//stop the upper click event from taking place 
+     return item;/// this passes by the else and might need to be removed if the closing is added in 
+   }
 
   ComplexRoute(FlightDat)// if this is a complex route with driving and flying 
   {
