@@ -63,11 +63,18 @@
   <ion-scroll [hidden]="!HideMap" scrollY="true" [style.height]=height class="scroller">
     <ion-list *ngIf="!NoResults">
     <div *ngFor="let result of Results">
-      <ion-item (click)="AddPlace(result)">
-        <ion-label>
-      {{result.city}}
+      <ion-item (click)="AddPlace(result)" text-wrap *ngIf="result.name; else notcentre">
+        <ion-label >
+      {{result.city}}: {{result.name}}
     </ion-label>
     </ion-item>
+    <ng-template #notcentre>
+      <ion-item text-wrap (click)="AddPlace(result)">
+<ion-label>
+  {{result.city}}
+</ion-label>
+      </ion-item>
+      </ng-template>
     </div>
   </ion-list>
   <div *ngIf="NoResults"><h1 text-center>No Results</h1></div>

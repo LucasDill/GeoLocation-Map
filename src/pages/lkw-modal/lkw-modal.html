@@ -6,25 +6,36 @@
 -->
 <ion-header>
   <ion-navbar  text-center>
-    <ion-title>More Information</ion-title>
+    <ion-title>Tips</ion-title>
     <ion-buttons end>
       <button ion-button (click)="CloseInfo()">Close</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding style="color: #006bb6;">
-<h4>The purpose of this screen is to determine when the patient was last known to be well</h4>
+<ion-content padding style="font-size: medium;">
+<h2>How to gather details of the patient's Last Known Well</h2>
+<br>
+<div style="color: black;">
+<b><p style="color: black;">Remember: LKW <u>may not</u> be when symptoms where first observed</p></b>
+<br>
+<p style="color: black;">LKW is when the patient was last at their baseline function, NOT when stroke symptoms started (note: it can the same if it was witnessed in person).</p>
+<br>
+<p style="color: black;">This app supports a navigation system based on "time windows" to potential acute treatment. A valid time is required to proceed through the app.</p>
 <br><br>
-<p>This screen asks for both the date and time that the patient was last known to be well. The current date and time should be filled already</p>
-<br><br><br>
-<p>The time passed since the patient was last known to be well determines what kind of treatment they are eligible to receive</p>
-<br><br>
-<ul>
-  <li>If the time passed is under four and a half hours the timer will be <span style="color:#008742;">green</span> and the patient will be eligible for both tPA and EVT</li>
-  <br>
-  <li>If the time passed is between 4 and a half and 6 hours the timer will be <span style="color: #ecb318">yellow</span> and the patient will only be eligible for EVT</li>
-  <br>
-  <li>If the time passed is over 6 hours the timer will be <span style="color: #d2232a;">red</span> and the patient will be out of the usual treatment window</li>
-</ul>
+<p style="color: black;"><b>Creatively inquire</b> of patient or family:</p>
+</div>
+<br>
+
+<div text-center >
+<p>When did you see them last?</p>
+<br>
+<p>When did you talk to them last?</p>
+<br>
+<p>What where they doing last?</p>
+<br>
+<p>What do they normally do at that time of day? Earlier?</p>
+<br>
+<p>Did you notice anything that would indicate they had been in a normal routine?</p>
+</div>
 </ion-content>
