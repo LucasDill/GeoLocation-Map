@@ -6,6 +6,7 @@ import "firebase/auth";
 import "firebase/firestore";
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import { DataServiceProvider } from '../../providers/data-service';
+import { MappingProvider } from '../../providers/mapping';
 declare var google: any;//this was giving us some trouble because it kept saying that google is not defined 
 
 
@@ -49,10 +50,19 @@ export class MapPage {
     marker: any;
     db: any;
     items;
+    SearchMark:any=[];
+    content: any;
+    HideMap:any=false;
+    SearchResults: any;
+    Results:any;
+    NoResults: any=false;
+    counter: any=0;
+    height:any;
   constructor(public zone: NgZone, public geolocation: Geolocation, public navCtrl: NavController,
     public DataBase: AngularFireDatabase,
     public Data: DataServiceProvider,
-    private menu: MenuController) {
+    private menu: MenuController,
+    private Mapping: MappingProvider) {
     /*load google map script dynamically */
       this.db = firebase.firestore();
       setTimeout(() => {// this initially threw an error unless we added a bit of a time buffer to allow it to continue 
@@ -84,6 +94,103 @@ if(myPolyline!=undefined)// if it was a driving route it would throw an error be
       }, 2);//this is the end of the interval so it will wait 2 micro or milliseconds before performing these actions 
 
   }
+
+  SearchInput(event)//This function is called whenever something is put in the search bar and will do the search and return results
+  {
+    //console.log("SearchResults: ",this.SearchResults)//get what is currently typed into the form to be searched for
+    //console.log(this.Data.AllMedicalCenters)
+    if(this.SearchResults=="")
+    {
+      this.HideMap=false;
+    }
+    else{
+      this.HideMap=true;
+      this.Results=this.Mapping.SearchMap(this.SearchResults)
+      if(this.Results.length==0)
+      {
+        this.NoResults=true;
+      }
+      else{
+        this.NoResults=false;
+      }
+    }
+    
+    //this.Results=this.Data.AllMedicalCenters;
+  }
+  
+  AddPlace(location)//this will eventually place the pin and recenter the map 
+  {
+    this.HideMap=false;//show the map 
+    //console.log(location.OnlyCity)
+    this.SearchResults="";//?THIS will clear the text in the search bar but it may be better kept as it is.
+    this.addMarker(this.map,location,location.city)//TODO need to look at more search options, removing the markers and setting info for the windows.  
+  }
+  
+  //TODO This function adds a marker for the search at the moment Still need to look at removing the marker
+  addMarker(map: any,Location,GivenLabel:any) {// this function will place custom markers on the map at the specific lat and long and with the label provided
+  this.counter++;
+    // variable to hold chosen imaging capable hospital location
+  
+  let clickedm = new google.maps.Marker({
+    position: { lat: Location.lat, lng: Location.lng },
+    map: map,
+    draggable: false,
+    label: GivenLabel,
+    animation: google.maps.Animation.DROP
+  });
+  this.SearchMark.push(clickedm);
+  // pushes marker to array (so that it can be cleared easily)
+  clicked_marker.push(clickedm);
+  this.map.setCenter({ lat: Location.lat, lng: Location.lng })//this will set the new center for the map to put you near the marker
+  this.addInfoWindow(clickedm,Location)
+  }
+  
+  // add information window to show data from database for markers which are in the legend when they are clicked on 
+  addInfoWindow(marker, location) {
+    var info;
+    var infoWindow = new google.maps.InfoWindow({
+      content: ""
+    });
+    console.log(location)
+    if(location.OnlyCity==true)
+    {
+      info='<b>City:</b> '+location.city+'<br><br>';
+    }
+    else{
+      info='<b>Name:</b> '+location.name+'<br>'+
+      '<b>Address:</b> '+location.address+'<br><br>'; 
+    }
+    var button='<button style="color: black;border: solid black .5px;" id="'+marker.label+'">Remove</button>';
+   
+    google.maps.event.addListener(marker, "click", () => {
+      infoWindow.setContent('<div style="text-align:center;">'+info+button+'</div>');//TODO this button may work but has trouble finding the function 
+      infoWindow.open(this.map, marker);
+      //! Maybe look at this https://stackoverflow.com/questions/41921126/google-map-marker-info-window-needs-to-remove-the-marker 
+    });
+    google.maps.event.addListenerOnce(infoWindow,'domready',()=>{//this will add a listener for the 
+      document.getElementById(marker.label).addEventListener('click',()=>{
+       for(var a=0;a<this.SearchMark.length;a++)
+       {
+         if(this.SearchMark[a].label===marker.label)
+         {
+           this.SearchMark[a].setMap(null);
+         }
+       }
+      });
+    });
+    
+  }
+
+  ionViewWillEnter(){
+  
+    if (this.Data.GivenTime==true)
+    {
+      this.height="76vh";
+    }
+    else{
+      this.height="84vh";
+    }
+    }
 
 ionViewDidLoad(){
   this.menu.swipeEnable(false);
@@ -241,30 +348,7 @@ ionViewWillLeave(){
   this.menu.swipeEnable(true);
 }
 
-addMarker(map: any,LatLng:any,GivenLabel:any) {// this function will place custom markers on the map at the specific lat and long and with the label provided
 
-  // variable to hold chosen imaging capable hospital location
-
-let clickedm = new google.maps.Marker({
-  position: LatLng,
-  map: map,
-  draggable: false,
-  label: GivenLabel
-});
-// pushes marker to array (so that it can be cleared easily)
-clicked_marker.push(clickedm);
-}
-
-// add information window to show data from database for markers which are in the legend when they are clicked on 
-addInfoWindow(marker, content) {
-  let infoWindow = new google.maps.InfoWindow({
-    content: content
-  });
-
-  google.maps.event.addListener(marker, "click", () => {
-    infoWindow.open(this.map, marker);
-  });
-}
 
 AddMapMarkers(e) {
   // clear markers when they are deleted from menu
