@@ -96,7 +96,7 @@ AddPlace(location)//this will eventually place the pin and recenter the map
   console.log(location)//get the location sent in
   this.HideMap=false;//show the map 
   console.log(location.OnlyCity)
-  //this.SearchResults="";//?THIS will clear the text in the search bar but it may be better kept as it is.
+  this.SearchResults="";//?THIS will clear the text in the search bar but it may be better kept as it is.
   this.addMarker(this.map,location,location.city)//TODO need to look at more search options, removing the markers and setting info for the windows.  
 }
 
@@ -165,6 +165,7 @@ ionViewWillLeave(){
 }
 
 ionViewWillEnter(){
+  
 if (this.Data.GivenTime==true)
 {
   this.height="76vh";

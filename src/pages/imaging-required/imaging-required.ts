@@ -22,6 +22,7 @@ export class ImagingRequiredPage {
 
   goToTpaQuestion(){//If the user clicks no they will be brought to the tpa question page 
     this.Data.Analytics.ImagingRequired="No";
+    //this.Data.TelestrokePlan=true;//!This breaks the working one for telestroke but fixes 5A 
     this.navCtrl.push(TPaQuestionPage);
     this.Data.NeedImaging=false;// set the NeedImaging Option to false but I do not think this is currently in use 
   }

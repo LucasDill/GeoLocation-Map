@@ -23,8 +23,8 @@ loc:any;
 
 FindPlan(Dest)
 {
-  //console.log(Dest);
- // console.log(this.Data.StartLoc);
+  console.log(Dest);
+  console.log(this.Data.StartLoc);
  
  
   if(this.Data.SinceTimeForm<6)// this is the long if statement that will get the final plan html for the page 
@@ -49,12 +49,12 @@ FindPlan(Dest)
       this.Data.ChosenPlan=this.Data.Plans[7].HTML;
       this.Data.plan="7";
     }
-    else if(this.Data.StartLoc.bTelestroke==true&&this.Data.TelestrokePlan==false)
+    else if(this.Data.StartLoc.bTelestroke==false)//!this used to be true for the first one and have the this.Data.TelestrokePlan==false
     {
       this.Data.ChosenPlan=this.Data.Plans[4].HTML;
       this.Data.plan="4";
     }
-    else if(this.Data.StartLoc.bTelestroke==true&&this.Data.TelestrokePlan==true)
+    else if(this.Data.StartLoc.bTelestroke==true)//!this used to be true for the first one and have the this.Data.TelestrokePlan==true
     {
       this.Data.ChosenPlan=this.Data.Plans[4].HTMLA;
       this.Data.plan="4A";
@@ -74,7 +74,7 @@ FindPlan(Dest)
   {
     if(this.Data.StartLoc.id=="MED_EMO")
     {
-      this.Data.ChosenPlan=this.Data.Plans[8].HTML;
+      this.Data.ChosenPlan=this.Data.Plans[8].HTML; 
       this.Data.plan="8";
     }
     else if(this.Data.StartLoc.bRegionalStrokeCentre==true&&Dest.bRegionalStrokeCentre==true)
@@ -82,7 +82,7 @@ FindPlan(Dest)
       this.Data.ChosenPlan=this.Data.Plans[7].HTML;
       this.Data.plan="7";
     }
-    else if(this.Data.StartLoc.bTelestroke==true&&this.Data.TelestrokePlan==true)
+    else if(this.Data.StartLoc.bTelestroke==true)//used to also have if Telestrokeplan == true but that resulted in an error when going to non imaging routes
     {
       this.Data.ChosenPlan=this.Data.Plans[5].HTMLA;
       this.Data.plan="5A";
@@ -678,7 +678,6 @@ var hasFly=false;
   else{
     capabilities="Imaging/tPA";
   }
-  //console.log(card)
   var together={
   name: card.name,
    city: card.city,
