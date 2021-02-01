@@ -26,7 +26,6 @@ Location:any;
 
   ionViewWillEnter()
 {
-  this.Data.Analytics.OtherLocation=true;
   this.Location=this.Data.StartLoc.city;
   //document.getElementById("Destination").innerHTML="<h1><b>"+this.Data.StartLoc.city;
   //this.planhtml=this.Data.Plans[6].HTML;

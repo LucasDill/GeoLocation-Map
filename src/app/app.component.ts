@@ -31,18 +31,17 @@ export class MyApp {
     });
     
   ////////////////////////////////////////////////USE FOR WEB COMMIT WHEN SWITCHING TO MOBILE //////////////////////////////////////
-    window.addEventListener('beforeunload',()=>{
+    window.addEventListener('beforeunload',()=>{//?this is how it works on desktop 
+      this.Data.Analytics.ReloadType="Web Unload"
       this.Data.SendAnalytics();
-      console.log("Sent data from reload");
+      //console.log("Sent data from reload");
     });
-  
-  
-  /*////////////////////////////////////////////USE FOR MOBILE AND COMMIT THE WEB VERSION //////////////////////////////////////////////
-  platform.pause.subscribe(()=>{//when the app is not the focus add the data to the database 
-    this.Data.SendAnalytics();
-    console.log("Sent in data from pause")
-  });*/
 
+    platform.pause.subscribe(e=>{
+      this.Data.Analytics.ReloadType="Mobile Pause";
+      this.Data.SendAnalytics();
+    })
+  
       this.config.set("scrollPadding", false);
       this.config.set("scrollAssist", false);
       this.config.set("autoFocusAssist", true);
@@ -62,6 +61,8 @@ export class MyApp {
   StartOver(){
 //this.splashScreen.show();// show the loading screen if any 
 //window.location.reload();//reload the start of the application  
+this.Data.Analytics.ReloadType="Start Over Button"
+this.Data.SendAnalytics();
   this.navCtrl.push(LastKnownWellPage);// starts the application over from the start page 
   }
 

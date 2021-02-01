@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController, IonicPage, MenuController, NavController, NavParams } from 'ionic-angular';
+import { DataServiceProvider } from '../../providers/data-service';
 import { LastKnownWellPage } from '../last-known-well/last-known-well';
 
 /**
@@ -16,12 +17,17 @@ import { LastKnownWellPage } from '../last-known-well/last-known-well';
 })
 export class WelcomePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertController: AlertController, private menu:MenuController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertController: AlertController, private menu:MenuController, public Data: DataServiceProvider) {
   }
+
+ionViewDidLoad(){
+  this.Data.starttime=new Date();
+}
 
   ionViewWillEnter()
   {
     this.menu.swipeEnable(false);
+    
   }
   ionViewWillLeave(){
     this.menu.swipeEnable(true);

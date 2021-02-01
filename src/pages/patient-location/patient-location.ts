@@ -176,9 +176,11 @@ GoNext(center)//go to the next page if it is the city page or the locations
   this.Data.StartLoc=center;
   if(center.OnlyCity!=undefined&&center.OnlyCity==true)
   {
+    this.Data.Analytics.StartLoc=center.city;
     this.goToCityPage(center);
   }
   else{
+    this.Data.Analytics.StartLoc=center.name;
   this.getLatLng(center);
   }
 }

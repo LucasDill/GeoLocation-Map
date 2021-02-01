@@ -30,10 +30,9 @@ ionViewWillEnter()
   this.start=this.Data.StartLoc.city;
   this.plan=this.Data.plan;//set the plan to be used in the switch case 
   //set some points for the analytics 
-  this.Data.Analytics.StartLoc=this.Data.StartLoc.name
   this.Data.Analytics.Destination=this.Data.Destination.name;
   this.Data.Analytics.RouteTime=this.Data.Destination.TimeWithMultChar;
-  this.timeDiff();//get the difference in time 
+  //this.Data.timeDiff();//get the difference in time 
   this.MethodUsed();
   this.Data.Analytics.Plan=this.Data.plan;
   //this.Data.SendAnalytics();//Call the function to send the data collected into the database
@@ -57,24 +56,6 @@ else{
 }
 }
 
-timeDiff(){
-  var end: any=new Date();
-  var timeDiff=(end-this.Data.starttime);// get the total time spend on the application 
-  // strip the ms
-timeDiff /= 1000;
-
-// get seconds (Original had 'round' which incorrectly counts 0:28, 0:29, 1:30 ... 1:59, 1:0)
-var seconds = Math.round(timeDiff % 60);
-
-// remove seconds from the date
-timeDiff = Math.floor(timeDiff / 60);
-
-// get minutes
-var minutes = Math.round(timeDiff % 60);
-//console.log(minutes)
-//console.log(seconds)
-this.Data.Analytics.TimeOnApp=(minutes.toString()+" Minutes "+seconds.toString()+" Seconds");
-}
 
 GoToMap(){
   this.navCtrl.push(MapPage);

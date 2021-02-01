@@ -91,19 +91,19 @@ endtime:any;
 plan:any;
 
 Analytics: any={
-  LKW:"NULL",//filled on this page 
+  LKW:"NULL",//filled on this page can be in seconds or plain language 
   DateUsed:"NULL",//Filled on Last Known Well Page
-  StartLoc:"NULL",//filled on next steps
+  StartLoc:"NULL",//filled in Patient Location
   ContactViewed:false,//filled on contact page
-  OtherLocation:false,//filled in city page
   OtherExplore:false,//filled in city page 
   ImagingRequired:"NOT USED",//filled on imaging-required page
   tPAReceived:"NOT USED",//filled in tpa
   Destination:"NULL",//filled on next steps page
   Method:"NOT USED",//filled in next steps
   Plan: "NOT USED",//Filled on next steps
-  TimeOnApp:"NULL",// filled on next steps page
-  RouteTime:'NULL'//filled on next steps page
+  TimeOnApp:"NULL",// filled when analytics sent in 
+  RouteTime:'NULL',//filled on next steps page
+  ReloadType:'NULL'//filled when function is called on app.component.ts
 }
 //add best practices for the two areas 
 
@@ -134,12 +134,18 @@ SendAnalytics()
 {
   //var reference=firebase.database().ref("Analytics");
   //this.db.collection("/Analytics").push({
-    this.db.collection("/Analytics").add({
+    this.timeDiff()
+    console.log(this.Analytics.DateUsed)
+if(this.Analytics.DateUsed=="NULL")//only send in the analytics if the DateUsed is not null 
+{
+
+}
+else{
+  this.db.collection("/Analytics").add({
     LKW:this.Analytics.LKW,
     DateUsed:this.Analytics.DateUsed,
     StartLocation:this.Analytics.StartLoc,
     ContactViewed:this.Analytics.ContactViewed,
-    OtherLocation:this.Analytics.OtherLocation,
     OtherExplore:this.Analytics.OtherExplore,
     ImagingRequired:this.Analytics.ImagingRequired,
     tPAReceived:this.Analytics.tPAReceived,
@@ -147,14 +153,37 @@ SendAnalytics()
     TravelMethod:this.Analytics.Method,
     Plan:this.Analytics.Plan,
     TimeOnApp:this.Analytics.TimeOnApp,
-    RouteTime:this.Analytics.RouteTime
+    RouteTime:this.Analytics.RouteTime,
+    ReloadType:this.Analytics.ReloadType
   })
   .catch(function(error)
   {
     console.log("error",error);
   })
+}
+   
   
   
+}
+
+timeDiff(){
+  var end: any=new Date();
+  var timeDiff=(end-this.starttime);// get the total time spend on the application 
+  // strip the ms
+timeDiff /= 1000;
+
+// get seconds (Original had 'round' which incorrectly counts 0:28, 0:29, 1:30 ... 1:59, 1:0)
+var seconds = Math.round(timeDiff % 60);
+
+// remove seconds from the date
+//timeDiff = Math.floor(timeDiff / 60);
+
+// get minutes
+//var minutes = Math.round(timeDiff % 60);
+//console.log(minutes)
+//console.log(seconds)
+//this.Analytics.TimeOnApp=(minutes.toString()+" Minutes "+seconds.toString()+" Seconds");
+this.Analytics.TimeOnApp=seconds;//set the time on the app to just the seconds for more easy analytics in the future
 }
 
 getPlans(){
@@ -201,7 +230,8 @@ getCenters(){
 
     this.HoursSince=m.hour;
     this.MinutesSince=(m.min);
-    this.Analytics.LKW=(m.hour.toString()+" Hours "+m.min.toString()+" Minutes");
+    //this.Analytics.LKW=(m.hour.toString()+" Hours "+m.min.toString()+" Minutes");//?Use this to have the Analytics in a human readable part 
+    this.Analytics.LKW=(DateDiff/1000);//?Use this to have the analytics in seconds for easy data analytics 
    
     
       if(this.SinceTimeForm<4.5&&this.NeedtPA==true)// this sets the information for the first time so it is not blank until a second passes 
