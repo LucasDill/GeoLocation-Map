@@ -135,7 +135,6 @@ SendAnalytics()
   //var reference=firebase.database().ref("Analytics");
   //this.db.collection("/Analytics").push({
     this.timeDiff()
-    console.log(this.Analytics.DateUsed)
 if(this.Analytics.DateUsed=="NULL")//only send in the analytics if the DateUsed is not null 
 {
 

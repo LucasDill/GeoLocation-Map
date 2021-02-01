@@ -13,11 +13,11 @@ import { RoutingProvider } from './routing';
 export class MappingProvider {
 
   constructor(public http: HttpClient, public Data: DataServiceProvider, public Routes: RoutingProvider) {
-    console.log('Hello MappingProvider Provider');
+    //console.log('Hello MappingProvider Provider');
   }
 
 SearchMap(search){
-console.log(search)
+//console.log(search)
 let arr=[]//set the array and the Medical_Centers to nothing 
 var Medical_Centers=[];
 for(var i=0;i<this.Data.AllMedicalCenters.length;i++)//Go through all of the medical centers and check to see if there is a match 

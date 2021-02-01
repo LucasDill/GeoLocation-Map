@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, HostListener } from '@angular/core';
 import { Platform, Nav, Config } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -36,6 +36,8 @@ export class MyApp {
       this.Data.SendAnalytics();
       //console.log("Sent data from reload");
     });
+
+
 
     platform.pause.subscribe(e=>{
       this.Data.Analytics.ReloadType="Mobile Pause";

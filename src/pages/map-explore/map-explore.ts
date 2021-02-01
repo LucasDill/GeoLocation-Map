@@ -70,7 +70,7 @@ export class MapExplorePage {
 
 SearchInput(event)//This function is called whenever something is put in the search bar and will do the search and return results
 {
-  console.log("SearchResults: ",this.SearchResults)//get what is currently typed into the form to be searched for
+  //console.log("SearchResults: ",this.SearchResults)//get what is currently typed into the form to be searched for
   //console.log(this.Data.AllMedicalCenters)
   if(this.SearchResults=="")
   {
@@ -95,10 +95,50 @@ AddPlace(location)//this will eventually place the pin and recenter the map
 {
   console.log(location)//get the location sent in
   this.HideMap=false;//show the map 
-  console.log(location.OnlyCity)
+  //console.log(location.OnlyCity)
   this.SearchResults="";//?THIS will clear the text in the search bar but it may be better kept as it is.
   this.addMarker(this.map,location,location.city)//TODO need to look at more search options, removing the markers and setting info for the windows.  
 }
+
+//TODO This function adds a marker for the search at the moment Still need to look at removing the marker
+addMarker(map: any,Location,GivenLabel:any) {// this function will place custom markers on the map at the specific lat and long and with the label provided
+
+  // variable to hold chosen imaging capable hospital location
+
+let clickedm = new google.maps.Marker({
+  position: { lat: Location.lat, lng: Location.lng },
+  map: map,
+  draggable: false,
+  label: GivenLabel,
+  animation: google.maps.Animation.DROP
+});
+// pushes marker to array (so that it can be cleared easily)
+clicked_marker.push(clickedm);
+this.map.setCenter({ lat: Location.lat, lng: Location.lng })//this will set the new center for the map to put you near the marker
+this.addInfoWindow(clickedm,'<p>City: '+Location.city+'</p>')
+}
+
+// add information window to show data from database for markers which are in the legend when they are clicked on 
+addInfoWindow(marker, content) {
+  var infoWindow = new google.maps.InfoWindow({
+    content: content
+  });
+  
+ 
+  google.maps.event.addListener(marker, "click", () => {
+    infoWindow.setContent('<button onClick="marker.setMap(\'null\')">CLICK</button>')//TODO this button may work but has trouble finding the function 
+    //! Maybe look at this https://stackoverflow.com/questions/41921126/google-map-marker-info-window-needs-to-remove-the-marker 
+    console.log(marker)
+    infoWindow.open(this.map, marker);
+    
+  });
+}
+
+DeleteMarker(a)
+{
+  console.log("Actually here")
+}
+
 
 initmap()
 {
@@ -173,44 +213,6 @@ if (this.Data.GivenTime==true)
 else{
   this.height="84vh";
 }
-}
-//TODO This function adds a marker for the search at the moment Still need to look at removing the marker
-addMarker(map: any,Location,GivenLabel:any) {// this function will place custom markers on the map at the specific lat and long and with the label provided
-
-  // variable to hold chosen imaging capable hospital location
-
-let clickedm = new google.maps.Marker({
-  position: { lat: Location.lat, lng: Location.lng },
-  map: map,
-  draggable: false,
-  label: GivenLabel,
-  animation: google.maps.Animation.DROP
-});
-// pushes marker to array (so that it can be cleared easily)
-clicked_marker.push(clickedm);
-this.map.setCenter({ lat: Location.lat, lng: Location.lng })//this will set the new center for the map to put you near the marker
-this.addInfoWindow(clickedm,'<p>City: '+Location.city+'</p>')
-}
-
-// add information window to show data from database for markers which are in the legend when they are clicked on 
-addInfoWindow(marker, content) {
-  var infoWindow = new google.maps.InfoWindow({
-    content: content
-  });
-  
- 
-  google.maps.event.addListener(marker, "click", () => {
-    infoWindow.setContent('<button onClick="marker.setMap(\'null\')">CLICK</button>')//TODO this button may work but has trouble finding the function 
-    //! Maybe look at this https://stackoverflow.com/questions/41921126/google-map-marker-info-window-needs-to-remove-the-marker 
-    console.log(marker)
-    infoWindow.open(this.map, marker);
-    
-  });
-}
-
-DeleteMarker(a)
-{
-  console.log("Actually here")
 }
 
 AddMapMarkers(e) {
