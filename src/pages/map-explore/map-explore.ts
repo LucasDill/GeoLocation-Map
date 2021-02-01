@@ -58,6 +58,9 @@ export class MapExplorePage {
     SearchResults: any;
     Results:any;
     NoResults: any=false;
+    counter: any=0;
+
+    SearchMark:any=[];
     
   constructor(public zone: NgZone, public geolocation: Geolocation, public navCtrl: NavController,
     public DataBase: AngularFireDatabase,
@@ -93,7 +96,6 @@ SearchInput(event)//This function is called whenever something is put in the sea
 
 AddPlace(location)//this will eventually place the pin and recenter the map 
 {
-  console.log(location)//get the location sent in
   this.HideMap=false;//show the map 
   //console.log(location.OnlyCity)
   this.SearchResults="";//?THIS will clear the text in the search bar but it may be better kept as it is.
@@ -102,7 +104,7 @@ AddPlace(location)//this will eventually place the pin and recenter the map
 
 //TODO This function adds a marker for the search at the moment Still need to look at removing the marker
 addMarker(map: any,Location,GivenLabel:any) {// this function will place custom markers on the map at the specific lat and long and with the label provided
-
+this.counter++;
   // variable to hold chosen imaging capable hospital location
 
 let clickedm = new google.maps.Marker({
@@ -112,29 +114,50 @@ let clickedm = new google.maps.Marker({
   label: GivenLabel,
   animation: google.maps.Animation.DROP
 });
+this.SearchMark.push(clickedm);
 // pushes marker to array (so that it can be cleared easily)
 clicked_marker.push(clickedm);
 this.map.setCenter({ lat: Location.lat, lng: Location.lng })//this will set the new center for the map to put you near the marker
-this.addInfoWindow(clickedm,'<p>City: '+Location.city+'</p>')
+this.addInfoWindow(clickedm,Location)
 }
 
 // add information window to show data from database for markers which are in the legend when they are clicked on 
-addInfoWindow(marker, content) {
+addInfoWindow(marker, location) {
+  var info;
   var infoWindow = new google.maps.InfoWindow({
-    content: content
+    content: ""
   });
-  
+  console.log(location)
+  if(location.OnlyCity==true)
+  {
+    info='<b>City:</b> '+location.city+'<br><br>';
+  }
+  else{
+    info='<b>Name:</b> '+location.name+'<br>'+
+    '<b>Address:</b> '+location.address+'<br><br>'; 
+  }
+  var button='<button style="color: black;border: solid black .5px;" id="'+marker.label+'">Remove</button>';
  
   google.maps.event.addListener(marker, "click", () => {
-    infoWindow.setContent('<button onClick="marker.setMap(\'null\')">CLICK</button>')//TODO this button may work but has trouble finding the function 
-    //! Maybe look at this https://stackoverflow.com/questions/41921126/google-map-marker-info-window-needs-to-remove-the-marker 
-    console.log(marker)
+    infoWindow.setContent('<div style="text-align:center;">'+info+button+'</div>');//TODO this button may work but has trouble finding the function 
     infoWindow.open(this.map, marker);
-    
+    //! Maybe look at this https://stackoverflow.com/questions/41921126/google-map-marker-info-window-needs-to-remove-the-marker 
   });
+  google.maps.event.addListenerOnce(infoWindow,'domready',()=>{//this will add a listener for the 
+    document.getElementById(marker.label).addEventListener('click',()=>{
+     for(var a=0;a<this.SearchMark.length;a++)
+     {
+       if(this.SearchMark[a].label===marker.label)
+       {
+         this.SearchMark[a].setMap(null);
+       }
+     }
+    });
+  });
+  
 }
 
-DeleteMarker(a)
+deleteMarker(a)
 {
   console.log("Actually here")
 }
@@ -739,6 +762,6 @@ AddORNGE() {
 
 
 }
-function CloseMarker(){
+function deleteMarker(markerId){
   console.log("This")
 }
