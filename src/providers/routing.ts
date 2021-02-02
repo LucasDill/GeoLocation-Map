@@ -44,7 +44,7 @@ FindPlan(Dest)
       this.Data.ChosenPlan=this.Data.Plans[3].HTML;
       this.Data.plan="3";
     }
-    else if(this.Data.StartLoc.bRegionalStrokeCentre==true&&Dest.bRegionalStrokeCentre==true)
+    else if(Dest.bRegionalStrokeCentre==true)
     {
       this.Data.ChosenPlan=this.Data.Plans[7].HTML;
       this.Data.plan="7";
@@ -77,7 +77,7 @@ FindPlan(Dest)
       this.Data.ChosenPlan=this.Data.Plans[8].HTML; 
       this.Data.plan="8";
     }
-    else if(this.Data.StartLoc.bRegionalStrokeCentre==true&&Dest.bRegionalStrokeCentre==true)
+    else if(Dest.bRegionalStrokeCentre==true)
     {
       this.Data.ChosenPlan=this.Data.Plans[7].HTML;
       this.Data.plan="7";

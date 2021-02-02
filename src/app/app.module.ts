@@ -43,6 +43,7 @@ import { PipesModule } from '../pipes/pipes.module';
 
 import {ExpandComponent } from '../components/expand/expand';
 import { MappingProvider } from '../providers/mapping';
+import { TPaNoPage } from '../pages/t-pa-no/t-pa-no';
 
 @NgModule({
   declarations: [// this is where we declare all of our pages and components if you use the auto generate this may be added but you may also need to do it manually 
@@ -64,7 +65,8 @@ import { MappingProvider } from '../providers/mapping';
     WelcomePage,
     ContactPage,
     HtmlPipe,
-    ExpandComponent
+    ExpandComponent,
+    TPaNoPage
   ],
   imports: [ 
     FormsModule,  
@@ -105,7 +107,8 @@ import { MappingProvider } from '../providers/mapping';
     CityPage,
     MapExplorePage,
     WelcomePage,
-    ContactPage
+    ContactPage,
+    TPaNoPage
   ],
   providers: [// the providers used the only ones we made where the DataServiceProvider and the RoutingProvider I think the others are standardized
     DataServiceProvider,

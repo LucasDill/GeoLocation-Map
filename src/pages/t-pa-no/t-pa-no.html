@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar  text-center >
+    <ion-title>
+     Next Steps
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only menuToggle right>
+        <ion-icon name='menu'></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <components-timer></components-timer>
+</ion-header>
+
+<ion-content padding style="color: #006bb6;">
+  <div id="Destination" text-center>
+    <h1><b>{{this.Data.StartLoc.city}}</b></h1>
+  </div>
+ <div style="height: 60vh;font-size: medium;"> 
+  <br><h4 text-center>Consult with<br> Telestroke Neurologist<br> utilizing the Telestroke program</h4><br>
+  <div text-center>
+  <p><a href="tel:8076684357" center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>CritiCall <span class="Call"><br>@ 1-807-668-4357</span></p><br><br>
+</div>
+  <h5><i>Reference:</i></h5><p><i>Telestroke Referring Site Handbook</i></p>
+</div>
+  <button ion-button block on-click="ExploreMap()" round large>Explore My Area</button>
+  <button ion-button block on-click="GoToBestPractice()" round large>Patient Care - Best Practice</button>
+</ion-content>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/data-service';
 import { EvtOptionsPage } from '../evt-options/evt-options';
+import { TPaNoPage } from '../t-pa-no/t-pa-no';
 import { TreatmentPage } from '../treatment/treatment';
 /**
  * Generated class for the TPaQuestionPage page.
@@ -31,7 +32,8 @@ export class TPaQuestionPage {
   }
   goToTreatment(){//If the user Selects no They will be brought to the treatment page and hadtPA will be set to false although I do not think it is used at the moment 
     this.Data.Analytics.tPAReceived="No";
-    this.navCtrl.push(TreatmentPage);
+   //this.navCtrl.push(TreatmentPage);//?Used to go to treatment 
+   this.navCtrl.push(TPaNoPage);//?now goes to temporary page 
     this.Data.hadtPA=false;
   }
 

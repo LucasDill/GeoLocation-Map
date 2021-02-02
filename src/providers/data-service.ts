@@ -41,7 +41,6 @@ export class DataServiceProvider {
   //this data is used to store information on the weather and where the different locations are 
   StartLoc:any;
 
-  city: any;
   lat: any;
   lng: any;
   origin_area: any;
@@ -51,7 +50,7 @@ export class DataServiceProvider {
   origin_multiplier_area: any;
   origin_multiplier_weather: any;
   origin_id: any;
-  origin_icon: any;
+
 
   destination_lat: any;
   destination_lng: any;
