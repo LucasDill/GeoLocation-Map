@@ -14,20 +14,22 @@
 
 </ion-header>
 <ion-content no-bounce padding  style="height: 100vh;"id="page1"><!--vh is currently used to show the total viewable height but may need to be changed as it does not always work -->
+  <br>
   <h3 text-center id="lastKnownWell-heading5" >
-    Where is the patient located?
+    Where is the<br>patient located?
   </h3>
+  
   <div style="height:5vh;"></div>
   <!--This button is currently disabled it would require a search of all the health centers to see which one is the closest but in order to cut down on the amount of queries we are making I would like to figure out how to store it all locally and synchronize before moving on with this part-->
-  <button type ="button"  id="patientLocation-button1"  ion-button fill="outline"  block on-click="setCurrentPosition()" large round> 
+  <!--<button type ="button"  id="patientLocation-button1"  ion-button fill="outline"  block on-click="setCurrentPosition()" large round> 
     CHOOSE YOUR LOCATION
   </button>
-  <div style="height:3vh;"></div><!-- more of the spacer divs I will need to figure out how to make these work better -->
-<p style="text-align: center;font-size: large">OR</p>
+  <div style="height:3vh;"></div>
+<p style="text-align: center;font-size: large">OR</p>-->
 <div style="height:3vh;"></div>
 <!--this is the search box for the cities every time there is a new key entered it will search by calling the functions in the ts -->
   <ion-input type="text" [(ngModel)]="searchterm" (keyup)="search($event)" autocapitalize="off" class="input" style="font-size: large;" placeholder="Search By City or Centre" id="txtHome" required style = "background-color: lightgray;" class="roundedEntry"></ion-input>
-  <ion-scroll scrollY="true" style="height: 40vh;">
+  <ion-scroll scrollY="true" style="height: 52vh;">
   <div *ngFor="let health_centres of Medical_Centers"><!--*ngFor is a special function of ionic that allows it to go through and display every part of a list in this case all the parts returned by the search function -->
 <!--Tried the height to fix it probably does nothing and no screen size is that small-->
   <!--<ion-card *ngIf="health_centres.name; else elseText" text-wrap style="font-size: auto; text-align: center;" color="steelblue1" block (click)="getLatLng(health_centres)">

@@ -29,44 +29,47 @@ FindPlan(Dest)
  
   if(this.Data.SinceTimeForm<6)// this is the long if statement that will get the final plan html for the page 
   {
-    if(this.Data.StartLoc.id=="MED_NIPIGON"||this.Data.StartLoc.id=="MED_NOSH"&&Dest.id=="MED_TBRHSC")
+    if((this.Data.StartLoc.id=="MED_NIPIGON"&&Dest.id=="MED_TBRHSC")||(this.Data.StartLoc.id=="MED_NOSH"&&Dest.id=="MED_TBRHSC")||(this.Data.StartLoc.id=="MED_AGH"&&Dest.id=="MED_TBRHSC"))
     {
-      this.Data.ChosenPlan=this.Data.Plans[1].HTML;
       this.Data.plan="1";
     }
-    else if(this.Data.StartLoc.id=="MED_REDLAKE"&&Dest.id=="MED_DRYDEN")
+    else if((this.Data.StartLoc.id=="MED_REDLAKE"&&Dest.id=="MED_DRYDEN")||(this.Data.StartLoc.id=="MED_AGH"&&Dest.id=="MED_DRYDEN"))
     {
-      this.Data.ChosenPlan=this.Data.Plans[2].HTML;
       this.Data.plan="2";
     }
-    else if(this.Data.StartLoc.id=="MED_EMO"||this.Data.StartLoc.id=="MED_RIVERSIDERAINY"||this.Data.StartLoc.id=="MED_AGH"&&Dest.id=="MED_RIVERSIDE")
+    else if((this.Data.StartLoc.id=="MED_EMO"&&Dest.id=="MED_RIVERSIDE")||(this.Data.StartLoc.id=="MED_RIVERSIDERAINY"&&Dest.id=="MED_RIVERSIDE")||(this.Data.StartLoc.id=="MED_AGH"&&Dest.id=="MED_RIVERSIDE"))
     {
-      this.Data.ChosenPlan=this.Data.Plans[3].HTML;
       this.Data.plan="3";
     }
-    else if(Dest.bRegionalStrokeCentre==true)
+    else if((this.Data.StartLoc.bRegionalStrokeCentre==true&&Dest.bRegionalStrokeCentre==true)||this.Data.StartLoc.bTelestroke==true&&Dest.bRegionalStrokeCentre==true)
     {
-      this.Data.ChosenPlan=this.Data.Plans[7].HTML;
       this.Data.plan="7";
     }
-    else if(this.Data.StartLoc.bTelestroke==false)//!this used to be true for the first one and have the this.Data.TelestrokePlan==false
+    else if(this.Data.StartLoc.id=="MED_AGH"||this.Data.StartLoc.id=="MED_NIPIGON"||this.Data.StartLoc.id=="MED_NOSH"||this.Data.StartLoc.id=="MED_REDLAKE"||this.Data.StartLoc.id=="MED_EMO"||this.Data.StartLoc.id=="MED_RIVERSIDERAINY")//TODO: Change it so if it starts at any of the above locations but does not end there it will go here
     {
-      this.Data.ChosenPlan=this.Data.Plans[4].HTML;
-      this.Data.plan="4";
+      if(this.Data.StartLoc.id=="MED_NIPIGON"||this.Data.StartLoc.id=="MED_NOSH")//these two locations will call a different CACC number so will be separated into 4B
+      {
+        this.Data.plan="4B"
+      }
+      else{
+        this.Data.plan="4";
+      }
+      
+
     }
     else if(this.Data.StartLoc.bTelestroke==true)//!this used to be true for the first one and have the this.Data.TelestrokePlan==true
     {
-      this.Data.ChosenPlan=this.Data.Plans[4].HTMLA;
-      this.Data.plan="4A";
-    }
-    else if(this.Data.StartLoc.Plan!=undefined)// not sure about this one 
-    {
-      this.Data.ChosenPlan=this.Data.Plans[this.Data.StartLoc.Plan].HTML;
-      this.Data.plan=this.Data.StartLoc.Plan.toString();
+      if(this.Data.HadImg==false)
+      {
+        this.Data.plan="4C"
+      }
+      else{
+        this.Data.plan="4A";
+      }
+      
     }
     else{
-      this.Data.ChosenPlan=this.Data.Plans[6].HTML;
-      this.Data.plan="6";
+      this.Data.plan="5";
     }
     
   }
@@ -74,17 +77,14 @@ FindPlan(Dest)
   {
     if(this.Data.StartLoc.id=="MED_EMO")
     {
-      this.Data.ChosenPlan=this.Data.Plans[8].HTML; 
       this.Data.plan="8";
     }
     else if(Dest.bRegionalStrokeCentre==true)
     {
-      this.Data.ChosenPlan=this.Data.Plans[7].HTML;
       this.Data.plan="7";
     }
     else if(this.Data.StartLoc.bTelestroke==true)//used to also have if Telestrokeplan == true but that resulted in an error when going to non imaging routes
     {
-      this.Data.ChosenPlan=this.Data.Plans[5].HTMLA;
       this.Data.plan="5A";
     }
     else if(this.Data.StartLoc.Plan!=undefined)
@@ -93,17 +93,14 @@ FindPlan(Dest)
       this.Data.plan=this.Data.StartLoc.Plan.toString();
     }
     else{
-      this.Data.ChosenPlan=this.Data.Plans[6].HTML;
       this.Data.plan="6";
     }
   }
   else if (this.Data.SinceTimeForm>=24&&this.Data.SinceTimeForm<48)
   {
-    this.Data.ChosenPlan=this.Data.Plans[9].HTML;
     this.Data.plan="9";
   }
   else if(this.Data.SinceTimeForm>=48){
-    this.Data.ChosenPlan=this.Data.Plans[10].HTML;
     this.Data.plan="10";
   }
   else{

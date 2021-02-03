@@ -64,6 +64,7 @@ export class MyApp {
 //this.splashScreen.show();// show the loading screen if any 
 //window.location.reload();//reload the start of the application  
 this.Data.Analytics.ReloadType="Start Over Button"
+this.Data.HadImg=true;
 this.Data.SendAnalytics();
   this.navCtrl.push(LastKnownWellPage);// starts the application over from the start page 
   }

@@ -4,6 +4,8 @@ import { ImagingPage } from '../imaging/imaging';
 import { DataServiceProvider } from '../../providers/data-service';
 import { TPaQuestionPage } from '../t-pa-question/t-pa-question';
 import { RoutingProvider } from '../../providers/routing';
+import { TPaNoPage } from '../t-pa-no/t-pa-no';
+import { EvtOptionsPage } from '../evt-options/evt-options';
 
 @Component({
   selector: 'page-imaging-required',
@@ -23,7 +25,9 @@ export class ImagingRequiredPage {
   goToTpaQuestion(){//If the user clicks no they will be brought to the tpa question page 
     this.Data.Analytics.ImagingRequired="No";
     //this.Data.TelestrokePlan=true;//!This breaks the working one for telestroke but fixes 5A 
-    this.navCtrl.push(TPaQuestionPage);
+    //this.navCtrl.push(TPaQuestionPage);
+    
+    this.navCtrl.push(TPaNoPage);
     this.Data.NeedImaging=false;// set the NeedImaging Option to false but I do not think this is currently in use 
   }
   goToImagingRoutes(){//If the user selects yes then they will be brought to the imaging routes page 
