@@ -50,6 +50,8 @@ export class DataServiceProvider {
   origin_multiplier_area: any;
   origin_multiplier_weather: any;
   origin_id: any;
+  origin_icon:any;
+  city:any;
 
 
   destination_lat: any;
