@@ -37,13 +37,13 @@
     {{health_centres.name}}:  {{health_centres.city}}
   </p>
   </ion-card>-->
-   <button type ="button" padding *ngIf="health_centres.name; else elseText" id="patientLocation-button1" text-wrap style="font-size: auto; text-align: center;" ion-button  fill="outline"  block on-click="GoNext(health_centres)" round large>
+   <button type ="button" padding *ngIf="health_centres.name; else elseText" height="auto" id="patientLocation-button1" text-wrap style="font-size: auto; text-align: center;padding-top: 4vh;padding-bottom: 4vh;" ion-button  fill="outline"  block on-click="GoNext(health_centres)" round large>
       <p style="color: white;">
         {{health_centres.name}}:  {{health_centres.city}}<!--This is another special part of ionic where it allows you to display information from the ts file -->
       </p>
     </button>
     <ng-template #elseText>
-    <button type ="button" padding  id="patientLocation-button1" text-wrap style="font-size: auto; text-align: center;" ion-button  fill="outline"  block on-click="GoNext(health_centres)" large round>
+    <button type ="button" padding  id="patientLocation-button1" text-wrap style="font-size: auto; text-align: center;padding-top: 4vh;padding-bottom: 4vh;" ion-button  fill="outline"  block on-click="GoNext(health_centres)" large round>
       <p style="color: white;">
         {{health_centres.city}}<!--This is another special part of ionic where it allows you to display information from the ts file -->
       </p>
