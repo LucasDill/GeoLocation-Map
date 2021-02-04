@@ -67,8 +67,28 @@ else{// if the name is not defined it will be a city site and we will have diffe
 }
 
 }
+arr=this.CentersFirst(arr);//call this function to order the main centers before the cities and other sites
 return arr;//make the display information the array 
 
 }
+
+CentersFirst(array){//this function will reorder the health centers first then cities but may make it slower 
+  var cities=[];
+  var sites=[];
+  var combine=[];
+  for(var a=0;a<array.length;a++)
+  {
+    if(array[a].OnlyCity==true)
+    {
+      cities.push(array[a]);
+    }
+    else{
+      sites.push(array[a])
+    }
+  }
+  sites=sites.concat(cities);
+  return(sites);
+}
+
 
 }
