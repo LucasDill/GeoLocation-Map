@@ -92,7 +92,7 @@ endtime:any;
 
 plan:any;
 HadImg:any=true;//For plan 4C must be set or not Look at it resetting and such
-
+isEVT:any=false;
 
 Analytics: any={
   LKW:"NULL",//filled on this page can be in seconds or plain language 

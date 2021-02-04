@@ -41,7 +41,7 @@ FindPlan(Dest)
     {
       this.Data.plan="3";
     }
-    else if(((this.Data.StartLoc.bRegionalStrokeCentre==true&&Dest.bRegionalStrokeCentre==true)||(this.Data.StartLoc.bTelestroke==true&&Dest.bRegionalStrokeCentre==true))&&this.Data.HadImg==false)
+    else if(((this.Data.StartLoc.bRegionalStrokeCentre==true&&Dest.bRegionalStrokeCentre==true)||(this.Data.StartLoc.bTelestroke==true&&Dest.bRegionalStrokeCentre==true))&&this.Data.isEVT==true)
     {
       this.Data.plan="7";
     }

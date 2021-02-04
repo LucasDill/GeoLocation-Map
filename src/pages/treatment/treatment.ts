@@ -106,6 +106,15 @@ async EVTsetup(){//EVT at the moment is just Thunder Bay which is the only bRegi
     this.navCtrl.push(NextStepsPage);//go to the map page to show the results 
   }
 
+  goToRouteE(DriveDest){//if it is a simple driving route 
+    this.Data.isEVT=true;
+    this.Routes.FindPlan(DriveDest);
+    this.Data.isEVT=false;
+    this.Data.ComplexRoute=false;//set complexroute to be false 
+    this.Data.Destination=DriveDest;//pass the destination in for the route display
+    this.navCtrl.push(NextStepsPage);//go to the map page to show the results 
+  }
+
   expandItem(event,item): void {///This function will expand the card when it is clicked 
     // console.log("ClickWorks")
      //console.log(item);
@@ -134,5 +143,15 @@ async EVTsetup(){//EVT at the moment is just Thunder Bay which is the only bRegi
     this.navCtrl.push(NextStepsPage);// go to the map page to show the results 
   }
   
+  ComplexRouteE(FlightDat)// if this is a complex route with driving and flying 
+  {
+    this.Data.isEVT=true;
+    this.Routes.FindPlan(FlightDat);
+    this.Data.isEVT=false;
+    this.Data.ComplexRoute=true;//set the complexroute to true 
+    this.Data.Destination=FlightDat;//pass in the destination information 
+    this.navCtrl.push(NextStepsPage);// go to the map page to show the results 
+  }
+
 }
 

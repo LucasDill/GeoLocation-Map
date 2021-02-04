@@ -193,7 +193,7 @@
     <div *ngIf="evtEmpty"><br><br><br><p style="font-size: large;">{{message}}</p></div> <!--if this section is empty it will display the message -->
     <ion-list justify-content-center align-items-center>
       <ion-item *ngFor="let card of EvtCards"> <!--goes through all of the evt routes as cards  -->
-        <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)"  text-wrap [style.background-color]="card.colour"><!--These are if the card is a driving type and wil call the normal routing function -->
+        <ion-card *ngIf="card.Driving" tappable (click)="goToRouteE(card)"  text-wrap [style.background-color]="card.colour"><!--These are if the card is a driving type and wil call the normal routing function -->
           <ion-card-content >
            
             <ion-grid >
@@ -253,7 +253,7 @@
           </ion-card-content>
         </ion-card>
         
-        <ion-card *ngIf="!card.Driving" tappable (click)="ComplexRoute(card.Air)" text-wrap [style.background-color]="card.colour"><!--These are cards that have airplane routes and will show the icon and call the complexroute function  -->
+        <ion-card *ngIf="!card.Driving" tappable (click)="ComplexRouteE(card.Air)" text-wrap [style.background-color]="card.colour"><!--These are cards that have airplane routes and will show the icon and call the complexroute function  -->
           <ion-card-content>
             <ion-grid >
               <ion-row>
