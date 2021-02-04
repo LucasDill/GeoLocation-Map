@@ -81,7 +81,7 @@ SearchInput(event)//This function is called whenever something is put in the sea
   }
   else{
     this.HideMap=true;
-    this.Results=this.Mapping.SearchMap(this.SearchResults)
+    this.Results=this.Mapping.SearchCenters(this.SearchResults)
     if(this.Results.length==0)
     {
       this.NoResults=true;

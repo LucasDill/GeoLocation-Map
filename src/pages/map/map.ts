@@ -105,7 +105,7 @@ if(myPolyline!=undefined)// if it was a driving route it would throw an error be
     }
     else{
       this.HideMap=true;
-      this.Results=this.Mapping.SearchMap(this.SearchResults)
+      this.Results=this.Mapping.SearchCenters(this.SearchResults)
       if(this.Results.length==0)
       {
         this.NoResults=true;

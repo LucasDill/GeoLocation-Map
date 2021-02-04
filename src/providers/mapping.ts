@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { c } from '@angular/core/src/render3';
 import { DataServiceProvider } from './data-service';
 import { RoutingProvider } from './routing';
 
@@ -16,10 +17,9 @@ export class MappingProvider {
     //console.log('Hello MappingProvider Provider');
   }
 
-SearchMap(search){
+SearchCenters(search){
 //console.log(search)
 let arr=[]//set the array and the Medical_Centers to nothing 
-var Medical_Centers=[];
 for(var i=0;i<this.Data.AllMedicalCenters.length;i++)//Go through all of the medical centers and check to see if there is a match 
 {
 if(this.Data.AllMedicalCenters[i].name!=undefined)
@@ -72,20 +72,27 @@ return arr;//make the display information the array
 
 }
 
-CentersFirst(array){//this function will reorder the health centers first then cities but may make it slower 
+CentersFirst(array){//this function will reorder the health centers first then cities with centers then just cities but may make it slower 
   var cities=[];
   var sites=[];
-  var combine=[];
+  var citySites=[];
   for(var a=0;a<array.length;a++)
   {
     if(array[a].OnlyCity==true)
     {
-      cities.push(array[a]);
+      if(array[a].name!=undefined)
+      {
+        citySites.push(array[a]);
+      }
+      else{
+        cities.push(array[a]);
+      }
     }
     else{
       sites.push(array[a])
     }
   }
+  sites=sites.concat(citySites);
   sites=sites.concat(cities);
   return(sites);
 }
