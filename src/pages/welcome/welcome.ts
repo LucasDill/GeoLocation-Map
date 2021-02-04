@@ -19,6 +19,9 @@ export class WelcomePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertController: AlertController, private menu:MenuController, public Data: DataServiceProvider) {
   }
+  phoneN:any="tel:8076846001";
+  phoneT:any="1-807-684-6001";
+  city:any="Thunder Bay";
 
 ionViewDidLoad(){
   this.Data.starttime=new Date();

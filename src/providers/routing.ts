@@ -41,7 +41,7 @@ FindPlan(Dest)
     {
       this.Data.plan="3";
     }
-    else if((this.Data.StartLoc.bRegionalStrokeCentre==true&&Dest.bRegionalStrokeCentre==true)||this.Data.StartLoc.bTelestroke==true&&Dest.bRegionalStrokeCentre==true)
+    else if(((this.Data.StartLoc.bRegionalStrokeCentre==true&&Dest.bRegionalStrokeCentre==true)||(this.Data.StartLoc.bTelestroke==true&&Dest.bRegionalStrokeCentre==true))&&this.Data.HadImg==false)
     {
       this.Data.plan="7";
     }
@@ -329,7 +329,9 @@ var ret= await this.Database.collection("/Health Centers/").where(param,"==",tru
         DistChar: "",
         Dist: 0,
         weather_code: "",
-        expanded:false
+        expanded:false,
+        phoneT:doc.data().phoneT,
+        phoneN:doc.data().phoneN
 
       }
       Routes.push(distobj);//add each of the new objects to the routes array 
@@ -693,6 +695,8 @@ var hasFly=false;
     Driving:booldrive,
     HasDrive: hasDrive,
     HasFly: hasFly,
+    phoneN: card.phoneN,
+    phoneT:card.phoneT
   }
   return together;
 }
@@ -702,12 +706,15 @@ async getFlights(endpoints)
  var loc = await this.getCloseLoc(this.Data.lat,this.Data.lng);// get the closest helipad and airport to the origin site 
  this.loc=loc;
 var dest= new Array(endpoints.length);// create an array for all of the destinations which could vary based on what you are searching for 
+console.log(endpoints)
 for(var o=0;o<endpoints.length;o++)
 {
   var closesites={// create an array of objects for the landing sites close to the destination hospital with the site that is close to and the closest helipad and airport 
     CloseHospital: endpoints[o].name,
     CloseCity:endpoints[o].city,
-    Sites: await this.getCloseLoc(endpoints[o].lat,endpoints[o].lng)
+    Sites: await this.getCloseLoc(endpoints[o].lat,endpoints[o].lng),
+    phoneN:endpoints[o].phoneN,
+    phoneT:endpoints[o].phoneT
   }
   dest[o]=(closesites);// fill the array with this object 
 }
@@ -796,7 +803,9 @@ var time=(heliDist / heli_speed) * flight_o_weather * this.destination_flight_we
     Airport: false,
     TimeWithMult: time,
     TimeWithMultChar: convertTimePlanes(time),// convert the time into a string using a function we created specifically for the time of these flight options 
-    CompTime: time
+    CompTime: time,
+    phoneN:dest[m].phoneN,
+    phoneT:dest[m].phoneT
     
   }
  AirTravel.push(heliopt);// add the object to the distances array
@@ -824,7 +833,9 @@ for(var m=0;m<dest.length;m++)
     bRegionalStrokeCentre:endpoints[m].bRegionalStrokeCentre,
     TimeWithMult: timeplane,
     TimeWithMultChar: convertTimePlanes(timeplane),// convert to char using the function we created 
-    CompTime: timeplane
+    CompTime: timeplane,
+    phoneN: dest[m].phoneN,
+    phoneT:dest[m].phoneT
     
   }
   AirTravel.push(flightopt);// add the objects to the same array 

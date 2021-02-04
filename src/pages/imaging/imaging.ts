@@ -76,11 +76,12 @@ async pageSetup()
   await this.Routes.getFlights(DrivingRoutes).then(distances =>{//get the information on the flights from the routing provider 
 FlightRoutes=distances;//set the totalcard variable with the information from the flights 
  });
+ console.log("Flying",FlightRoutes)
  var imgroutes=this.Routes.addRoutes(DrivingRoutes,FlightRoutes);//combines the flight information and the driving information into one list 
  imgroutes=this.Routes.masterSort(imgroutes);//Sort the combined list of flight and driving information to have the shortest amount of time first
- 
+ console.log(imgroutes)
  var testroutes=this.Routes.CombineAll(imgroutes);
- 
+ console.log("second",imgroutes)
  testroutes=this.Routes.SetColour(testroutes)
 
  //imgroutes= this.Routes.SetColour(imgroutes);//Set the colour of each of the options for arrival green if able to make it for tPA yellow if able to make it for EVT and red if not able to make it in usual recovery time 

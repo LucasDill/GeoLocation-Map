@@ -55,11 +55,12 @@
     </div>
     <h5><i>Reference:</i></h5><ol><li><i>MOU for Acute Stroke Bypass and Transfer Agreement</i></li><li><i>Acute Stroke Algorithm</i></li></ol>
     </div>
-    <div *ngSwitchCase="'4A'">
-      <br><h4 text-center>We understand you are<br> at a Telestroke Site.<br> We assume your<br> imaging capabilities (CT)<br> are suspended.<br><br>
-        Your patient requires<br> imaging to proceed.</h4><br>
+    <div *ngSwitchCase="'4A'" style="font-size: small">
+      <br><p style="font-size: large;" text-center>We understand you are<br> at a Telestroke Site.<br> We assume your<br> imaging capabilities (CT)<br> are suspended.<br><br>
+        Your patient requires<br> imaging to proceed.</p><br>
         <div text-center>
-        <p><b><u><span class="CallText">Call:</span></u></b><br>Your closest imaging capable site and inform them of patient transfer</p><br><br>
+          <p><a href="tel:8076484598" center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>CACC Kenora <span class="Call"><br>@ 1-807-468-4598</span></p><br>
+          <p ><a href={{this.Data.Destination.phoneN}} center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>{{this.Data.Destination.city}} ED<br>and inform of patient transfer<span class="Call"><br>@ {{this.Data.Destination.phoneT}}</span></p><br>
       </div>
         <h5><i>Reference:</i></h5><ol><li><i>Telestroke Referring Site Handbook</i></li><li><i>NWO Telestroke Acute Stroke Protocol</i></li></ol> 
     </div>
