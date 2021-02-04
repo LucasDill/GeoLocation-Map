@@ -106,7 +106,6 @@ async EVTsetup(){//EVT at the moment is just Thunder Bay which is the only bRegi
     this.navCtrl.push(NextStepsPage);//go to the map page to show the results 
   }
 
-
   expandItem(event,item): void {///This function will expand the card when it is clicked 
     // console.log("ClickWorks")
      //console.log(item);

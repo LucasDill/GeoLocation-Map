@@ -35,7 +35,7 @@
     <ion-scroll scrollY="true" style="height: 29vh;"> <!--This is the section for the tpa results  -->
   <ion-list justify-content-center align-items-center>
     <ion-item *ngFor="let card of cards"> <!--iterative through all cards  -->
-      <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)"  text-wrap [style.background-color]="card.colour"><!--These are if the card is a driving type and wil call the normal routing function -->
+      <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card, false)"  text-wrap [style.background-color]="card.colour"><!--These are if the card is a driving type and wil call the normal routing function -->
         <ion-card-content >
          
           <ion-grid >

@@ -39,9 +39,12 @@
    <br>
     <ion-row center>
       <ion-col text-center>
-      <button ion-button center round (click)="TimeModal($event)" small style="text-align: center;font-size: larger;">Tips</button>
+      <button ion-button center round (click)="TimeModal($event)" small style="text-align: center;font-size: larger;">
+        <img class="image" height="25vh" width="25vh" src= "./assets/imgs/MagnifyTW.png">
+           Tips</button>
     </ion-col>  
     </ion-row>
+
     <div class="spacer" style="height:7vh;" id="lastKnownWell-spacer7"></div>
     
     <button (click)="SubmitTime()" id="lastKnownWell-button2" ion-button [disabled]="!timeForm.valid" type="submit" block round large><!--The button will not be accessible until a value is entered for the time-->

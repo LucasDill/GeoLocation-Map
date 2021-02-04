@@ -92,7 +92,8 @@
     </div>
     <div *ngSwitchCase="7" text-center style="font-size: large;">
       <br><h4 text-center>Consult with EVT specialist</h4><br>
-      <p><a href="tel:8006684357" center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>CritiCall<span class="Call"><br>@ 1-800-668-4357</span></p>
+      <p><a href="tel:8006684357" center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>CritiCall<span class="Call"><br>@ 1-800-668-4357</span></p><br>
+      <p ><a href={{this.Data.Destination.phoneN}} center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>{{this.Data.Destination.city}} ED<span class="Call"><br>@ {{this.Data.Destination.phoneT}}</span></p><br>
     </div>
     <div *ngSwitchCase="8" text-center style="font-size: large;">
       <br><br><br><p><a href="tel:8076846001" center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>Acute Stroke Physician @ TBRHSC <span class="Call"><br>@ 1-807-684-6001</span></p>
