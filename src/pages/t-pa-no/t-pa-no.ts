@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { AnyTxtRecord } from 'dns';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/data-service';
 import { EvtOptionsPage } from '../evt-options/evt-options';
@@ -20,11 +21,23 @@ import { TreatmentPage } from '../treatment/treatment';
 })
 export class TPaNoPage {
 
+  TelePlan:any;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, public Data: DataServiceProvider,private inAppBrowser: InAppBrowser) {
   }
 ionViewWillEnter()
 {
+  const SpecialLoc=["MED_DRYDEN","MED_SIOUXLOOKOUT","MED_RIVERSIDE","MED_LOTW"];//Used for the under 6 hours for the 4 special sites
   this.Data.HadImg=true;
+  console.log("Since Time",this.Data.SinceTimeForm);
+  console.log("Start",this.Data.StartLoc);
+  if(this.Data.SinceTimeForm<12){
+    this.TelePlan="2";
+  }
+  else{
+    this.TelePlan="1";
+  }
+  
 }
 
   ExploreMap(){

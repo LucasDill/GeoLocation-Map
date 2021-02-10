@@ -18,6 +18,7 @@ import { RoutingProvider } from '../../providers/routing';
 import { CityPage } from '../city/city';
 import { LastKnownWellPage } from '../last-known-well/last-known-well';
 import { MappingProvider } from '../../providers/mapping';
+import { RegionalStrokePage } from '../regional-stroke/regional-stroke';
 
 @Component({
   selector: 'page-patient-location',
@@ -142,21 +143,9 @@ goToCityPage(city)
 
   async getLatLng(name){
   //var cityLocation=new google.maps.LatLng(name.lat,name.lng);
-    //console.log(name);
-   
-  var Telestroke;
     
-            if ( name.bTelestroke == true) {
-              Telestroke=true;
-              // write code here to go to next applicable page
-              //console.log("YOU ARE AT A TELESTROKE CENTRE");//used to test and make sure it was recognizing the right thing 
-            }
-            else{
-              // write code here to go to next applicable page
-              Telestroke=false;
-            //  console.log("YOU ARE NOT AT A TELESTROKE CENTRE");
-              
-            }
+    
+      
            
       
       // set variables to public versions of the variables
@@ -206,16 +195,10 @@ var page=this;
           page.Data.PatientTimeZone=SendingTimeZone;// set the Sending time zone in the Data service we are using page as it did not know what this was 
           if(page.Data.UserTimeZone==SendingTimeZone)
      {
-       console.log("They are in the same time Zone");
-       if (Telestroke == true) {//if the center entered is a telestroke site go to the Imaging required page and if not go to the imaging routes page 
-        page.navCtrl.push(ImagingRequiredPage);
-      }
-      else{
-        page.navCtrl.push(ImagingPage);
-      }
+       this.nextPage();
      } 
      else if(SendingTimeZone!=undefined){// if it is not the same time zone and not undefined call the popup and send in if the function is a telestroke site 
-       page.TimeZonePopup(Telestroke);// call the popup again using page as there where issues using the this 
+       page.TimeZonePopup();// call the popup again using page as there where issues using the this 
        
      }
         }
@@ -226,7 +209,8 @@ var page=this;
  
   
 
-  async TimeZonePopup(Telestroke){// this function will create a popup that asks about the time zones 
+  async TimeZonePopup(){// this function will create a popup that asks about the time zones 
+    var startPop=performance.now();
     var difference=Math.abs(Math.abs(this.Data.PatientTimeZone)-Math.abs(this.Data.UserTimeZone));// find the total difference and add it to the time 
     let alert=this.alertController.create({
       title:"Different Time Zones",
@@ -252,12 +236,7 @@ var page=this;
              clearInterval(this.Data.intervalID);//stops the previous interval from running 
              this.Data.StartTime(this.Data.time,(-1)*difference);// send the new time 
             }
-             if (Telestroke == true) {
-               this.navCtrl.push(ImagingRequiredPage);
-             }
-             else {
-               this.navCtrl.push(ImagingPage);
-             }
+            this.nextPage();
            }
             
           }
@@ -265,12 +244,7 @@ var page=this;
           text: "My Location",
           handler: () => {
             // enter the new time zone stuff here once we figure out what it is 
-            if (Telestroke == true) {
-              this.navCtrl.push(ImagingRequiredPage);
-            }
-            else {
-              this.navCtrl.push(ImagingPage);
-            }
+            this.nextPage()
           }
         }
       ]
@@ -278,6 +252,21 @@ var page=this;
     await alert.present();
   }
 
+
+nextPage()
+{ 
+  var start=performance.now()
+  if (this.Data.StartLoc.bRegionalStrokeCentre==true) {
+    this.navCtrl.push(RegionalStrokePage);
+  }
+  else if(this.Data.StartLoc.bTelestroke == true) {
+   this.navCtrl.push(ImagingRequiredPage);
+ }
+  else {
+    this.navCtrl.push(ImagingPage);
+}
+console.log("Time taken=",performance.now()-start)
+}
 
   async WrongTime(){
     let alert =await this.alertController.create({

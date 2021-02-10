@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar  text-center >
+    <ion-title>
+     Next Steps
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only menuToggle right>
+        <ion-icon name='menu'></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <components-timer></components-timer>
+</ion-header>
+
+<ion-content padding style="color: #006bb6;">
+  <div id="Destination" text-center>
+    <h1><b>{{this.Data.StartLoc.city}}</b></h1>
+  </div>
+ <div style="height: 58vh;font-size: medium;" [ngSwitch]="EVTPlan"> 
+  <div *ngSwitchCase="11"><!--In thunder bay under 6 hours -->
+  <br><h4 text-center>Activate your<br>Code Stroke Protocol.<br><br>Wait for further direction<br>from the Acute Stroke Physician.</h4><br><br>
+  <h5><i>Reference:</i></h5><p><i>Code Stroke folders (Blue folders)</i></p>
+</div>
+<div *ngSwitchCase="12" text-center><!--In thunder bay between 6 and 24 hours-->
+  <br><h4 text-center>Call the Acute Stroke Physician<br>for consultation</h4><br><br>
+  <b><u><span style="font-size: large;">Call:</span></u></b><br>Switchboard<br>
+</div>
+<div *ngSwitchCase="13" text-center><!--Not in Thunder Bay -->
+  <br><h4 text-center>This app supports<br>a navigation system<br>to potential<br>acute treatment for<br>Northwestern Ontario residents.<br><br>Please proceed with your<br>acute stroke protocols<br>as per your institution.</h4><br>
+</div>
+<div *ngSwitchCase="14" ><!--Not in Thunder Bay -->
+  <div text-center>
+  <br><h4 text-center>Call the Acute Stroke Physician<br>for consultation</h4><br><br>
+  <b><u><span style="font-size: large;">Call:</span></u></b><br>Switchboard<br>
+  <br><b><span style="font-size: large;">&</span></b><br><br>
+      <p><b><u><span style="font-size: large;">Send:</span></u></b><br>Urgent Referral to TBRHSC Stroke Prevention Clinic<br><span class="Call">Fax: 807-684-5883</span></p><br><br>
+    </div>
+      <h5><i>Reference:</i></h5><p><i>NWO TIA and Mild Non-Disabling Stroke TRIAGE Algorithm</i></p>
+</div>
+<div *ngSwitchCase="10" style="font-size: medium;">
+  <div text-center>
+  <br><p><b><u><span style="font-size: large;">Consult:</span></u></b><br>The NWO TIA and Mild Non-Disabling Stroke Triage Algorithm</p><br>
+  <p><b><u><span style="font-size: large;">Refer to:</span></u></b><br>The section for >48 hours</p><br><br>
+</div>
+  <h5><i>Reference:</i></h5><p><i>NWO TIA and Mild Non-Disabling Stroke TRIAGE Algorithm. Specifically the section for >48 hours</i></p>
+</div>
+</div>
+  <button *ngIf="Button" ion-button block on-click="Treatment()" round large>Treatment Options</button>
+  <button ion-button block on-click="ExploreMap()" round large>Explore My Area</button>
+  <button ion-button block on-click="GoToBestPractice()" round large>Patient Care - Best Practice</button>
+</ion-content>

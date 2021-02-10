@@ -74,6 +74,7 @@ return arr;//make the display information the array
 
 CentersFirst(array){//this function will reorder the health centers first then cities with centers then just cities but may make it slower 
   var cities=[];
+  var telestroke=[];
   var sites=[];
   var citySites=[];
   for(var a=0;a<array.length;a++)
@@ -89,9 +90,17 @@ CentersFirst(array){//this function will reorder the health centers first then c
       }
     }
     else{
-      sites.push(array[a])
+      if(array[a].bTelestroke==true)
+      {
+        telestroke.push(array[a]);
+      }
+      else{
+        sites.push(array[a])
+      }
+     
     }
   }
+  sites=telestroke.concat(sites);
   sites=sites.concat(citySites);
   sites=sites.concat(cities);
   return(sites);

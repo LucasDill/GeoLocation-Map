@@ -16,12 +16,21 @@
   <div id="Destination" text-center>
     <h1><b>{{this.Data.StartLoc.city}}</b></h1>
   </div>
- <div style="height: 58vh;font-size: medium;"> 
+ <div style="height: 58vh;font-size: medium;" [ngSwitch]="TelePlan"> 
+  <div *ngSwitchCase="1">
+    <br><h4 text-center>Consult with<br> Acute Stroke Physician<br> in Thunder Bay utilizing the<br> Regional Critical Care Response<br>program.<br><br> Stay and receive direction<br> from RCCR team.</h4><br>
+    <div text-center>
+    <p><a href="tel:8006684357" center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>CritiCall<span class="Call"><br>@ 1-800-668-4357</span></p><br><br>
+  </div>
+    <h5><i>Reference:</i></h5><p><i>RCCR Initial Consultation Algorithm</i></p>
+</div>
+<div *ngSwitchCase="2">
   <br><h4 text-center>Consult with<br> Telestroke Neurologist<br> utilizing the Telestroke program<br>for treatment options</h4><br>
   <div text-center>
   <p><a href="tel:8006684357" center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>CritiCall <span class="Call"><br>@ 1-800-668-4357</span></p><br><br>
 </div>
   <h5><i>Reference:</i></h5><p><i>Telestroke Referring Site Handbook</i></p>
+</div>
 </div>
   <button ion-button block on-click="Treatment()" round large>Treatment Options</button>
   <button ion-button block on-click="ExploreMap()" round large>Explore My Area</button>

@@ -25,7 +25,7 @@ FindPlan(Dest)
 {
   console.log(Dest);
   console.log(this.Data.StartLoc);
- 
+ const SpecialLoc=["MED_DRYDEN","MED_SIOUXLOOKOUT","MED_RIVERSIDE","MED_LOTW"];//Used for the under 6 hours for the 4 special sites
  
   if(this.Data.SinceTimeForm<6)// this is the long if statement that will get the final plan html for the page 
   {
@@ -41,10 +41,11 @@ FindPlan(Dest)
     {
       this.Data.plan="3";
     }
+    /*
     else if(((this.Data.StartLoc.bRegionalStrokeCentre==true&&Dest.bRegionalStrokeCentre==true)||(this.Data.StartLoc.bTelestroke==true&&Dest.bRegionalStrokeCentre==true))&&this.Data.isEVT==true)
     {
       this.Data.plan="7";
-    }
+    }*/
     else if(this.Data.StartLoc.id=="MED_AGH"||this.Data.StartLoc.id=="MED_NIPIGON"||this.Data.StartLoc.id=="MED_NOSH"||this.Data.StartLoc.id=="MED_REDLAKE"||this.Data.StartLoc.id=="MED_EMO"||this.Data.StartLoc.id=="MED_RIVERSIDERAINY")//TODO: Change it so if it starts at any of the above locations but does not end there it will go here
     {
       if(this.Data.StartLoc.id=="MED_NIPIGON"||this.Data.StartLoc.id=="MED_NOSH")//these two locations will call a different CACC number so will be separated into 4B
@@ -73,19 +74,24 @@ FindPlan(Dest)
     }
     
   }
-  else if (this.Data.SinceTimeForm>=6&&this.Data.SinceTimeForm<24)
+  else if (this.Data.SinceTimeForm>=6&&this.Data.SinceTimeForm<24)//Middle ground of plans from 6-24 hours 
   {
-    if(this.Data.StartLoc.id=="MED_EMO")
+    
+    if(this.Data.StartLoc.id=="MED_EMO")// if they are in emo 
     {
       this.Data.plan="8";
     }
-    else if(Dest.bRegionalStrokeCentre==true)
+    else if(this.Data.SinceTimeForm<12&&this.Data.StartLoc.bTelestroke==true)//For special cases where it is 6-12 hours and starts at a telestroke site 
+    {
+      this.Data.plan="4C";
+    }
+    else if(Dest.bRegionalStrokeCentre==true)//When they are going to an evt site no special condition as it will always go to the page when over 6h 
     {
       this.Data.plan="7";
     }
     else if(this.Data.StartLoc.bTelestroke==true)//used to also have if Telestrokeplan == true but that resulted in an error when going to non imaging routes
     {
-      this.Data.plan="5A";
+      this.Data.plan="5";
     }
     else if(this.Data.StartLoc.Plan!=undefined)
     {

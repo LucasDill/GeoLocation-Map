@@ -27,7 +27,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { HttpClientModule} from "@angular/common/http";
 import { WeatherService } from '../pages/patient-location/weather';
 import { RoutingProvider } from '../providers/routing';
-
+import { RegionalStrokePage } from '../pages/regional-stroke/regional-stroke';
 import { File } from '@ionic-native/file';
 import { DocumentViewer } from '@ionic-native/document-viewer';
 
@@ -44,6 +44,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import {ExpandComponent } from '../components/expand/expand';
 import { MappingProvider } from '../providers/mapping';
 import { TPaNoPage } from '../pages/t-pa-no/t-pa-no';
+import { fromEventPattern } from 'rxjs';
 
 @NgModule({
   declarations: [// this is where we declare all of our pages and components if you use the auto generate this may be added but you may also need to do it manually 
@@ -66,7 +67,8 @@ import { TPaNoPage } from '../pages/t-pa-no/t-pa-no';
     ContactPage,
     HtmlPipe,
     ExpandComponent,
-    TPaNoPage
+    TPaNoPage,
+    RegionalStrokePage
   ],
   imports: [ 
     FormsModule,  
@@ -108,7 +110,8 @@ import { TPaNoPage } from '../pages/t-pa-no/t-pa-no';
     MapExplorePage,
     WelcomePage,
     ContactPage,
-    TPaNoPage
+    TPaNoPage,
+    RegionalStrokePage
   ],
   providers: [// the providers used the only ones we made where the DataServiceProvider and the RoutingProvider I think the others are standardized
     DataServiceProvider,
