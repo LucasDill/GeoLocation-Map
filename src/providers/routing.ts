@@ -31,15 +31,15 @@ FindPlan(Dest)
   {
     if((this.Data.StartLoc.id=="MED_NIPIGON"&&Dest.id=="MED_TBRHSC")||(this.Data.StartLoc.id=="MED_NOSH"&&Dest.id=="MED_TBRHSC")||(this.Data.StartLoc.id=="MED_AGH"&&Dest.id=="MED_TBRHSC"))
     {
-      this.Data.plan="2";//!Changed
+      this.Data.plan="2";
     }
     else if((this.Data.StartLoc.id=="MED_REDLAKE"&&Dest.id=="MED_DRYDEN")||(this.Data.StartLoc.id=="MED_AGH"&&Dest.id=="MED_DRYDEN"))
     {
-      this.Data.plan="3";//!Changed
+      this.Data.plan="3";
     }
     else if((this.Data.StartLoc.id=="MED_EMO"&&Dest.id=="MED_RIVERSIDE")||(this.Data.StartLoc.id=="MED_RIVERSIDERAINY"&&Dest.id=="MED_RIVERSIDE")||(this.Data.StartLoc.id=="MED_AGH"&&Dest.id=="MED_RIVERSIDE"))
     {
-      this.Data.plan="4";//!Changed
+      this.Data.plan="4";
     }
     
     else if(this.Data.StartLoc.bRegionalStrokeCentre==true&&Dest.bRegionalStrokeCentre==true)
@@ -50,10 +50,10 @@ FindPlan(Dest)
     {
       if(this.Data.StartLoc.id=="MED_NIPIGON"||this.Data.StartLoc.id=="MED_NOSH")//these two locations will call a different CACC number so will be separated into 4B
       {
-        this.Data.plan="6"//!Changed
+        this.Data.plan="6";
       }
       else{
-        this.Data.plan="5";//!Changed
+        this.Data.plan="5";
       }
       
 
@@ -62,15 +62,15 @@ FindPlan(Dest)
     {
       if(this.Data.HadImg==false)
       {
-        this.Data.plan="8"//!Changed
+        this.Data.plan="8";
       }
       else{
-        this.Data.plan="7";//!Changed
+        this.Data.plan="7";
       }
       
     }
     else{
-      this.Data.plan="10";//!Changed
+      this.Data.plan="10";
     }
     
   }
@@ -79,39 +79,39 @@ FindPlan(Dest)
     
     if(this.Data.StartLoc.id=="MED_EMO")// if they are in emo 
     {
-      this.Data.plan="11";//!Changed
+      this.Data.plan="11";
     }
     else if(this.Data.SinceTimeForm<12&&this.Data.StartLoc.bTelestroke==true)//For special cases where it is 6-12 hours and starts at a telestroke site 
     {
-      //this.Data.plan="8";//!Changed
+      //this.Data.plan="8";
       //!Remove below part to get rid of the imaging options
       
        if(this.Data.HadImg==false)
       {
-        this.Data.plan="8"//!Changed
+        this.Data.plan="8"
       }
       else{
-        this.Data.plan="7";//!Changed
+        this.Data.plan="7";
       }
     }
     else if(Dest.bRegionalStrokeCentre==true)//When they are going to an evt site no special condition as it will always go to the page when over 6h 
     {
-      this.Data.plan="9";//!Changed
+      this.Data.plan="9";
     }
     else if(this.Data.StartLoc.bTelestroke==true||this.Data.StartLoc.bTelestroke!=true)//used to also have if Telestrokeplan == true but that resulted in an error when going to non imaging routes
     {
-      this.Data.plan="10";//!Changed
+      this.Data.plan="10";
     }
     else{
-      this.Data.plan="1";//!changed
+      this.Data.plan="1";
     }
   }
   else if (this.Data.SinceTimeForm>=24&&this.Data.SinceTimeForm<48)
   {
-    this.Data.plan="12";//!Changed
+    this.Data.plan="12";
   }
   else if(this.Data.SinceTimeForm>=48){
-    this.Data.plan="13";//!Changed
+    this.Data.plan="13";
   }
   else{
     console.error("No Plan found Critical Error")
