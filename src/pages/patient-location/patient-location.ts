@@ -85,7 +85,9 @@ async getWeather(){
 
 // get current location this is triggered by the Use my Location button and is currently disabled 
 // Once I figure out the firebase and have it synchronized instead of querying I will come up with a search that will find the appropriate health center 
- setCurrentPosition() {
+ 
+/*//? This has been taken out as choose your location is no longer a feature
+setCurrentPosition() {
   if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
           this.Data.lat = position.coords.latitude;
@@ -95,7 +97,7 @@ async getWeather(){
           
       });
   }
-}
+}*/
 
 
 
@@ -265,7 +267,6 @@ nextPage()
   else {
     this.navCtrl.push(ImagingPage);
 }
-console.log("Time taken=",performance.now()-start)
 }
 
   async WrongTime(){

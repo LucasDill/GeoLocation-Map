@@ -31,15 +31,12 @@ ionViewWillEnter()
 
   this.plan=this.Data.plan;//set the plan to be used in the switch case 
   //set some points for the analytics 
-  console.log(this.plan)
   this.Data.Analytics.Destination=this.Data.Destination.name;
   this.Data.Analytics.RouteTime=this.Data.Destination.TimeWithMultChar;
   //this.Data.timeDiff();//get the difference in time 
   this.MethodUsed();
   this.Data.Analytics.Plan=this.Data.plan;
   //this.Data.SendAnalytics();//Call the function to send the data collected into the database
-
-  console.log(this.Data.Destination)
 }
 
 MethodUsed(){

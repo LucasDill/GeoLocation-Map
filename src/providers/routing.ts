@@ -23,8 +23,6 @@ loc:any;
 
 FindPlan(Dest)
 {
-  console.log(Dest);
-  console.log(this.Data.StartLoc);
  const SpecialLoc=["MED_DRYDEN","MED_SIOUXLOOKOUT","MED_RIVERSIDE","MED_LOTW"];//Used for the under 6 hours for the 4 special sites
  
   if(this.Data.SinceTimeForm<6)// this is the long if statement that will get the final plan html for the page 
@@ -81,7 +79,7 @@ FindPlan(Dest)
     {
       this.Data.plan="11";
     }
-    else if(this.Data.SinceTimeForm<12&&this.Data.StartLoc.bTelestroke==true)//For special cases where it is 6-12 hours and starts at a telestroke site 
+    else if(this.Data.SinceTimeForm<12&&this.Data.StartLoc.bTelestroke==true&&this.Data.StartLoc.bRegionalStrokeCentre==false)//For special cases where it is 6-12 hours and starts at a telestroke site 
     {
       //this.Data.plan="8";
       //!Remove below part to get rid of the imaging options
@@ -400,19 +398,19 @@ async distMat(destinations,Routes){// this will find the travel information for 
         let val = await Database.collection("/Multipliers/").doc(JSON.stringify(id))
         .get()
         .then((querySnapshot) => {
-          var m= waitforMultiAir();
           function waitforMultiAir()
           {
             if(querySnapshot.data()==undefined||querySnapshot.data().multi_air==undefined)
             {
               console.log("Wait");
-              setTimeout(this.waitforMultiAir,25);
+              setTimeout(this.waitforMultiAir,30);
             }
             else{
             flight_dest_weather = querySnapshot.data().multi_air;
             return flight_dest_weather;
             }
           }
+          var m= waitforMultiAir();
             return m;
           })
           .catch(error=>{
@@ -557,7 +555,6 @@ async distMat(destinations,Routes){// this will find the travel information for 
 
 CombineAll(cards)
 {
-  console.log(cards)
  // console.log(cards)
   var comb:any=[];
   var matched=false;
@@ -587,7 +584,6 @@ CombineAll(cards)
       }
       else if(cards[i].Airport==true||cards[i].Helipad==true)
       {
-        console.log(comb[m].Air.TimeWithMult)
        // if(cards[i].TimeWithMult<comb[m].Air.TimeWithMult)
        // {
         //  console.log("swap")
@@ -629,7 +625,6 @@ CombineAll(cards)
      comb.push(this.NewCard(cards[i]));
    }
  }
-console.log(comb)
 return comb;
 }
 
@@ -716,7 +711,6 @@ async getFlights(endpoints)
  var loc = await this.getCloseLoc(this.Data.lat,this.Data.lng);// get the closest helipad and airport to the origin site 
  this.loc=loc;
 var dest= new Array(endpoints.length);// create an array for all of the destinations which could vary based on what you are searching for 
-console.log(endpoints)
 for(var o=0;o<endpoints.length;o++)
 {
   var closesites={// create an array of objects for the landing sites close to the destination hospital with the site that is close to and the closest helipad and airport 

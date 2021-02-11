@@ -25,7 +25,6 @@ EVTPlan:any;
   }
 
   ionViewWillLoad() {
-    console.log(this.Data.StartLoc);
     this.Button=true;
     
       if(this.Data.StartLoc.id!="MED_TBRHSC")//if they are not in Thunder Bay it is most likely Winnipeg or London and that only matters from 0-24
