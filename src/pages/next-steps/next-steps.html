@@ -17,7 +17,7 @@
     <h1><b>{{start}} to {{end}}</b></h1>
   </div>
   <div id="Plan" [ngSwitch]="plan" style="height: 60vh;font-size: medium;" >
-    <div *ngSwitchCase="1">
+    <div *ngSwitchCase="2">
       <div text-center>
       <br><h4 text-center>Transfer Patient immediately as per your Acute Stroke Protocol</h4>
       <br><p><a href="tel:8076237342" center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>CACC Thunder Bay<br><span class="Call">@ 1-807-623-7342</span></p><br>
@@ -25,7 +25,7 @@
     </div>
       <h5><i>Reference:</i></h5><ol><li><i>MOU for Acute Stroke Bypass and Transfer Agreement</i></li><li><i>Acute Stroke Algorithm</i></li></ol> 
     </div>
-    <div *ngSwitchCase="2">
+    <div *ngSwitchCase="3">
       <br><h4 text-center>Transfer Patient immediately as per your Acute Stroke Protocol</h4><br>
       <div text-center>
       <p><a href="tel:8076484598" center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>CACC Kenora <span class="Call"><br>@ 1-807-468-4598</span></p><br>
@@ -33,7 +33,7 @@
     </div>  
       <h5><i>Reference:</i></h5><ol><li><i>MOU for Acute Stroke Bypass and Transfer Agreement</i></li><li><i>Acute Stroke Algorithm</i></li></ol>
     </div>
-    <div *ngSwitchCase="3">
+    <div *ngSwitchCase="4">
       <br><h4 text-center>Transfer Patient immediately as per your Acute Stroke Protocol</h4><br>
       <div text-center>
       <p><a href="tel:8074684598" center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>CACC Kenora <span class="Call"><br>@ 1-807-468-4598</span></p><br>
@@ -41,21 +41,21 @@
     </div>
       <h5><i>Reference:</i></h5><ol><li><i>MOU for Acute Stroke Bypass and Transfer Agreement</i></li><li><i>Acute Stroke Algorithm</i></li></ol>
     </div>
-    <div *ngSwitchCase="4">
+    <div *ngSwitchCase="5">
       <br><h4 text-center>We understand you<br>are not activating your<br>direct transportation protocol.<br><br>Your patient requires<br>imaging to proceed.</h4><br>
       <div text-center>
       <p><a href="tel:8076484598" center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>CACC Kenora <span class="Call"><br>@ 1-807-468-4598</span></p><br>
     </div>
     <h5><i>Reference:</i></h5><ol><li><i>MOU for Acute Stroke Bypass and Transfer Agreement</i></li><li><i>Acute Stroke Algorithm</i></li></ol>
     </div>
-    <div *ngSwitchCase="'4B'">
+    <div *ngSwitchCase="6">
       <br><h4 text-center>We understand you<br>are not activating your<br>direct transportation protocol.<br><br>Your patient requires<br>imaging to proceed.</h4>
       <div text-center>
         <br><p><a href="tel:8076237342" center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>CACC Thunder Bay<br><span class="Call">@ 1-807-623-7342</span></p><br>
     </div>
     <h5><i>Reference:</i></h5><ol><li><i>MOU for Acute Stroke Bypass and Transfer Agreement</i></li><li><i>Acute Stroke Algorithm</i></li></ol>
     </div>
-    <div *ngSwitchCase="'4A'" style="font-size: small">
+    <div *ngSwitchCase="7" style="font-size: small">
       <br><p style="font-size: large;" text-center>We understand you are<br> at a Telestroke Site.<br> We assume your<br> imaging capabilities (CT)<br> are suspended.<br><br>
         Your patient requires<br> imaging to proceed.</p><br>
         <div text-center>
@@ -64,34 +64,34 @@
       </div>
         <h5><i>Reference:</i></h5><ol><li><i>Telestroke Referring Site Handbook</i></li><li><i>NWO Telestroke Acute Stroke Protocol</i></li></ol> 
     </div>
-    <div *ngSwitchCase="'4C'">
+    <div *ngSwitchCase="8">
       <br><h4 text-center>Consult with<br> Telestroke Neurologist<br> utilizing the Telestroke program<br>for treatment options</h4><br>
   <div text-center>
   <p><a href="tel:8006684357" center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>CritiCall <span class="Call"><br>@ 1-800-668-4357</span></p><br><br>
 </div>
   <h5><i>Reference:</i></h5><p><i>Telestroke Referring Site Handbook</i></p>
     </div>
-    <div *ngSwitchCase="5">
+    <div *ngSwitchCase="10">
       <br><h4 text-center>Consult with<br> Acute Stroke Physician<br> in Thunder Bay utilizing the<br> Regional Critical Care Response<br>program.<br><br> Stay and receive direction<br> from RCCR team.</h4><br>
       <div text-center>
       <p><a href="tel:8006684357" center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>CritiCall<span class="Call"><br>@ 1-800-668-4357</span></p><br><br>
     </div>
       <h5><i>Reference:</i></h5><p><i>RCCR Initial Consultation Algorithm</i></p>
     </div>
-    <div *ngSwitchCase="6">
+    <div *ngSwitchCase="1">
       <br><h4 text-center>Respond immediately</h4><br><br><br><p text-center>
         <a href="tel:911" center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br> 9-1-1 
       <br><br>OR<br><br> your local emergency number</p>
     </div>
-    <div *ngSwitchCase="7" text-center style="font-size: large;">
+    <div *ngSwitchCase="9" text-center style="font-size: large;">
       <br><h4 text-center>Consult with EVT specialist</h4><br>
       <p><a href="tel:8006684357" center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>CritiCall<span class="Call"><br>@ 1-800-668-4357</span></p><br>
       <br> <p>Stay and receive<br>further direction</p>
     </div>
-    <div *ngSwitchCase="8" text-center style="font-size: large;">
+    <div *ngSwitchCase="11" text-center style="font-size: large;">
       <br><br><br><p><a href="tel:8076846001" center ion-button round  small class="callButton"><button ion-button small>Call</button></a><br>Acute Stroke Physician @ TBRHSC <span class="Call"><br>@ 1-807-684-6001</span></p>
     </div>
-    <div *ngSwitchCase="9">
+    <div *ngSwitchCase="12">
       <div text-center>
         <br>
         <h4>Stay and receive direction.</h4>
@@ -101,7 +101,7 @@
     </div>
       <h5><i>Reference:</i></h5><p><i>NWO TIA and Mild Non-Disabling Stroke TRIAGE Algorithm</i></p>
     </div>
-    <div *ngSwitchCase="10" style="font-size: medium;">
+    <div *ngSwitchCase="13" style="font-size: medium;">
       <div text-center>
       <br><p><b><u><span style="font-size: large;">Consult:</span></u></b><br>The NWO TIA and Mild Non-Disabling Stroke Triage Algorithm</p><br>
       <p><b><u><span style="font-size: large;">Refer to:</span></u></b><br>The section for >48 hours</p><br><br>

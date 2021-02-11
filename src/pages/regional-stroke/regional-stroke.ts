@@ -30,26 +30,31 @@ EVTPlan:any;
     
       if(this.Data.StartLoc.id!="MED_TBRHSC")//if they are not in Thunder Bay it is most likely Winnipeg or London and that only matters from 0-24
       {
-        this.EVTPlan="13";//set to plan 13 
+        this.EVTPlan="14";//set to plan 13//!Changed 
         this.Button=false;//to have the routes button or not 
+        this.Data.Analytics.Plan="14";
       }
       else if(this.Data.SinceTimeForm<6)//this is in Thunder Bay under 6h
       {
-        this.EVTPlan="11";
+        this.EVTPlan="15";//!Changed
+        this.Data.Analytics.Plan="15";
   
       }
       else if(this.Data.SinceTimeForm>=6&&this.Data.SinceTimeForm<24){//This is thunder bay not less than 6 but it is in the <24 so it is the 6-24 range 
-        this.EVTPlan="12"
+        this.EVTPlan="16"//!Changed
+        this.Data.Analytics.Plan="16";
       }
       else if(this.Data.SinceTimeForm>=24&&this.Data.SinceTimeForm<48)//24 to 48 hour time frame Make it new 
       {
-        this.EVTPlan="14";
+        this.EVTPlan="17";//!Changed
         this.Button=false;
+        this.Data.Analytics.Plan="17";
       }
       else if(this.Data.SinceTimeForm>=48)
       {
-        this.EVTPlan="10";
+        this.EVTPlan="13";//!Changed
         this.Button=false;
+        this.Data.Analytics.Plan="13";
       }
     
    

@@ -28,8 +28,10 @@ ionViewWillEnter()
 {
   this.end=this.Data.Destination.city;//Set the start and end locations to be put on the scree
   this.start=this.Data.StartLoc.city;
+
   this.plan=this.Data.plan;//set the plan to be used in the switch case 
   //set some points for the analytics 
+  console.log(this.plan)
   this.Data.Analytics.Destination=this.Data.Destination.name;
   this.Data.Analytics.RouteTime=this.Data.Destination.TimeWithMultChar;
   //this.Data.timeDiff();//get the difference in time 

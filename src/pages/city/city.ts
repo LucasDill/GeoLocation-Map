@@ -32,7 +32,7 @@ Location:any;
   //this.planhtml="<button ion-button block large>here</button>";
   //document.getElementById("Plan").innerHTML=this.Data.Plans[6].HTML;
   //console.log(this.planhtml)
-
+  this.Data.Analytics.Plan="1";
  
 }
 

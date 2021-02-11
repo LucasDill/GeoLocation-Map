@@ -31,29 +31,29 @@ FindPlan(Dest)
   {
     if((this.Data.StartLoc.id=="MED_NIPIGON"&&Dest.id=="MED_TBRHSC")||(this.Data.StartLoc.id=="MED_NOSH"&&Dest.id=="MED_TBRHSC")||(this.Data.StartLoc.id=="MED_AGH"&&Dest.id=="MED_TBRHSC"))
     {
-      this.Data.plan="1";
+      this.Data.plan="2";//!Changed
     }
     else if((this.Data.StartLoc.id=="MED_REDLAKE"&&Dest.id=="MED_DRYDEN")||(this.Data.StartLoc.id=="MED_AGH"&&Dest.id=="MED_DRYDEN"))
     {
-      this.Data.plan="2";
+      this.Data.plan="3";//!Changed
     }
     else if((this.Data.StartLoc.id=="MED_EMO"&&Dest.id=="MED_RIVERSIDE")||(this.Data.StartLoc.id=="MED_RIVERSIDERAINY"&&Dest.id=="MED_RIVERSIDE")||(this.Data.StartLoc.id=="MED_AGH"&&Dest.id=="MED_RIVERSIDE"))
     {
-      this.Data.plan="3";
+      this.Data.plan="4";//!Changed
     }
-    /*
-    else if(((this.Data.StartLoc.bRegionalStrokeCentre==true&&Dest.bRegionalStrokeCentre==true)||(this.Data.StartLoc.bTelestroke==true&&Dest.bRegionalStrokeCentre==true))&&this.Data.isEVT==true)
+    
+    else if(this.Data.StartLoc.bRegionalStrokeCentre==true&&Dest.bRegionalStrokeCentre==true)
     {
-      this.Data.plan="7";
-    }*/
+      this.Data.plan="9";
+    }
     else if(this.Data.StartLoc.id=="MED_AGH"||this.Data.StartLoc.id=="MED_NIPIGON"||this.Data.StartLoc.id=="MED_NOSH"||this.Data.StartLoc.id=="MED_REDLAKE"||this.Data.StartLoc.id=="MED_EMO"||this.Data.StartLoc.id=="MED_RIVERSIDERAINY")//TODO: Change it so if it starts at any of the above locations but does not end there it will go here
     {
       if(this.Data.StartLoc.id=="MED_NIPIGON"||this.Data.StartLoc.id=="MED_NOSH")//these two locations will call a different CACC number so will be separated into 4B
       {
-        this.Data.plan="4B"
+        this.Data.plan="6"//!Changed
       }
       else{
-        this.Data.plan="4";
+        this.Data.plan="5";//!Changed
       }
       
 
@@ -62,15 +62,15 @@ FindPlan(Dest)
     {
       if(this.Data.HadImg==false)
       {
-        this.Data.plan="4C"
+        this.Data.plan="8"//!Changed
       }
       else{
-        this.Data.plan="4A";
+        this.Data.plan="7";//!Changed
       }
       
     }
     else{
-      this.Data.plan="5";
+      this.Data.plan="10";//!Changed
     }
     
   }
@@ -79,35 +79,39 @@ FindPlan(Dest)
     
     if(this.Data.StartLoc.id=="MED_EMO")// if they are in emo 
     {
-      this.Data.plan="8";
+      this.Data.plan="11";//!Changed
     }
     else if(this.Data.SinceTimeForm<12&&this.Data.StartLoc.bTelestroke==true)//For special cases where it is 6-12 hours and starts at a telestroke site 
     {
-      this.Data.plan="4C";
+      //this.Data.plan="8";//!Changed
+      //!Remove below part to get rid of the imaging options
+      
+       if(this.Data.HadImg==false)
+      {
+        this.Data.plan="8"//!Changed
+      }
+      else{
+        this.Data.plan="7";//!Changed
+      }
     }
     else if(Dest.bRegionalStrokeCentre==true)//When they are going to an evt site no special condition as it will always go to the page when over 6h 
     {
-      this.Data.plan="7";
+      this.Data.plan="9";//!Changed
     }
-    else if(this.Data.StartLoc.bTelestroke==true)//used to also have if Telestrokeplan == true but that resulted in an error when going to non imaging routes
+    else if(this.Data.StartLoc.bTelestroke==true||this.Data.StartLoc.bTelestroke!=true)//used to also have if Telestrokeplan == true but that resulted in an error when going to non imaging routes
     {
-      this.Data.plan="5";
-    }
-    else if(this.Data.StartLoc.Plan!=undefined)
-    {
-      this.Data.ChosenPlan=this.Data.Plans[this.Data.StartLoc.Plan].HTML;
-      this.Data.plan=this.Data.StartLoc.Plan.toString();
+      this.Data.plan="10";//!Changed
     }
     else{
-      this.Data.plan="6";
+      this.Data.plan="1";//!changed
     }
   }
   else if (this.Data.SinceTimeForm>=24&&this.Data.SinceTimeForm<48)
   {
-    this.Data.plan="9";
+    this.Data.plan="12";//!Changed
   }
   else if(this.Data.SinceTimeForm>=48){
-    this.Data.plan="10";
+    this.Data.plan="13";//!Changed
   }
   else{
     console.error("No Plan found Critical Error")
