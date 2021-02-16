@@ -23,19 +23,21 @@ loc:any;
 
 FindPlan(Dest)
 {
- const SpecialLoc=["MED_DRYDEN","MED_SIOUXLOOKOUT","MED_RIVERSIDE","MED_LOTW"];//Used for the under 6 hours for the 4 special sites
- 
+  //these are all used to determine the plan based on where the patient start location is 
+ const endTBLoc=["MED_NIPIGON","MED_NOSH","MED_AGH"];//Used for the under 6 hours for the 4 special sites
+ const endDryLoc=["MED_REDLAKE","MED_AGH"];//used for plans 3 
+ const endFortLoc=["MED_EMO","MED_RIVERSIDERAINY","MED_AGH"];//used fort plans 4 
   if(this.Data.SinceTimeForm<6)// this is the long if statement that will get the final plan html for the page 
   {
-    if((this.Data.StartLoc.id=="MED_NIPIGON"&&Dest.id=="MED_TBRHSC")||(this.Data.StartLoc.id=="MED_NOSH"&&Dest.id=="MED_TBRHSC")||(this.Data.StartLoc.id=="MED_AGH"&&Dest.id=="MED_TBRHSC"))
+    if((endTBLoc.includes(this.Data.StartLoc.id)&&Dest.id=="MED_TBRHSC"))//||(this.Data.StartLoc.id=="MED_NOSH"&&Dest.id=="MED_TBRHSC")||(this.Data.StartLoc.id=="MED_AGH"&&Dest.id=="MED_TBRHSC"))
     {
       this.Data.plan="2";
     }
-    else if((this.Data.StartLoc.id=="MED_REDLAKE"&&Dest.id=="MED_DRYDEN")||(this.Data.StartLoc.id=="MED_AGH"&&Dest.id=="MED_DRYDEN"))
+    else if(endDryLoc.includes(this.Data.StartLoc.id)&&Dest.id=="MED_DRYDEN")
     {
       this.Data.plan="3";
     }
-    else if((this.Data.StartLoc.id=="MED_EMO"&&Dest.id=="MED_RIVERSIDE")||(this.Data.StartLoc.id=="MED_RIVERSIDERAINY"&&Dest.id=="MED_RIVERSIDE")||(this.Data.StartLoc.id=="MED_AGH"&&Dest.id=="MED_RIVERSIDE"))
+    else if(endFortLoc.includes(this.Data.StartLoc.id)&&Dest.id=="MED_RIVERSIDE")
     {
       this.Data.plan="4";
     }
@@ -44,7 +46,7 @@ FindPlan(Dest)
     {
       this.Data.plan="9";
     }
-    else if(this.Data.StartLoc.id=="MED_AGH"||this.Data.StartLoc.id=="MED_NIPIGON"||this.Data.StartLoc.id=="MED_NOSH"||this.Data.StartLoc.id=="MED_REDLAKE"||this.Data.StartLoc.id=="MED_EMO"||this.Data.StartLoc.id=="MED_RIVERSIDERAINY")//TODO: Change it so if it starts at any of the above locations but does not end there it will go here
+    else if(endTBLoc.includes(this.Data.StartLoc.id)||endDryLoc.includes(this.Data.StartLoc.id)||endFortLoc.includes(this.Data.StartLoc.id))
     {
       if(this.Data.StartLoc.id=="MED_NIPIGON"||this.Data.StartLoc.id=="MED_NOSH")//these two locations will call a different CACC number so will be separated into 4B
       {
