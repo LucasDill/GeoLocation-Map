@@ -9,6 +9,7 @@ import { MapExplorePage } from '../pages/map-explore/map-explore';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { ContactPage } from '../pages/contact/contact';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 
 
 
@@ -59,6 +60,11 @@ export class MyApp {
     this.Data.CityMap=false;
     this.navCtrl.push(MapExplorePage);// starts the map page for exploration 
   }
+
+goToTutorial(){
+  console.log("Tutorial");
+  this.navCtrl.push(TutorialPage);
+}
 
   StartOver(){
 //this.splashScreen.show();// show the loading screen if any 

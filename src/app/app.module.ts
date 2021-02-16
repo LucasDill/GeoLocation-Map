@@ -45,6 +45,7 @@ import {ExpandComponent } from '../components/expand/expand';
 import { MappingProvider } from '../providers/mapping';
 import { TPaNoPage } from '../pages/t-pa-no/t-pa-no';
 import { fromEventPattern } from 'rxjs';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 
 @NgModule({
   declarations: [// this is where we declare all of our pages and components if you use the auto generate this may be added but you may also need to do it manually 
@@ -68,7 +69,8 @@ import { fromEventPattern } from 'rxjs';
     HtmlPipe,
     ExpandComponent,
     TPaNoPage,
-    RegionalStrokePage
+    RegionalStrokePage,
+    TutorialPage
   ],
   imports: [ 
     FormsModule,  
@@ -111,7 +113,8 @@ import { fromEventPattern } from 'rxjs';
     WelcomePage,
     ContactPage,
     TPaNoPage,
-    RegionalStrokePage
+    RegionalStrokePage,
+    TutorialPage
   ],
   providers: [// the providers used the only ones we made where the DataServiceProvider and the RoutingProvider I think the others are standardized
     DataServiceProvider,
