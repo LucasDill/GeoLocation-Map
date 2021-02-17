@@ -31,15 +31,16 @@ export class MyApp {
       this.ionViewDidLoad();
       statusBar.styleDefault();
       splashScreen.hide();
+      /*//!UNDO THIS BEFORE LAUNCHING THE APP SO IT WILL SHOW UP ON FIRST TIME STARTUP
       storage.get('first_time').then((val)=>{
         if(val!==null){
           console.log("Not first time");
         }else{
           console.log("First time use");
           this.navCtrl.push(TutorialPage);
-          storage.set('first time','done');
+          storage.set('first_time','done');
         }
-      })
+      })*/
     });
     
   ////////////////////////////////////////////////USE FOR WEB COMMIT WHEN SWITCHING TO MOBILE //////////////////////////////////////
