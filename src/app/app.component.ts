@@ -10,7 +10,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { ContactPage } from '../pages/contact/contact';
 import { TutorialPage } from '../pages/tutorial/tutorial';
-
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -22,13 +22,24 @@ export class MyApp {
     splash = false;
     rootPage:any;
 
-  constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private config: Config, private Data: DataServiceProvider,private inAppBrowser: InAppBrowser) {
+  constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen,
+     private config: Config, private Data: DataServiceProvider,
+     private inAppBrowser: InAppBrowser, private storage: Storage) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.ionViewDidLoad();
       statusBar.styleDefault();
       splashScreen.hide();
+      storage.get('first_time').then((val)=>{
+        if(val!==null){
+          console.log("Not first time");
+        }else{
+          console.log("First time use");
+          this.navCtrl.push(TutorialPage);
+          storage.set('first time','done');
+        }
+      })
     });
     
   ////////////////////////////////////////////////USE FOR WEB COMMIT WHEN SWITCHING TO MOBILE //////////////////////////////////////

@@ -46,6 +46,7 @@ import { MappingProvider } from '../providers/mapping';
 import { TPaNoPage } from '../pages/t-pa-no/t-pa-no';
 import { fromEventPattern } from 'rxjs';
 import { TutorialPage } from '../pages/tutorial/tutorial';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [// this is where we declare all of our pages and components if you use the auto generate this may be added but you may also need to do it manually 
@@ -77,6 +78,7 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
      // these are special imports used by the app and where we declare the api key and firestore information 
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC2GRIwOatzPmiamkpv3znVK8hi9g4lGoU',// this is the api key that deals with all of the google info, once this is passed off you may need to change it because the hospital might want there own 
       libraries: ['geometry','places']
