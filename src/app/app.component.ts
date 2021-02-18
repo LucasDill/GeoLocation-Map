@@ -33,6 +33,7 @@ export class MyApp {
       splashScreen.hide();
       /*//!UNDO THIS BEFORE LAUNCHING THE APP SO IT WILL SHOW UP ON FIRST TIME STARTUP
       storage.get('first_time').then((val)=>{
+        console.log(val);
         if(val!==null){
           console.log("Not first time");
         }else{
@@ -41,6 +42,7 @@ export class MyApp {
           storage.set('first_time','done');
         }
       })*/
+
     });
     
   ////////////////////////////////////////////////USE FOR WEB COMMIT WHEN SWITCHING TO MOBILE //////////////////////////////////////

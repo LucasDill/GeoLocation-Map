@@ -47,6 +47,7 @@ import { TPaNoPage } from '../pages/t-pa-no/t-pa-no';
 import { fromEventPattern } from 'rxjs';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { IonicStorageModule } from '@ionic/storage';
+import { DatabaseAccessProvider } from '../providers/database-access';
 
 @NgModule({
   declarations: [// this is where we declare all of our pages and components if you use the auto generate this may be added but you may also need to do it manually 
@@ -132,7 +133,8 @@ import { IonicStorageModule } from '@ionic/storage';
     DocumentViewer,
     InAppBrowser,
     PdfViewerProvider,
-    MappingProvider
+    MappingProvider,
+    DatabaseAccessProvider
   ]
 })
 export class AppModule {}

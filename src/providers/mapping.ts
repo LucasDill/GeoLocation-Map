@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { c } from '@angular/core/src/render3';
 import { DataServiceProvider } from './data-service';
 import { RoutingProvider } from './routing';
-
+import { Storage } from '@ionic/storage';
+import { DatabaseAccessProvider } from './database-access';
 /*
   Generated class for the MappingProvider provider.
 
@@ -13,7 +14,7 @@ import { RoutingProvider } from './routing';
 @Injectable()
 export class MappingProvider {
 
-  constructor(public http: HttpClient, public Data: DataServiceProvider, public Routes: RoutingProvider) {
+  constructor(public http: HttpClient, public Data: DataServiceProvider, public Routes: RoutingProvider, private storage:Storage) {
     //console.log('Hello MappingProvider Provider');
   }
 
@@ -67,6 +68,7 @@ else{// if the name is not defined it will be a city site and we will have diffe
 }
 
 }
+this.StoreExperiment();//Try experimenting with the storage 
 arr=this.CentersFirst(arr);//call this function to order the main centers before the cities and other sites
 return arr;//make the display information the array 
 
@@ -104,6 +106,15 @@ CentersFirst(array){//this function will reorder the health centers first then c
   sites=sites.concat(citySites);
   sites=sites.concat(cities);
   return(sites);
+}
+
+StoreExperiment()
+{
+this.storage.set('Centers',this.Data.AllMedicalCenters);
+this.storage.get('Centers').then((val)=>
+{
+  console.log("Experimenting with storage",val);
+})
 }
 
 
