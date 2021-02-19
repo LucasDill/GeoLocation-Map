@@ -81,7 +81,7 @@ FindPlan(Dest)
     {
       this.Data.plan="11";
     }
-    else if(this.Data.SinceTimeForm<12&&this.Data.StartLoc.bTelestroke==true&&this.Data.StartLoc.bRegionalStrokeCentre==false)//For special cases where it is 6-12 hours and starts at a telestroke site 
+    else if(this.Data.StartLoc.bTelestroke==true&&this.Data.StartLoc.bRegionalStrokeCentre==false)//For special cases where it is 6-12 hours and starts at a telestroke site 
     {
       //this.Data.plan="8";
       //!Remove below part to get rid of the imaging options

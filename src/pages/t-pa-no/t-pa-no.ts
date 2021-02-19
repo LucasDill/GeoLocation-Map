@@ -27,15 +27,8 @@ export class TPaNoPage {
   }
 ionViewWillEnter()
 {
-  const SpecialLoc=["MED_DRYDEN","MED_SIOUXLOOKOUT","MED_RIVERSIDE","MED_LOTW"];//Used for the under 6 hours for the 4 special sites
+ 
   this.Data.HadImg=true;
-  if(this.Data.SinceTimeForm<12){
-    this.TelePlan="2";
-  }
-  else{
-    this.TelePlan="1";
-  }
-  
 }
 
   ExploreMap(){
