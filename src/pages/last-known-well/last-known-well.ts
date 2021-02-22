@@ -13,6 +13,7 @@ import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-vi
 import { File } from '@ionic-native/file';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { PdfViewerProvider } from '../../providers/pdf-viewer';
+import { DatabaseAccessProvider } from '../../providers/database-access';
 
 
 @Component({
@@ -22,7 +23,6 @@ import { PdfViewerProvider } from '../../providers/pdf-viewer';
 export class LastKnownWellPage {
 
   db : any;
-
 MaxDate=moment().format("YYYY-MM-DD").toString();// this one sets the max available 
 GivenDate=moment().format("YYYY-MM-DD").toString();// this one is the selector 
 CurrentTime=moment().format("HH:mm");
@@ -32,7 +32,7 @@ timeForm =new FormGroup({//creates a new form with the last known well
   time1: new FormControl('',Validators.required),//set the form time with validators required so they need to be entered in order to continue 
 });
   constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider,public DataBase: AngularFireDatabase, private modal: ModalController, private document: DocumentViewer,private file: File,public platform: Platform,
-    private inAppBrowser: InAppBrowser, public pdfViewer:PdfViewerProvider) {
+    private inAppBrowser: InAppBrowser, public pdfViewer:PdfViewerProvider, private Database: DatabaseAccessProvider) {
    //console.log(this.myDate);//Use of the current machine time for the initial timer value 
    var offset= getTimeZone();
    //console.log(offset)
