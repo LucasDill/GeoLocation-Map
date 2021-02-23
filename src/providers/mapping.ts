@@ -108,14 +108,6 @@ CentersFirst(array){//this function will reorder the health centers first then c
   return(sites);
 }
 
-StoreExperiment()
-{
-this.storage.set('Centers',this.Data.AllMedicalCenters);
-this.storage.get('Centers').then((val)=>
-{
-  console.log("Experimenting with storage",val);
-})
-}
 
 
 }
