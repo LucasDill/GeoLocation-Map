@@ -79,9 +79,19 @@ export class DataServiceProvider {
 Destination:any;
 ComplexRoute:Boolean;
 CityMap:Boolean=false;
-  
+
+
+//?This Data is filled from the internal memory and will be used to store the database info 
 AllLandingSites: any;
 AllDrivingData: any;
+AllMedicalCenters:any;// this is loaded when the app first initializes and gets all of the Medical Centers so we do not need to search the Database as much 
+AllAmb_Bases:any;
+AllAirSpeed:any;
+AllMult:any;
+AllMultArea:any;
+AllORNGE:any;
+
+
 
 GivenTime:Boolean=false;// a test to see if the time has been given
 
@@ -111,7 +121,6 @@ Analytics: any={
 }
 //add best practices for the two areas 
 
-AllMedicalCenters:any;// this is loaded when the app first initializes and gets all of the Medical Centers so we do not need to search the Database as much 
 
 //These Variables will be what time zone the person is in and the time zone the sending location is in 
 UserTimeZone:any;
@@ -201,7 +210,7 @@ getPlans(){
   this.Plans=plans;
   });
 }
-
+/*
 getCenters(){
   this.AllMedicalCenters= this.db.collection("/Health Centers/")//This would be better done somewhere else or done with synchronization through realtime database but this is how we have it now 
   .get()
@@ -214,7 +223,7 @@ getCenters(){
     });
     this.AllMedicalCenters=total;// save the array of all objects to the Data Service provider 
 });
-}
+}*/
 
   StartTime(param,diff)//starts when a time is provided in last known well sets the time to be displayed at the top of pages after getting the current time 
   {

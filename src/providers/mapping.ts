@@ -68,7 +68,6 @@ else{// if the name is not defined it will be a city site and we will have diffe
 }
 
 }
-this.StoreExperiment();//Try experimenting with the storage 
 arr=this.CentersFirst(arr);//call this function to order the main centers before the cities and other sites
 return arr;//make the display information the array 
 

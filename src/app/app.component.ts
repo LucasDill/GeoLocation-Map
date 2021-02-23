@@ -11,6 +11,7 @@ import { WelcomePage } from '../pages/welcome/welcome';
 import { ContactPage } from '../pages/contact/contact';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { Storage } from '@ionic/storage';
+import { DatabaseAccessProvider } from '../providers/database-access';
 
 
 @Component({
@@ -24,24 +25,25 @@ export class MyApp {
 
   constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen,
      private config: Config, private Data: DataServiceProvider,
-     private inAppBrowser: InAppBrowser, private storage: Storage) {
+     private inAppBrowser: InAppBrowser, private storage: Storage, private DataBase: DatabaseAccessProvider) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.ionViewDidLoad();
       statusBar.styleDefault();
       splashScreen.hide();
-      /*//!UNDO THIS BEFORE LAUNCHING THE APP SO IT WILL SHOW UP ON FIRST TIME STARTUP
+      
+      //!UNDO THIS BEFORE LAUNCHING THE APP SO IT WILL SHOW UP ON FIRST TIME STARTUP
       storage.get('first_time').then((val)=>{
-        console.log(val);
         if(val!==null){
-          console.log("Not first time");
+          this.DataBase.getLastMem();
         }else{
           console.log("First time use");
           this.navCtrl.push(TutorialPage);
           storage.set('first_time','done');
+          this.DataBase.setAllData(); 
         }
-      })*/
+      })
 
     });
     
@@ -67,7 +69,7 @@ export class MyApp {
       this.config.set("android", "autoFocusAssist", "delay");
 
   this.Data.getPlans();// calls to get and store the plans and centers every time the app is reloaded 
-  this.Data.getCenters();
+  //this.Data.getCenters();
   }
 
   goToMap(){

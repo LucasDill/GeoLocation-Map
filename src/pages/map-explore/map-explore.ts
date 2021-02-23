@@ -127,7 +127,6 @@ addInfoWindow(marker, location) {
   var infoWindow = new google.maps.InfoWindow({
     content: ""
   });
-  console.log(location)
   if(location.OnlyCity==true)
   {
     info='<b>City:</b> '+location.city+'<br><br>';
