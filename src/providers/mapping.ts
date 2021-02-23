@@ -109,4 +109,18 @@ CentersFirst(array){//this function will reorder the health centers first then c
 
 
 
+GetHospitals(cent)
+{
+var hosp=[];
+for(var a=0;a<cent.length;a++)
+{
+if(cent[a].bHospital==true&&cent[a].bTelestroke==false&&cent[a].bRegionalStrokeCentre==false)
+{
+  hosp.push(cent[a])
+}
+}
+return hosp;
+}
+
+
 }
