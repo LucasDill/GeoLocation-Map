@@ -380,8 +380,7 @@ async distMat(destinations,Routes){// this will find the travel information for 
       console.log(Routes[m])
       var val=upper.filterData(upper.Data.AllMult,JSON.stringify(Routes[m].weather_code))
           console.log(val)
-          return val.multi_air;
-      getflight.push(flight_destination_weather);
+      getflight.push(val.multi_air);
 
   }
        // get multiplier for weather of flight destination
