@@ -74,7 +74,7 @@ getLastUsed(){
             await storage.ready();
             const last=await storage.get('Amb_Base');
             upper.Data.AllAmb_Bases=last;
-            console.log("Ambulance Bases",last)
+            //console.log("Ambulance Bases",last)
           }
           break;
         case "AirSpeed":
@@ -88,7 +88,7 @@ getLastUsed(){
             await storage.ready();
             const last=await storage.get('Air_Speed');
             upper.Data.AllAirSpeed=last;
-            console.log("AirSpeed",last)
+            //console.log("AirSpeed",last)
           }
           break;
         case "Centers":
@@ -105,7 +105,7 @@ getLastUsed(){
            await storage.ready();
            const last=await storage.get('HealthCenters');
            upper.Data.AllMedicalCenters=last;
-           console.log("Centers",last)
+           //console.log("Centers",last)
           }
           break;
         case "Land_Site":
@@ -119,7 +119,7 @@ getLastUsed(){
            await storage.ready();
            const land=await storage.get('LandingSite');
            upper.Data.AllLandingSites=land;
-           console.log("Landing site",land)
+          // console.log("Landing site",land)
           }
           break;
         case "Multiplier":
@@ -133,7 +133,7 @@ getLastUsed(){
             await storage.ready();
             const land=await storage.get('Multipliers');
             upper.Data.AllMult=land;
-            console.log("Multipliers",land)
+            //console.log("Multipliers",land)
           }
           break;
         case "Multiplier_Area":
@@ -147,7 +147,7 @@ getLastUsed(){
             await storage.ready();
             const last=await storage.get('Multipliers_Area');
             upper.Data.AllMultArea=last;
-            console.log("Multiplier Area",last)
+            //console.log("Multiplier Area",last)
           }
           break;
         case "ORNGE_Base": 
@@ -161,7 +161,7 @@ getLastUsed(){
           await storage.ready();
           const last=await storage.get('ORNGE');
           upper.Data.AllORNGE=last;
-          console.log("ORNGE Base",last)
+          //console.log("ORNGE Base",last)
         }
           break;
         default:
