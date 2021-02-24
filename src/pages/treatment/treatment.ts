@@ -61,7 +61,7 @@ async tPASetup()// get the results for the places that are bTelestroke which at 
    DrivingRoutes=data;
  });
  
- await this.Routes.nearestLocations();//Get the nearest locations of airports and helipads to the destinations 
+ //await this.Routes.nearestLocations();//Get the nearest locations of airports and helipads to the destinations 
  var FlightRoutes;
   await this.Routes.getFlights(DrivingRoutes).then(distances =>{//Get the flight information along with the amount of time it takes to drive to the sites  
 FlightRoutes=distances;

@@ -68,7 +68,7 @@ export class EvtOptionsPage {
     await this.Routes.getRoutes("bRegionalStrokeCentre").then(data =>{//use the getRoutes function from the routing provider to search for all of the RegionalStrokeCenters which at the moment is just TBRHSC
       evtRoutes=data;//assign the evtRoutes to the data returned function 
     });
-    await this.Routes.nearestLocations(); //Wait for the Routing provider to get the closest Helipad and Airport to the starting and ending location 
+    //await this.Routes.nearestLocations(); //Wait for the Routing provider to get the closest Helipad and Airport to the starting and ending location 
     var flightcards;//create a new variable to hold the information for the cards that deal with the helicopters and airplanes 
     await this.Routes.getFlights(evtRoutes).then(distances =>{
       flightcards=distances;//Have the routing Provider get information for the cards including the distances and the times needed 
