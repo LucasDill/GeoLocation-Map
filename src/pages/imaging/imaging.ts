@@ -69,7 +69,7 @@ async pageSetup()
    DrivingRoutes=data;//set the imageroutes to be the data returned by the function 
  });
  
- //await this.Routes.nearestLocations();//wait for a function that gets the closest airport and helipad to the start and end locations 
+ await this.Routes.nearestLocations();//wait for a function that gets the closest airport and helipad to the start and end locations 
  var FlightRoutes;//assign another variable for the total collection of card information 
   await this.Routes.getFlights(DrivingRoutes).then(distances =>{//get the information on the flights from the routing provider 
 FlightRoutes=distances;//set the totalcard variable with the information from the flights 
