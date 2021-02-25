@@ -120,9 +120,16 @@ FindPlan(Dest)
 
 }
 
+
+
+
+filterData(data,id){
+  return data.find(x=>x.id===id);
+}
+
     async nearestLocations(){//This function gets the list of landing sites from the database to be searched for the closest location 
       //once we figure out how to do synchronization this function can be removed 
-     var Sites= this.Database.collection("/Landing Sites/")
+    /* var Sites= this.Database.collection("/Landing Sites/")
       .get()
       .then((querySnapshot) => {
         var total=[]
@@ -138,10 +145,12 @@ FindPlan(Dest)
         
     });
     return Sites;// 
+    this.LandingSites=t
+    return this.Data.AllLandingSites;*/
   }
    async getCloseLoc(lat, lng)// gets all close locations to the site for the best airport and helipad options it will return an array with the closest helipad and airports 
     {
-      var all= this.LandingSites;
+      var all= this.Data.AllLandingSites;
       var heli=[];// the array of helipads that will be shortened and combined later
       var plane=[];//The array of airports 
       var repeat=1;//The repeat variable which will not be changed until there is at least one helipad and airport 
@@ -186,8 +195,8 @@ origin_area_multiplier: number;
 origin_total_multiplier: any;
 
 // multipliers for weather and area
- async getOriginWeatherMultiplier(){
-
+ async getOriginWeatherMultiplier(){//? Changed and still works
+/*
 if(this.Data==undefined||this.Data.origin_id==undefined)//there was an error when a variable was not being filled fast enough so this is a function to wait to be sure it will be filled 
 {
   setTimeout(this.getOriginWeatherMultiplier,25);// if there is nothing wait 25 milliseconds and try again 
@@ -202,26 +211,36 @@ else// if the variable is filled search the database for the information require
       return this.origin_weather_multiplier;// set the information 
   });
   return area;
-}
+}*/
+var area=this.filterData(this.Data.AllMult,JSON.stringify(this.Data.origin_id));
+console.log(area.multi)
+this.origin_weather_multiplier=area.multi;
+return area.multi;
  
 
 
 }
 
-async getOriginAreaMultiplier(){// search the database for the area multiplier for the results based on the data 
-await this.Database.collection("/Multipliers Area/").doc(this.Data.origin_area)
+async getOriginAreaMultiplier(){// search the database for the area multiplier for the results based on the data //!Changed but giving multi air error
+/*await this.Database.collection("/Multipliers Area/").doc(this.Data.origin_area)
   .get()
   .then((querySnapshot) => {
       this.origin_area_multiplier = querySnapshot.data().multi;
       return this.origin_area_multiplier;
-  });
-
+  });*/
+var ar=this.filterData(this.Data.AllMultArea,this.Data.origin_area);
+console.log(ar.multi)
+this.origin_area_multiplier=ar.multi;
+return ar.multi;
 }
 
 async totalOriginMultiplier(){//Get the total multiplier by taking the average of the area and weather multipliers 
-  await this.getOriginAreaMultiplier();
-  await this.getOriginWeatherMultiplier();
-  this.origin_total_multiplier = (this.origin_weather_multiplier + this.origin_area_multiplier)/2;
+  var weather=await this.getOriginAreaMultiplier();
+  var area=await this.getOriginWeatherMultiplier();
+ // console.log("Second",this.origin_weather_multiplier)
+  //console.log(weather,area)
+  //this.origin_total_multiplier = (this.origin_weather_multiplier + this.origin_area_multiplier)/2;
+  this.origin_total_multiplier = (weather + area)/2;
   return this.origin_total_multiplier;
 
 }
@@ -376,7 +395,7 @@ return ret;// return all of the driving routes
 destination_flight_weather_array;
 
 async distMat(destinations,Routes){// this will find the travel information for all of the driving routes 
-  
+  var upper=this;
   var mult=await this.totalOriginMultiplier();// the multiplier used to modify all of the travel times 
   var Database = this.Database;
   var destination_weather_multiplier;
@@ -384,10 +403,11 @@ async distMat(destinations,Routes){// this will find the travel information for 
 
   var flight_dest_weather;
   var getflight = [];
-
+  console.log(Routes)
   for(var m=0;m<Routes.length;m++)// go through all of the routes and get the destination weather for each site 
   {
-
+    
+    console.log(Routes[m].weather_code)
       await flightWeatherDestination(Routes[m].weather_code).then(data => {
          flight_destination_weather = data;
       });
@@ -405,7 +425,7 @@ async distMat(destinations,Routes){// this will find the travel information for 
             if(querySnapshot.data()==undefined||querySnapshot.data().multi_air==undefined)
             {
               console.log("Wait");
-              setTimeout(this.waitforMultiAir,30);
+              setTimeout(waitforMultiAir,30);
             }
             else{
             flight_dest_weather = querySnapshot.data().multi_air;
