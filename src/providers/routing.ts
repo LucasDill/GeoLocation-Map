@@ -566,7 +566,6 @@ async distMat(destinations,Routes){// this will find the travel information for 
              var area=upper.filterData(upper.Data.AllMultArea,area)
              console.log(area.multi);
      }
- 
      Routes = await convertTime(Routes);// this is a function we made to go though all of the routes and convert the time into a char and something we could use 
        await sortRoutes();// the sortRoutes is specific to this data and is defined below 
      async function sortRoutes(){
