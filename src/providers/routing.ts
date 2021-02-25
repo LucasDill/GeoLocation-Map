@@ -196,8 +196,8 @@ origin_total_multiplier: any;
 
 // multipliers for weather and area
  async getOriginWeatherMultiplier(){//? Changed and still works
-/*
-if(this.Data==undefined||this.Data.origin_id==undefined)//there was an error when a variable was not being filled fast enough so this is a function to wait to be sure it will be filled 
+
+/*if(this.Data==undefined||this.Data.origin_id==undefined)//there was an error when a variable was not being filled fast enough so this is a function to wait to be sure it will be filled 
 {
   setTimeout(this.getOriginWeatherMultiplier,25);// if there is nothing wait 25 milliseconds and try again 
 }
@@ -213,7 +213,7 @@ else// if the variable is filled search the database for the information require
   return area;
 }*/
 var area=this.filterData(this.Data.AllMult,JSON.stringify(this.Data.origin_id));
-console.log(area.multi)
+//console.log(area.multi)
 this.origin_weather_multiplier=area.multi;
 return area.multi;
  
@@ -229,18 +229,21 @@ async getOriginAreaMultiplier(){// search the database for the area multiplier f
       return this.origin_area_multiplier;
   });*/
 var ar=this.filterData(this.Data.AllMultArea,this.Data.origin_area);
-console.log(ar.multi)
+//console.log(ar.multi)
 this.origin_area_multiplier=ar.multi;
 return ar.multi;
 }
 
 async totalOriginMultiplier(){//Get the total multiplier by taking the average of the area and weather multipliers 
+  let timestart=performance.now();
   var weather=await this.getOriginAreaMultiplier();
   var area=await this.getOriginWeatherMultiplier();
  // console.log("Second",this.origin_weather_multiplier)
   //console.log(weather,area)
   //this.origin_total_multiplier = (this.origin_weather_multiplier + this.origin_area_multiplier)/2;
   this.origin_total_multiplier = (weather + area)/2;
+  let timeend=performance.now()
+  console.log("Performance of origin mult",timeend-timestart)
   return this.origin_total_multiplier;
 
 }
@@ -250,27 +253,40 @@ plane: any;//the air speed of planes
 flight_weather_origin: any;
 
 async getFlightSpeeds(){// get the flight speeds of planes and helicopters which may be taken out if we figure out the database synchronization 
-  await this.Database.collection("/Air_Speed/").doc("heli")
+  var timestart=performance.now();
+  /*await this.Database.collection("/Air_Speed/").doc("heli")
   .get()
   .then((querySnapshot) => {
       this.heli = querySnapshot.data().speed;
       return this.heli;
-  });
+  });*/
+var helispeed=this.filterData(this.Data.AllAirSpeed,"heli");
+console.log(helispeed.speed)
+this.heli=helispeed.speed;
 
-  await this.Database.collection("/Air_Speed/").doc("plane")
+
+  /*await this.Database.collection("/Air_Speed/").doc("plane")
   .get()
   .then((querySnapshot) => {
       this.plane = querySnapshot.data().speed;
       return this.plane;
-  });
+  });*/
 
-  await this.Database.collection("/Multipliers/").doc(JSON.stringify(this.Data.origin_id))// get the speed multiplier based on the origin id 
+
+  var planespeed=this.filterData(this.Data.AllAirSpeed,"plane");
+console.log(planespeed.speed)
+this.plane=planespeed.speed;
+
+  /*await this.Database.collection("/Multipliers/").doc(JSON.stringify(this.Data.origin_id))// get the speed multiplier based on the origin id 
   .get()
   .then((querySnapshot) => {
       this.flight_weather_origin = querySnapshot.data().multi_air;
       return this.flight_weather_origin;
-  });
+  });*/
 
+  var flightweather=this.filterData(this.Data.AllMult,JSON.stringify(this.Data.origin_id));
+  console.log(flightweather.multi_air)
+  this.flight_weather_origin=flightweather.multi_air;
 
 
   let speed_vals = {//create a specific object to be returned with the speeds and weather 
@@ -278,6 +294,8 @@ async getFlightSpeeds(){// get the flight speeds of planes and helicopters which
     plane_speed: this.plane,
     origin_weather: this.flight_weather_origin
   }
+  var timeend=performance.now();
+  console.log("Performance of the getFlightSpeeds function",timeend-timestart)
   return {speed_vals}
 }
 
@@ -334,8 +352,16 @@ async getRoutes(param){//Get the routes based off the parameter specified to sea
   var weatherService = this.weatherService;
  
   var w;//create a data object for the weather 
-
-  
+  var search;
+/*
+  if(param=="bTelestroke")
+  {
+    search=this.Data.AllMedicalCenters[i].bTelestroke;
+  }
+  else if(param=="bRegionalStrokeCentre")
+  {
+    search=this.Data.AllMedicalCenters[i].bRegionalStrokeCentre;
+  }*/
 
 var ret= await this.Database.collection("/Health Centers/").where(param,"==",true)//search all of the health centers by the parameter mainly if it is telestroke or a regional health center
 .get()
@@ -375,21 +401,25 @@ var ret= await this.Database.collection("/Health Centers/").where(param,"==",tru
         let tempfeel = w.main.temp - 273.15;
         // gets description of weather
         let destination_weatherdata = [id, description, icon, tempreal, tempfeel];*///this is not used at the moment but could be useful later on 
-      }); 
-  });
+      }); //end of the weather service 
+  });//end of search 
   
   return Routes;// return the routes from the query 
-});
+});//end
 var destinations=[];//create an array to get the information from all of the destinations 
 for(var i=0;i<Routes.length;i++)//go through all of the routes and create lats and longs to be used to get the travel information for all of the driving routes 
 {
 let coords= new google.maps.LatLng(Routes[i].lat,Routes[i].lng);
 destinations[i]=coords;
 }
-ret=await this.distMat(destinations,ret);// get the distance and time from the distance matrix api which is not as intensive as the google ones we have been using 
-//the distance matrix function is likely the one that takes the longest time and it is important that we wait for it to finish so we have results 
 
-return ret;// return all of the driving routes 
+  ret=await this.distMat(destinations,ret);// get the distance and time from the distance matrix api which is not as intensive as the google ones we have been using 
+  //the distance matrix function is likely the one that takes the longest time and it is important that we wait for it to finish so we have results 
+  
+  return ret;// return all of the driving routes 
+
+console.log(ret[0].Dist)
+return ret
 }
 
 destination_flight_weather_array;
@@ -410,14 +440,15 @@ async distMat(destinations,Routes){// this will find the travel information for 
     console.log(Routes[m].weather_code)
       await flightWeatherDestination(Routes[m].weather_code).then(data => {
          flight_destination_weather = data;
+         getflight.push(flight_destination_weather);
       });
-      getflight.push(flight_destination_weather);
+     // getflight.push(flight_destination_weather);
 
   }
        // get multiplier for weather of flight destination
 
-       async function flightWeatherDestination(id){
-        let val = await Database.collection("/Multipliers/").doc(JSON.stringify(id))
+        async function flightWeatherDestination(id){
+        /*let val = await Database.collection("/Multipliers/").doc(JSON.stringify(id))
         .get()
         .then((querySnapshot) => {
           function waitforMultiAir()
@@ -438,7 +469,9 @@ async distMat(destinations,Routes){// this will find the travel information for 
           .catch(error=>{
             console.log(error);
           })
-          return val;
+          return val;*/
+          let val=upper.filterData(upper.Data.AllMult,(JSON.stringify(id)))
+          return val.multi_air;
        }
       // console.log(getflight)
        this.destination_flight_weather_array = getflight;
@@ -496,7 +529,7 @@ async distMat(destinations,Routes){// this will find the travel information for 
      }
  
      async function getDestinationWeatherMultiplier(id){
-      let val = await Database.collection("/Multipliers/").doc(JSON.stringify(id))
+     /* let val = await Database.collection("/Multipliers/").doc(JSON.stringify(id))
          .get()
          .then((querySnapshot) => {
            var ret= getMulti();
@@ -515,17 +548,23 @@ async distMat(destinations,Routes){// this will find the travel information for 
           }
           return ret;
            });
-           return val;
+           return val;*/
+           var dest=upper.filterData(upper.Data.AllMult,JSON.stringify(id))
+           console.log(dest.multi)
+           return(dest.multi)
      }
  
      async function getDestinationAreaMultiplier(area){
-       let val = await Database.collection("/Multipliers Area/").doc(area)
+       /*let val = await Database.collection("/Multipliers Area/").doc(area)
            .get()
            .then((querySnapshot) => {
                destination_area_multiplier = querySnapshot.data().multi;
                return destination_area_multiplier;
              });
-             return val;
+             return val;*/
+
+             var area=upper.filterData(upper.Data.AllMultArea,area)
+             console.log(area.multi);
      }
  
      Routes = await convertTime(Routes);// this is a function we made to go though all of the routes and convert the time into a char and something we could use 
