@@ -66,20 +66,6 @@ export class EvtOptionsPage {
    }
 
    async EVTsetup(){//EVT at the moment is just Thunder Bay which is the only bRegionalStrokeCenter
-    /*var evtRoutes;//sets a variable for all of the evt routes 
-    await this.Routes.getRoutes("bRegionalStrokeCentre").then(data =>{//use the getRoutes function from the routing provider to search for all of the RegionalStrokeCenters which at the moment is just TBRHSC
-      evtRoutes=data;//assign the evtRoutes to the data returned function 
-    });
-    //await this.Routes.nearestLocations(); //Wait for the Routing provider to get the closest Helipad and Airport to the starting and ending location 
-    var flightcards;//create a new variable to hold the information for the cards that deal with the helicopters and airplanes 
-    await this.Routes.getFlights(evtRoutes).then(distances =>{
-      flightcards=distances;//Have the routing Provider get information for the cards including the distances and the times needed 
-       });
-       evtRoutes=this.Routes.addRoutes(evtRoutes,flightcards);//add the elements of the flights to the end 
-       evtRoutes=this.Routes.masterSort(evtRoutes);//The masterSort function will sort the options based on how long they take and take out any that have the same name to avoid getting routes to the origin location 
-      var testroutes=this.Routes.CombineAll(evtRoutes)
-       testroutes=this.Routes.SetColour(testroutes);//Set the colour of each of the cards based on when the patient is scheduled to arrive 
-       */
       var testroutes=this.Routes.MasterRoutes("bRegionalStrokeCentre")
        return testroutes;//return the final list of cards to be displayed on the page 
   }

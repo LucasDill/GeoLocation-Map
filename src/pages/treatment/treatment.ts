@@ -60,50 +60,13 @@ this.results=true;
 
 async tPASetup()// get the results for the places that are bTelestroke which at the moment is the same for imaging
 {
-  /*
-  var DrivingRoutes;
-  await this.Routes.getRoutes("bTelestroke").then(data =>{//Get all of the driving routes to health centers which are telestroke sites 
-   DrivingRoutes=data;
- });
- 
- //await this.Routes.nearestLocations();//Get the nearest locations of airports and helipads to the destinations 
- var FlightRoutes;
-  await this.Routes.getFlights(DrivingRoutes).then(distances =>{//Get the flight information along with the amount of time it takes to drive to the sites  
-FlightRoutes=distances;
- });
- 
- var tPAroutes=this.Routes.addRoutes(DrivingRoutes,FlightRoutes);//add the two lists of routes for driving and flying together 
- 
- tPAroutes=this.Routes.masterSort(tPAroutes);//sort the combined list so the shortest times are first 
-
- tPAroutes=this.Routes.CombineAll(tPAroutes)
-
- tPAroutes= this.Routes.SetColour(tPAroutes);//set the colour of the cards based on when they will get to their destination 
- */
+  
  var tPAroutes=this.Routes.MasterRoutes("bTelestroke");
-
- //this.tpaSpinner=false;//stop the spinner from spinning 
- //this.tpashow=true;//enable the results to be shown
  return tPAroutes;//return the information to be displayed 
 }
 
 async EVTsetup(){//EVT at the moment is just Thunder Bay which is the only bRegionalStrokeCenter
-  /*var evtDriveRoutes;
-  await this.Routes.getRoutes("bRegionalStrokeCentre").then(data =>{//get the driving routes to health centers that are regionalStrokeCenters so far this is just TBRHSC
-    evtDriveRoutes=data;
-  });
-  //await this.Routes.nearestLocations(); only needed if it is the first to go
-  var evtFlightRoutes;
-  await this.Routes.getFlights(evtDriveRoutes).then(distances =>{//Get the flight information for the air travel time between the closest helipad and airports to the destination 
-    evtFlightRoutes=distances;
-     });
-     var evtRoutes=this.Routes.addRoutes(evtDriveRoutes,evtFlightRoutes);//Combine the lists of flight and driving routes 
-     evtRoutes=this.Routes.masterSort(evtRoutes);//sort the routes to have the shortest time first 
-     evtRoutes=this.Routes.CombineAll(evtRoutes);
-     evtRoutes=this.Routes.SetColour(evtRoutes);//set the colour of the cards based on when the patient will arrive */
      var evtRoutes=this.Routes.MasterRoutes("bRegionalStrokeCentre");
-     //this.evtSpinner=false;//stop the spinner and allow the div to be shown
-     //this.evtshow=true;
      return evtRoutes;// return the information 
 }
 
@@ -124,8 +87,6 @@ async EVTsetup(){//EVT at the moment is just Thunder Bay which is the only bRegi
   }
 
   expandItem(event,item): void {///This function will expand the card when it is clicked 
-    // console.log("ClickWorks")
-     //console.log(item);
      if (item.expanded) {
        item.expanded = false;
      } else {///////This is currently unused and it is what will eventually make the cards only expand one at a time 

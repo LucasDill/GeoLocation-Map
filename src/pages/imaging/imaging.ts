@@ -64,28 +64,6 @@ expandItem(event,item): void {///This function will expand the card when it is c
 
 async pageSetup()
 {
- /* var DrivingRoutes;//set a variable to be filled with the data 
-  var a=  this.Routes.getRoutes("bTelestroke").then(data =>{//Search for all driving routes to telestroke centers which at the moment are the only places to get imaging 
-    console.log(data)
-   DrivingRoutes=data;//set the imageroutes to be the data returned by the function 
-   var FlightRoutes;//assign another variable for the total collection of card information 
-  var b= this.Routes.getFlights(data).then(distances =>{//get the information on the flights from the routing provider 
-    console.log(distances)
-FlightRoutes=distances;//set the totalcard variable with the information from the flights 
-var imgroutes=this.Routes.addRoutes(data,distances);//combines the flight information and the driving information into one list 
- imgroutes=this.Routes.masterSort(imgroutes);//Sort the combined list of flight and driving information to have the shortest amount of time first
- var testroutes=this.Routes.CombineAll(imgroutes);
- testroutes=this.Routes.SetColour(testroutes)
-
- //imgroutes= this.Routes.SetColour(imgroutes);//Set the colour of each of the options for arrival green if able to make it for tPA yellow if able to make it for EVT and red if not able to make it in usual recovery time 
-console.log(testroutes)
- return testroutes;//return the final list of sorted information ready to be displayed 
- });
- return b
- });
- console.log(a)
- return a*/
- //await this.Routes.nearestLocations();//wait for a function that gets the closest airport and helipad to the start and end locations 
  var routes=this.Routes.MasterRoutes("bTelestroke");
  return routes;
 
