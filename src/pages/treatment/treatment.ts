@@ -36,6 +36,8 @@ display: String="There are no routes available from your location please call lo
 this.results=true;
  }
  else{// if there are results set the card data to be the information returned 
+  this.tpaSpinner=false;
+  this.tpashow=true;
   this.cards=dat;
  }
  
@@ -47,6 +49,8 @@ this.results=true;
       this.message="There are no routes available from your location please call local health services for more information";// the message to be displayed with no results
     }
     else{// if there are results set the cards with that data 
+      this.evtSpinner=false;
+      this.evtshow=true;
       this.EvtCards=evt;
     }
  
@@ -56,6 +60,7 @@ this.results=true;
 
 async tPASetup()// get the results for the places that are bTelestroke which at the moment is the same for imaging
 {
+  /*
   var DrivingRoutes;
   await this.Routes.getRoutes("bTelestroke").then(data =>{//Get all of the driving routes to health centers which are telestroke sites 
    DrivingRoutes=data;
@@ -74,14 +79,16 @@ FlightRoutes=distances;
  tPAroutes=this.Routes.CombineAll(tPAroutes)
 
  tPAroutes= this.Routes.SetColour(tPAroutes);//set the colour of the cards based on when they will get to their destination 
- 
- this.tpaSpinner=false;//stop the spinner from spinning 
- this.tpashow=true;//enable the results to be shown
+ */
+ var tPAroutes=this.Routes.MasterRoutes("bTelestroke");
+
+ //this.tpaSpinner=false;//stop the spinner from spinning 
+ //this.tpashow=true;//enable the results to be shown
  return tPAroutes;//return the information to be displayed 
 }
 
 async EVTsetup(){//EVT at the moment is just Thunder Bay which is the only bRegionalStrokeCenter
-  var evtDriveRoutes;
+  /*var evtDriveRoutes;
   await this.Routes.getRoutes("bRegionalStrokeCentre").then(data =>{//get the driving routes to health centers that are regionalStrokeCenters so far this is just TBRHSC
     evtDriveRoutes=data;
   });
@@ -93,9 +100,10 @@ async EVTsetup(){//EVT at the moment is just Thunder Bay which is the only bRegi
      var evtRoutes=this.Routes.addRoutes(evtDriveRoutes,evtFlightRoutes);//Combine the lists of flight and driving routes 
      evtRoutes=this.Routes.masterSort(evtRoutes);//sort the routes to have the shortest time first 
      evtRoutes=this.Routes.CombineAll(evtRoutes);
-     evtRoutes=this.Routes.SetColour(evtRoutes);//set the colour of the cards based on when the patient will arrive 
-     this.evtSpinner=false;//stop the spinner and allow the div to be shown
-     this.evtshow=true;
+     evtRoutes=this.Routes.SetColour(evtRoutes);//set the colour of the cards based on when the patient will arrive */
+     var evtRoutes=this.Routes.MasterRoutes("bRegionalStrokeCentre");
+     //this.evtSpinner=false;//stop the spinner and allow the div to be shown
+     //this.evtshow=true;
      return evtRoutes;// return the information 
 }
 

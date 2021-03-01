@@ -64,7 +64,7 @@ expandItem(event,item): void {///This function will expand the card when it is c
 
 async pageSetup()
 {
-  var DrivingRoutes;//set a variable to be filled with the data 
+ /* var DrivingRoutes;//set a variable to be filled with the data 
   var a=  this.Routes.getRoutes("bTelestroke").then(data =>{//Search for all driving routes to telestroke centers which at the moment are the only places to get imaging 
     console.log(data)
    DrivingRoutes=data;//set the imageroutes to be the data returned by the function 
@@ -84,9 +84,11 @@ console.log(testroutes)
  return b
  });
  console.log(a)
- return a
+ return a*/
  //await this.Routes.nearestLocations();//wait for a function that gets the closest airport and helipad to the start and end locations 
- 
+ var routes=this.Routes.MasterRoutes("bTelestroke");
+ return routes;
+
 }
 
   goToRoute(DriveDat){//if the route is a simple driving one

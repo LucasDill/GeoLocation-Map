@@ -21,6 +21,9 @@ loc:any;
       this.Database = firebase.firestore();
   }
 
+
+
+
 FindPlan(Dest)
 {
   //these are all used to determine the plan based on where the patient start location is 
@@ -121,33 +124,35 @@ FindPlan(Dest)
 }
 
 
+async MasterRoutes(searchFor){
+  
+  var a=  this.getRoutes(searchFor).then(data =>{//Search for all driving routes to telestroke centers which at the moment are the only places to get imaging 
+    console.log(data)
+   var DrivingRoutes=data;//set the imageroutes to be the data returned by the function 
+   var FlightRoutes;//assign another variable for the total collection of card information 
+  var b= this.getFlights(data).then(distances =>{//get the information on the flights from the routing provider 
+    console.log(distances)
+FlightRoutes=distances;//set the totalcard variable with the information from the flights 
+var imgroutes=this.addRoutes(data,distances);//combines the flight information and the driving information into one list 
+ imgroutes=this.masterSort(imgroutes);//Sort the combined list of flight and driving information to have the shortest amount of time first
+ var testroutes=this.CombineAll(imgroutes);
+ testroutes=this.SetColour(testroutes)
 
+ //imgroutes= this.Routes.SetColour(imgroutes);//Set the colour of each of the options for arrival green if able to make it for tPA yellow if able to make it for EVT and red if not able to make it in usual recovery time 
+console.log(testroutes)
+ return testroutes;//return the final list of sorted information ready to be displayed 
+ });
+ return b
+ });
+ //console.log(a)
+ return a
+
+}
 
 filterData(data,id){
   return data.find(x=>x.id===id);
 }
 
-    async nearestLocations(){//This function gets the list of landing sites from the database to be searched for the closest location 
-      //once we figure out how to do synchronization this function can be removed 
-    /* var Sites= this.Database.collection("/Landing Sites/")
-      .get()
-      .then((querySnapshot) => {
-        var total=[]
-        querySnapshot.forEach(function(doc) {
-          
-         
-            var obj = JSON.parse(JSON.stringify(doc.data()));
-            total.push(obj);
-          
-        });
-        this.LandingSites=total;//set the global variable to be used later on 
-        return total;
-        
-    });
-    return Sites;// 
-    this.LandingSites=t
-    return this.Data.AllLandingSites;*/
-  }
    async getCloseLoc(lat, lng)// gets all close locations to the site for the best airport and helipad options it will return an array with the closest helipad and airports 
     {
       var all= this.Data.AllLandingSites;
@@ -190,9 +195,9 @@ filterData(data,id){
     }
     
 
-origin_weather_multiplier: number;// set variables to be used to contain information about the weather 
-origin_area_multiplier: number;
-origin_total_multiplier: any;
+//origin_weather_multiplier: number;// set variables to be used to contain information about the weather 
+//origin_area_multiplier: number;
+//origin_total_multiplier: any;
 
 // multipliers for weather and area
  async getOriginWeatherMultiplier(){//? Changed and still works
@@ -214,7 +219,7 @@ else// if the variable is filled search the database for the information require
 }*/
 var area=this.filterData(this.Data.AllMult,JSON.stringify(this.Data.origin_id));
 //console.log(area.multi)
-this.origin_weather_multiplier=area.multi;
+//this.origin_weather_multiplier=area.multi;
 return area.multi;
  
 
@@ -230,21 +235,21 @@ async getOriginAreaMultiplier(){// search the database for the area multiplier f
   });*/
 var ar=this.filterData(this.Data.AllMultArea,this.Data.origin_area);
 //console.log(ar.multi)
-this.origin_area_multiplier=ar.multi;
+//this.origin_area_multiplier=ar.multi;
 return ar.multi;
 }
 
-async totalOriginMultiplier(){//Get the total multiplier by taking the average of the area and weather multipliers 
+async totalOriginMultiplier(area, weather){//Get the total multiplier by taking the average of the area and weather multipliers 
   let timestart=performance.now();
-  var weather=await this.getOriginAreaMultiplier();
-  var area=await this.getOriginWeatherMultiplier();
+  //var weather=await this.getOriginAreaMultiplier();
+  //var area=await this.getOriginWeatherMultiplier();
  // console.log("Second",this.origin_weather_multiplier)
   //console.log(weather,area)
   //this.origin_total_multiplier = (this.origin_weather_multiplier + this.origin_area_multiplier)/2;
-  this.origin_total_multiplier = (weather + area)/2;
+  var totalOriginMult= (weather + area)/2;
   let timeend=performance.now()
   console.log("Performance of origin mult",timeend-timestart)
-  return this.origin_total_multiplier;
+  return totalOriginMult;
 
 }
 
@@ -344,89 +349,118 @@ return drive;//return the combined list with the routes to the same place taken 
 
 
 async getRoutes(param){//Get the routes based off the parameter specified to search by the param is what it will search the database for 
-  await this.getOriginAreaMultiplier();//get the neccecery information needed for the routes 
-  await this.getOriginWeatherMultiplier();
+  var area=await this.getOriginAreaMultiplier();//get the neccecery information needed for the routes 
+  var weather= await this.getOriginWeatherMultiplier();
  
-  var Routes=[];// create an array for all of the routes 
+ 
   
   var weatherService = this.weatherService;
  
   var w;//create a data object for the weather 
   var search;
-/*
+var obj
   if(param=="bTelestroke")
   {
-    search=this.Data.AllMedicalCenters[i].bTelestroke;
-  }
-  else if(param=="bRegionalStrokeCentre")
-  {
-    search=this.Data.AllMedicalCenters[i].bRegionalStrokeCentre;
-  }*/
-
-var ret= await this.Database.collection("/Health Centers/").where(param,"==",true)//search all of the health centers by the parameter mainly if it is telestroke or a regional health center
-.get()
-.then(async function(querySnapshot) {
-  querySnapshot.forEach(function(doc) {
-      var distobj={//create an object with all of the data we need from the object along with ones that will be defined later on 
-        name:doc.data().name,
-        address:doc.data().address,
-        city:doc.data().city,
-        lat:doc.data().lat,
-        lng:doc.data().lng,
-        area:doc.data().area,
-        id:doc.data().id,
-        bRegionalStrokeCentre:doc.data().bRegionalStrokeCentre,
-        Driving:true,
-        TimeWithMult: 0,
-        TimeWithMultChar: "",
-        Timechar: "",
-        Timeval: 0,
-        DistChar: "",
-        Dist: 0,
-        weather_code: "",
-        expanded:false,
-        phoneT:doc.data().phoneT,
-        phoneN:doc.data().phoneN
-
+    var Routes=[];// create an array for all of the routes 
+    for(var i=0;i<this.Data.AllMedicalCenters.length;i++)
+    {
+      if(this.Data.AllMedicalCenters[i].bTelestroke==true)
+      {
+         obj= await this.createObject(this.Data.AllMedicalCenters[i])
+        /*obj.weather_code=weatherService.getWeatherFromApi(obj.lat, obj.lng)/*.subscribe(weather => {  // get the neccecery weather information 
+          w = weather;
+          let id = w.weather[0].id;
+          obj.weather_code = id;
+          /*let description = w.weather[0].description;
+          let icon = w.weather[0].icon;
+          let tempreal = w.main.temp - 273.15;
+          let tempfeel = w.main.temp - 273.15;
+          // gets description of weather
+          let destination_weatherdata = [id, description, icon, tempreal, tempfeel];*///this is not used at the moment but could be useful later on 
+        //}); //end of the weather service 
+        Routes.push(obj);
       }
-      Routes.push(distobj);//add each of the new objects to the routes array 
+    }
+  }
+  else /*if(param=="bRegionalStrokeCentre")*/{
+    var Routes=[];// create an array for all of the routes 
+    for(var l=0;l<this.Data.AllMedicalCenters.length;l++)
+    {
+      if(this.Data.AllMedicalCenters[l].bRegionalStrokeCentre==true)
+      {
+         obj= await this.createObject(this.Data.AllMedicalCenters[l])//.then()
+        /*weatherService.getWeatherFromApi(obj.lat, obj.lng).subscribe(weather => {  // get the neccecery weather information 
+          w = weather;
+          let id = w.weather[0].id;
+          obj.weather_code = id;
+          /*let description = w.weather[0].description;
+          let icon = w.weather[0].icon;
+          let tempreal = w.main.temp - 273.15;
+          let tempfeel = w.main.temp - 273.15;
+          // gets description of weather
+          let destination_weatherdata = [id, description, icon, tempreal, tempfeel];*///this is not used at the moment but could be useful later on 
+        //}); //end of the weather service */
+        Routes.push(obj);
+      }
+    }
+  }
 
-      weatherService.getWeatherFromApi(distobj.lat, distobj.lng).subscribe(weather => {  // get the neccecery weather information 
-        w = weather;
-        let id = w.weather[0].id;
-        distobj.weather_code = id;
-        /*let description = w.weather[0].description;
-        let icon = w.weather[0].icon;
-        let tempreal = w.main.temp - 273.15;
-        let tempfeel = w.main.temp - 273.15;
-        // gets description of weather
-        let destination_weatherdata = [id, description, icon, tempreal, tempfeel];*///this is not used at the moment but could be useful later on 
-      }); //end of the weather service 
-  });//end of search 
-  
-  return Routes;// return the routes from the query 
-});//end
+
 var destinations=[];//create an array to get the information from all of the destinations 
 for(var i=0;i<Routes.length;i++)//go through all of the routes and create lats and longs to be used to get the travel information for all of the driving routes 
 {
 let coords= new google.maps.LatLng(Routes[i].lat,Routes[i].lng);
 destinations[i]=coords;
 }
-
-  ret=await this.distMat(destinations,ret);// get the distance and time from the distance matrix api which is not as intensive as the google ones we have been using 
+//setTimeout(async ()=>{
+  var ret=await this.distMat(destinations,Routes, area, weather);// get the distance and time from the distance matrix api which is not as intensive as the google ones we have been using 
   //the distance matrix function is likely the one that takes the longest time and it is important that we wait for it to finish so we have results 
   
   return ret;// return all of the driving routes 
+//},3000)
+  
 
-console.log(ret[0].Dist)
-return ret
+
+
 }
+
+
+createObject(obj){
+  return new Promise(async resolve=>{
+  var distobj={//create an object with all of the data we need from the object along with ones that will be defined later on 
+    name:obj.name,
+    address:obj.address,
+    city:obj.city,
+    lat:obj.lat,
+    lng:obj.lng,
+    area:obj.area,
+    id:obj.id,
+    bRegionalStrokeCentre:obj.bRegionalStrokeCentre,
+    Driving:true,
+    TimeWithMult: 0,
+    TimeWithMultChar: "",
+    Timechar: "",
+    Timeval: 0,
+    DistChar: "",
+    Dist: 0,
+    expanded:false,
+    weather_code: 0,
+    phoneT:obj.phoneT,
+    phoneN:obj.phoneN,
+  }
+  distobj.weather_code=<number>await this.weatherService.getWeatherFromApi(distobj.lat,distobj.lng);
+  resolve(distobj)
+  });
+  
+}
+
+
 
 destination_flight_weather_array;
 
-async distMat(destinations,Routes){// this will find the travel information for all of the driving routes 
+async distMat(destinations,Routes, area,weather){// this will find the travel information for all of the driving routes 
   var upper=this;
-  var mult=await this.totalOriginMultiplier();// the multiplier used to modify all of the travel times 
+  var mult=await this.totalOriginMultiplier(area, weather);// the multiplier used to modify all of the travel times 
   var Database = this.Database;
   var destination_weather_multiplier;
   var destination_area_multiplier;

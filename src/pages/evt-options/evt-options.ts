@@ -37,6 +37,8 @@ export class EvtOptionsPage {
       this.message="You appear to already be at an EVT Capable Hospital \nPlease Consult Hospital Regulations for further instructions";
     }
     else{//If there are routes returned set the cards to reflect those routes at the moment the TBRHSC is the only site that is capable of performing EVT 
+      this.evtSpinner=false;//stop the spinner 
+       this.evtshow=true;//show the div that contains all of the cards 
       this.cards=evt;
     }
     
@@ -64,7 +66,7 @@ export class EvtOptionsPage {
    }
 
    async EVTsetup(){//EVT at the moment is just Thunder Bay which is the only bRegionalStrokeCenter
-    var evtRoutes;//sets a variable for all of the evt routes 
+    /*var evtRoutes;//sets a variable for all of the evt routes 
     await this.Routes.getRoutes("bRegionalStrokeCentre").then(data =>{//use the getRoutes function from the routing provider to search for all of the RegionalStrokeCenters which at the moment is just TBRHSC
       evtRoutes=data;//assign the evtRoutes to the data returned function 
     });
@@ -77,8 +79,8 @@ export class EvtOptionsPage {
        evtRoutes=this.Routes.masterSort(evtRoutes);//The masterSort function will sort the options based on how long they take and take out any that have the same name to avoid getting routes to the origin location 
       var testroutes=this.Routes.CombineAll(evtRoutes)
        testroutes=this.Routes.SetColour(testroutes);//Set the colour of each of the cards based on when the patient is scheduled to arrive 
-       this.evtSpinner=false;//stop the spinner 
-       this.evtshow=true;//show the div that contains all of the cards 
+       */
+      var testroutes=this.Routes.MasterRoutes("bRegionalStrokeCentre")
        return testroutes;//return the final list of cards to be displayed on the page 
   }
   
