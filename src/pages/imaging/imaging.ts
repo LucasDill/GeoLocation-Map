@@ -30,6 +30,7 @@ display: String="There are no routes available from your location please call lo
     public Routes: RoutingProvider) {
   }
  async ionViewWillLoad(){// part of the ionic lifecycle that will start before the page is about to load 
+  var startImaging=performance.now(); 
  var dat=await this.pageSetup();// wait for the calls to the routing provider to perform its actions and return the data 
 
  if(dat.length==0)//If there are no results returned it will set the results to true and display the message 
@@ -41,7 +42,7 @@ this.results=true;
    this.Spinner=false;//disable the spinner so it stops 
    this.show=true;//enable the content div to be shown with the results once loaded 
   }
- 
+ console.log("Total time for loading of the Imaging Routes",performance.now()-startImaging)
 }
 
 expandItem(event,item): void {///This function will expand the card when it is clicked 

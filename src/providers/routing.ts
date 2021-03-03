@@ -125,7 +125,7 @@ FindPlan(Dest)
 
 
 async MasterRoutes(searchFor){
-  
+  var startTime=performance.now();
   var a=  this.getRoutes(searchFor).then(data =>{//Search for all driving routes to telestroke centers which at the moment are the only places to get imaging 
    var DrivingRoutes=data;//set the imageroutes to be the data returned by the function 
    var FlightRoutes;//assign another variable for the total collection of card information 
@@ -142,7 +142,7 @@ console.log(testroutes)
  });
  return b
  });
- //console.log(a)
+ console.log("Total Loading Time: ",performance.now()-startTime)
  return a
 
 }
