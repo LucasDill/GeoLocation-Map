@@ -45,7 +45,7 @@ import {ExpandComponent } from '../components/expand/expand';
 import { MappingProvider } from '../providers/mapping';
 import { TPaNoPage } from '../pages/t-pa-no/t-pa-no';
 import { fromEventPattern } from 'rxjs';
-import { TutorialPage } from '../pages/tutorial/tutorial';
+
 import { IonicStorageModule } from '@ionic/storage';
 import { DatabaseAccessProvider } from '../providers/database-access';
 
@@ -71,8 +71,7 @@ import { DatabaseAccessProvider } from '../providers/database-access';
     HtmlPipe,
     ExpandComponent,
     TPaNoPage,
-    RegionalStrokePage,
-    TutorialPage
+    RegionalStrokePage
   ],
   imports: [ 
     FormsModule,  
@@ -116,8 +115,8 @@ import { DatabaseAccessProvider } from '../providers/database-access';
     WelcomePage,
     ContactPage,
     TPaNoPage,
-    RegionalStrokePage,
-    TutorialPage
+    RegionalStrokePage
+
   ],
   providers: [// the providers used the only ones we made where the DataServiceProvider and the RoutingProvider I think the others are standardized
     DataServiceProvider,

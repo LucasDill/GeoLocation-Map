@@ -1,5 +1,5 @@
 import { Component, ViewChild, HostListener } from '@angular/core';
-import { Platform, Nav, Config } from 'ionic-angular';
+import { Platform, Nav, Config, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LastKnownWellPage } from '../pages/last-known-well/last-known-well';
@@ -9,7 +9,6 @@ import { MapExplorePage } from '../pages/map-explore/map-explore';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { ContactPage } from '../pages/contact/contact';
-import { TutorialPage } from '../pages/tutorial/tutorial';
 import { Storage } from '@ionic/storage';
 import { DatabaseAccessProvider } from '../providers/database-access';
 
@@ -25,7 +24,7 @@ export class MyApp {
 
   constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen,
      private config: Config, private Data: DataServiceProvider,
-     private inAppBrowser: InAppBrowser, private storage: Storage, private DataBase: DatabaseAccessProvider) {
+     private inAppBrowser: InAppBrowser, private storage: Storage, private DataBase: DatabaseAccessProvider,private modal: ModalController) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -39,7 +38,7 @@ export class MyApp {
           this.DataBase.getLastMem();
         }else{
           console.log("First time use");
-          this.navCtrl.push(TutorialPage);
+          this.goToTutorial();
           storage.set('first_time','done');
           this.DataBase.setAllData(); 
         }
@@ -75,8 +74,11 @@ export class MyApp {
   }
 
 goToTutorial(){
-  console.log("Tutorial");
-  this.navCtrl.push(TutorialPage);
+  //console.log("Tutorial");
+  //this.navCtrl.push(TutorialPage);
+  const TutorialModal= this.modal.create('TutorialModalPage');
+
+  TutorialModal.present();
 }
 
 ExploreIcons(){
