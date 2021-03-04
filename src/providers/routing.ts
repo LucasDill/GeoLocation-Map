@@ -6,6 +6,7 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore"; 
 import { WeatherService } from '../pages/patient-location/weather';
+import { T } from '@angular/core/src/render3';
 
 //The routing provider is where the bulk of our calculations are done. it handles the calculation of the times to each route and formats the information into what we need for the cards
 
@@ -132,17 +133,16 @@ async MasterRoutes(searchFor){
   var b= this.getFlights(data).then(distances =>{//get the information on the flights from the routing provider 
 FlightRoutes=distances;//set the totalcard variable with the information from the flights 
 var imgroutes=this.addRoutes(data,distances);//combines the flight information and the driving information into one list 
- imgroutes=this.masterSort(imgroutes);//Sort the combined list of flight and driving information to have the shortest amount of time first
  var testroutes=this.CombineAll(imgroutes);
- testroutes=this.SetColour(testroutes)
-
- //imgroutes= this.Routes.SetColour(imgroutes);//Set the colour of each of the options for arrival green if able to make it for tPA yellow if able to make it for EVT and red if not able to make it in usual recovery time 
-console.log(testroutes)
+ testroutes=this.addDriveHist(testroutes);
+ testroutes=this.masterSort(testroutes);//Sort the combined list of flight and driving information to have the shortest amount of time first
+ testroutes=this.SetColour(testroutes);
+console.log("Total Loading Time: ",performance.now()-startTime)
  return testroutes;//return the final list of sorted information ready to be displayed 
  });
  return b
  });
- console.log("Total Loading Time: ",performance.now()-startTime)
+
  return a
 
 }
@@ -201,6 +201,53 @@ var area=this.filterData(this.Data.AllMult,JSON.stringify(this.Data.origin_id));
 return area.multi;
  
 }
+
+addDriveHist(Routes)
+{
+//console.log("Routes to Look for historical Data:",Routes);
+
+
+if(this.Data.StartLoc.HistDrive!=undefined)// if the start location actually has a starting location with some historical data 
+{
+  //console.log(this.Data.StartLoc.HistDrive)
+  for(var t=0;t<this.Data.StartLoc.HistDrive.length;t++)//go through each of the data points for historical driving times 
+  {
+    if(this.Data.StartLoc.HistDrive[t].id!="Aircraft")//some have aircraft which are not currently used
+    {
+      //console.log("Historical ID:",this.Data.StartLoc.HistDrive[t].id)
+      var ret=this.filterData(Routes,this.Data.StartLoc.HistDrive[t].id)
+      if(ret!=undefined)//When there is a case where the end location in the data is not in the established routes 
+      {
+        ret.HistDrive=true;
+        ret.HistDriveDat={
+          Avg:(this.Data.StartLoc.HistDrive[t].avg/60),
+          Fastest:(this.Data.StartLoc.HistDrive[t].fast/60),
+          AvgString:convertTimePlanes(this.Data.StartLoc.HistDrive[t].avg/60),
+          FastestString:convertTimePlanes(this.Data.StartLoc.HistDrive[t].fast/60)
+        }
+
+        ret.CompTime=(this.Data.StartLoc.HistDrive[t].avg/60);////////////////////////////////////!!THIS WILL NEED TO BER CHANGED EVENTUALLY SO THAT THE COMP TIME WILL TAKE INTO ACCOUNT IF THE OTHER ONE IS FASTER ONCE WE KNOW THE ACCURACY
+        /*ret.HistDriveAvg=this.Data.StartLoc.HistDrive[t].avg; //!Delete once you know you can use the object 
+        ret.HistDriveFastest=this.Data.StartLoc.HistDrive[t].fast;
+        ret.HistDriveAvgString=convertTimePlanes(this.Data.StartLoc.HistDrive[t].avg/60);//use the convertTimePlanes function which takes time as a decimal but because we have it in minutes we need to divide by 60 
+        ret.HistDriveFastestString=convertTimePlanes(this.Data.StartLoc.HistDrive[t].fast/60);*/
+      }
+      
+    }
+  }
+
+  for(var i=0;i<Routes.length;i++)//to use the ngIf statement we need to check if this value is true so if not we have to set it to false 
+  {
+    if(Routes[i].HistDrive==undefined)
+    {
+      Routes[i].HistDrive=false;
+    }
+  }
+}
+console.log(Routes)
+return Routes;
+}
+
 
 async getOriginAreaMultiplier(){// search the database for the area multiplier for the results based on the data 
 var ar=this.filterData(this.Data.AllMultArea,this.Data.origin_area);
@@ -831,6 +878,8 @@ else{
 
 return obj;// return the object with the new times 
 }
+
+
 
 function convertTimePlanes(obj: any)//convert the time into hours when dealing with the flight time the main calculations are the same to what is above but it returns something different 
 {

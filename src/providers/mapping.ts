@@ -69,7 +69,6 @@ else{// if the name is not defined it will be a city site and we will have diffe
 
 }
 arr=this.CentersFirst(arr);//call this function to order the main centers before the cities and other sites
-console.log(arr[0].HistDrive[0].avg);
 return arr;//make the display information the array 
 
 }
