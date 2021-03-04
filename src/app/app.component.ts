@@ -79,6 +79,14 @@ goToTutorial(){
   this.navCtrl.push(TutorialPage);
 }
 
+ExploreIcons(){
+  console.log("NOTHING BUILT YET");
+}
+
+WaysToUse(){
+  console.log("NOTHING BUILT YET");
+}
+
   StartOver(){
 //this.splashScreen.show();// show the loading screen if any 
 //window.location.reload();//reload the start of the application  
