@@ -59,8 +59,14 @@
             <ion-row >
               <p class="imageText">{{card.services}}</p>
               <br><!-- Put in the line somewhere here to have the expansion separated-->
-              <p style="font-size: small;color: white;">Historical Time to Definitive Care
-                <span style="font-size: medium;"><b> XX:XX<!-- (n=X)--></b></span></p>
+              <div *ngIf="card.HistDrive">
+                <p style="font-size: small;color: white;">Historical Time to Definitive Care
+                  <span style="font-size: medium;"><b> {{card.HistDriveDat.AvgString}}<!-- (n=X)--></b></span></p>
+              </div>
+              <div *ngIf="!card.HistDrive">
+                <p style="font-size: small;color: white;">Historical Time to Definitive Care
+                  <span style="font-size: medium;"><b> XX:XX<!-- (n=X)--></b></span></p>
+              </div>
               <br><br>
             </ion-row>
             <expand expandHeight="20vh" [expanded]="card.expanded">
@@ -72,7 +78,12 @@
                 <img class="image" src= "./assets/Travel/Ambulance.png">
               </ion-col>
               <ion-col>
-                <p class="imageText"><!--{{card.Drive.TimeWithMultChar}}-->XX:XX</p>
+                <div *ngIf="card.HistDrive">
+                  <p class="imageText"><!--{{card.Drive.TimeWithMultChar}}-->{{card.HistDriveDat.AvgString}}</p>
+                </div>
+                <div *ngIf="!card.HistDrive">
+                  <p class="imageText"><!--{{card.Drive.TimeWithMultChar}}-->XX:XX</p>
+                </div>                
               </ion-col>
             </ion-row>
             <ion-row *ngIf="card.HasFly">
@@ -87,7 +98,7 @@
               </ion-row>
             </ion-row>
             <p id="cardinfo" style="font-size: small;color: white;">
-              Patient Pickup to Destination: <b>{{card.TimeWithMultChar}}</b></p>
+              Estimated Institution to Institution: <b>{{card.TimeWithMultChar}}</b></p>
           </expand>
           
           </ion-grid>
@@ -118,8 +129,14 @@
             <ion-row >
               <p style="color: white;">{{card.services}}</p>
               <br>
-              <p style="font-size: small;color: white;">Historical Time to Definitive Care:
-                <span style="font-size: medium;"><b> XX:XX <!--(n=X)--></b></span></p>
+              <div *ngIf="card.HistDrive">
+                <p style="font-size: small;color: white;">Historical Time to Definitive Care
+                  <span style="font-size: medium;"><b> {{card.HistDriveDat.AvgString}}<!-- (n=X)--></b></span></p>
+              </div>
+              <div *ngIf="!card.HistDrive">
+                <p style="font-size: small;color: white;">Historical Time to Definitive Care
+                  <span style="font-size: medium;"><b> XX:XX<!-- (n=X)--></b></span></p>
+              </div>
               <br>
             </ion-row>
             <expand expandHeight="20vh" [expanded]="card.expanded" style="border-top: white 1px;">
@@ -142,36 +159,18 @@
                   <img class="image" src= "./assets/Travel/Ambulance.png">
                 </ion-col>
                 <ion-col>
-                  <p class="imageText"><!--{{card.Drive.TimeWithMultChar}}-->XX:XX</p>
+                  <div *ngIf="card.HistDrive">
+                    <p class="imageText"><!--{{card.Drive.TimeWithMultChar}}-->{{card.HistDriveDat.AvgString}}</p>
+                  </div>
+                  <div *ngIf="!card.HistDrive">
+                    <p class="imageText"><!--{{card.Drive.TimeWithMultChar}}-->XX:XX</p>
+                  </div>
                 </ion-col>
               </ion-row>
             </ion-row>
             <p id="cardinfo" style="font-size: small;color: white;">
-              Institution to Institution: <b>{{card.TimeWithMultChar}}</b></p>
+             Estimated Institution to Institution: <b>{{card.TimeWithMultChar}}</b></p>
             </expand>
-          </ion-grid>
-        </ion-card-content>
-      </ion-card>
-      <ion-card *ngIf="card.Airport" tappable (click)="ComplexRoute(card)" text-wrap [style.background-color]="card.colour"> <!--if it is an airplane route show the correct icon and call the complex route function -->
-        <ion-card-content>
-          <ion-grid no-padding>
-            <ion-row>
-              <ion-col col-9 >
-                <p style="font-size: larger;color: white;"><b>{{card.name}}</b></p>
-            </ion-col>
-            <ion-col>
-             <img src= "./assets/Travel/Airplane.png"> 
-            </ion-col>
-            </ion-row>
-            <ion-row >
-            <p id="cardinfo" style="font-size: small;color: white;">
-              Patient Pickup to Destination: <b>{{card.TimeWithMultChar}}</b></p>
-              <br>
-            </ion-row>
-            <ion-row>
-              <p style="font-size: small;color: white;">Fastest Total Time Achieved<br>Call to Definitive care:<br>
-              <span style="font-size: medium;"><b>XX:XX (n=X)</b></span></p>
-            </ion-row>
           </ion-grid>
         </ion-card-content>
       </ion-card>
@@ -217,8 +216,14 @@
               <ion-row >
                 <p class="imageText">{{card.services}}</p>
                 <br><!-- Put in the line somewhere here to have the expansion separated-->
-                <p style="font-size: small;color: white;">Historical Time to Definitive Care
-                  <span style="font-size: medium;"><b> XX:XX<!-- (n=X)--></b></span></p>
+                <div *ngIf="card.HistDrive">
+                  <p style="font-size: small;color: white;">Historical Time to Definitive Care
+                    <span style="font-size: medium;"><b> {{card.HistDriveDat.AvgString}}<!-- (n=X)--></b></span></p>
+                </div>
+                <div *ngIf="!card.HistDrive">
+                  <p style="font-size: small;color: white;">Historical Time to Definitive Care
+                    <span style="font-size: medium;"><b> XX:XX<!-- (n=X)--></b></span></p>
+                </div>
                 <br><br>
               </ion-row>
               <expand expandHeight="20vh" [expanded]="card.expanded">
@@ -230,7 +235,12 @@
                   <img class="image" src= "./assets/Travel/Ambulance.png">
                 </ion-col>
                 <ion-col>
-                  <p class="imageText"><!--{{card.Drive.TimeWithMultChar}}-->XX:XX</p>
+                  <div *ngIf="card.HistDrive">
+                    <p class="imageText"><!--{{card.Drive.TimeWithMultChar}}-->{{card.HistDriveDat.AvgString}}</p>
+                  </div>
+                  <div *ngIf="!card.HistDrive">
+                    <p class="imageText"><!--{{card.Drive.TimeWithMultChar}}-->XX:XX</p>
+                  </div>
                 </ion-col>
               </ion-row>
               <ion-row *ngIf="card.HasFly">
@@ -245,7 +255,7 @@
                 </ion-row>
               </ion-row>
               <p id="cardinfo" style="font-size: small;color: white;">
-                Patient Pickup to Destination: <b>{{card.TimeWithMultChar}}</b></p>
+                Estimated Institution to Institution: <b>{{card.TimeWithMultChar}}</b></p>
             </expand>
             
             </ion-grid>
@@ -276,8 +286,14 @@
               <ion-row >
                 <p style="color: white;">{{card.services}}</p>
                 <br>
-                <p style="font-size: small;color: white;">Historical Time to Definitive Care:
-                  <span style="font-size: medium;"><b> XX:XX <!--(n=X)--></b></span></p>
+                <div *ngIf="card.HistDrive">
+                  <p style="font-size: small;color: white;">Historical Time to Definitive Care
+                    <span style="font-size: medium;"><b> {{card.HistDriveDat.AvgString}}<!-- (n=X)--></b></span></p>
+                </div>
+                <div *ngIf="!card.HistDrive">
+                  <p style="font-size: small;color: white;">Historical Time to Definitive Care
+                    <span style="font-size: medium;"><b> XX:XX<!-- (n=X)--></b></span></p>
+                </div>
                 <br>
               </ion-row>
               <expand expandHeight="20vh" [expanded]="card.expanded" style="border-top: white 1px;">
@@ -300,12 +316,17 @@
                     <img class="image" src= "./assets/Travel/Ambulance.png">
                   </ion-col>
                   <ion-col>
-                    <p class="imageText"><!--{{card.Drive.TimeWithMultChar}}-->XX:XX</p>
+                    <div *ngIf="card.HistDrive">
+                      <p class="imageText"><!--{{card.Drive.TimeWithMultChar}}-->{{card.HistDriveDat.AvgString}}</p>
+                    </div>
+                    <div *ngIf="!card.HistDrive">
+                      <p class="imageText"><!--{{card.Drive.TimeWithMultChar}}-->XX:XX</p>
+                    </div>
                   </ion-col>
                 </ion-row>
               </ion-row>
               <p id="cardinfo" style="font-size: small;color: white;">
-                Institution to Institution: <b>{{card.TimeWithMultChar}}</b></p>
+               Estimated Institution to Institution: <b>{{card.TimeWithMultChar}}</b></p>
               </expand>
             </ion-grid>
           </ion-card-content>
