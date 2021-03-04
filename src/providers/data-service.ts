@@ -198,32 +198,7 @@ var seconds = Math.round(timeDiff % 60);
 this.Analytics.TimeOnApp=seconds;//set the time on the app to just the seconds for more easy analytics in the future
 }
 
-getPlans(){
-  this.Plans= this.db.collection("/Plans")// gets all of the plans ahead of time so they will only be queried once and stored 
-  .get()
-  .then((planSnapshot)=>{
-  var plans=[];
-  planSnapshot.forEach(function(doc) {
-    var obj=doc.data();
-    plans[doc.id]=(obj);
-  });
-  this.Plans=plans;
-  });
-}
-/*
-getCenters(){
-  this.AllMedicalCenters= this.db.collection("/Health Centers/")//This would be better done somewhere else or done with synchronization through realtime database but this is how we have it now 
-  .get()
-  .then((querySnapshot) => {
-    var total=[]
-    querySnapshot.forEach(function(doc) {
-        var obj = doc.data();
-        total.push(obj);
-      
-    });
-    this.AllMedicalCenters=total;// save the array of all objects to the Data Service provider 
-});
-}*/
+
 
   StartTime(param,diff)//starts when a time is provided in last known well sets the time to be displayed at the top of pages after getting the current time 
   {
@@ -248,7 +223,7 @@ getCenters(){
     
       if(this.SinceTimeForm<4.5&&this.NeedtPA==true)// this sets the information for the first time so it is not blank until a second passes 
       {
-        let EVTtime=6-this.SinceTimeForm;
+        let EVTtime=24-this.SinceTimeForm;
         let EVT=ConvertBack(EVTtime);
         let TPAtime=4.5-this.SinceTimeForm;
         let TPA=ConvertBack(TPAtime);
@@ -258,7 +233,7 @@ getCenters(){
       }
       else if(this.SinceTimeForm<4.5&&this.NeedtPA==false)
       {
-        let EVTtime=6-this.SinceTimeForm;
+        let EVTtime=24-this.SinceTimeForm;
         let EVT=ConvertBack(EVTtime);
         let TPAtime=4.5-this.SinceTimeForm;
         let TPA=ConvertBack(TPAtime);
@@ -266,7 +241,7 @@ getCenters(){
           this.colour="#008742";
           this.TreatmentInfo="EVT Window: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
       }
-      else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<6)
+      else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<24)
       {
         let EVTtime=6-this.SinceTimeForm;
         let EVT=ConvertBack(EVTtime);
@@ -274,7 +249,7 @@ getCenters(){
         this.colour="#ecb318";
         this.TreatmentInfo="<br><ul>EVT Window: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+":"+pad((60-this.SecondsSince),2)+"</ul>";//pad is a function we made to add zeros to the numbers if they are less than 10
       }
-      else if(this.SinceTimeForm>=6)
+      else if(this.SinceTimeForm>=24)
       {
         this.TimerTextColour="white";
         this.colour="#d2232a";
@@ -297,7 +272,7 @@ getCenters(){
        // this is repeated because it updates every second but only after a second has passed so the first one is for that second
        if(this.SinceTimeForm<4.5&&this.NeedtPA==true)// this sets the information for the first time so it is not blank until a second passes 
       {
-        let EVTtime=6-this.SinceTimeForm;
+        let EVTtime=24-this.SinceTimeForm;
         let EVT=ConvertBack(EVTtime);
         let TPAtime=4.5-this.SinceTimeForm;
         let TPA=ConvertBack(TPAtime);
@@ -307,7 +282,7 @@ getCenters(){
       }
       else if(this.SinceTimeForm<4.5&&this.NeedtPA==false)
       {
-        let EVTtime=6-this.SinceTimeForm;
+        let EVTtime=24-this.SinceTimeForm;
         let EVT=ConvertBack(EVTtime);
         let TPAtime=4.5-this.SinceTimeForm;
         let TPA=ConvertBack(TPAtime);
@@ -315,7 +290,7 @@ getCenters(){
           this.colour="#008742";
           this.TreatmentInfo="EVT Window: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
       }
-        else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<6)
+        else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<24)
         {
           let EVTtime=6-this.SinceTimeForm;
           let EVT=ConvertBack(EVTtime);
@@ -323,7 +298,7 @@ getCenters(){
             this.colour="#ecb318";
            this.TreatmentInfo="<br><ul>EVT Window: <b>"+pad((EVT.hour),2)+":"+pad((EVT.min),2)+":"+pad((60-this.SecondsSince),2)+"</ul>";
         }
-        else if(this.SinceTimeForm>=6)
+        else if(this.SinceTimeForm>=24)
         {
           this.TimerTextColour="white";
           this.colour="#d2232a";

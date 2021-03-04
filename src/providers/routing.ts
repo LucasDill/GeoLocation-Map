@@ -533,11 +533,11 @@ async distMat(destinations,Routes, area,weather){// this will find the travel in
     {
       param[i].colour="#008742";
     }
-    else if((RouteTime+timePassed)>=4.5&&(RouteTime+timePassed)<6)// if the total time is more than 4 and a half hours and less than 6 set the colour to yellow for evt 
+    else if((RouteTime+timePassed)>=4.5&&(RouteTime+timePassed)<24)// if the total time is more than 4 and a half hours and less than 24 set the colour to yellow for evt 
     {
       param[i].colour="#ecb318";
     }
-    else if((RouteTime+timePassed)>=6)// if the total time is greater than 6 hours set the colour to red for passing the usual recovery time 
+    else if((RouteTime+timePassed)>=24)// if the total time is greater than 24 hours set the colour to red for passing the usual recovery time 
     {
       param[i].colour="#d2232a";
     }

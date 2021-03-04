@@ -67,9 +67,6 @@ export class MyApp {
   
       this.config.set("android", "scrollAssist", true );
       this.config.set("android", "autoFocusAssist", "delay");
-
-  this.Data.getPlans();// calls to get and store the plans and centers every time the app is reloaded 
-  //this.Data.getCenters();
   }
 
   goToMap(){
