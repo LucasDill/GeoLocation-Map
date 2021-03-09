@@ -7,6 +7,7 @@ import "firebase/auth";
 import "firebase/firestore"; 
 import { WeatherService } from '../pages/patient-location/weather';
 import { T } from '@angular/core/src/render3';
+import { start } from 'repl';
 
 //The routing provider is where the bulk of our calculations are done. it handles the calculation of the times to each route and formats the information into what we need for the cards
 
@@ -128,21 +129,26 @@ FindPlan(Dest)
 async MasterRoutes(searchFor){
   var startTime=performance.now();
   var a=  this.getRoutes(searchFor).then(data =>{//Search for all driving routes to telestroke centers which at the moment are the only places to get imaging 
-   var DrivingRoutes=data;//set the imageroutes to be the data returned by the function 
    var FlightRoutes;//assign another variable for the total collection of card information 
+  // console.log("getRoutes Time:",performance.now()-startTime)//?Longest time period
   var b= this.getFlights(data).then(distances =>{//get the information on the flights from the routing provider 
 FlightRoutes=distances;//set the totalcard variable with the information from the flights 
+//console.log("getFlights Time:",performance.now()-startTime)//?Second longest time period
 var imgroutes=this.addRoutes(data,distances);//combines the flight information and the driving information into one list 
+//console.log("addRoutes Time:",performance.now()-startTime)
  var testroutes=this.CombineAll(imgroutes);
+ //console.log("CombineAll Time:",performance.now()-startTime)
  testroutes=this.addDriveHist(testroutes);
+ //console.log("addDriveHist Time:",performance.now()-startTime)
  testroutes=this.masterSort(testroutes);//Sort the combined list of flight and driving information to have the shortest amount of time first
+// console.log("masterSort Time:",performance.now()-startTime)
  testroutes=this.SetColour(testroutes);
+ //console.log("SetColour Time:",performance.now()-startTime)
 console.log("Total Loading Time: ",performance.now()-startTime)
  return testroutes;//return the final list of sorted information ready to be displayed 
  });
  return b
  });
-
  return a
 
 }
@@ -707,6 +713,7 @@ for(var o=0;o<endpoints.length;o++)
     phoneT:endpoints[o].phoneT
   }
   dest[o]=(closesites);// fill the array with this object 
+  console.log(closesites)
 }
 
 var origins=[];//set up the variables needed to use the distanceMatrix api 

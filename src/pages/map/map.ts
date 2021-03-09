@@ -151,7 +151,7 @@ if(myPolyline!=undefined)// if it was a driving route it would throw an error be
     var infoWindow = new google.maps.InfoWindow({
       content: ""
     });
-    console.log(location)
+    //console.log(location)
     if(location.OnlyCity==true)
     {
       info='<b>City:</b> '+location.city+'<br><br>';
