@@ -243,7 +243,7 @@ this.Analytics.TimeOnApp=seconds;//set the time on the app to just the seconds f
       }
       else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<24)
       {
-        let EVTtime=6-this.SinceTimeForm;
+        let EVTtime=24-this.SinceTimeForm;
         let EVT=ConvertBack(EVTtime);
         this.TimerTextColour="white";
         this.colour="#ecb318";
@@ -292,7 +292,7 @@ this.Analytics.TimeOnApp=seconds;//set the time on the app to just the seconds f
       }
         else if(this.SinceTimeForm>=4.5&&this.SinceTimeForm<24)
         {
-          let EVTtime=6-this.SinceTimeForm;
+          let EVTtime=24-this.SinceTimeForm;
           let EVT=ConvertBack(EVTtime);
           this.TimerTextColour="white";//This is now not useful because the background was changed but might as well keep it around 
             this.colour="#ecb318";

@@ -527,7 +527,6 @@ for(var g=0;g<this.Data.AllLandingSites.length;g++){
             position: { lat: this.Data.AllLandingSites[g].lat, lng: this.Data.AllLandingSites[g].lng },
             icon: icon
           });
-
           let content =
             "<b>Site Name:</b> " +
             this.Data.AllLandingSites[g].siteName +
@@ -536,8 +535,10 @@ for(var g=0;g<this.Data.AllLandingSites.length;g++){
             this.Data.AllLandingSites[g].Address +
             "<br>" +
             "<b>Identifier:</b> " +
-            this.Data.AllLandingSites[g].ident;
-
+            this.Data.AllLandingSites[g].ident+
+            "<br>" +
+            "<b>ID:</b> " +
+            this.Data.AllLandingSites[g].id;
             let infoWindow = new google.maps.InfoWindow({
               content: content
             });
@@ -582,7 +583,10 @@ for(var f=0;f<this.Data.AllLandingSites.length;f++){
             this.Data.AllLandingSites[f].Address +
             "<br>" +
             "<b>Identifier:</b> " +
-            this.Data.AllLandingSites[f].ident;
+            this.Data.AllLandingSites[f].ident+
+            "<br>" +
+            "<b>ID:</b> " +
+            this.Data.AllLandingSites[f].id;
 
             let infoWindow = new google.maps.InfoWindow({
               content: content

@@ -700,6 +700,7 @@ var hasFly=false;
 
 async getFlights(endpoints)
 {
+  console.log(endpoints)
  var loc = await this.getCloseLoc(this.Data.lat,this.Data.lng);// get the closest helipad and airport to the origin site 
  this.loc=loc;
 var dest= new Array(endpoints.length);// create an array for all of the destinations which could vary based on what you are searching for 
@@ -770,6 +771,7 @@ const resp=await handleMapResponse(response,status);
   else{// if there are no routes or special routes set to false 
     RouteToPlane=false;
   }
+
   
 var flight_time;
 await this.getFlightSpeeds().then(data => {// use the get flight speed function 
@@ -784,6 +786,7 @@ if(RouteToHeli==true)// if there is a route to helipad sites
 {
   for(var m=0;m<dest.length;m++)
 { 
+  //!Put a function here to find the time from end landing site to hospital and add it to the total time for both the heli and plane options 
 var heliDist= getDistance(loc[0].lat,loc[0].lng,dest[m].Sites[0].lat,dest[m].Sites[0].lng)+HeliDriveDistance;//get the distance in straight line form plus what we have for the driving time
 var time=(heliDist / heli_speed) * flight_o_weather * this.destination_flight_weather_array[m]+HeliDriveTime;//have the time be the distance with multipliers added and driving time added
   var heliopt={//set the format for the cards which is very similar to what we have for driving 
@@ -805,6 +808,7 @@ var time=(heliDist / heli_speed) * flight_o_weather * this.destination_flight_we
     phoneT:dest[m].phoneT
     
   }
+  console.log(heliopt)
  AirTravel.push(heliopt);// add the object to the distances array
   }
 }
