@@ -35,9 +35,11 @@ import { InAppBrowser } from "@ionic-native/in-app-browser/ngx";
 import { PdfViewerProvider } from '../providers/pdf-viewer';
 import { NextStepsPage } from '../pages/next-steps/next-steps';
 import { CityPage } from '../pages/city/city';
+//import { WaysToUsePage } from '../pages/ways-to-use/ways-to-use';
+//import { ExploreIconsPage } from '../pages/explore-icons/explore-icons';
 import { MapExplorePage } from '../pages/map-explore/map-explore';
 import { WelcomePage } from '../pages/welcome/welcome';
-import { ContactPage } from '../pages/contact/contact';
+//import { ContactPage } from '../pages/contact/contact';
 import { HtmlPipe } from '../pipes/htmlpipe/htmlpipe';
 import { PipesModule } from '../pipes/pipes.module';
 
@@ -67,11 +69,13 @@ import { DatabaseAccessProvider } from '../providers/database-access';
     CityPage,
     MapExplorePage,
     WelcomePage,
-    ContactPage,
+    //ContactPage,
     HtmlPipe,
     ExpandComponent,
     TPaNoPage,
-    RegionalStrokePage
+    RegionalStrokePage,
+    //WaysToUsePage,
+    //ExploreIconsPage
   ],
   imports: [ 
     FormsModule,  
@@ -113,9 +117,11 @@ import { DatabaseAccessProvider } from '../providers/database-access';
     CityPage,
     MapExplorePage,
     WelcomePage,
-    ContactPage,
+    //ContactPage,
     TPaNoPage,
-    RegionalStrokePage
+    RegionalStrokePage,
+    //WaysToUsePage,
+    //ExploreIconsPage
 
   ],
   providers: [// the providers used the only ones we made where the DataServiceProvider and the RoutingProvider I think the others are standardized

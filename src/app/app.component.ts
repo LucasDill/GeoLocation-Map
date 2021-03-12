@@ -11,6 +11,9 @@ import { WelcomePage } from '../pages/welcome/welcome';
 import { ContactPage } from '../pages/contact/contact';
 import { Storage } from '@ionic/storage';
 import { DatabaseAccessProvider } from '../providers/database-access';
+import { ExploreIconsPage } from '../pages/explore-icons/explore-icons';
+//import { ExploreIconsPage } from '../pages/explore-icons/explore-icons';
+//import { WaysToUsePage } from '../pages/ways-to-use/ways-to-use';
 
 
 @Component({
@@ -83,10 +86,20 @@ goToTutorial(){
 
 ExploreIcons(){
   console.log("NOTHING BUILT YET");
+  //this.navCtrl.push(ExploreIconsPage);//!This will go to a page instead but will need to be added to the app.module.ts in order to use 
+  //!Undo if you would rather have the modal
+  const ExploreIconsModal= this.modal.create('ExploreIconsPage');
+
+  ExploreIconsModal.present();
 }
 
 WaysToUse(){
   console.log("NOTHING BUILT YET");
+  //this.navCtrl.push(WaysToUsePage);//!UNDO if you would rather have it go to a page
+
+  const WaysToUseModal= this.modal.create('WaysToUsePage');
+
+  WaysToUseModal.present();
 }
 
   StartOver(){
@@ -99,7 +112,10 @@ this.Data.SendAnalytics();
   }
 
   goToContact(){// simply push to the contact page of the application
-    this.navCtrl.push(ContactPage);
+    //this.navCtrl.push(ContactPage);
+    const ContactModal= this.modal.create('ContactPage');
+
+    ContactModal.present();
   }
 
   goToBestPractice(){
