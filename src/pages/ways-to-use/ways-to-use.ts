@@ -21,7 +21,7 @@ export class WaysToUsePage {
     this.view.dismiss();
     }
   ionViewDidLoad() {
-    console.log('ionViewDidLoad WaysToUsePage');
+
   }
 
 }

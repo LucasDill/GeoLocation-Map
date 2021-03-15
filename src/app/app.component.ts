@@ -85,7 +85,7 @@ goToTutorial(){
 }
 
 ExploreIcons(){
-  console.log("NOTHING BUILT YET");
+  //console.log("NOTHING BUILT YET");
   //this.navCtrl.push(ExploreIconsPage);//!This will go to a page instead but will need to be added to the app.module.ts in order to use 
   //!Undo if you would rather have the modal
   const ExploreIconsModal= this.modal.create('ExploreIconsPage');
@@ -112,7 +112,7 @@ this.Data.SendAnalytics();
   }
 
   goToContact(){// simply push to the contact page of the application
-    //this.navCtrl.push(ContactPage);
+    //this.navCtrl.push(ContactPage);//!To get the contacts to display as a page the app.module.ts needs to be modified so the imports are included the reverse is true 
     const ContactModal= this.modal.create('ContactPage');
 
     ContactModal.present();

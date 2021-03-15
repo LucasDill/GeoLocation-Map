@@ -19,7 +19,7 @@ export class ExploreIconsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ExploreIconsPage');
+
   }
   CloseInfo(){
     this.view.dismiss();
