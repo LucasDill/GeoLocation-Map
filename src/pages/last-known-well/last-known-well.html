@@ -10,18 +10,23 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content no-bounce padding class="card" style="height: 100vh;" id="page2">
-<div style="height:6vh;"></div>
+<ion-content no-bounce padding >
+  <div class="vertical-center" style="border: blue solid 3px;">
+    <ion-grid style="border: solid black 1px;height:100%">
+    <!-- -->
+<!--<div style="height:6vh;"></div>-->
+<ion-row style="border: solid black 1px;">
   <h3 text-center id="lastKnownWell-heading5" >
     What time was<br> the patient last known to be well?
   </h3>
-
-
-  
-
-
+  <br><br><br><br>
+</ion-row>
+<!--
   <div style="height:6vh;"></div>
+  -->
+   
   <form [formGroup]="timeForm" ><!--The last known well in hour format-->
+    <ion-row align-items-start style="border: solid black 1px; height: 30%;" >
     <p text-center> Date</p>
     <br>
     <ion-item id="lastKnownWellDate" style="background-color: lightgray;text-align: center;" class="roundedEntry">
@@ -35,20 +40,25 @@
     </ion-item>
     <!--I still need to look into how to properly space this out for a full screen app might need to have it with pixels from the height in the Data Provider -->
     <!--Break between inputs and the button to make it consistent-->
-    
-   <br>
-    <ion-row center>
+  
+
+    <ion-row center style="border: solid black 1px;">
       <ion-col text-center>
       <button ion-button center round (click)="TimeModal($event)" small style="text-align: center;font-size: larger;">
         <img class="image" height="25vh" width="25vh" src= "./assets/imgs/MagnifyTW.png">
            Tips</button>
     </ion-col>  
-    </ion-row>
-
+  </ion-row>
+  </ion-row>
+<!--
     <div class="spacer" style="height:7vh;" id="lastKnownWell-spacer7"></div>
-    
+    -->
+    <ion-row align-items-end style="border: solid black 1px;">
     <button (click)="SubmitTime()" id="lastKnownWell-button3" ion-button [disabled]="!timeForm.valid" type="submit" block round large><!--The button will not be accessible until a value is entered for the time-->
       Next
     </button>
+  </ion-row>
   </form>
+</ion-grid>
+</div>
 </ion-content>

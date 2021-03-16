@@ -139,6 +139,7 @@ TimerTextColour:any;
       console.log('Height: ' + platform.height());
       this.height=platform.height();
       this.width=platform.width();
+
     });
     this.db=firebase.firestore();
   }
