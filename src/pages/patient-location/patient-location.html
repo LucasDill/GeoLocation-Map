@@ -30,7 +30,7 @@
 <br>
 <!--this is the search box for the cities every time there is a new key entered it will search by calling the functions in the ts -->
   <ion-input type="text" [(ngModel)]="searchterm" (keyup)="search($event)" autocapitalize="off" class="input" style="font-size: medium;" placeholder="Search By City or Centre" id="txtHome" required style = "background-color: lightgray;" class="roundedEntry"></ion-input>
-  <ion-scroll scrollY="true" style="height: 55vh;border: black solid 1px;">
+  <ion-scroll scrollY="true" style="height: 55vh;">
   <div *ngFor="let health_centres of Medical_Centers"><!--*ngFor is a special function of ionic that allows it to go through and display every part of a list in this case all the parts returned by the search function -->
 <!--Tried the height to fix it probably does nothing and no screen size is that small-->
   <!--<ion-card *ngIf="health_centres.name; else elseText" text-wrap style="font-size: auto; text-align: center;" color="steelblue1" block (click)="getLatLng(health_centres)">

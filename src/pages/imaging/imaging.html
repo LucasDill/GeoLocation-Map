@@ -13,9 +13,9 @@
 </ion-header>
 
 
-<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-<ion-content no-bounce  id="Imaging" >
 
+<ion-content no-bounce  id="Imaging"  >
+<div style="display: flex;flex-direction: column;height: 100%;">
   <h4 id="treatment-heading6" text-center style="color:#006bb6;font-size: x-large;"><!--the header for the page with style specified  -->
  
    Routes to Imaging<br>Capable Hospitals
@@ -30,7 +30,7 @@
   <p style="font-size: large;">{{display}}</p>
   
 </div>
-    <ion-scroll scrollY="true" style="height: 68.9vh; color: white;" ><!--this is the actual card section which is allowed to scroll but I will need to revisit the height to have it work on more devices  -->
+    <ion-scroll scrollY="true" style="height: 68.9vh; color: white;border: solid blue 4px;" ><!--this is the actual card section which is allowed to scroll but I will need to revisit the height to have it work on more devices  -->
 <ion-list justify-content-center align-items-center><!--the list of elements all put into the center -->
   <ion-item *ngFor="let card of cards" ><!--ngFor is another ionic element that allows you to iterate through a list each one being called card in this case -->
     <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)"  text-wrap [style.background-color]="card.colour"><!--These are if the card is a driving type and wil call the normal routing function -->
@@ -202,7 +202,7 @@
 </ion-scroll>
 </div>
 
-
+<ion-footer>
          <!--This is the weather display which has the data stored in the data provider and makes use of the ionic {{}} access to date types along with a data pipeline to better format the numbers -->
          <ion-grid style="background-color: #006bb6;">
           <ion-row>
@@ -217,8 +217,7 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-   
+    </ion-footer>
 
-
-
+      </div>
 </ion-content>

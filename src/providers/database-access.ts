@@ -27,7 +27,6 @@ LastUsedStored:any;
     this.db=firebase.firestore();
      this.platform.ready();
      this.storage.ready();
-    const last= this.storage.get('LastUsed');
   }
 //this function will be used to get the last time used values from the database to see if any of the locally stored data wil need to be updated 
 
@@ -45,7 +44,7 @@ setAllData(){
   }
 
 filterLastUsedStored(id){
-  return this.LastUsedStored.find(x=>x.id===id);
+  return this.LastUsedStored.find(x=>x.id===id);//!cannot read property find of null error when run on responsive view or some other views 
 }
 
 getLastUsed(){
@@ -61,7 +60,7 @@ getLastUsed(){
         var obj = doc.data();
         obj.id=doc.id;
         total.push(obj);
-      let inMem=upper.filterLastUsedStored(doc.id);
+      let inMem=upper.filterLastUsedStored(doc.id);//!cannot read property find of null error when run on responsive view or some other views 
       switch(doc.id){
         case "Amb_Base":
           if(inMem.time!=obj.time)

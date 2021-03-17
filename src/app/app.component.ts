@@ -38,6 +38,17 @@ export class MyApp {
       //!UNDO THIS BEFORE LAUNCHING THE APP SO IT WILL SHOW UP ON FIRST TIME STARTUP
       storage.get('first_time').then((val)=>{
         if(val!==null){
+         /* storage.get("LastUsed").then((last)=>{//When I was switching the emulated device it was not working for some reason so this should resolve it
+            //?Maybe remove this when ready for production 
+            if(last!==null)
+            {
+            this.DataBase.getLastMem();
+            }
+            else{
+            console.log("Weird Storage Chrome Thing")
+            this.DataBase.setAllData();
+            }
+          })*/
           this.DataBase.getLastMem();
         }else{
           console.log("First time use");
