@@ -13,25 +13,24 @@
   <components-timer></components-timer><!--the timer is a component or a developer defined entry it does not take any arguments and because declaring it on every page made it reset each time the data is controlled by the data provider and just accessed by the component-->
 
 </ion-header>
-<ion-content no-bounce padding  style="height: 100vh;"id="page1"><!--vh is currently used to show the total viewable height but may need to be changed as it does not always work -->
-  <br>
+<ion-content no-bounce padding scroll="false" style="height: 100vh;"id="page1"><!--vh is currently used to show the total viewable height but may need to be changed as it does not always work -->
   <h3 text-center id="lastKnownWell-heading5" >
     Where is the<br>patient located?
   </h3>
   <!-- This is used to see the screen size of different phones without the debugging part 
   <p>Device Height: {{this.Data.height}}<br>Device Width: {{this.Data.width}}</p>
   -->
-  <div style="height:5vh;"></div>
+ <br>
   <!--This button is currently disabled it would require a search of all the health centers to see which one is the closest but in order to cut down on the amount of queries we are making I would like to figure out how to store it all locally and synchronize before moving on with this part-->
   <!--<button type ="button"  id="patientLocation-button1"  ion-button fill="outline"  block on-click="setCurrentPosition()" large round> 
     CHOOSE YOUR LOCATION
   </button>
   <div style="height:3vh;"></div>
 <p style="text-align: center;font-size: large">OR</p>-->
-<div style="height:3vh;"></div>
+<br>
 <!--this is the search box for the cities every time there is a new key entered it will search by calling the functions in the ts -->
-  <ion-input type="text" [(ngModel)]="searchterm" (keyup)="search($event)" autocapitalize="off" class="input" style="font-size: large;" placeholder="Search By City or Centre" id="txtHome" required style = "background-color: lightgray;" class="roundedEntry"></ion-input>
-  <ion-scroll scrollY="true" style="height: 52vh;">
+  <ion-input type="text" [(ngModel)]="searchterm" (keyup)="search($event)" autocapitalize="off" class="input" style="font-size: medium;" placeholder="Search By City or Centre" id="txtHome" required style = "background-color: lightgray;" class="roundedEntry"></ion-input>
+  <ion-scroll scrollY="true" style="height: 55vh;border: black solid 1px;">
   <div *ngFor="let health_centres of Medical_Centers"><!--*ngFor is a special function of ionic that allows it to go through and display every part of a list in this case all the parts returned by the search function -->
 <!--Tried the height to fix it probably does nothing and no screen size is that small-->
   <!--<ion-card *ngIf="health_centres.name; else elseText" text-wrap style="font-size: auto; text-align: center;" color="steelblue1" block (click)="getLatLng(health_centres)">
@@ -39,7 +38,7 @@
     {{health_centres.name}}:  {{health_centres.city}}
   </p>
   </ion-card>-->
-   <button type ="button" padding *ngIf="health_centres.name; else elseText" height="auto" id="patientLocation-button1" text-wrap style="font-size: auto; text-align: center;padding-top: 4vh;padding-bottom: 4vh;" ion-button  fill="outline"  block on-click="GoNext(health_centres)" round large>
+   <button type ="button" padding *ngIf="health_centres.name; else elseText" height="auto" id="patientLocation-button1" text-wrap style="font-size: auto; text-align: center;padding-top: 5vh;padding-bottom: 5vh;" ion-button  fill="outline"  block on-click="GoNext(health_centres)" round large>
       <p style="color: white;">
         {{health_centres.name}}:  {{health_centres.city}}<!--This is another special part of ionic where it allows you to display information from the ts file -->
       </p>
