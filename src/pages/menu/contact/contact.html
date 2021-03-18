@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header #header>
   <ion-navbar >
     <ion-title>Contact</ion-title>
     <ion-buttons end>
@@ -7,29 +7,31 @@
 </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content  >
+  <div #text>
  <h4 text-center style="color:#006bb6;font-size: x-large;">Contact Us</h4>
  <h4 text-center style="color:#006bb6;font-size: large;">Northwestern Ontario<br>Regional Stroke Network</h4>
- <div class="imgbox" justify-content-center>
+</div>
+ <div class="imgbox"  justify-content-center>
   <!--<img class="center-fit" src= "./assets/contact/ContactIcons.jpg"> OLD ONE OF THE NEW ONE DOES NOT LOOK GOOD)-->
   <figure style="text-align:center">
-    <img class="center-fit" src= "./assets/contact/Internet.jpg"> 
+    <img class="center-fit"  src= "./assets/contact/Internet.jpg"> 
     <!--<figcaption><p style="text-align:center; color: blue;" (click)="goToSite()"><u>www.nwonavigate.ca</u></p></figcaption> USE FOR IN APP BROWSER -->
     <figcaption><a href="https://tbrhsc.net/nwostroke/" ><u>www.nwostroke.ca</u></a></figcaption>
   </figure>
   <br>
   <figure style="text-align:center">
-    <img class="center-fit" src= "./assets/contact/Mail.jpg"> 
+    <img class="center-fit"  src= "./assets/contact/Mail.jpg"> 
     <figcaption><a href="mailto:nwostroke@tbh.net" ><u>nwostroke@tbh.net</u></a></figcaption>
   </figure>
   <br>
   <figure style="text-align:center">
-    <img class="center-fit" src= "./assets/contact/Phone.jpg"> 
+    <img class="center-fit"   src= "./assets/contact/Phone.jpg"> 
     <figcaption><a href="tel:+18076846703" ><u>807-684-6703</u></a></figcaption>
   </figure>
   <br>
   <figure style="text-align:center">
-    <img class="center-fit" src= "./assets/contact/Location.jpg"> 
+    <img class="center-fit"  src= "./assets/contact/Location.jpg"> 
     <figcaption><p style="text-align:center;">Medical Center, 201<br>984 Oliver Road<br>Thunder Bay<br>ON P7B 7C7</p></figcaption>
   </figure>
 

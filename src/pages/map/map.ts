@@ -182,12 +182,9 @@ if(myPolyline!=undefined)// if it was a driving route it would throw an error be
     
   }
 
-  getHeaderHeight(){
-    return this.header.nativeElement.offsetHeight;
-    }
 
   ionViewWillEnter(){//when the page is loaded it will look to see how large the header is. Once it does the remaining height of the page is allocated to the map
-  var HeaderHeight=this.getHeaderHeight();//find the size of the header
+  var HeaderHeight=this.Data.getHeight(this.header);//find the size of the header
   var mapHeight=(this.Data.height-HeaderHeight).toString()+"px";//calculate the remaining space for the map
     this.height=mapHeight;//set the height of the map
     }

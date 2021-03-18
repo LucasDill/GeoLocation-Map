@@ -229,12 +229,10 @@ ionViewWillLeave(){
   this.menu.swipeEnable(true);
 }
 
-getHeaderHeight(){
-return this.header.nativeElement.offsetHeight;
-}
+
 
 ionViewWillEnter(){//size the page when it is loaded 
-  var he=this.getHeaderHeight();//get the size of the header in pixels 
+  var he=this.Data.getHeight(this.header);//get the size of the header in pixels 
 var mapheight=(this.Data.height-he).toString()+"px";//calculate the remaining space left on the page 
 this.height=mapheight;//set the height of the map 
 }

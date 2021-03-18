@@ -144,6 +144,11 @@ TimerTextColour:any;
     this.db=firebase.firestore();
   }
 
+  getHeight(ref)
+  {
+    return ref.nativeElement.offsetHeight;
+  }
+
 SendAnalytics()
 {
   //var reference=firebase.database().ref("Analytics");

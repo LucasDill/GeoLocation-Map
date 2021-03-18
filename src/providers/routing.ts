@@ -599,8 +599,6 @@ CombineAll(cards)
       }
       if(comb[m].TimeWithMult>cards[i].TimeWithMult)
       {
-
-       console.log(bdrive)
        comb[m].Driving=bdrive;
         comb[m].TimeWithMult=cards[i].TimeWithMult;
         comb[m].TravelMode=meth;
