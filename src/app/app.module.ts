@@ -36,7 +36,7 @@ import { NextStepsPage } from '../pages/next-steps/next-steps';
 import { CityPage } from '../pages/city/city';
 //import { WaysToUsePage } from '../pages/ways-to-use/ways-to-use';
 //import { ExploreIconsPage } from '../pages/explore-icons/explore-icons';
-import { MapExplorePage } from '../pages/map-explore/map-explore';
+import { MapExplorePage } from '../pages/menu/map-explore/map-explore';
 import { WelcomePage } from '../pages/welcome/welcome';
 //import { ContactPage } from '../pages/contact/contact';
 //import { FaqPage } from '../pages/faq/faq';

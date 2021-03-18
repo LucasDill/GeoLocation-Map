@@ -5,9 +5,9 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import {Geolocation} from '@ionic-native/geolocation/ngx';
-import { DataServiceProvider } from '../../providers/data-service';
+import { DataServiceProvider } from '../../../providers/data-service';
 import { AnyMxRecord } from 'dns';
-import { MappingProvider } from '../../providers/mapping';
+import { MappingProvider } from '../../../providers/mapping';
 declare var google: any;//this was giving us some trouble because it kept saying that google is not defined 
 
 

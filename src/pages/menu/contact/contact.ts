@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { DataServiceProvider } from '../../providers/data-service';
+import { DataServiceProvider } from '../../../providers/data-service';
 
 /**
  * Generated class for the ContactPage page.

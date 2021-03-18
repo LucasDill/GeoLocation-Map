@@ -4,7 +4,7 @@ import { AnyTxtRecord } from 'dns';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/data-service';
 import { EvtOptionsPage } from '../evt-options/evt-options';
-import { MapExplorePage } from '../map-explore/map-explore';
+import { MapExplorePage } from '../menu/map-explore/map-explore';
 import { TreatmentPage } from '../treatment/treatment';
 
 /**
