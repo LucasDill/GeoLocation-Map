@@ -43,6 +43,7 @@ export class MapPage {
   public hospital: AngularFireList<any>;
   // makes Google Maps API visible
     @ViewChild('Map') mapElement: ElementRef;
+    @ViewChild('header') header: ElementRef;
     map: any;
     mapOptions: any;
     location = {lat: null, lng: null};//at the start the location is set to null 
@@ -181,15 +182,14 @@ if(myPolyline!=undefined)// if it was a driving route it would throw an error be
     
   }
 
-  ionViewWillEnter(){
-  
-    if (this.Data.GivenTime==true)
-    {
-      this.height="76vh";
+  getHeaderHeight(){
+    return this.header.nativeElement.offsetHeight;
     }
-    else{
-      this.height="84vh";
-    }
+
+  ionViewWillEnter(){//when the page is loaded it will look to see how large the header is. Once it does the remaining height of the page is allocated to the map
+  var HeaderHeight=this.getHeaderHeight();//find the size of the header
+  var mapHeight=(this.Data.height-HeaderHeight).toString()+"px";//calculate the remaining space for the map
+    this.height=mapHeight;//set the height of the map
     }
 
 ionViewDidLoad(){

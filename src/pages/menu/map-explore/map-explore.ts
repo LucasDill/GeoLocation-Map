@@ -36,11 +36,14 @@ function DeleteMarker()
   templateUrl: 'map-explore.html'
 })
 
+
+
 export class MapExplorePage {
   // define variable to hold information from Firebase database
   public hospital: AngularFireList<any>;
   // makes Google Maps API visible
     @ViewChild('Map') mapElement: ElementRef;
+    @ViewChild('header') header: ElementRef;
     map: any;
     mapOptions: any;
     height:any;
@@ -226,15 +229,14 @@ ionViewWillLeave(){
   this.menu.swipeEnable(true);
 }
 
-ionViewWillEnter(){
-  
-if (this.Data.GivenTime==true)
-{
-  this.height="76vh";
+getHeaderHeight(){
+return this.header.nativeElement.offsetHeight;
 }
-else{
-  this.height="84vh";
-}
+
+ionViewWillEnter(){//size the page when it is loaded 
+  var he=this.getHeaderHeight();//get the size of the header in pixels 
+var mapheight=(this.Data.height-he).toString()+"px";//calculate the remaining space left on the page 
+this.height=mapheight;//set the height of the map 
 }
 
 AddMapMarkers(e) {

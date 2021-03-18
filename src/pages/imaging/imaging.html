@@ -30,7 +30,7 @@
   <p style="font-size: large;">{{display}}</p>
   
 </div>
-    <ion-scroll scrollY="true" style="height: 68.9vh; color: white;border: solid blue 4px;" ><!--this is the actual card section which is allowed to scroll but I will need to revisit the height to have it work on more devices  -->
+    <ion-scroll scrollY="true" style="height: 68.9vh; color: white;" ><!--this is the actual card section which is allowed to scroll but I will need to revisit the height to have it work on more devices  -->
 <ion-list justify-content-center align-items-center><!--the list of elements all put into the center -->
   <ion-item *ngFor="let card of cards" ><!--ngFor is another ionic element that allows you to iterate through a list each one being called card in this case -->
     <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card)"  text-wrap [style.background-color]="card.colour"><!--These are if the card is a driving type and wil call the normal routing function -->

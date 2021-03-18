@@ -1,5 +1,5 @@
 
-  <ion-header><!-- sets the header for the page with -->
+  <ion-header #header><!-- sets the header for the page with -->
     
       <ion-navbar text-center>
         <ion-title>
@@ -12,9 +12,9 @@
         </ion-buttons>
       </ion-navbar>
       <components-timer></components-timer>
-  </ion-header>
+
  
-  <ion-content>
+
     
   <!-- A section of the page with the id map set to take up 50% of the height automatically taking all of the width and calling the onMapClick function passing the $event which is the lat and lng of where was clicked -->
     
@@ -59,7 +59,9 @@
   
     </div>
 
-    <ion-searchbar #searchBar (ionInput)="SearchInput()" [(ngModel)]="SearchResults"></ion-searchbar>
+    <ion-searchbar #searchBar mode="ios" (ionInput)="SearchInput()" [(ngModel)]="SearchResults"></ion-searchbar>
+  </ion-header>
+  <ion-content>
   <div #Map class="map" [hidden]="HideMap" [style.height]=height></div>
   <ion-scroll [hidden]="!HideMap" scrollY="true" [style.height]=height class="scroller">
     <ion-list *ngIf="!NoResults">

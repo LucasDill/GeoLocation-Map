@@ -34,12 +34,12 @@ import { InAppBrowser } from "@ionic-native/in-app-browser/ngx";
 import { PdfViewerProvider } from '../providers/pdf-viewer';
 import { NextStepsPage } from '../pages/next-steps/next-steps';
 import { CityPage } from '../pages/city/city';
-//import { WaysToUsePage } from '../pages/ways-to-use/ways-to-use';
-//import { ExploreIconsPage } from '../pages/explore-icons/explore-icons';
+//import { WaysToUsePage } from '../pages/menu/ways-to-use/ways-to-use';
+//import { ExploreIconsPage } from '../pages/menu/explore-icons/explore-icons';
 import { MapExplorePage } from '../pages/menu/map-explore/map-explore';
 import { WelcomePage } from '../pages/welcome/welcome';
-//import { ContactPage } from '../pages/contact/contact';
-//import { FaqPage } from '../pages/faq/faq';
+//import { ContactPage } from '../pages/menu/contact/contact';
+//import { FaqPage } from '../pages/menu/faq/faq';
 import { HtmlPipe } from '../pipes/htmlpipe/htmlpipe';
 import { PipesModule } from '../pipes/pipes.module';
 
