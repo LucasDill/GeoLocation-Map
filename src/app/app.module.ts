@@ -17,7 +17,6 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AgmCoreModule } from '@agm/core';
-import { HelpPage } from '../pages/help/help';
 import { ImagingPage } from '../pages/imaging/imaging';
 import { TPaQuestionPage } from '../pages/t-pa-question/t-pa-question';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -40,6 +39,7 @@ import { CityPage } from '../pages/city/city';
 import { MapExplorePage } from '../pages/map-explore/map-explore';
 import { WelcomePage } from '../pages/welcome/welcome';
 //import { ContactPage } from '../pages/contact/contact';
+//import { FaqPage } from '../pages/faq/faq';
 import { HtmlPipe } from '../pipes/htmlpipe/htmlpipe';
 import { PipesModule } from '../pipes/pipes.module';
 
@@ -61,7 +61,6 @@ import { DatabaseAccessProvider } from '../providers/database-access';
     MapPage,
     ComponentsTimerComponent,
     SpinnerComponent,
-    HelpPage,
     ImagingPage,
     TPaQuestionPage,
     EvtOptionsPage,
@@ -109,7 +108,6 @@ import { DatabaseAccessProvider } from '../providers/database-access';
     ImagingRequiredPage,
     TreatmentPage,
     MapPage,
-    HelpPage,
     ImagingPage,
     TPaQuestionPage,
     EvtOptionsPage,

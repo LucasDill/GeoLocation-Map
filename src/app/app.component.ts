@@ -12,6 +12,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { Storage } from '@ionic/storage';
 import { DatabaseAccessProvider } from '../providers/database-access';
 import { ExploreIconsPage } from '../pages/explore-icons/explore-icons';
+import { l } from '@angular/core/src/render3';
 //import { ExploreIconsPage } from '../pages/explore-icons/explore-icons';
 //import { WaysToUsePage } from '../pages/ways-to-use/ways-to-use';
 
@@ -93,6 +94,12 @@ goToTutorial(){
   const TutorialModal= this.modal.create('TutorialModalPage');
 
   TutorialModal.present();
+}
+
+FAQ(){
+  const FAQModal=this.modal.create('FaqPage');
+
+  FAQModal.present();
 }
 
 ExploreIcons(){
