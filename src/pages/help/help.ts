@@ -10,4 +10,8 @@ export class HelpPage {
   constructor(public navCtrl: NavController) {
   }
   
+ionViewWillLoad(){
+  console.log("HELP PAGE")
+}
+
 }

@@ -62,6 +62,19 @@ h1{
 h2{
   color: #006bb6;
 }
+
+.title.title-md {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  height: 100%;
+  width: 70%;
+  text-align: center;
+}
+
+
+
 #custom-overlay {
     position: fixed;
     top: 0;
