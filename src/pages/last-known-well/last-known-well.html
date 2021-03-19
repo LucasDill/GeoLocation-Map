@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header #Header>
   <ion-navbar hideBackButton style="color: #006bb6;" text-center >
     <ion-title>
       Last Known Well
@@ -10,9 +10,9 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content no-bounce padding >
-  <div class="vertical-center" >
-    <ion-grid style="height:85vh !important;display: flex;flex-flow: column;">
+<ion-content no-bounce   >
+  <div class="vertical-center" [style.height]=GridHeight  >
+    <ion-grid  style="display: flex;flex-flow: column;">
     <!-- -->
 <!--<div style="height:6vh;"></div>-->
 <ion-row class="row">

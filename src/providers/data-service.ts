@@ -149,6 +149,10 @@ TimerTextColour:any;
     return ref.nativeElement.offsetHeight;
   }
 
+RemainingHeight(used){
+  return (this.height-used).toString()+"px";
+}
+
 SendAnalytics()
 {
   //var reference=firebase.database().ref("Analytics");

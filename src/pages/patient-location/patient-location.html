@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header #Header > 
   <ion-navbar text-center>
     <ion-title style="font-size: x-large;"><!--keep the font size extra large I think this allows it to change with different devices instead of specifying a font size or pixel size -->
       Patient Location
@@ -13,20 +13,11 @@
   <components-timer></components-timer><!--the timer is a component or a developer defined entry it does not take any arguments and because declaring it on every page made it reset each time the data is controlled by the data provider and just accessed by the component-->
 
 </ion-header>
-<ion-content no-bounce padding scroll="false" style="height: 100vh;"id="page1"><!--vh is currently used to show the total viewable height but may need to be changed as it does not always work -->
+<ion-content no-bounce padding scroll="false" id="page1"><!--vh is currently used to show the total viewable height but may need to be changed as it does not always work -->
   <h3 text-center id="lastKnownWell-heading5" >
     Where is the<br>patient located?
   </h3>
-  <!-- This is used to see the screen size of different phones without the debugging part 
-  <p>Device Height: {{this.Data.height}}<br>Device Width: {{this.Data.width}}</p>
-  -->
  <br>
-  <!--This button is currently disabled it would require a search of all the health centers to see which one is the closest but in order to cut down on the amount of queries we are making I would like to figure out how to store it all locally and synchronize before moving on with this part-->
-  <!--<button type ="button"  id="patientLocation-button1"  ion-button fill="outline"  block on-click="setCurrentPosition()" large round> 
-    CHOOSE YOUR LOCATION
-  </button>
-  <div style="height:3vh;"></div>
-<p style="text-align: center;font-size: large">OR</p>-->
 <br>
 <!--this is the search box for the cities every time there is a new key entered it will search by calling the functions in the ts -->
   <ion-input type="text" [(ngModel)]="searchterm" (keyup)="search($event)" autocapitalize="off" class="input" style="font-size: medium;" placeholder="Search By City or Centre" id="txtHome" required style = "background-color: lightgray;" class="roundedEntry"></ion-input>
@@ -38,13 +29,13 @@
     {{health_centres.name}}:  {{health_centres.city}}
   </p>
   </ion-card>-->
-   <button type ="button" padding *ngIf="health_centres.name; else elseText" height="auto" id="patientLocation-button1" text-wrap style="font-size: auto; text-align: center;padding-top: 5vh;padding-bottom: 5vh;" ion-button  fill="outline"  block on-click="GoNext(health_centres)" round large>
+   <button type ="button" mode="ios" padding *ngIf="health_centres.name; else elseText" height="auto" id="patientLocation-button1" text-wrap style="font-size: auto; text-align: center;padding-top: 5vh;padding-bottom: 5vh;" ion-button expand="block" fill="outline"  block on-click="GoNext(health_centres)" round large>
       <p style="color: white;">
         {{health_centres.name}}:  {{health_centres.city}}<!--This is another special part of ionic where it allows you to display information from the ts file -->
       </p>
     </button>
     <ng-template #elseText>
-    <button type ="button" padding  id="patientLocation-button1" text-wrap style="font-size: auto; text-align: center;padding-top: 4vh;padding-bottom: 4vh;" ion-button  fill="outline"  block on-click="GoNext(health_centres)" large round>
+    <button type ="button" mode="ios" padding  id="patientLocation-button1" text-wrap style="font-size: auto; text-align: center;padding-top: 4vh;padding-bottom: 4vh;" ion-button  fill="outline"  block on-click="GoNext(health_centres)" large round>
       <p style="color: white;">
         {{health_centres.city}}<!--This is another special part of ionic where it allows you to display information from the ts file -->
       </p>
