@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header #header>
   <ion-navbar  text-center>
     <ion-title>
       Treatment Options
@@ -15,10 +15,11 @@
 
 <ion-content no-bounce id="Treatment-Page">
  
-
+<div #title>
   <h4 id="treatment-heading6" text-center style="color:#006bb6;font-size: x-large;">
     Routes To tPA<br>Capable Hospitals
   </h4>
+</div>
   <div *ngIf="tpaSpinner" style="height: 19vh;" >
   <spinner  ></spinner> <!--The spinner component which will show until results are returned  -->
 </div>
@@ -32,7 +33,7 @@
     </div>
 
 
-    <ion-scroll scrollY="true" style="height: 29vh;"> <!--This is the section for the tpa results  -->
+    <ion-scroll scrollY="true" [style.height]=resultHeight> <!--This is the section for the tpa results  -->
   <ion-list justify-content-center align-items-center>
     <ion-item *ngFor="let card of cards"> <!--iterative through all cards  -->
       <ion-card *ngIf="card.Driving" tappable (click)="goToRoute(card, false)"  text-wrap [style.background-color]="card.colour"><!--These are if the card is a driving type and wil call the normal routing function -->
@@ -188,7 +189,7 @@
   </div>
   <div class="card-scroll" *ngIf="evtshow"> <!--The div which hold the cards and will be shown if it is set to true  -->
     <p style="color: black;" text-center>Click on the route option for next steps</p>
-  <ion-scroll scrollY="true" style="height: 29vh;">
+  <ion-scroll scrollY="true" [style.height]=resultHeight>
     <div *ngIf="evtEmpty"><br><br><br><p style="font-size: large;">{{message}}</p></div> <!--if this section is empty it will display the message -->
     <ion-list justify-content-center align-items-center>
       <ion-item *ngFor="let card of EvtCards"> <!--goes through all of the evt routes as cards  -->
@@ -337,7 +338,7 @@
     </div>
 
 
-    
+    <ion-footer #footer>
     <!--the weather information of the origin location  -->
     <ion-grid style="background-color: #006bb6;">
       <ion-row>
@@ -352,6 +353,6 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-
+  </ion-footer>
      <!--end of the page -->
 </ion-content>

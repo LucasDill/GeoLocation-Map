@@ -4,6 +4,7 @@ import { MapPage } from '../map/map';
 import { DataServiceProvider } from '../../providers/data-service';
 import { RoutingProvider } from '../../providers/routing';
 import { NextStepsPage } from '../next-steps/next-steps';
+import { viewClassName } from '@angular/compiler';
 /*   
 This page shows two results one with tpa and one with evt and as such has doubles for a lot of things 
 
@@ -14,6 +15,9 @@ This page shows two results one with tpa and one with evt and as such has double
   templateUrl: 'treatment.html'
 })
 export class TreatmentPage {
+  @ViewChild('header') header: ElementRef;
+  @ViewChild('title') title: ElementRef;
+  @ViewChild('footer') footer: ElementRef;
 cards: any;//set the variable for the cards for the tPA routes which at the moment is the same as imaging 
 EvtCards: any;//set the variable for the evt routes which at the moment is just to TBRHSC
 tpaSpinner: Boolean=true;//the spinner for the tpa section 
@@ -24,6 +28,7 @@ evtEmpty:Boolean=false;// if there are no results for evt
 message:any;//the message to be displayed 
 results: Boolean=false;// if there are no results 
 display: String="There are no routes available from your location please call local health services for more information";// the message to be displayed if there is some sort of error
+resultHeight:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public Data: DataServiceProvider,
     public Routes: RoutingProvider) {//give access to the data and routing providers 
@@ -57,6 +62,20 @@ this.results=true;
 }
 
 
+ionViewWillEnter(){
+  var HeadHeight=this.Data.getElementHeight(this.header);
+  var FootHeight=this.Data.getElementHeight(this.footer);
+  var titleheight=this.Data.getElementHeight(this.title);
+
+  var ScrollHeight=this.Data.height-(HeadHeight+FootHeight+(titleheight*3));
+  ScrollHeight=(Math.floor(ScrollHeight/2))
+  this.resultHeight=ScrollHeight.toString()+"px";
+  console.log(this.resultHeight)
+
+
+
+
+}
 
 async tPASetup()// get the results for the places that are bTelestroke which at the moment is the same for imaging
 {
