@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import {  NavController, NavParams } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/data-service';
 import { RoutingProvider } from '../../providers/routing';
@@ -18,17 +19,28 @@ import { NextStepsPage } from '../next-steps/next-steps';
   templateUrl: 'evt-options.html',
 })
 export class EvtOptionsPage {
+  @ViewChild('header') header: ElementRef;
+  @ViewChild('title') title: ElementRef;
+  @ViewChild('footer') footer: ElementRef;
+
   cards: any;
   evtSpinner: Boolean=true;//sets the spinner option to true and the others to false so at the start the spinner shows and not the rest 
   evtshow: Boolean=false;
   evtEmpty:Boolean=false;
   message:any;
+  scrollHeight:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public Data: DataServiceProvider,
     public Routes: RoutingProvider) {
    //   console.log(this.Routes.ImgRoutes);
   }
-  async ionViewWillLoad(){//this is one of the ionic lifecycle elements that happen when the page is about to load 
+  async ionViewWillEnter(){//this is one of the ionic lifecycle elements that happen when the page is about to load 
+
+    var HeaderHeight=this.Data.getElementHeight(this.header);
+    var titleHeight=this.Data.getElementHeight(this.title);
+    var footHeight=this.Data.getElementHeight(this.footer);
+    this.scrollHeight=this.Data.RemainingHeight(HeaderHeight+titleHeight+footHeight)
+
     var evt=await this.EVTsetup();//for the EVT capable hospitals 
     //console.log(evt);
     if(evt.length==0)//if there are no EVT routes returned 

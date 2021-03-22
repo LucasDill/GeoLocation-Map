@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header #header>
   <ion-navbar text-center align-title="center">
     <ion-title>
       EVT Routes
@@ -14,16 +14,17 @@
 
 <ion-content no-bounce id="evt-options">
 
-
+<div #title>
   <h4 id="treatment-heading6" text-center style="color:#006bb6;font-size: x-large;">
     Routes To EVT<br>Capable Hospitals
   </h4>
+</div>
   <div *ngIf="evtSpinner" style="height: 58.9vh;" >
   <spinner ></spinner><!--This is the spinner component that runs until results are available-->
 </div>
   <div class="card-scroll" *ngIf="evtshow" ><!--This creates the scroll div with all of the cards and is visible after evtshow is set to true-->
     <p style="color: black;" text-center>Click on the route option for next steps</p>
-  <ion-scroll scrollY="true" style="height: 68.9vh;"><!--This is the actual component for the scroll with the vh probably needing to change and horizontal scroll not enabled -->
+  <ion-scroll scrollY="true"  [style.height]=scrollHeight><!--This is the actual component for the scroll with the vh probably needing to change and horizontal scroll not enabled -->
     <div *ngIf="evtEmpty"><br><br><br><p style="font-size: large;">{{message}}</p></div><!--If there are no results returned display the error message  -->
     <ion-list justify-content-center align-items-center>
       <ion-item *ngFor="let card of cards"><!--The ngFor will iterate through all elements in cards and give each one the name card -->
@@ -171,7 +172,7 @@
     </ion-list>
     </ion-scroll><!--Close all of the divs exactly the same way it is done in HTML-->
     </div>
-    <ion-footer>
+    <ion-footer #footer>
     <ion-grid style="background-color: #006bb6;">
       <ion-row>
         <ion-col col-auto>

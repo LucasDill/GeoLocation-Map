@@ -22,14 +22,12 @@
    Routes to Imaging<br>Capable Hospitals
   </h4>
 </div>
-  <div id="spin" *ngIf="Spinner" style="height: 58.9vh;">
+  <div  *ngIf="Spinner" style="height: 58.9vh;">
   <spinner ></spinner>
 </div><!--ngIF is a special ionic element that works like an if and only shows if true in this case if spinner is true it will show it -->
 
   <div class="card-scroll" id="card" *ngIf="show"><!--this is where the cards will be once show is set to true  -->
-    <div id="addedText">
     <p text-center style="color: black;">Click on the route option for next steps</p>
-  </div>
 <div *ngIf="results"><!--if there are no results this will show the error message  -->
   <br><br>
   <p style="font-size: large;">{{display}}</p>
