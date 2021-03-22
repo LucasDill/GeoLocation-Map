@@ -5,7 +5,6 @@ import * as moment from 'moment';
 import { DataServiceProvider } from '../../providers/data-service';
 import { PatientLocationPage } from '../patient-location/patient-location';
 import { AngularFireDatabase } from '@angular/fire/database';
-
 import "firebase/auth";
 import "firebase/firestore"; 
 import firebase from 'firebase';

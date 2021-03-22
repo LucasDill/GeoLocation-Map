@@ -12,7 +12,7 @@ import "firebase/firestore";
 import { ImagingPage } from '../imaging/imaging';
 import { ImagingRequiredPage } from '../imaging-required/imaging-required';
 
-
+import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { WeatherService } from './weather';
 import { RoutingProvider } from '../../providers/routing';
 import { CityPage } from '../city/city';
@@ -31,12 +31,13 @@ export class PatientLocationPage {
   next: number;
   
   Alerts:any;
-
+  keys:boolean=false;
   constructor(private httpClient: HttpClient,public navCtrl: NavController, private mapsAPILoader: MapsAPILoader,
      public formBuilder: FormBuilder,public Data: DataServiceProvider,
     public DataBase: AngularFireDatabase,
     private weatherService: WeatherService,public Routes: RoutingProvider, public alertController: AlertController, public platform: Platform, public app: App,
-    private Mapping: MappingProvider) {
+    private Mapping: MappingProvider,
+    private keyboard: Keyboard) {
   }
 
   ionViewDidLoad() {
@@ -46,6 +47,7 @@ export class PatientLocationPage {
 
     //load Places Autocomplete
     this.mapsAPILoader.load()
+  
 }
 
 ionViewWillEnter()
@@ -109,6 +111,7 @@ setCurrentPosition() {
 
   // gets key pressed (see HTML) and pushes it into array of pressed keys
   search($event) {
+  
       let q = $event.target.value;//Get the value for what was searched 
      if(q.length>0)// if there is something there call the search function 
      {

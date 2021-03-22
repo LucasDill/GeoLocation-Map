@@ -149,6 +149,11 @@ TimerTextColour:any;
     return ref.nativeElement.offsetHeight;
   }
 
+  getElementHeight(ref)
+  {
+    return ref.nativeElement.clientHeight;
+  }
+  
 RemainingHeight(used){
   return (this.height-used).toString()+"px";
 }

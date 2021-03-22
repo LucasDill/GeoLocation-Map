@@ -29,6 +29,7 @@ import { RoutingProvider } from '../providers/routing';
 import { RegionalStrokePage } from '../pages/regional-stroke/regional-stroke';
 import { File } from '@ionic-native/file';
 import { DocumentViewer } from '@ionic-native/document-viewer';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
 
 import { InAppBrowser } from "@ionic-native/in-app-browser/ngx";
 import { PdfViewerProvider } from '../providers/pdf-viewer';
@@ -137,7 +138,8 @@ import { DatabaseAccessProvider } from '../providers/database-access';
     InAppBrowser,
     PdfViewerProvider,
     MappingProvider,
-    DatabaseAccessProvider
+    DatabaseAccessProvider,
+    Keyboard
   ]
 })
 export class AppModule {}

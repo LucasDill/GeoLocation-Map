@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TreatmentPage } from '../treatment/treatment';
 import { DataServiceProvider } from '../../providers/data-service';
@@ -19,18 +19,31 @@ import { NextStepsPage } from '../next-steps/next-steps';
   templateUrl: 'imaging.html',
 })
 export class ImagingPage {
+  @ViewChild('header') header: ElementRef;
+  @ViewChild('title') title: ElementRef;
+  @ViewChild('footer') footer: ElementRef;
+ 
+
 items:any=[];
 cards: any;//the cards are the data type that is displayed on the html page 
 Spinner: Boolean=true;//Set the spinner to be true and shown until the content has finished loading 
 show: Boolean=false;//Have the div be hidden until the data has loaded and the spinner disappears 
 results: Boolean=false;//a Boolean showing if there are no results returned from the calculations 
 display: String="There are no routes available from your location please call local health services for more information";//The message to display if there are no results 
+contentHeight:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public Data: DataServiceProvider,//set constructor so the page can access the routing and data provider 
     public Routes: RoutingProvider) {
   }
- async ionViewWillLoad(){// part of the ionic lifecycle that will start before the page is about to load 
-  var startImaging=performance.now(); 
+ async ionViewWillEnter(){// part of the ionic lifecycle that will start before the page is about to load 
+  var HeaderHeight=this.Data.getHeight(this.header);//find the size of the header
+var titleheight=this.Data.getElementHeight(this.title);//find the size of the title 
+var footerheight=this.Data.getElementHeight(this.footer);//find the size of the footer 
+var left=this.Data.RemainingHeight((HeaderHeight+titleheight+footerheight))
+this.contentHeight=left;
+
+
+ var startImaging=performance.now(); 
  var dat=await this.pageSetup();// wait for the calls to the routing provider to perform its actions and return the data 
 
  if(dat.length==0)//If there are no results returned it will set the results to true and display the message 

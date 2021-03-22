@@ -250,7 +250,7 @@ if(this.Data.StartLoc.HistDrive!=undefined)// if the start location actually has
     }
   }
 }
-console.log(Routes)
+//console.log(Routes)
 return Routes;
 }
 
@@ -698,7 +698,7 @@ var hasFly=false;
 
 async getFlights(endpoints)
 {
-  console.log(endpoints)
+  //console.log(endpoints)
  var loc = await this.getCloseLoc(this.Data.lat,this.Data.lng);// get the closest helipad and airport to the origin site 
  this.loc=loc;
 var dest= new Array(endpoints.length);// create an array for all of the destinations which could vary based on what you are searching for 
@@ -712,7 +712,7 @@ for(var o=0;o<endpoints.length;o++)
     phoneT:endpoints[o].phoneT
   }
   dest[o]=(closesites);// fill the array with this object 
-  console.log(closesites)
+  //console.log(closesites)
 }
 
 var origins=[];//set up the variables needed to use the distanceMatrix api 
@@ -806,7 +806,7 @@ var time=(heliDist / heli_speed) * flight_o_weather * this.destination_flight_we
     phoneT:dest[m].phoneT
     
   }
-  console.log(heliopt)
+  //console.log(heliopt)
  AirTravel.push(heliopt);// add the object to the distances array
   }
 }
