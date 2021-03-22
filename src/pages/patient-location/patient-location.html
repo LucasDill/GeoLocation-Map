@@ -13,7 +13,8 @@
   <components-timer></components-timer><!--the timer is a component or a developer defined entry it does not take any arguments and because declaring it on every page made it reset each time the data is controlled by the data provider and just accessed by the component-->
 
 </ion-header>
-<ion-content no-bounce padding scroll="false" id="page1"><!--vh is currently used to show the total viewable height but may need to be changed as it does not always work -->
+<ion-content no-bounce  padding scroll="false" id="page1"><!--vh is currently used to show the total viewable height but may need to be changed as it does not always work -->
+  <div #title  >
   <h3 text-center id="lastKnownWell-heading5" >
     Where is the<br>patient located?
   </h3>
@@ -22,7 +23,8 @@
 
 <!--this is the search box for the cities every time there is a new key entered it will search by calling the functions in the ts -->
   <ion-input type="text" [(ngModel)]="searchterm" (keyup)="search($event)" autocapitalize="off" class="input" style="font-size: medium;" placeholder="Search By City or Centre" id="txtHome" required style = "background-color: lightgray;" class="roundedEntry"></ion-input>
-  <ion-scroll scrollY="true" style="height: 55vh;">
+  </div>
+  <ion-scroll scrollY="true" [style.height]=resultHeight >
   <div *ngFor="let health_centres of Medical_Centers"><!--*ngFor is a special function of ionic that allows it to go through and display every part of a list in this case all the parts returned by the search function -->
 <!--Tried the height to fix it probably does nothing and no screen size is that small-->
   <!--<ion-card *ngIf="health_centres.name; else elseText" text-wrap style="font-size: auto; text-align: center;" color="steelblue1" block (click)="getLatLng(health_centres)">

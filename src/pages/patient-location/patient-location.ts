@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { NavController, AlertController, Platform, App } from 'ionic-angular';
 import { FormBuilder } from "@angular/forms"
 import { ViewChild } from '@angular/core';
@@ -27,11 +27,13 @@ import { RegionalStrokePage } from '../regional-stroke/regional-stroke';
 export class PatientLocationPage {
  
   @ViewChild("search")
-  
+  @ViewChild('Header') header: ElementRef;
+  @ViewChild('title') title: ElementRef;
   next: number;
   
   Alerts:any;
   keys:boolean=false;
+  resultHeight:any;
   constructor(private httpClient: HttpClient,public navCtrl: NavController, private mapsAPILoader: MapsAPILoader,
      public formBuilder: FormBuilder,public Data: DataServiceProvider,
     public DataBase: AngularFireDatabase,
@@ -52,6 +54,12 @@ export class PatientLocationPage {
 
 ionViewWillEnter()
 {
+  var headheight=this.Data.getElementHeight(this.header);//find the height of the header and title with the search and set the remaining size of the results 
+  var titleheight=this.Data.getElementHeight(this.title);
+  this.resultHeight=this.Data.RemainingHeight((headheight+titleheight+30));//for some reason I suspect the padding on the page the remaining size was too small and would keepstyle="padding-top: 0px;padding-bottom: 0px;"
+  
+
+
   this.Data.TelestrokePlan=false;//every time there is a new place it will reset the variable so it does not always go to the special case 
 }
 
