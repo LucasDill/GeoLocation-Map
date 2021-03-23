@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { AnyTxtRecord } from 'dns';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/data-service';
 import { EvtOptionsPage } from '../evt-options/evt-options';
 import { MapExplorePage } from '../menu/map-explore/map-explore';
@@ -14,7 +14,7 @@ import { TreatmentPage } from '../treatment/treatment';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+
 @Component({
   selector: 'page-t-pa-no',
   templateUrl: 't-pa-no.html',

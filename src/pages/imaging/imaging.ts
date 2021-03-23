@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {  NavController, NavParams } from 'ionic-angular';
 import { TreatmentPage } from '../treatment/treatment';
 import { DataServiceProvider } from '../../providers/data-service';
 import { RoutingProvider } from '../../providers/routing';
@@ -13,7 +13,7 @@ import { NextStepsPage } from '../next-steps/next-steps';
  */
 
  
-@IonicPage()
+
 @Component({
   selector: 'page-imaging',
   templateUrl: 'imaging.html',

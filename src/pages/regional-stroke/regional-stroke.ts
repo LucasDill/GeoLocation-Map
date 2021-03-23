@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/data-service';
 import { RoutingProvider } from '../../providers/routing';
 import { EvtOptionsPage } from '../evt-options/evt-options';
@@ -13,7 +13,7 @@ import { MapExplorePage } from '../menu/map-explore/map-explore';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+
 @Component({
   selector: 'page-regional-stroke',
   templateUrl: 'regional-stroke.html',

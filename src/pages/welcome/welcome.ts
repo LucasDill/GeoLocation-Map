@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, MenuController, NavController, NavParams } from 'ionic-angular';
+import { AlertController, MenuController, NavController, NavParams } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/data-service';
 import { LastKnownWellPage } from '../last-known-well/last-known-well';
 import { Storage } from '@ionic/storage';
@@ -10,7 +10,6 @@ import { Storage } from '@ionic/storage';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-welcome',
   templateUrl: 'welcome.html',

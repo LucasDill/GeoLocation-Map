@@ -112,7 +112,7 @@ ExploreIcons(){
 }
 
 WaysToUse(){
-  console.log("NOTHING BUILT YET");
+  //console.log("NOTHING BUILT YET");
   //this.navCtrl.push(WaysToUsePage);//!UNDO if you would rather have it go to a page
 
   const WaysToUseModal= this.modal.create('WaysToUsePage');

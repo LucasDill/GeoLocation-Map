@@ -42,7 +42,6 @@ import { WelcomePage } from '../pages/welcome/welcome';
 //import { ContactPage } from '../pages/menu/contact/contact';
 //import { FaqPage } from '../pages/menu/faq/faq';
 import { HtmlPipe } from '../pipes/htmlpipe/htmlpipe';
-import { PipesModule } from '../pipes/pipes.module';
 
 import {ExpandComponent } from '../components/expand/expand';
 import { MappingProvider } from '../providers/mapping';

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/data-service';
 import { MapPage } from '../map/map';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -11,7 +11,7 @@ import * as moment from 'moment';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+
 @Component({
   selector: 'page-next-steps',
   templateUrl: 'next-steps.html',

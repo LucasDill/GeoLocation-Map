@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/data-service';
 import { MapExplorePage } from '../menu/map-explore/map-explore';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -11,7 +11,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+
 @Component({
   selector: 'page-city',
   templateUrl: 'city.html',
