@@ -349,15 +349,15 @@ ionViewWillLeave(){
 
 AddMapMarkers(e) {
   // clear markers when they are deleted from menu
-  for (var i = 0; i < gmarkers.length; i++) gmarkers[i].setMap(null);
-  for (var i = 0; i < gmarkers2.length; i++) gmarkers2[i].setMap(null);
-  for (var i = 0; i < gmarkers3.length; i++) gmarkers3[i].setMap(null);
-  for (var i = 0; i < gmarkers4.length; i++) gmarkers4[i].setMap(null);
-  for (var i = 0; i < gmarkers5.length; i++) gmarkers5[i].setMap(null);
-  for (var i = 0; i < gmarkers6.length; i++) gmarkers6[i].setMap(null);
-  for (var i = 0; i < gmarkers7.length; i++) gmarkers7[i].setMap(null);
-  for (var i = 0; i < gmarkers8.length; i++) gmarkers8[i].setMap(null);
-  for (var i = 0; i < gmarkers9.length; i++) gmarkers9[i].setMap(null);
+  for (var a = 0; a < gmarkers.length; a++) gmarkers[a].setMap(null);
+  for (var j = 0; j < gmarkers2.length; j++) gmarkers2[j].setMap(null);
+  for (var c = 0; c < gmarkers3.length; c++) gmarkers3[c].setMap(null);
+  for (var d = 0; d < gmarkers4.length; d++) gmarkers4[d].setMap(null);
+  for (var f = 0; f < gmarkers5.length; f++) gmarkers5[f].setMap(null);
+  for (var g = 0; g < gmarkers6.length; g++) gmarkers6[g].setMap(null);
+  for (var h = 0; h < gmarkers7.length; h++) gmarkers7[h].setMap(null);
+  for (var k = 0; k < gmarkers8.length; k++) gmarkers8[k].setMap(null);
+  for (var l = 0; l < gmarkers9.length; l++) gmarkers9[l].setMap(null);
  
   // call methods to show markers when they are selected in menu (in the html file we use numbers, stored in array e, to distinguish which markers the user would like displayed)
   for (var i = 0; i < e.length; i++) {

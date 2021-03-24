@@ -46,7 +46,6 @@ import { HtmlPipe } from '../pipes/htmlpipe/htmlpipe';
 import {ExpandComponent } from '../components/expand/expand';
 import { MappingProvider } from '../providers/mapping';
 import { TPaNoPage } from '../pages/t-pa-no/t-pa-no';
-import { fromEventPattern } from 'rxjs';
 
 import { IonicStorageModule } from '@ionic/storage';
 import { DatabaseAccessProvider } from '../providers/database-access';

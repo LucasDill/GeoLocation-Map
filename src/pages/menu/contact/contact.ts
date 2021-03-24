@@ -44,5 +44,6 @@ console.log(this.contentheight)*/
 goToSite(){
   var url="https://www.nwostroke.ca";
   const browser=this.inAppBrowser.create(url,'_self');
+  browser//to remove the warning 
 }
 }

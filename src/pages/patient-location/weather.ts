@@ -1,7 +1,6 @@
-import { Injectable, Inject } from '@angular/core';
+import {Inject } from '@angular/core';
 import { HttpClient} from "@angular/common/http";
 import { DataServiceProvider } from '../../providers/data-service';
-import { AnyTxtRecord } from 'dns';
 
 export class WeatherService {
 

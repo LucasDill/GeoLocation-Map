@@ -39,10 +39,11 @@ return;
 let filePath=this.file.applicationDirectory+'www/'+assetDirectory;
 // android using in app browser which prompts native file opener
 if (this.plt.is('android')) {
-let theMove = this.file.copyFile(filePath, fileName, this.file.externalDataDirectory, fileName);
+ this.file.copyFile(filePath, fileName, this.file.externalDataDirectory, fileName);
   // update the path variable
   filePath = this.file.externalDataDirectory;
   const browser = this.iab.create(normalizeURL(filePath + fileName), '_system', 'location=yes');
+  browser//get rid of the warning without causing an error 
 }
 
 // ios use ionic document viewer because it's a nicer ux

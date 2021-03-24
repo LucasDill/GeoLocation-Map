@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { AnyTxtRecord } from 'dns';
 import { NavController, NavParams } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/data-service';
 import { EvtOptionsPage } from '../evt-options/evt-options';
@@ -42,6 +41,7 @@ ionViewWillEnter()
   GoToBestPractice(){
     var url="https://www.strokebestpractices.ca/recommendations/acute-stroke-management/emergency-department-evaluation-and-management";
     const browser=this.inAppBrowser.create(url,'_self');
+    browser//added to remove the warning while not causing an error 
     //this.ComingSoonPop();
   }
 

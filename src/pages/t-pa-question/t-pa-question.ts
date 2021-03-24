@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/data-service';
 import { EvtOptionsPage } from '../evt-options/evt-options';
 import { TPaNoPage } from '../t-pa-no/t-pa-no';
-import { TreatmentPage } from '../treatment/treatment';
 /**
  * Generated class for the TPaQuestionPage page.
  *

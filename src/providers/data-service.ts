@@ -4,9 +4,7 @@ import { Injectable } from '@angular/core';
 import {Platform} from 'ionic-angular'
 import { AngularFireDatabase } from '@angular/fire/database';
 import firebase from 'firebase';
-import { Conditional } from '@angular/compiler';
-import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Console } from 'console';
+
 
 /*
   Generated class for the DataServiceProvider provider.
@@ -250,8 +248,8 @@ this.Analytics.TimeOnApp=seconds;//set the time on the app to just the seconds f
       {
         let EVTtime=24-this.SinceTimeForm;
         let EVT=ConvertBack(EVTtime);
-        let TPAtime=4.5-this.SinceTimeForm;
-        let TPA=ConvertBack(TPAtime);
+       // let TPAtime=4.5-this.SinceTimeForm;
+        //let TPA=ConvertBack(TPAtime);
           this.TimerTextColour="white";
           this.colour="#008742";
           this.TreatmentInfo="EVT Window: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 
@@ -299,8 +297,7 @@ this.Analytics.TimeOnApp=seconds;//set the time on the app to just the seconds f
       {
         let EVTtime=24-this.SinceTimeForm;
         let EVT=ConvertBack(EVTtime);
-        let TPAtime=4.5-this.SinceTimeForm;
-        let TPA=ConvertBack(TPAtime);
+   
           this.TimerTextColour="white";
           this.colour="#008742";
           this.TreatmentInfo="EVT Window: <b>"+pad((EVT.hour),2)+":"+pad(((EVT.min)),2)+":"+pad((60-this.SecondsSince),2)+"</b>";//need to add in the actual time needed and check the format for wording and what is available take out the -1 if you want just the minutes 

@@ -53,6 +53,7 @@ GoToMap(){
 GoToBestPractice(){
   var url="https://www.strokebestpractices.ca/recommendations/acute-stroke-management/emergency-department-evaluation-and-management";
   const browser=this.inAppBrowser.create(url,'_self');
+  browser//this is just to get rid of the warning without causing an error 
   //this.ComingSoonPop();
 }
 

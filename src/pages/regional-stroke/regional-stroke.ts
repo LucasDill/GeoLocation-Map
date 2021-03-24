@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { NavController, NavParams } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/data-service';
-import { RoutingProvider } from '../../providers/routing';
 import { EvtOptionsPage } from '../evt-options/evt-options';
 import { MapExplorePage } from '../menu/map-explore/map-explore';
 
@@ -21,7 +20,7 @@ import { MapExplorePage } from '../menu/map-explore/map-explore';
 export class RegionalStrokePage {
 Button:any=true;
 EVTPlan:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private Data: DataServiceProvider, private Routes: RoutingProvider,private inAppBrowser: InAppBrowser) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private Data: DataServiceProvider,private inAppBrowser: InAppBrowser) {
   }
 
   ionViewWillLoad() {
@@ -71,6 +70,7 @@ EVTPlan:any;
   GoToBestPractice(){
     var url="https://www.strokebestpractices.ca/recommendations/acute-stroke-management/emergency-department-evaluation-and-management";
     const browser=this.inAppBrowser.create(url,'_self');
+    browser
     //this.ComingSoonPop();
   }
 

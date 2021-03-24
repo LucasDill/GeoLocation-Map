@@ -6,8 +6,7 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore"; 
 import { WeatherService } from '../pages/patient-location/weather';
-import { T } from '@angular/core/src/render3';
-import { start } from 'repl';
+
 
 //The routing provider is where the bulk of our calculations are done. it handles the calculation of the times to each route and formats the information into what we need for the cards
 
@@ -129,22 +128,14 @@ FindPlan(Dest)
 async MasterRoutes(searchFor){
   var startTime=performance.now();
   var a=  this.getRoutes(searchFor).then(data =>{//Search for all driving routes to telestroke centers which at the moment are the only places to get imaging 
-   var FlightRoutes;//assign another variable for the total collection of card information 
-  // console.log("getRoutes Time:",performance.now()-startTime)//?Longest time period
   var b= this.getFlights(data).then(distances =>{//get the information on the flights from the routing provider 
-FlightRoutes=distances;//set the totalcard variable with the information from the flights 
-//console.log("getFlights Time:",performance.now()-startTime)//?Second longest time period
 var imgroutes=this.addRoutes(data,distances);//combines the flight information and the driving information into one list 
-//console.log("addRoutes Time:",performance.now()-startTime)
  var testroutes=this.CombineAll(imgroutes);
- //console.log("CombineAll Time:",performance.now()-startTime)
  testroutes=this.addDriveHist(testroutes);
- //console.log("addDriveHist Time:",performance.now()-startTime)
  testroutes=this.masterSort(testroutes);//Sort the combined list of flight and driving information to have the shortest amount of time first
-// console.log("masterSort Time:",performance.now()-startTime)
  testroutes=this.SetColour(testroutes);
- //console.log("SetColour Time:",performance.now()-startTime)
 console.log("Total Loading Time: ",performance.now()-startTime)
+console.log(testroutes);
  return testroutes;//return the final list of sorted information ready to be displayed 
  });
  return b
@@ -339,14 +330,11 @@ async getRoutes(param){//Get the routes based off the parameter specified to sea
  
  
   
-  var weatherService = this.weatherService;
- 
-  var w;//create a data object for the weather 
-  var search;
 var obj
+var Routes=[];// create an array for all of the routes 
   if(param=="bTelestroke")
   {
-    var Routes=[];// create an array for all of the routes 
+   
     for(var i=0;i<this.Data.AllMedicalCenters.length;i++)
     {
       if(this.Data.AllMedicalCenters[i].bTelestroke==true)
@@ -357,7 +345,6 @@ var obj
     }
   }
   else /*if(param=="bRegionalStrokeCentre")*/{
-    var Routes=[];// create an array for all of the routes 
     for(var l=0;l<this.Data.AllMedicalCenters.length;l++)
     {
       if(this.Data.AllMedicalCenters[l].bRegionalStrokeCentre==true)
@@ -370,10 +357,10 @@ var obj
 
 
 var destinations=[];//create an array to get the information from all of the destinations 
-for(var i=0;i<Routes.length;i++)//go through all of the routes and create lats and longs to be used to get the travel information for all of the driving routes 
+for(var o=0;o<Routes.length;o++)//go through all of the routes and create lats and longs to be used to get the travel information for all of the driving routes 
 {
-let coords= new google.maps.LatLng(Routes[i].lat,Routes[i].lng);
-destinations[i]=coords;
+let coords= new google.maps.LatLng(Routes[o].lat,Routes[o].lng);
+destinations[o]=coords;
 }
 
   var ret=await this.distMat(destinations,Routes, area, weather);// get the distance and time from the distance matrix api which is not as intensive as the google ones we have been using 
@@ -419,11 +406,7 @@ destination_flight_weather_array;
 async distMat(destinations,Routes, area,weather){// this will find the travel information for all of the driving routes 
   var upper=this;
   var mult=await this.totalOriginMultiplier(area, weather);// the multiplier used to modify all of the travel times 
-  var Database = this.Database;
-  var destination_weather_multiplier;
-  var destination_area_multiplier;
 
-  var flight_dest_weather;
   var getflight = [];
   //console.log(Routes)
   for(var m=0;m<Routes.length;m++)// go through all of the routes and get the destination weather for each site 
@@ -736,7 +719,7 @@ const {response,status}=await new Promise(resolve =>
    travelMode: google.maps.TravelMode.DRIVING,
  },(response, status) => resolve({response,status}))
 );
-const resp=await handleMapResponse(response,status);
+await handleMapResponse(response,status);
  
   async function handleMapResponse(response,status){
   return response;
@@ -814,27 +797,27 @@ var time=(heliDist / heli_speed) * flight_o_weather * this.destination_flight_we
 
 if(RouteToPlane==true)// if there are routes to planes 
 {
-for(var m=0;m<dest.length;m++)
-{ var distplane= getDistance(loc[1].lat,loc[1].lng,dest[m].Sites[1].lat,dest[m].Sites[1].lng)+PlaneDriveDistance;// get the straight line distance added to the driving distance
-  var timeplane=(distplane / heli_speed) * flight_o_weather * this.destination_flight_weather_array[m]+PlaneDriveTime;// get the total time based on distance and speed with the driving time added on 
+for(var t=0;t<dest.length;t++)
+{ var distplane= getDistance(loc[1].lat,loc[1].lng,dest[t].Sites[1].lat,dest[t].Sites[1].lng)+PlaneDriveDistance;// get the straight line distance added to the driving distance
+  var timeplane=(distplane / heli_speed) * flight_o_weather * this.destination_flight_weather_array[t]+PlaneDriveTime;// get the total time based on distance and speed with the driving time added on 
 
   var flightopt={//create the object to be displayed on the cards 
     origin: loc[1],
-    desti:dest[m].Sites[1],
+    desti:dest[t].Sites[1],
     Dist: distplane,
     DistChar: convertDist(distplane),// convert to char using the function we created 
-    name: dest[m].CloseHospital,
-    city: dest[m].CloseCity,
-    closestSite: endpoints[m],
-    id: endpoints[m].id,
+    name: dest[t].CloseHospital,
+    city: dest[t].CloseCity,
+    closestSite: endpoints[t],
+    id: endpoints[t].id,
     Helipad: false,
     Airport: true,
-    bRegionalStrokeCentre:endpoints[m].bRegionalStrokeCentre,
+    bRegionalStrokeCentre:endpoints[t].bRegionalStrokeCentre,
     TimeWithMult: timeplane,
     TimeWithMultChar: convertTimePlanes(timeplane),// convert to char using the function we created 
     CompTime: timeplane,
-    phoneN: dest[m].phoneN,
-    phoneT:dest[m].phoneT
+    phoneN: dest[t].phoneN,
+    phoneT:dest[t].phoneT
     
   }
   AirTravel.push(flightopt);// add the objects to the same array 

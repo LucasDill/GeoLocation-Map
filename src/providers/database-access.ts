@@ -6,15 +6,9 @@ This provider will check for updates to the database, fill locally stored data w
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DataServiceProvider } from './data-service';
-import { MappingProvider } from './mapping';
-import { RoutingProvider } from './routing';
 import { Storage } from '@ionic/storage';
-import { AngularFireDatabase } from '@angular/fire/database';
 import firebase from 'firebase';
-import { AnyTxtRecord } from 'dns';
-import { BrowserPlatformLocation } from '@angular/platform-browser/src/browser/location/browser_platform_location';
 import { Platform } from 'ionic-angular';
-import { sortedChanges } from 'angularfire2/firestore';
 
 
 @Injectable()
@@ -23,7 +17,7 @@ LastUsed:any;
 db:any;
 LastUsedStored:any;
 
-  constructor(public http: HttpClient, private Data: DataServiceProvider, private routes: RoutingProvider,private Mapping: MappingProvider, private storage: Storage,private platform: Platform) {
+  constructor(public http: HttpClient, private Data: DataServiceProvider, private storage: Storage,private platform: Platform) {
     this.db=firebase.firestore();
      this.platform.ready();
      this.storage.ready();

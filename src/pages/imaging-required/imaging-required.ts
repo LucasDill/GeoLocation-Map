@@ -2,10 +2,8 @@ import { Component } from '@angular/core';
 import { NavController,NavParams } from 'ionic-angular';
 import { ImagingPage } from '../imaging/imaging';
 import { DataServiceProvider } from '../../providers/data-service';
-import { TPaQuestionPage } from '../t-pa-question/t-pa-question';
 import { RoutingProvider } from '../../providers/routing';
 import { TPaNoPage } from '../t-pa-no/t-pa-no';
-import { EvtOptionsPage } from '../evt-options/evt-options';
 
 @Component({
   selector: 'page-imaging-required',

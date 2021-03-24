@@ -5,14 +5,12 @@ import { ViewChild } from '@angular/core';
 import { DataServiceProvider } from '../../providers/data-service';
 import { MapsAPILoader } from '@agm/core';
 import { AngularFireDatabase } from "@angular/fire/database";
-import { HttpClient} from "@angular/common/http";
 import "firebase/auth";
 import "firebase/firestore"; 
 
 import { ImagingPage } from '../imaging/imaging';
 import { ImagingRequiredPage } from '../imaging-required/imaging-required';
 
-import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { WeatherService } from './weather';
 import { RoutingProvider } from '../../providers/routing';
 import { CityPage } from '../city/city';
@@ -34,12 +32,12 @@ export class PatientLocationPage {
   Alerts:any;
   keys:boolean=false;
   resultHeight:any;
-  constructor(private httpClient: HttpClient,public navCtrl: NavController, private mapsAPILoader: MapsAPILoader,
+  constructor(public navCtrl: NavController, private mapsAPILoader: MapsAPILoader,
      public formBuilder: FormBuilder,public Data: DataServiceProvider,
     public DataBase: AngularFireDatabase,
     private weatherService: WeatherService,public Routes: RoutingProvider, public alertController: AlertController, public platform: Platform, public app: App,
     private Mapping: MappingProvider,
-    private keyboard: Keyboard) {
+   ) {
   }
 
   ionViewDidLoad() {
@@ -176,7 +174,7 @@ goToCityPage(city)
         //await the call to the google api function which is stored in the weather.ts file it is a http request 
      (await this.weatherService.getTimeZone(name.lat.toString(), name.lng.toString())).subscribe(Results=>{
        result=Results;//When I was using just Result in the past it was giving me errors 
-      let i=  waitforResults();
+        waitforResults();
       async function waitforResults()
       {
         //console.log(result);//used to see what the google api result is may be useful in the future 
@@ -196,7 +194,7 @@ goToCityPage(city)
       })//get the time zone based on the lat and long 
       
 
-     let m= waitForTimeZone();
+      waitForTimeZone();
 
 var page=this;
       function waitForTimeZone(){
@@ -223,7 +221,6 @@ var page=this;
   
 
   async TimeZonePopup(){// this function will create a popup that asks about the time zones 
-    var startPop=performance.now();
     var difference=Math.abs(Math.abs(this.Data.PatientTimeZone)-Math.abs(this.Data.UserTimeZone));// find the total difference and add it to the time 
     let alert=this.alertController.create({
       title:"Different Time Zones",
@@ -268,7 +265,7 @@ var page=this;
 
 nextPage()
 { 
-  var start=performance.now()
+
   if (this.Data.StartLoc.bRegionalStrokeCentre==true) {
     this.navCtrl.push(RegionalStrokePage);
   }

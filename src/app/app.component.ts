@@ -1,18 +1,14 @@
-import { Component, ViewChild, HostListener } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav, Config, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LastKnownWellPage } from '../pages/last-known-well/last-known-well';
-import { MapPage } from '../pages/map/map';
 import { DataServiceProvider } from '../providers/data-service';
 import { MapExplorePage } from '../pages/menu/map-explore/map-explore';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { WelcomePage } from '../pages/welcome/welcome';
-import { ContactPage } from '../pages/menu/contact/contact';
 import { Storage } from '@ionic/storage';
 import { DatabaseAccessProvider } from '../providers/database-access';
-import { ExploreIconsPage } from '../pages/menu/explore-icons/explore-icons';
-import { l } from '@angular/core/src/render3';
 //import { ExploreIconsPage } from '../pages/explore-icons/explore-icons';
 //import { WaysToUsePage } from '../pages/ways-to-use/ways-to-use';
 
@@ -29,15 +25,15 @@ export class MyApp {
   constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen,
      private config: Config, private Data: DataServiceProvider,
      private inAppBrowser: InAppBrowser, private storage: Storage, private DataBase: DatabaseAccessProvider,private modal: ModalController) {
-    platform.ready().then(() => {
+    this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.ionViewDidLoad();
-      statusBar.styleDefault();
-      splashScreen.hide();
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
       
       //!UNDO THIS BEFORE LAUNCHING THE APP SO IT WILL SHOW UP ON FIRST TIME STARTUP
-      storage.get('first_time').then((val)=>{
+      this.storage.get('first_time').then((val)=>{
         if(val!==null){
          /* storage.get("LastUsed").then((last)=>{//When I was switching the emulated device it was not working for some reason so this should resolve it
             //?Maybe remove this when ready for production 
@@ -139,6 +135,7 @@ this.Data.SendAnalytics();
   goToBestPractice(){
     var url="https://www.strokebestpractices.ca/recommendations/acute-stroke-management";
     const browser=this.inAppBrowser.create(url,'_self');
+    browser//get rid of the warning 
   }
   ionViewDidLoad(){// once the view loads set the root page after three seconds so the animation can play and variables can be set up 
     //setTimeout(()=> {

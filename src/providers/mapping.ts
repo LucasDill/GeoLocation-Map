@@ -1,10 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { c } from '@angular/core/src/render3';
 import { DataServiceProvider } from './data-service';
 import { RoutingProvider } from './routing';
-import { Storage } from '@ionic/storage';
-import { DatabaseAccessProvider } from './database-access';
 /*
   Generated class for the MappingProvider provider.
 
@@ -14,7 +11,7 @@ import { DatabaseAccessProvider } from './database-access';
 @Injectable()
 export class MappingProvider {
 
-  constructor(public http: HttpClient, public Data: DataServiceProvider, public Routes: RoutingProvider, private storage:Storage) {
+  constructor(public http: HttpClient, public Data: DataServiceProvider, public Routes: RoutingProvider) {
     //console.log('Hello MappingProvider Provider');
   }
 
@@ -54,13 +51,13 @@ else{// if the name is not defined it will be a city site and we will have diffe
   }
   else if(this.Data.AllMedicalCenters[i].AKA!=undefined)// if there is nothing else search through the also Known as Variables 
   {
-    for(var j=0;j<this.Data.AllMedicalCenters[i].AKA.length;j++)
+    for(var l=0;l<this.Data.AllMedicalCenters[i].AKA.length;l++)
     {
-      if(search.toUpperCase()==this.Data.AllMedicalCenters[i].AKA[j].toUpperCase().substring(0,search.length))
+      if(search.toUpperCase()==this.Data.AllMedicalCenters[i].AKA[l].toUpperCase().substring(0,search.length))
       {
         let temp=this.Data.AllMedicalCenters[i].city;// save the usual city temporarily 
-        this.Data.AllMedicalCenters[i].city=this.Data.AllMedicalCenters[i].AKA[j];// set the name for the object as the also known as so it displays on the button
-        this.Data.AllMedicalCenters[i].AKA[j]=temp;//Save the other name in the AKA 
+        this.Data.AllMedicalCenters[i].city=this.Data.AllMedicalCenters[i].AKA[l];// set the name for the object as the also known as so it displays on the button
+        this.Data.AllMedicalCenters[i].AKA[l]=temp;//Save the other name in the AKA 
         arr.push(this.Data.AllMedicalCenters[i]);// add it to the array 
       }
     }

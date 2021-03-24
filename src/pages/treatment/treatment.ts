@@ -1,10 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { NavController, NavParams, IonicPage } from 'ionic-angular';
-import { MapPage } from '../map/map';
+import { NavController, NavParams } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/data-service';
 import { RoutingProvider } from '../../providers/routing';
 import { NextStepsPage } from '../next-steps/next-steps';
-import { viewClassName } from '@angular/compiler';
 /*   
 This page shows two results one with tpa and one with evt and as such has doubles for a lot of things 
 

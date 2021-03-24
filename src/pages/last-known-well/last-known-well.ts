@@ -8,11 +8,10 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import "firebase/auth";
 import "firebase/firestore"; 
 import firebase from 'firebase';
-import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
-import { File } from '@ionic-native/file';
+//import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
+//import { File } from '@ionic-native/file';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { PdfViewerProvider } from '../../providers/pdf-viewer';
-import { DatabaseAccessProvider } from '../../providers/database-access';
 
 
 @Component({
@@ -32,12 +31,12 @@ timeForm =new FormGroup({//creates a new form with the last known well
   date: new FormControl('',Validators.required),
   time1: new FormControl('',Validators.required),//set the form time with validators required so they need to be entered in order to continue 
 });
-  constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider,public DataBase: AngularFireDatabase, private modal: ModalController, private document: DocumentViewer,private file: File,public platform: Platform,
-    private inAppBrowser: InAppBrowser, public pdfViewer:PdfViewerProvider, private Database: DatabaseAccessProvider) {
+  constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public Data: DataServiceProvider,public DataBase: AngularFireDatabase, private modal: ModalController, public platform: Platform,
+    private inAppBrowser: InAppBrowser, public pdfViewer:PdfViewerProvider) {
    //console.log(this.myDate);//Use of the current machine time for the initial timer value 
    var offset= getTimeZone();
    //console.log(offset)
-   var totalOffset= new Date().getTimezoneOffset();
+   //var totalOffset= new Date().getTimezoneOffset();
   // console.log(totalOffset);
    this.Data.UserTimeZone=offset;
    this.db=firebase.firestore();
@@ -127,6 +126,7 @@ OpenWebsite(url)
 {
   //var url="https://tbrhsc.net/";
 const browser=this.inAppBrowser.create(url,'_self');
+browser//stop the warning while preventing the error 
 }
 
 }

@@ -1,4 +1,3 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import {  NavController, NavParams } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/data-service';

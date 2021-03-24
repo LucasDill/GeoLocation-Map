@@ -6,7 +6,6 @@ import "firebase/auth";
 import "firebase/firestore";
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import { DataServiceProvider } from '../../../providers/data-service';
-import { AnyMxRecord } from 'dns';
 import { MappingProvider } from '../../../providers/mapping';
 declare var google: any;//this was giving us some trouble because it kept saying that google is not defined 
 
@@ -17,12 +16,6 @@ var gmarkers = [], gmarkers2 = [], gmarkers3 = [], gmarkers4 = [], gmarkers5 = [
 
 // variable array for pin that appears when the map is clicked, we can push to the array to clear it when a new location is clicked (this way we do not have multiple pins on the map)
 var clicked_marker = [];
-
-
-function DeleteMarker()
-{
-  console.log("Here")
-}
 
 
 // array to hold directionsDisplay information so that we can push the array and show only one route on the map at one time
@@ -239,15 +232,15 @@ this.height=mapheight;//set the height of the map
 
 AddMapMarkers(e) {
   // clear markers when they are deleted from menu
-  for (var i = 0; i < gmarkers.length; i++) gmarkers[i].setMap(null);
-  for (var i = 0; i < gmarkers2.length; i++) gmarkers2[i].setMap(null);
-  for (var i = 0; i < gmarkers3.length; i++) gmarkers3[i].setMap(null);
-  for (var i = 0; i < gmarkers4.length; i++) gmarkers4[i].setMap(null);
-  for (var i = 0; i < gmarkers5.length; i++) gmarkers5[i].setMap(null);
-  for (var i = 0; i < gmarkers6.length; i++) gmarkers6[i].setMap(null);
-  for (var i = 0; i < gmarkers7.length; i++) gmarkers7[i].setMap(null);
-  for (var i = 0; i < gmarkers8.length; i++) gmarkers8[i].setMap(null);
-  for (var i = 0; i < gmarkers9.length; i++) gmarkers9[i].setMap(null);
+  for (var a = 0; a < gmarkers.length; a++) gmarkers[a].setMap(null);
+  for (var b = 0; b < gmarkers2.length; b++) gmarkers2[b].setMap(null);
+  for (var c = 0; c < gmarkers3.length; c++) gmarkers3[c].setMap(null);
+  for (var d = 0; d < gmarkers4.length; d++) gmarkers4[d].setMap(null);
+  for (var f = 0; f < gmarkers5.length; f++) gmarkers5[f].setMap(null);
+  for (var g = 0; g < gmarkers6.length; g++) gmarkers6[g].setMap(null);
+  for (var h = 0; h < gmarkers7.length; h++) gmarkers7[h].setMap(null);
+  for (var j = 0; j < gmarkers8.length; j++) gmarkers8[j].setMap(null);
+  for (var k = 0; k < gmarkers9.length; k++) gmarkers9[k].setMap(null);
  
   // call methods to show markers when they are selected in menu (in the html file we use numbers, stored in array e, to distinguish which markers the user would like displayed)
   for (var i = 0; i < e.length; i++) {

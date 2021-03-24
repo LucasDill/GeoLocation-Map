@@ -3,7 +3,6 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/data-service';
 import { MapPage } from '../map/map';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import * as moment from 'moment';
 /**
  * Generated class for the NextStepsPage page.
  *
@@ -65,6 +64,7 @@ GoToMap(){
 GoToBestPractice(){
   var url="https://www.strokebestpractices.ca/recommendations/acute-stroke-management/emergency-department-evaluation-and-management";
   const browser=this.inAppBrowser.create(url,'_self');
+  browser//this is only to get rid of the warning 
   //this.ComingSoonPop();
 }
 
