@@ -134,8 +134,8 @@ var imgroutes=this.addRoutes(data,distances);//combines the flight information a
  testroutes=this.addDriveHist(testroutes);
  testroutes=this.masterSort(testroutes);//Sort the combined list of flight and driving information to have the shortest amount of time first
  testroutes=this.SetColour(testroutes);
-console.log("Total Loading Time: ",performance.now()-startTime)
-console.log(testroutes);
+//console.log("Total Loading Time: ",performance.now()-startTime)
+//console.log(testroutes);
  return testroutes;//return the final list of sorted information ready to be displayed 
  });
  return b
@@ -752,7 +752,8 @@ await handleMapResponse(response,status);
   else{// if there are no routes or special routes set to false 
     RouteToPlane=false;
   }
-
+//console.log("Helicopter Drive Time: "+convertTimePlanes(HeliDriveTime));
+//console.log("Airplane Drive Time: "+convertTimePlanes(PlaneDriveTime));
   
 var flight_time;
 await this.getFlightSpeeds().then(data => {// use the get flight speed function 

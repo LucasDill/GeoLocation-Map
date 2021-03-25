@@ -68,7 +68,7 @@ ionViewWillEnter(){
   var ScrollHeight=this.Data.height-(HeadHeight+FootHeight+(titleheight*3));
   ScrollHeight=(Math.floor(ScrollHeight/2))
   this.resultHeight=ScrollHeight.toString()+"px";
-  console.log(this.resultHeight)
+  //console.log(this.resultHeight)
 
 
 

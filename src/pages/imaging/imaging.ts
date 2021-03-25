@@ -55,7 +55,7 @@ this.results=true;
    this.Spinner=false;//disable the spinner so it stops 
    this.show=true;//enable the content div to be shown with the results once loaded 
   }
- console.log("Total time for loading of the Imaging Routes",performance.now()-startImaging)
+ //console.log("Total time for loading of the Imaging Routes",performance.now()-startImaging)
 }
 
 expandItem(event,item): void {///This function will expand the card when it is clicked 
