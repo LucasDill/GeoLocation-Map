@@ -126,7 +126,7 @@ FindPlan(Dest)
 
 
 async MasterRoutes(searchFor){
-  var startTime=performance.now();
+  //var startTime=performance.now();
   var a=  this.getRoutes(searchFor).then(data =>{//Search for all driving routes to telestroke centers which at the moment are the only places to get imaging 
   var b= this.getFlights(data).then(distances =>{//get the information on the flights from the routing provider 
 var imgroutes=this.addRoutes(data,distances);//combines the flight information and the driving information into one list 

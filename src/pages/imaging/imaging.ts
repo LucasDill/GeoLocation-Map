@@ -43,7 +43,7 @@ var left=this.Data.RemainingHeight((HeaderHeight+titleheight+footerheight))
 this.contentHeight=left;
 
 
- var startImaging=performance.now(); 
+ //var startImaging=performance.now(); 
  var dat=await this.pageSetup();// wait for the calls to the routing provider to perform its actions and return the data 
 
  if(dat.length==0)//If there are no results returned it will set the results to true and display the message 
