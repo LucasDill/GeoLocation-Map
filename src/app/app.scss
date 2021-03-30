@@ -51,11 +51,22 @@ ion-header{
 ion-card{
   border-radius: 15px !important;
 }
-h3{
-  color:#006bb6;
-  font-weight:400;
-  font-size: xx-large;
+@media screen and (min-height:100px) and (max-height:600px){//Done to modify the size of the titles if the screen size is small 
+  h3{
+    color:#006bb6;
+    font-weight:400;
+    font-size: x-large;
+  }
 }
+@media screen and (min-height:600px) and (max-height:10000px){//if screen size is large
+  h3{
+    color:#006bb6;
+    font-weight:400;
+    font-size: xx-large;
+  }
+}
+
+
 h1{
   color: #006bb6;
 }

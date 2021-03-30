@@ -20,6 +20,7 @@ import { PdfViewerProvider } from '../../providers/pdf-viewer';
 })
 export class LastKnownWellPage {
 @ViewChild("Header") Header: ElementRef;
+@ViewChild("title") title: ElementRef;
 
   db : any;
 MaxDate=moment().format("YYYY-MM-DD").toString();// this one sets the max available 
@@ -27,6 +28,7 @@ GivenDate=moment().format("YYYY-MM-DD").toString();// this one is the selector
 CurrentTime=moment().format("HH:mm");
 myTime=moment().format("HH:mm");//sets the current time option for the last known well based on the time of the machine 
 GridHeight:any;//Find the space remaining for the grid to be displayed on the page
+rowHeight:any;
 timeForm =new FormGroup({//creates a new form with the last known well 
   date: new FormControl('',Validators.required),
   time1: new FormControl('',Validators.required),//set the form time with validators required so they need to be entered in order to continue 
@@ -45,9 +47,7 @@ timeForm =new FormGroup({//creates a new form with the last known well
 ionViewWillEnter(){
   this.Data.GivenTime=false;// this is just to set the value to false in order for it to have the top timer not appear on menu screens
   this.Data.NeedtPA=true;
-  this.GridHeight= this.Data.RemainingHeight(this.Data.getHeight(this.Header));
-
-
+  this.GridHeight= this.Data.RemainingHeight((this.Data.getHeight(this.Header)+this.Data.getHeight(this.title)+20));
 }
 /*
 ionViewWillLoad(){

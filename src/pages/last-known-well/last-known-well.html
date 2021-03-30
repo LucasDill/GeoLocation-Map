@@ -11,21 +11,19 @@
   </ion-navbar>
 </ion-header>
 <ion-content no-bounce   >
-  <div class="vertical-center" [style.height]=GridHeight  >
-    <ion-grid  style="display: flex;flex-flow: column;">
+  <div class="vertical-center"   >
+    
     <!-- -->
 <!--<div style="height:6vh;"></div>-->
-<ion-row class="row">
-  <ion-col>
-  <h3 text-center id="lastKnownWell-heading5" >
+
+  <h3 text-center id="lastKnownWell-heading5" #title >
     What time was<br> the patient last known to be well?
   </h3>
-</ion-col>
-</ion-row>
+
 <!--
   <div style="height:6vh;"></div>
   -->
-   
+  <ion-grid  style="display: flex;flex-flow: column;justify-content: space-evenly;" [style.height]=GridHeight >
   <form [formGroup]="timeForm" ><!--The last known well in hour format-->
     <ion-row align-items-center class="row" >
       <ion-col>
@@ -34,7 +32,7 @@
     <ion-item id="lastKnownWellDate" style="background-color: lightgray;text-align: center;" class="roundedEntry">
       <ion-datetime style="width: 100%;" type="date" id="lastKnownWellDateTime" [(ngModel)]="GivenDate" [max]="MaxDate" float-center displayFormat="MMM D" pickerFormat="MMM D" formControlName="date"></ion-datetime><!--The time picker without the date included -->
     </ion-item>
-    <div class="spacer" style="height:3vh;" id="lastKnownWell-spacer7"></div>
+ <br>
     <p text-center>Time</p><!--Look at making it just time -->
     <br>
     <ion-item id="lastKnownWellTime" style="background-color: lightgray;text-align: center;" class="roundedEntry">
@@ -44,7 +42,7 @@
     <!--Break between inputs and the button to make it consistent-->
   
 
-    <ion-row center class="row">
+    <ion-row center class="row" >
       <ion-col text-center>
       <button ion-button center round (click)="TimeModal($event)" small style="text-align: center;font-size: larger;">
         <img class="image" height="25vh" width="25vh" src= "./assets/imgs/MagnifyTW.png">
@@ -53,6 +51,7 @@
   </ion-row>
   </ion-col>
   </ion-row>
+</form>
 <!--
     <div class="spacer" style="height:7vh;" id="lastKnownWell-spacer7"></div>
     -->
@@ -63,7 +62,7 @@
     </button>
   </ion-col>
   </ion-row>
-  </form>
+  
 </ion-grid>
 </div>
 </ion-content>
