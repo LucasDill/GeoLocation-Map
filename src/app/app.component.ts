@@ -31,7 +31,9 @@ export class MyApp {
       this.ionViewDidLoad();
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      
+     
+
+
       //!UNDO THIS BEFORE LAUNCHING THE APP SO IT WILL SHOW UP ON FIRST TIME STARTUP
       this.storage.get('first_time').then((val)=>{
         if(val!==null){

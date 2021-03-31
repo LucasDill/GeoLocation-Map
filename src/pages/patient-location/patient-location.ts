@@ -38,6 +38,8 @@ export class PatientLocationPage {
     private weatherService: WeatherService,public Routes: RoutingProvider, public alertController: AlertController, public platform: Platform, public app: App,
     private Mapping: MappingProvider,
    ) {
+
+  
   }
 
   ionViewDidLoad() {
@@ -47,6 +49,17 @@ export class PatientLocationPage {
 
     //load Places Autocomplete
     this.mapsAPILoader.load()
+
+    this.platform.registerBackButtonAction(()=>{
+      document.getElementById("fill").innerText="Recognized"
+       this.navCtrl.pop()
+       if(this.navCtrl.canGoBack()){
+         this.navCtrl.pop();
+       }
+       else{
+         this.navCtrl.pop();
+       }
+     })
   
 }
 
