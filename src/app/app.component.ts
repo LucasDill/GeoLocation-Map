@@ -25,7 +25,19 @@ export class MyApp {
   constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen,
      private config: Config, private Data: DataServiceProvider,
      private inAppBrowser: InAppBrowser, private storage: Storage, private DataBase: DatabaseAccessProvider,private modal: ModalController) {
-    this.platform.ready().then(() => {
+    
+      platform.registerBackButtonAction(()=>{
+        console.log("Registered the action")
+        if(this.navCtrl.canGoBack()){
+          this.navCtrl.pop();
+        }
+        else{
+          this.navCtrl.push(MapExplorePage)
+        }
+
+      });
+    
+      this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.ionViewDidLoad();
