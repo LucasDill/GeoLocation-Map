@@ -164,7 +164,6 @@ getLastUsed(){
     });
     if (setNew==true)//if one of the values is different set the new values for the last time the values where modified 
     {
-      console.log("Setting new Data");
       this.storage.set("LastUsed",total);
     }
     this.LastUsed=total;// save the array of all objects to the Data Service provider 

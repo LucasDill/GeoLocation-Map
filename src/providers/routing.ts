@@ -201,36 +201,27 @@ return area.multi;
 
 addDriveHist(Routes)
 {
-//console.log("Routes to Look for historical Data:",Routes);
+console.log("Routes to Look for historical Data:",Routes);
+console.log("Start Location",this.Data.StartLoc)
 
-
-if(this.Data.StartLoc.HistDrive!=undefined)// if the start location actually has a starting location with some historical data 
+if(this.Data.StartLoc.HistoricalDrive!=undefined)// if the start location actually has a starting location with some historical data 
 {
   //console.log(this.Data.StartLoc.HistDrive)
-  for(var t=0;t<this.Data.StartLoc.HistDrive.length;t++)//go through each of the data points for historical driving times 
+  for(var t=0;t<this.Data.StartLoc.HistoricalDrive.length;t++)//go through each of the data points for historical driving times 
   {
-    if(this.Data.StartLoc.HistDrive[t].id!="Aircraft")//some have aircraft which are not currently used
-    {
-      //console.log("Historical ID:",this.Data.StartLoc.HistDrive[t].id)
-      var ret=this.filterData(Routes,this.Data.StartLoc.HistDrive[t].id)
+    
+      
+      var ret=this.filterData(Routes,this.Data.StartLoc.HistoricalDrive[t].id)
       if(ret!=undefined)//When there is a case where the end location in the data is not in the established routes 
       {
         ret.HistDrive=true;
         ret.HistDriveDat={
-          Avg:(this.Data.StartLoc.HistDrive[t].avg/60),
-          Fastest:(this.Data.StartLoc.HistDrive[t].fast/60),
-          AvgString:convertTimePlanes(this.Data.StartLoc.HistDrive[t].avg/60),
-          FastestString:convertTimePlanes(this.Data.StartLoc.HistDrive[t].fast/60)
+          Time:(this.Data.StartLoc.HistoricalDrive[t].time/60),
+          TimeString:convertTimePlanes(this.Data.StartLoc.HistoricalDrive[t].time/60)
         }
-
-        ret.CompTime=(this.Data.StartLoc.HistDrive[t].avg/60);////////////////////////////////////!!THIS WILL NEED TO BER CHANGED EVENTUALLY SO THAT THE COMP TIME WILL TAKE INTO ACCOUNT IF THE OTHER ONE IS FASTER ONCE WE KNOW THE ACCURACY
-        /*ret.HistDriveAvg=this.Data.StartLoc.HistDrive[t].avg; //!Delete once you know you can use the object 
-        ret.HistDriveFastest=this.Data.StartLoc.HistDrive[t].fast;
-        ret.HistDriveAvgString=convertTimePlanes(this.Data.StartLoc.HistDrive[t].avg/60);//use the convertTimePlanes function which takes time as a decimal but because we have it in minutes we need to divide by 60 
-        ret.HistDriveFastestString=convertTimePlanes(this.Data.StartLoc.HistDrive[t].fast/60);*/
+        console.log(ret.HistDriveDat)
+        ret.CompTime=(this.Data.StartLoc.HistoricalDrive[t].time/60);////////////////////////////////////!!THIS WILL NEED TO BER CHANGED EVENTUALLY SO THAT THE COMP TIME WILL TAKE INTO ACCOUNT IF THE OTHER ONE IS FASTER ONCE WE KNOW THE ACCURACy
       }
-      
-    }
   }
 
   for(var i=0;i<Routes.length;i++)//to use the ngIf statement we need to check if this value is true so if not we have to set it to false 
