@@ -19,10 +19,8 @@ export class WelcomePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertController: AlertController, private menu:MenuController, public Data: DataServiceProvider, public storage: Storage) {
     
   }
-  phoneN:any="tel:8076846001";
-  phoneT:any="1-807-684-6001";
-  city:any="Thunder Bay";
-
+Height:any;
+Width:any;
 ionViewDidLoad(){
   this.Data.starttime=new Date();
 }
@@ -30,7 +28,8 @@ ionViewDidLoad(){
   ionViewWillEnter()
   {
     this.menu.swipeEnable(false);
-    
+    this.Height="10px";
+    this.Width="10px";
   }
   ionViewWillLeave(){
     this.menu.swipeEnable(true);

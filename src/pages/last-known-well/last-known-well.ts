@@ -48,6 +48,7 @@ ionViewWillEnter(){
   this.Data.GivenTime=false;// this is just to set the value to false in order for it to have the top timer not appear on menu screens
   this.Data.NeedtPA=true;
   this.GridHeight= this.Data.RemainingHeight((this.Data.getHeight(this.Header)+this.Data.getHeight(this.title)+20));
+  console.log(this.GridHeight);
 }
 /*
 ionViewWillLoad(){
