@@ -109,7 +109,6 @@ Analytics: any={
   ContactViewed:false,//filled on contact page
   OtherExplore:false,//filled in city page 
   ImagingRequired:"NOT USED",//filled on imaging-required page
-  tPAReceived:"NOT USED",//filled in tpa
   Destination:"NULL",//filled on next steps page
   Method:"NOT USED",//filled in next steps
   Plan: "NOT USED",//Filled on next steps
@@ -173,7 +172,6 @@ else{
     ContactViewed:this.Analytics.ContactViewed,
     OtherExplore:this.Analytics.OtherExplore,
     ImagingRequired:this.Analytics.ImagingRequired,
-    tPAReceived:this.Analytics.tPAReceived,
     Destination:this.Analytics.Destination,
     TravelMethod:this.Analytics.Method,
     Plan:this.Analytics.Plan,

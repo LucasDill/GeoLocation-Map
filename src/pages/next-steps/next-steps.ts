@@ -31,7 +31,8 @@ ionViewWillEnter()
   this.plan=this.Data.plan;//set the plan to be used in the switch case 
   //set some points for the analytics 
   this.Data.Analytics.Destination=this.Data.Destination.name;
-  this.Data.Analytics.RouteTime=this.Data.Destination.TimeWithMultChar;
+  this.Data.Analytics.RouteTime=Math.round(this.Data.Destination.TimeWithMult*3600);//convert the time to seconds to better match the other analytics 
+  console.log(this.Data.Destination);
   //this.Data.timeDiff();//get the difference in time 
   this.MethodUsed();
   this.Data.Analytics.Plan=this.Data.plan;

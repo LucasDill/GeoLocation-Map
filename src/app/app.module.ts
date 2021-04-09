@@ -18,7 +18,6 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AgmCoreModule } from '@agm/core';
 import { ImagingPage } from '../pages/imaging/imaging';
-import { TPaQuestionPage } from '../pages/t-pa-question/t-pa-question';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { DataServiceProvider } from '../providers/data-service';
@@ -61,7 +60,6 @@ import { DatabaseAccessProvider } from '../providers/database-access';
     ComponentsTimerComponent,
     SpinnerComponent,
     ImagingPage,
-    TPaQuestionPage,
     EvtOptionsPage,
     NextStepsPage,
     CityPage,
@@ -108,7 +106,6 @@ import { DatabaseAccessProvider } from '../providers/database-access';
     TreatmentPage,
     MapPage,
     ImagingPage,
-    TPaQuestionPage,
     EvtOptionsPage,
     NextStepsPage,
     CityPage,

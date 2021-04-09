@@ -17,7 +17,7 @@ export class ImagingRequiredPage {
 
   ionViewWillEnter()
   {
-    this.Data.TelestrokePlan=false;//every time there is a new place it will reset the variable so it does not always go to the special case 
+    this.Data.TelestrokePlan=false;//every time there is a new place it will reset the variable so it does not always go to the special case ]
   }
 
   goToTpaQuestion(){//If the user clicks no they will be brought to the tpa question page 
