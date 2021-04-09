@@ -138,7 +138,7 @@ Plans:any; //This will store all of the plans in the database and should only be
 ChosenPlan:any;//This will store the plan that has been selected for display 
 
 TelestrokePlan: boolean=false;//This determines if the special 4A case is needed for the Telestroke site and will be set if imaging is required 
-
+ 
 TimerTextColour:any;
 
   constructor(platform: Platform, public DataBase: AngularFireDatabase) {//the constructor finds the height and width of the current platform which may be used later on to get a better idea of how large to make each of the pages 
@@ -147,7 +147,6 @@ TimerTextColour:any;
       console.log('Height: ' + platform.height());
       this.height=platform.height();
       this.width=platform.width();
-
     });
     this.db=firebase.firestore();
   }

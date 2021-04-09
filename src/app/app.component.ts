@@ -26,7 +26,16 @@ export class MyApp {
      private config: Config, private Data: DataServiceProvider,
      private inAppBrowser: InAppBrowser, private storage: Storage, private DataBase: DatabaseAccessProvider,private modal: ModalController) {
     
-      platform.registerBackButtonAction(()=>{
+     
+    
+      this.platform.ready().then(() => {
+      // Okay, so the platform is ready and our plugins are available.
+      // Here you can do any higher level native things you might need.
+      this.ionViewDidLoad();
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
+      
+      this.platform.registerBackButtonAction(()=>{
         console.log("Registered the action")
         if(this.navCtrl.canGoBack()){
           this.navCtrl.pop();
@@ -36,15 +45,6 @@ export class MyApp {
         }
 
       });
-    
-      this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      this.ionViewDidLoad();
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-     
-
 
       //!UNDO THIS BEFORE LAUNCHING THE APP SO IT WILL SHOW UP ON FIRST TIME STARTUP
       this.storage.get('first_time').then((val)=>{
@@ -69,6 +69,14 @@ export class MyApp {
         }
       })
 
+      this.platform.pause.subscribe(()=>{
+        console.log("Pause Origional");
+        this.Data.Analytics.ReloadType="Mobile Pause";
+        this.Data.SendAnalytics();
+      })
+      this.platform.resume.subscribe(()=>{
+        console.log("Resumed");
+      })
     });
     
   ////////////////////////////////////////////////USE FOR WEB COMMIT WHEN SWITCHING TO MOBILE //////////////////////////////////////
@@ -78,12 +86,10 @@ export class MyApp {
       //console.log("Sent data from reload");
     });
 
+    document.addEventListener("pause",pauseCall,false);
 
 
-    platform.pause.subscribe(e=>{
-      this.Data.Analytics.ReloadType="Mobile Pause";
-      this.Data.SendAnalytics();
-    })
+   
   
       this.config.set("scrollPadding", false);
       this.config.set("scrollAssist", false);
@@ -93,11 +99,21 @@ export class MyApp {
       this.config.set("android", "autoFocusAssist", "delay");
   }
 
+
   goToMap(){
     this.Data.CityMap=false;
     this.Data.Analytics.MapOfStrokeServicesUsed=true;//record page used for analytics recording
     this.navCtrl.push(MapExplorePage);// starts the map page for exploration 
   }
+
+ngOnInit(){
+  
+}
+
+ngOnDestroy(){
+  console.log("View Left")
+}
+
 
 goToTutorial(){
   this.Data.Analytics.TutorialUsed=true;//record for analytics use 
@@ -161,8 +177,15 @@ this.Data.SendAnalytics();
   ionViewDidLoad(){// once the view loads set the root page after three seconds so the animation can play and variables can be set up 
     //setTimeout(()=> {
       this.splash = false;
+      
       this.rootPage = WelcomePage;// set the root page to start the app off with to be the Last known well page 
 //}, 3000);
   }
 
+}
+
+function pauseCall(){
+  console.log("Pause New");
+    this.Data.Analytics.ReloadType="Mobile Pause New";
+    this.Data.SendAnalytics();
 }
