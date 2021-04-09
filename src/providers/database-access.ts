@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DataServiceProvider } from './data-service';
 import { Storage } from '@ionic/storage';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { Platform } from 'ionic-angular';
 
 

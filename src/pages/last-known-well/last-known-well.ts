@@ -7,7 +7,7 @@ import { PatientLocationPage } from '../patient-location/patient-location';
 import { AngularFireDatabase } from '@angular/fire/database';
 import "firebase/auth";
 import "firebase/firestore"; 
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 //import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
 //import { File } from '@ionic-native/file';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';

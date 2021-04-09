@@ -9,7 +9,6 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { Storage } from '@ionic/storage';
 import { DatabaseAccessProvider } from '../providers/database-access';
-import { allowedNodeEnvironmentFlags } from 'process';
 //import { ExploreIconsPage } from '../pages/explore-icons/explore-icons';
 //import { WaysToUsePage } from '../pages/ways-to-use/ways-to-use';
 
@@ -20,7 +19,7 @@ import { allowedNodeEnvironmentFlags } from 'process';
 export class MyApp {
 
     @ViewChild(Nav) navCtrl: Nav;
-    splash = false;
+    splash = true;
     rootPage:any;
 
   constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen,
@@ -31,10 +30,11 @@ export class MyApp {
       this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      this.PageDidLoad();
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-      
+      //this.PageDidLoad();
+      /*this.statusBar.styleDefault();
+      this.splashScreen.hide();*/
+      this.splash = false;
+      this.rootPage = WelcomePage;// set the root page to start the app off with to be the Last known well page 
       this.platform.registerBackButtonAction(()=>{
         console.log("Registered the action")
         if(this.navCtrl.canGoBack()){

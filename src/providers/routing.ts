@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {DataServiceProvider } from '../providers/data-service';
 import { AngularFireDatabase } from "@angular/fire/database";
-import * as firebase from "firebase/app";
+import  firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore"; 
 import { WeatherService } from '../pages/patient-location/weather';
