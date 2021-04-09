@@ -30,9 +30,8 @@ export class MyApp {
       this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      //this.PageDidLoad();
-      /*this.statusBar.styleDefault();
-      this.splashScreen.hide();*/
+      //this.statusBar.styleDefault();
+      //this.splashScreen.hide();
       this.splash = false;
       this.rootPage = WelcomePage;// set the root page to start the app off with to be the Last known well page 
       this.platform.registerBackButtonAction(()=>{
@@ -168,12 +167,6 @@ this.Data.SendAnalytics();
     var url="https://www.strokebestpractices.ca/recommendations/acute-stroke-management";
     const browser=this.inAppBrowser.create(url,'_self');
     browser//get rid of the warning 
-  }
-  PageDidLoad(){// once the view loads set the root page after three seconds so the animation can play and variables can be set up 
-   // setTimeout(()=> {
-      this.splash = false;
-      this.rootPage = WelcomePage;// set the root page to start the app off with to be the Last known well page 
-//}, 3000);
   }
 
 }

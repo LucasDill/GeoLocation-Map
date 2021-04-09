@@ -40,8 +40,6 @@ import { MapExplorePage } from '../pages/menu/map-explore/map-explore';
 import { WelcomePage } from '../pages/welcome/welcome';
 //import { ContactPage } from '../pages/menu/contact/contact';
 //import { FaqPage } from '../pages/menu/faq/faq';
-import { HtmlPipe } from '../pipes/htmlpipe/htmlpipe';
-
 import {ExpandComponent } from '../components/expand/expand';
 import { MappingProvider } from '../providers/mapping';
 import { TPaNoPage } from '../pages/t-pa-no/t-pa-no';
@@ -66,7 +64,6 @@ import { DatabaseAccessProvider } from '../providers/database-access';
     MapExplorePage,
     WelcomePage,
     //ContactPage,
-    HtmlPipe,
     ExpandComponent,
     TPaNoPage,
     RegionalStrokePage,
