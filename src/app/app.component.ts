@@ -9,6 +9,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { Storage } from '@ionic/storage';
 import { DatabaseAccessProvider } from '../providers/database-access';
+import { allowedNodeEnvironmentFlags } from 'process';
 //import { ExploreIconsPage } from '../pages/explore-icons/explore-icons';
 //import { WaysToUsePage } from '../pages/ways-to-use/ways-to-use';
 
@@ -25,13 +26,12 @@ export class MyApp {
   constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen,
      private config: Config, private Data: DataServiceProvider,
      private inAppBrowser: InAppBrowser, private storage: Storage, private DataBase: DatabaseAccessProvider,private modal: ModalController) {
-    
-     
+  
     
       this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      this.ionViewDidLoad();
+      this.PageDidLoad();
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       
@@ -45,7 +45,11 @@ export class MyApp {
         }
 
       });
-
+      
+      document.addEventListener("pause",()=>{//set the data when the app is put in the background to send the analytics 
+        this.Data.Analytics.ReloadType="Pause";
+        this.Data.SendAnalytics();
+      });
       //!UNDO THIS BEFORE LAUNCHING THE APP SO IT WILL SHOW UP ON FIRST TIME STARTUP
       this.storage.get('first_time').then((val)=>{
         if(val!==null){
@@ -68,15 +72,6 @@ export class MyApp {
           this.DataBase.setAllData(); 
         }
       })
-
-      this.platform.pause.subscribe(()=>{
-        console.log("Pause Origional");
-        this.Data.Analytics.ReloadType="Mobile Pause";
-        this.Data.SendAnalytics();
-      })
-      this.platform.resume.subscribe(()=>{
-        console.log("Resumed");
-      })
     });
     
   ////////////////////////////////////////////////USE FOR WEB COMMIT WHEN SWITCHING TO MOBILE //////////////////////////////////////
@@ -86,7 +81,7 @@ export class MyApp {
       //console.log("Sent data from reload");
     });
 
-    document.addEventListener("pause",pauseCall,false);
+   
 
 
    
@@ -174,18 +169,11 @@ this.Data.SendAnalytics();
     const browser=this.inAppBrowser.create(url,'_self');
     browser//get rid of the warning 
   }
-  ionViewDidLoad(){// once the view loads set the root page after three seconds so the animation can play and variables can be set up 
-    //setTimeout(()=> {
+  PageDidLoad(){// once the view loads set the root page after three seconds so the animation can play and variables can be set up 
+   // setTimeout(()=> {
       this.splash = false;
-      
       this.rootPage = WelcomePage;// set the root page to start the app off with to be the Last known well page 
 //}, 3000);
   }
 
-}
-
-function pauseCall(){
-  console.log("Pause New");
-    this.Data.Analytics.ReloadType="Mobile Pause New";
-    this.Data.SendAnalytics();
 }
