@@ -103,18 +103,29 @@ HadImg:any=true;//For plan 4C must be set or not Look at it resetting and such
 isEVT:any=false;
 
 Analytics: any={
+//?This section is used to record some more important information 
   LKW:"NULL",//filled on this page can be in seconds or plain language 
-  DateUsed:"NULL",//Filled on Last Known Well Page
-  StartLoc:"NULL",//filled in Patient Location
-  ContactViewed:false,//filled on contact page
-  OtherExplore:false,//filled in city page 
+  StartLoc:"NULL",//filled in Patient Location 
   ImagingRequired:"NOT USED",//filled on imaging-required page
   Destination:"NULL",//filled on next steps page
   Method:"NOT USED",//filled in next steps
   Plan: "NOT USED",//Filled on next steps
   TimeOnApp:"NULL",// filled when analytics sent in 
   RouteTime:'NULL',//filled on next steps page
-  ReloadType:'NULL'//filled when function is called on app.component.ts
+  ReloadType:'NULL',//filled when function is called on app.component.ts
+  DateUsed:"NULL",//Filled on Last Known Well Page
+//?This section is used to record if some of the tutorial pages are used or not
+  MapOfStrokeServicesUsed:false,//filled on app.component
+  ExploreMapIconsUsed:false,//filled on app.component
+  MenuBestPracticesUsed:false,//filled on app.component
+  TutorialUsed:false,//filled on app.component
+  WaysToUseUsed:false,//filled on app.component
+  FAQUsed:false,//filled on app.component
+  ContactUsed:false,//filled on app.component
+//? this section is to see if users are utilizing the next steps pages info 
+  ExploreMyAreaUsed:false,//filled in city page and tpa no page,
+  MapMyRouteUsed:false,//filled on map page 
+  BestPracticeUsed:false //filled on next steps, tpa no, city and regional stroke pages 
 }
 //add best practices for the two areas 
 
@@ -166,18 +177,29 @@ if(this.Analytics.DateUsed=="NULL")//only send in the analytics if the DateUsed 
 }
 else{
   this.db.collection("/Analytics").add({
+    //?important info section 
     LKW:this.Analytics.LKW,
-    DateUsed:this.Analytics.DateUsed,
     StartLocation:this.Analytics.StartLoc,
-    ContactViewed:this.Analytics.ContactViewed,
-    OtherExplore:this.Analytics.OtherExplore,
     ImagingRequired:this.Analytics.ImagingRequired,
     Destination:this.Analytics.Destination,
     TravelMethod:this.Analytics.Method,
     Plan:this.Analytics.Plan,
     TimeOnApp:this.Analytics.TimeOnApp,
     RouteTime:this.Analytics.RouteTime,
-    ReloadType:this.Analytics.ReloadType
+    ReloadType:this.Analytics.ReloadType,
+    DateUsed:this.Analytics.DateUsed,
+    //?Used for the page views 
+    MapOfStrokeServicesUsed:this.Analytics.MapOfStrokeServicesUsed,
+    ExploreMapIconsUsed:this.Analytics.ExploreMapIconsUsed,
+    MenuBestPracticesUsed:this.Analytics.MenuBestPracticesUsed,
+    TutorialUsed:this.Analytics.TutorialUsed,
+    WaysToUseUsed:this.Analytics.WaysToUseUsed,
+    FAQUsed:this.Analytics.FAQUsed,
+    ContactUsed:this.Analytics.ContactUsed,
+    //?Other records views 
+    ExploreMyAreaUsed:this.Analytics.ExploreMyAreaUsed,
+    MapMyRouteUsed:this.Analytics.MapMyRouteUsed,
+    BestPracticeUsed:this.Analytics.BestPracticeUsed
   })
   .catch(function(error)
   {

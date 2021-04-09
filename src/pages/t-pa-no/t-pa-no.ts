@@ -31,7 +31,7 @@ ionViewWillEnter()
 }
 
   ExploreMap(){
-    this.Data.Analytics.OtherExplore=true;
+    this.Data.Analytics.ExploreMyAreaUsed=true;
     this.Data.CityMap=true;
     this.navCtrl.push(MapExplorePage);
   }
@@ -39,6 +39,7 @@ ionViewWillEnter()
   
   
   GoToBestPractice(){
+    this.Data.Analytics.BestPracticeUsed=true;//record for the use of analytics 
     var url="https://www.strokebestpractices.ca/recommendations/acute-stroke-management/emergency-department-evaluation-and-management";
     const browser=this.inAppBrowser.create(url,'_self');
     browser//added to remove the warning while not causing an error 

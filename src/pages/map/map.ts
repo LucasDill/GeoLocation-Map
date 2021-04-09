@@ -190,6 +190,7 @@ if(myPolyline!=undefined)// if it was a driving route it would throw an error be
     }
 
 ionViewDidLoad(){
+  this.Data.Analytics.MapMyRouteUsed=true;//record for analytics use 
   this.menu.swipeEnable(false);
   myPolyline=new google.maps.Polyline();// declare all of the variables that will be used to get the directions and display them 
 directionsService = new google.maps.DirectionsService();

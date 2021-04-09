@@ -43,7 +43,7 @@ stringToHTML(str) {
 }
 
 GoToMap(){
-  this.Data.Analytics.OtherExplore=true;
+  this.Data.Analytics.ExploreMyAreaUsed=true;
   this.Data.CityMap=true;
   this.navCtrl.push(MapExplorePage);
 }
@@ -51,6 +51,7 @@ GoToMap(){
 
 
 GoToBestPractice(){
+  this.Data.Analytics.BestPracticeUsed=true;//recorded for analytics use 
   var url="https://www.strokebestpractices.ca/recommendations/acute-stroke-management/emergency-department-evaluation-and-management";
   const browser=this.inAppBrowser.create(url,'_self');
   browser//this is just to get rid of the warning without causing an error 

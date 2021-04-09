@@ -25,6 +25,7 @@ export class NextStepsPage {
   plan: any;
 ionViewWillEnter()
 {
+  console.log("next steps");
   this.end=this.Data.Destination.city;//Set the start and end locations to be put on the scree
   this.start=this.Data.StartLoc.city;
 
@@ -63,6 +64,7 @@ GoToMap(){
 }
 
 GoToBestPractice(){
+  this.Data.Analytics.BestPracticeUsed=true;//recorded for analytics use 
   var url="https://www.strokebestpractices.ca/recommendations/acute-stroke-management/emergency-department-evaluation-and-management";
   const browser=this.inAppBrowser.create(url,'_self');
   browser//this is only to get rid of the warning 

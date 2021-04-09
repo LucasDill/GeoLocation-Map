@@ -95,10 +95,12 @@ export class MyApp {
 
   goToMap(){
     this.Data.CityMap=false;
+    this.Data.Analytics.MapOfStrokeServicesUsed=true;//record page used for analytics recording
     this.navCtrl.push(MapExplorePage);// starts the map page for exploration 
   }
 
 goToTutorial(){
+  this.Data.Analytics.TutorialUsed=true;//record for analytics use 
   //console.log("Tutorial");
   //this.navCtrl.push(TutorialPage);
   const TutorialModal= this.modal.create('TutorialModalPage');
@@ -107,12 +109,14 @@ goToTutorial(){
 }
 
 FAQ(){
+  this.Data.Analytics.FAQUsed=true;//record for analytics use 
   const FAQModal=this.modal.create('FaqPage');
 
   FAQModal.present();
 }
 
 ExploreIcons(){
+  this.Data.Analytics.ExploreMapIconsUsed=true;//record for analytics use 
   //console.log("NOTHING BUILT YET");
   //this.navCtrl.push(ExploreIconsPage);//!This will go to a page instead but will need to be added to the app.module.ts in order to use 
   //!Undo if you would rather have the modal
@@ -122,6 +126,7 @@ ExploreIcons(){
 }
 
 WaysToUse(){
+  this.Data.Analytics.WaysToUseUsed=true;
   //console.log("NOTHING BUILT YET");
   //this.navCtrl.push(WaysToUsePage);//!UNDO if you would rather have it go to a page
 
@@ -140,6 +145,7 @@ this.Data.SendAnalytics();
   }
 
   goToContact(){// simply push to the contact page of the application
+    this.Data.Analytics.ContactUsed=true;//record for analytics use 
     //this.navCtrl.push(ContactPage);//!To get the contacts to display as a page the app.module.ts needs to be modified so the imports are included the reverse is true 
     const ContactModal= this.modal.create('ContactPage');
 
@@ -147,6 +153,7 @@ this.Data.SendAnalytics();
   }
 
   goToBestPractice(){
+    this.Data.Analytics.MenuBestPracticesUsed=true;//record for analytics use
     var url="https://www.strokebestpractices.ca/recommendations/acute-stroke-management";
     const browser=this.inAppBrowser.create(url,'_self');
     browser//get rid of the warning 
