@@ -91,9 +91,6 @@ getLastUsed(){
             setNew=true;
           }
           else{
-            /*upper.storage.get("HealthCenters").then((val)=>{
-              upper.Data.AllMedicalCenters=val;*
-            })*/
           await upper.platform.ready();
            await storage.ready();
            const last=await storage.get('HealthCenters');
