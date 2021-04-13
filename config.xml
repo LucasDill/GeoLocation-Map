@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.NWO.Navigate" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>NWO Navigate</name>
     <description>Geomapping Patient Care in Northwestern Ontario</description>
     <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -159,5 +159,4 @@
     <allow-navigation href="http://localhost:8100" sessionid="80de8177" />
     <engine name="browser" spec="6.0.0" />
     <engine name="ios" spec="6.2.0" />
-    <engine name="android" />
 </widget>

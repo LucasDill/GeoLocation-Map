@@ -67,7 +67,7 @@
         "@ionic/app-scripts": "^3.2.3",
         "@ionic/lab": "3.2.10",
         "@types/googlemaps": "^3.39.2",
-        "cordova-android": "^9.0.0",
+        "cordova-android": "^9.1.0",
         "cordova-plugin-device": "^2.0.2",
         "cordova-plugin-ionic-keyboard": "^2.2.0",
         "cordova-plugin-ionic-webview": "^4.1.3",
