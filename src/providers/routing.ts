@@ -6,7 +6,7 @@ import  firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore"; 
 import { WeatherService } from '../pages/patient-location/weather';
-
+declare var google: any;
 
 //The routing provider is where the bulk of our calculations are done. it handles the calculation of the times to each route and formats the information into what we need for the cards
 
@@ -17,6 +17,8 @@ LandingSites:any;
 
 loc:any;
 
+resRows:any;
+mapRows:any;
   constructor(public http: HttpClient,public Data: DataServiceProvider,public DataBase: AngularFireDatabase,
     private weatherService: WeatherService) {
       this.Database = firebase.firestore();
@@ -350,6 +352,7 @@ var Routes=[];// create an array for all of the routes
 var destinations=[];//create an array to get the information from all of the destinations 
 for(var o=0;o<Routes.length;o++)//go through all of the routes and create lats and longs to be used to get the travel information for all of the driving routes 
 {
+  
 let coords= new google.maps.LatLng(Routes[o].lat,Routes[o].lng);
 destinations[o]=coords;
 }
@@ -421,28 +424,29 @@ async distMat(destinations,Routes, area,weather){// this will find the travel in
 
   var origin=new google.maps.LatLng(this.Data.lat,this.Data.lng);// set the origin for the distance matrix to be the origin site the patient starts at
   var service= new google.maps.DistanceMatrixService();//declare the service 
-  const {response,status}=await new Promise(resolve => //this is an usual way of doing it but it is the best way we found for it to actually wait for the data to be returned 
+  this.mapRows=await new Promise(resolve => //this is an usual way of doing it but it is the best way we found for it to actually wait for the data to be returned 
     service.getDistanceMatrix(
    {
      origins: [origin],//as it is only one latlng the brackets are neccecery 
      destinations: destinations,//enter all of the destinations
      travelMode: google.maps.TravelMode.DRIVING,//specify that it is using driving routes
-   },(response, status) => resolve({response,status}))//once done call this function 
+   },(response) => resolve({response}))//once done call this function 
   );
-  const resp=await handleMapResponse(response,status);
+  const resp=await handleMapResponse(this.mapRows);
    var final_multiplier;
    var flight_destination_weather;
-    async function handleMapResponse(response,status){
-    
+    async function handleMapResponse(resp){
+    var response:any=resp;
+    console.log(response.response.rows)
      for(var m=0;m<Routes.length;m++)
      {
-      if(response.rows[0].elements[m].status != "ZERO_RESULTS")// if there are actual results given fill the rest of the missing information 
+      if(response.response.rows[0].elements[m].status != "ZERO_RESULTS")// if there are actual results given fill the rest of the missing information 
       {
-        Routes[m].Timechar=response.rows[0].elements[m].duration.text;
-        Routes[m].TimeWithMultChar=response.rows[0].elements[m].duration.text;
-        Routes[m].Timeval=response.rows[0].elements[m].duration.value;
-        Routes[m].DistChar=response.rows[0].elements[m].distance.text;
-        Routes[m].Dist=response.rows[0].elements[m].distance.value;
+        Routes[m].Timechar=response.response.rows[0].elements[m].duration.text;
+        Routes[m].TimeWithMultChar=response.response.rows[0].elements[m].duration.text;
+        Routes[m].Timeval=response.response.rows[0].elements[m].duration.value;
+        Routes[m].DistChar=response.response.rows[0].elements[m].distance.text;
+        Routes[m].Dist=response.response.rows[0].elements[m].distance.value;
         await initiateMultipliers(Routes[m].weather_code, Routes[m].area).then(data => {
           final_multiplier = data;
         });
@@ -702,17 +706,17 @@ destinations.push(new google.maps.LatLng(this.loc[r].lat,this.loc[r].lng));// ad
 }
 
 var service= new google.maps.DistanceMatrixService();
-const {response,status}=await new Promise(resolve => 
+this.resRows=await new Promise(resolve => 
   service.getDistanceMatrix(
  {
    origins: origins,
    destinations: destinations,
    travelMode: google.maps.TravelMode.DRIVING,
- },(response, status) => resolve({response,status}))
+ },(response) => resolve({response}))
 );
-await handleMapResponse(response,status);
+await handleMapResponse(this.resRows);
  
-  async function handleMapResponse(response,status){
+  async function handleMapResponse(response){
   return response;
    
   }
@@ -720,18 +724,19 @@ await handleMapResponse(response,status);
   var PlaneDriveTime=0;
   var HeliDriveDistance=0;
   var PlaneDriveDistance=0;
-  if(response.rows[0].elements[0].status="OK"&&response.rows[0].elements[0].duration!=undefined)// if the response was good for helicopters and there are values
+  console.log(this.resRows)
+  if(this.resRows.response.rows[0].elements[0].status="OK"&&this.resRows.response.rows[0].elements[0].duration!=undefined)// if the response was good for helicopters and there are values
   {
-        HeliDriveTime=response.rows[0].elements[0].duration.value/3600;//get the time and distance and convert them into the standard base we are using 
-        HeliDriveDistance=response.rows[0].elements[0].distance.value/1000;
+        HeliDriveTime=this.resRows.response.rows[0].elements[0].duration.value/3600;//get the time and distance and convert them into the standard base we are using 
+        HeliDriveDistance=this.resRows.response.rows[0].elements[0].distance.value/1000;
   }
   else{// if there is no response set the boolean value to false 
     RouteToHeli=false;
   }
-  if(response.rows[0].elements[1].status="OK"&&response.rows[0].elements[1].duration!=undefined)// if there are values for the driving to the plane site 
+  if(this.resRows.response.rows[0].elements[1].status="OK"&&this.resRows.response.rows[0].elements[1].duration!=undefined)// if there are values for the driving to the plane site 
   {
-        PlaneDriveTime=response.rows[0].elements[1].duration.value/3600;// get the values in the form that we are most used to 
-        PlaneDriveDistance=response.rows[0].elements[1].distance.value/1000;
+        PlaneDriveTime=this.resRows.response.rows[0].elements[1].duration.value/3600;// get the values in the form that we are most used to 
+        PlaneDriveDistance=this.resRows.response.rows[0].elements[1].distance.value/1000;
   }
   else if(this.Data.StartLoc.name=="Sena Memorial Nursing Station"||this.Data.StartLoc.name=="Wanapetum Memorial Health Centre")// for the two special cases that do not have a route defined by google 
   {
