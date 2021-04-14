@@ -21,9 +21,6 @@ message:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,private view: ViewController) {
   }
 
-  ionViewDidLoad() {
-  }
-
 CloseInfo(){
 this.view.dismiss();
 }

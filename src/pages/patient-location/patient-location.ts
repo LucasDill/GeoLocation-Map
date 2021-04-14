@@ -41,15 +41,6 @@ export class PatientLocationPage {
 
   }
 
-  ionViewDidLoad() {
-
-    //set current position used for testing the use my location functionality 
-    //this.setCurrentPosition();
-
-    //load Places Autocomplete
-    this.mapsAPILoader.load()
-}
-
 ionViewWillEnter()
 {
   var headheight=this.Data.getElementHeight(this.header);//find the height of the header and title with the search and set the remaining size of the results 

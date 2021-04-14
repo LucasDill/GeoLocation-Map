@@ -38,10 +38,6 @@ export class TutorialModalPage {
     constructor(public navCtrl: NavController, public navParams: NavParams,private view: ViewController) {
     }
   
-    ionViewDidLoad() {
-      
-      //this.slides.slideTo(2,500);
-    }
     CloseInfo(){
       this.view.dismiss();
       }

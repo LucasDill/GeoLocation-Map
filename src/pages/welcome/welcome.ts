@@ -21,7 +21,7 @@ export class WelcomePage {
   }
 Height:any;
 Width:any;
-ionViewDidLoad(){
+ngOnInit(){
   this.Data.starttime=new Date();
 }
 

@@ -20,8 +20,5 @@ export class WaysToUsePage {
   CloseInfo(){
     this.view.dismiss();
     }
-  ionViewDidLoad() {
-
-  }
 
 }

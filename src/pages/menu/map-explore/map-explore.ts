@@ -211,7 +211,7 @@ google.maps.event.addListener(marker, "click", () => {
 
 }
 
-ionViewDidLoad(){
+ngOnInit(){
   this.initmap();
 
 }
