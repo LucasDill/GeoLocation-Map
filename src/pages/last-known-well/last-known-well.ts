@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms"
 import * as moment from 'moment';
 import { DataServiceProvider } from '../../providers/data-service';
 import { PatientLocationPage } from '../patient-location/patient-location';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 import "firebase/auth";
 import "firebase/firestore"; 
 import firebase from 'firebase/app';
@@ -103,6 +103,7 @@ SubmitTime(){//once the button is clicked to go to the next page it will push to
     this.Data.CurrentDate=new Date(this.MaxDate.toString()+" "+this.CurrentTime.toString());// get the value in the correct format to be passed on 
     this.Data.Analytics.DateUsed=this.Data.CurrentDate;//set for the analytics later
     this.Data.GivenDate=this.timeForm.value.date;
+    console.log(this.timeForm.value.date)
     this.Data.time=this.timeForm.value.time1;//set the time on the data page which will start the tier 
     if(this.Data.LastKnownWellTime!=this.timeForm.value.time1)//only stop if a new a new time is provided 
     {

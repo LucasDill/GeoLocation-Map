@@ -1,6 +1,6 @@
 import {Component, ElementRef, NgZone, ViewChild } from '@angular/core';
 import { MenuController, NavController } from "ionic-angular";
-import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
+import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 import  firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";

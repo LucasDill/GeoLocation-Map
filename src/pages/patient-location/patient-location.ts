@@ -4,7 +4,7 @@ import { FormBuilder } from "@angular/forms"
 import { ViewChild } from '@angular/core';
 import { DataServiceProvider } from '../../providers/data-service';
 import { MapsAPILoader } from '@agm/core';
-import { AngularFireDatabase } from "@angular/fire/database";
+import { AngularFireDatabase } from "angularfire2/database";
 import "firebase/auth";
 import "firebase/firestore"; 
 

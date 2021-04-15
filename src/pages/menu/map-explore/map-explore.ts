@@ -1,6 +1,6 @@
 import {Component, ElementRef, NgZone, ViewChild } from '@angular/core';
 import { MenuController, NavController } from "ionic-angular";
-import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
+import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 import  firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
@@ -113,6 +113,7 @@ let clickedm = new google.maps.Marker({
 this.SearchMark.push(clickedm);
 // pushes marker to array (so that it can be cleared easily)
 clicked_marker.push(clickedm);
+console.log(map)
 this.map.setCenter({ lat: Location.lat, lng: Location.lng })//this will set the new center for the map to put you near the marker
 this.addInfoWindow(clickedm,Location)
 }

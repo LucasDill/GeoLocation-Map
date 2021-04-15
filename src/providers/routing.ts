@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {DataServiceProvider } from '../providers/data-service';
-import { AngularFireDatabase } from "@angular/fire/database";
+import { AngularFireDatabase } from "angularfire2/database";
 import  firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore"; 

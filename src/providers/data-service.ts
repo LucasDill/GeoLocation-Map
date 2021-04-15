@@ -2,7 +2,7 @@
 //This particular provider is used to store a lot of information that other pages need to access and it is also used for the timer to count down the seconds 
 import { Injectable } from '@angular/core';
 import {Platform} from 'ionic-angular'
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 import firebase from 'firebase/app';
 
 
@@ -234,6 +234,7 @@ this.Analytics.TimeOnApp=seconds;//set the time on the app to just the seconds f
 
   StartTime(param,diff)//starts when a time is provided in last known well sets the time to be displayed at the top of pages after getting the current time 
   {
+    console.log(this.GivenDate)
     var givendate: any= new Date(this.GivenDate.toString()+" "+param.toString());// creates a new date format we can use to calculate the difference in two dates and times 
     let DateDiff=(this.CurrentDate-givendate);// calculates the difference between the two dates which are the ones provided and given 
     let days=Math.abs(Math.floor((DateDiff / 86400000)));// get the date with no parts 
